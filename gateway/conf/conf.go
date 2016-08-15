@@ -3,7 +3,7 @@ package conf
 import (
 	"flag"
 	"github.com/BurntSushi/toml"
-	"github.com/oikomi/FishChatServer2/common"
+	commconf "github.com/oikomi/FishChatServer2/common/conf"
 )
 
 var (
@@ -12,9 +12,9 @@ var (
 )
 
 type Config struct {
-	*common.CommConf
+	*commconf.CommConf
 	configFile string
-	Server     *common.Server
+	Server     *commconf.Server
 	Listen     string
 }
 

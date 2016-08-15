@@ -22,8 +22,5 @@ func NewServer(proto, addr string) (*Server, err error) {
 	server := &Server{
 		listener:  listener,
 	}
-	//for i := 0; i < sessionMapNum; i++ {
-	//	server.sessionMaps[i].sessions = make(map[uint64]*Session)
-	//}
 	return server, err
 }
