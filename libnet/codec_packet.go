@@ -16,9 +16,9 @@ var (
 )
 
 var (
-	ErrPacketUnsupported = errors.New("funny/link: unsupported packet type")
-	ErrPacketTooLarge    = errors.New("funny/link: too large packet")
-	ErrPacketNoReadAll   = errors.New("funny/link: no read all content from packet")
+	ErrPacketUnsupported = errors.New("unsupported packet type")
+	ErrPacketTooLarge    = errors.New("too large packet")
+	ErrPacketNoReadAll   = errors.New("no read all content from packet")
 )
 
 func Packet(n, maxPacketSize, readBufferSize int, byteOrder ByteOrder, base CodecType) CodecType {

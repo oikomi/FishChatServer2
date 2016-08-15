@@ -1,4 +1,4 @@
-package example;
+package protocol;
 
 enum FOO { X = 17; };
 
