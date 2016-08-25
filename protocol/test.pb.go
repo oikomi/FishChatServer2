@@ -2,15 +2,6 @@
 // source: test.proto
 // DO NOT EDIT!
 
-/*
-Package protocol is a generated protocol buffer package.
-
-It is generated from these files:
-	test.proto
-
-It has these top-level messages:
-	Test
-*/
 package protocol
 
 import proto "github.com/golang/protobuf/proto"
@@ -21,12 +12,6 @@ import math "math"
 var _ = proto.Marshal
 var _ = fmt.Errorf
 var _ = math.Inf
-
-// This is a compile-time assertion to ensure that this generated file
-// is compatible with the proto package it is being compiled against.
-// A compilation error at this line likely means your copy of the
-// proto package needs to be updated.
-const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
 
 type FOO int32
 
@@ -57,7 +42,7 @@ func (x *FOO) UnmarshalJSON(data []byte) error {
 	*x = FOO(value)
 	return nil
 }
-func (FOO) EnumDescriptor() ([]byte, []int) { return fileDescriptor0, []int{0} }
+func (FOO) EnumDescriptor() ([]byte, []int) { return fileDescriptor1, []int{0} }
 
 type Test struct {
 	Label            *string             `protobuf:"bytes,1,req,name=label" json:"label,omitempty"`
@@ -70,7 +55,7 @@ type Test struct {
 func (m *Test) Reset()                    { *m = Test{} }
 func (m *Test) String() string            { return proto.CompactTextString(m) }
 func (*Test) ProtoMessage()               {}
-func (*Test) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{0} }
+func (*Test) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{0} }
 
 const Default_Test_Type int32 = 77
 
@@ -110,7 +95,7 @@ type Test_OptionalGroup struct {
 func (m *Test_OptionalGroup) Reset()                    { *m = Test_OptionalGroup{} }
 func (m *Test_OptionalGroup) String() string            { return proto.CompactTextString(m) }
 func (*Test_OptionalGroup) ProtoMessage()               {}
-func (*Test_OptionalGroup) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{0, 0} }
+func (*Test_OptionalGroup) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{0, 0} }
 
 func (m *Test_OptionalGroup) GetRequiredField() string {
 	if m != nil && m.RequiredField != nil {
@@ -125,7 +110,7 @@ func init() {
 	proto.RegisterEnum("protocol.FOO", FOO_name, FOO_value)
 }
 
-var fileDescriptor0 = []byte{
+var fileDescriptor1 = []byte{
 	// 176 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0xe2, 0xe2, 0x2a, 0x49, 0x2d, 0x2e,
 	0xd1, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0xe2, 0x00, 0x53, 0xc9, 0xf9, 0x39, 0x4a, 0x93, 0x18,
