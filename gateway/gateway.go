@@ -24,7 +24,7 @@ func main() {
 		panic(err)
 	}
 	// server, err := libnet.Serve("tcp", conf.Conf.Server.Addr, libnet.Packet(2, 1024*1024, 1024, binary.BigEndian, TestCodec{}))
-	server, err := libnet.Serve("tcp", conf.Conf.Server.Addr, TestCodec{})
+	server, err := libnet.Serve("tcp", conf.Conf.Server.Addr, TestCodec{}, 1024)
 	if err != nil {
 		glog.Error("libnet.Serve error: ", err)
 		panic(err)
@@ -57,37 +57,4 @@ func main() {
 			//println("client", addr, "closed")
 		}()
 	}
-}
-
-type TestCodec struct {
-}
-
-type TestEncoder struct {
-	w io.Writer
-}
-
-type TestDecoder struct {
-	r io.Reader
-}
-
-func (codec TestCodec) NewEncoder(w io.Writer) libnet.Encoder {
-	return &TestEncoder{w}
-}
-
-func (codec TestCodec) NewDecoder(r io.Reader) libnet.Decoder {
-	return &TestDecoder{r}
-}
-
-func (encoder *TestEncoder) Encode(msg interface{}) error {
-	_, err := encoder.w.Write([]byte(msg.(string)))
-	return err
-}
-
-func (decoder *TestDecoder) Decode(msg interface{}) error {
-	d, err := ioutil.ReadAll(decoder.r)
-	if err != nil {
-		return err
-	}
-	*(msg.(*string)) = string(d)
-	return nil
 }

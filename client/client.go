@@ -11,8 +11,6 @@ import (
 	// mybinary "github.com/oikomi/FishChatServer2/libnet/binary"
 	"fmt"
 	// myproto "github.com/oikomi/FishChatServer2/protocol"
-	"io"
-	"io/ioutil"
 )
 
 func init() {
@@ -64,37 +62,4 @@ func main() {
 
 	session.Close()
 	println("bye")
-}
-
-type TestCodec struct {
-}
-
-type TestEncoder struct {
-	w io.Writer
-}
-
-type TestDecoder struct {
-	r io.Reader
-}
-
-func (codec TestCodec) NewEncoder(w io.Writer) libnet.Encoder {
-	return &TestEncoder{w}
-}
-
-func (codec TestCodec) NewDecoder(r io.Reader) libnet.Decoder {
-	return &TestDecoder{r}
-}
-
-func (encoder *TestEncoder) Encode(msg interface{}) error {
-	_, err := encoder.w.Write([]byte(msg.(string)))
-	return err
-}
-
-func (decoder *TestDecoder) Decode(msg interface{}) error {
-	d, err := ioutil.ReadAll(decoder.r)
-	if err != nil {
-		return err
-	}
-	*(msg.(*string)) = string(d)
-	return nil
 }
