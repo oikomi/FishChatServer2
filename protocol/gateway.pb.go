@@ -2,17 +2,6 @@
 // source: gateway.proto
 // DO NOT EDIT!
 
-/*
-Package protocol is a generated protocol buffer package.
-
-It is generated from these files:
-	gateway.proto
-	test.proto
-
-It has these top-level messages:
-	ReqMsgServer
-	Test
-*/
 package protocol
 
 import proto "github.com/golang/protobuf/proto"
@@ -24,12 +13,6 @@ var _ = proto.Marshal
 var _ = fmt.Errorf
 var _ = math.Inf
 
-// This is a compile-time assertion to ensure that this generated file
-// is compatible with the proto package it is being compiled against.
-// A compilation error at this line likely means your copy of the
-// proto package needs to be updated.
-const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
-
 type ReqMsgServer struct {
 	Label            *string `protobuf:"bytes,1,req,name=label" json:"label,omitempty"`
 	XXX_unrecognized []byte  `json:"-"`
@@ -38,7 +21,7 @@ type ReqMsgServer struct {
 func (m *ReqMsgServer) Reset()                    { *m = ReqMsgServer{} }
 func (m *ReqMsgServer) String() string            { return proto.CompactTextString(m) }
 func (*ReqMsgServer) ProtoMessage()               {}
-func (*ReqMsgServer) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{0} }
+func (*ReqMsgServer) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{0} }
 
 func (m *ReqMsgServer) GetLabel() string {
 	if m != nil && m.Label != nil {
@@ -51,7 +34,9 @@ func init() {
 	proto.RegisterType((*ReqMsgServer)(nil), "protocol.ReqMsgServer")
 }
 
-var fileDescriptor0 = []byte{
+func init() { proto.RegisterFile("gateway.proto", fileDescriptor1) }
+
+var fileDescriptor1 = []byte{
 	// 77 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0xe2, 0xe2, 0x4d, 0x4f, 0x2c, 0x49,
 	0x2d, 0x4f, 0xac, 0xd4, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0xe2, 0x00, 0x53, 0xc9, 0xf9, 0x39,

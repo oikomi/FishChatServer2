@@ -1,0 +1,6 @@
+package protocol;
+
+message Cmd {
+    required int32 cmd = 1;
+    optional string cmd_str = 2;
+}

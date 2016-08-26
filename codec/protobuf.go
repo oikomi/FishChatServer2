@@ -1,6 +1,7 @@
 package codec
 
 import (
+	"github.com/golang/glog"
 	"github.com/golang/protobuf/proto"
 	"github.com/oikomi/FishChatServer2/libnet"
 	"io"
@@ -16,6 +17,8 @@ func Protobuf() *ProtobufProtocol {
 func (p *ProtobufProtocol) NewCodec(rw io.ReadWriter) libnet.Codec {
 	codec := &protobufCodec{
 		p: p,
+		w: NewWriter(rw),
+		r: NewReader(rw),
 	}
 	codec.closer, _ = rw.(io.Closer)
 	return codec
@@ -23,44 +26,28 @@ func (p *ProtobufProtocol) NewCodec(rw io.ReadWriter) libnet.Codec {
 
 type protobufCodec struct {
 	p      *ProtobufProtocol
+	w      *Writer
+	r      *Reader
 	closer io.Closer
 }
 
 func (c *protobufCodec) Receive() (interface{}, error) {
-	var in gobMsg
-	err := c.decoder.Decode(&in)
-	if err != nil {
-		return nil, err
+	data := c.r.ReadPacket(SplitByUint16BE)
+	if data != nil {
+		glog.Info(string(data))
 	}
-	var message interface{}
-	if t, exists := c.p.types[in.Type]; exists {
-		message = reflect.New(t).Interface()
-	} else {
-		return nil, ErrGobUnknow
-	}
-	err = c.decoder.Decode(message)
-	if err != nil {
-		return nil, err
-	}
-	return message, nil
+
+	return nil, nil
 }
 
 func (c *protobufCodec) Send(msg interface{}) error {
-	var out gobMsg
-	t := reflect.TypeOf(msg)
-	if t.Kind() == reflect.Ptr {
-		t = t.Elem()
-	}
-	if name, exists := c.p.names[t]; exists {
-		out.Type = name
-	} else {
-		return ErrGobUnknow
-	}
-	err := c.encoder.Encode(&out)
+	data, err := proto.Marshal(msg.(proto.Message))
 	if err != nil {
-		return err
+		glog.Error(err)
 	}
-	return c.encoder.Encode(msg)
+	c.w.WritePacket(data, SplitByUint16BE)
+
+	return nil
 }
 func (c *protobufCodec) Close() error {
 	if c.closer != nil {
