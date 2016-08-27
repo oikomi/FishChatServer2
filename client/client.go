@@ -28,16 +28,14 @@ func checkErr(err error) {
 }
 
 func clientLoop(session *libnet.Session) {
-	err := session.Send(&protocol.Cmd{
-		Cmd:    proto.Int32(1001),
-		CmdStr: proto.String("hello"),
+	err := session.Send(&protocol.ReqMsgServer{
+		Cmd: proto.Int32(1001),
 	})
 	checkErr(err)
 
 	// rsp, err := session.Receive()
 	// checkErr(err)
 	// glog.Info(rsp)
-
 }
 
 func main() {

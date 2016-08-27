@@ -13,6 +13,7 @@ It is generated from these files:
 It has these top-level messages:
 	Cmd
 	ReqMsgServer
+	SelectMsgServerForClient
 	Test
 */
 package protocol

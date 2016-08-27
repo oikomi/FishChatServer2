@@ -13,8 +13,10 @@ var _ = proto.Marshal
 var _ = fmt.Errorf
 var _ = math.Inf
 
+// cmdNum = 1001
 type ReqMsgServer struct {
-	Label            *string `protobuf:"bytes,1,req,name=label" json:"label,omitempty"`
+	Cmd              *int32  `protobuf:"varint,1,req,name=cmd" json:"cmd,omitempty"`
+	CmdStr           *string `protobuf:"bytes,2,opt,name=cmdStr" json:"cmdStr,omitempty"`
 	XXX_unrecognized []byte  `json:"-"`
 }
 
@@ -23,24 +25,69 @@ func (m *ReqMsgServer) String() string            { return proto.CompactTextStri
 func (*ReqMsgServer) ProtoMessage()               {}
 func (*ReqMsgServer) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{0} }
 
-func (m *ReqMsgServer) GetLabel() string {
-	if m != nil && m.Label != nil {
-		return *m.Label
+func (m *ReqMsgServer) GetCmd() int32 {
+	if m != nil && m.Cmd != nil {
+		return *m.Cmd
+	}
+	return 0
+}
+
+func (m *ReqMsgServer) GetCmdStr() string {
+	if m != nil && m.CmdStr != nil {
+		return *m.CmdStr
+	}
+	return ""
+}
+
+// cmdNum = 1002
+type SelectMsgServerForClient struct {
+	Cmd              *int32  `protobuf:"varint,1,req,name=cmd" json:"cmd,omitempty"`
+	CmdStr           *string `protobuf:"bytes,2,opt,name=cmdStr" json:"cmdStr,omitempty"`
+	Addr             *string `protobuf:"bytes,3,req,name=addr" json:"addr,omitempty"`
+	XXX_unrecognized []byte  `json:"-"`
+}
+
+func (m *SelectMsgServerForClient) Reset()                    { *m = SelectMsgServerForClient{} }
+func (m *SelectMsgServerForClient) String() string            { return proto.CompactTextString(m) }
+func (*SelectMsgServerForClient) ProtoMessage()               {}
+func (*SelectMsgServerForClient) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{1} }
+
+func (m *SelectMsgServerForClient) GetCmd() int32 {
+	if m != nil && m.Cmd != nil {
+		return *m.Cmd
+	}
+	return 0
+}
+
+func (m *SelectMsgServerForClient) GetCmdStr() string {
+	if m != nil && m.CmdStr != nil {
+		return *m.CmdStr
+	}
+	return ""
+}
+
+func (m *SelectMsgServerForClient) GetAddr() string {
+	if m != nil && m.Addr != nil {
+		return *m.Addr
 	}
 	return ""
 }
 
 func init() {
 	proto.RegisterType((*ReqMsgServer)(nil), "protocol.ReqMsgServer")
+	proto.RegisterType((*SelectMsgServerForClient)(nil), "protocol.SelectMsgServerForClient")
 }
 
 func init() { proto.RegisterFile("gateway.proto", fileDescriptor1) }
 
 var fileDescriptor1 = []byte{
-	// 77 bytes of a gzipped FileDescriptorProto
+	// 128 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0xe2, 0xe2, 0x4d, 0x4f, 0x2c, 0x49,
 	0x2d, 0x4f, 0xac, 0xd4, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0xe2, 0x00, 0x53, 0xc9, 0xf9, 0x39,
-	0x4a, 0xb2, 0x5c, 0x3c, 0x41, 0xa9, 0x85, 0xbe, 0xc5, 0xe9, 0xc1, 0xa9, 0x45, 0x65, 0xa9, 0x45,
-	0x42, 0xbc, 0x5c, 0xac, 0x39, 0x89, 0x49, 0xa9, 0x39, 0x12, 0x8c, 0x0a, 0x4c, 0x1a, 0x9c, 0x80,
-	0x00, 0x00, 0x00, 0xff, 0xff, 0xad, 0x70, 0xc9, 0xdc, 0x38, 0x00, 0x00, 0x00,
+	0x4a, 0xda, 0x5c, 0x3c, 0x41, 0xa9, 0x85, 0xbe, 0xc5, 0xe9, 0xc1, 0xa9, 0x45, 0x65, 0xa9, 0x45,
+	0x42, 0xdc, 0x5c, 0xcc, 0xc9, 0xb9, 0x29, 0x12, 0x8c, 0x0a, 0x4c, 0x1a, 0xac, 0x42, 0x7c, 0x5c,
+	0x6c, 0xc9, 0xb9, 0x29, 0xc1, 0x25, 0x45, 0x12, 0x4c, 0x0a, 0x8c, 0x1a, 0x9c, 0x4a, 0xae, 0x5c,
+	0x12, 0xc1, 0xa9, 0x39, 0xa9, 0xc9, 0x25, 0x70, 0xf5, 0x6e, 0xf9, 0x45, 0xce, 0x39, 0x99, 0xa9,
+	0x79, 0x25, 0x78, 0x35, 0x0a, 0xf1, 0x70, 0xb1, 0x24, 0xa6, 0xa4, 0x14, 0x49, 0x30, 0x2b, 0x30,
+	0x69, 0x70, 0x02, 0x02, 0x00, 0x00, 0xff, 0xff, 0x5b, 0x71, 0x4e, 0x00, 0x8d, 0x00, 0x00, 0x00,
 }

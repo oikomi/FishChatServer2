@@ -37,7 +37,7 @@ func (c *protobufCodec) Receive() (interface{}, error) {
 		glog.Info(string(data))
 	}
 
-	return nil, nil
+	return data, nil
 }
 
 func (c *protobufCodec) Send(msg interface{}) error {
