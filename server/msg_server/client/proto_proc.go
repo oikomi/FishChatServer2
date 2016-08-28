@@ -1,8 +1,8 @@
 package client
 
 import (
-	"github.com/golang/protobuf/proto"
-	"github.com/oikomi/FishChatServer2/protocol"
+// "github.com/golang/protobuf/proto"
+// "github.com/oikomi/FishChatServer2/protocol"
 )
 
 // func (c *Client) procReqMsgServer(reqData []byte) (err error) {

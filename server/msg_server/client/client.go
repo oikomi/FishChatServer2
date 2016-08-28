@@ -2,7 +2,7 @@ package client
 
 import (
 	"github.com/oikomi/FishChatServer2/libnet"
-	"github.com/oikomi/FishChatServer2/protocol"
+	// "github.com/oikomi/FishChatServer2/protocol"
 )
 
 type Client struct {
