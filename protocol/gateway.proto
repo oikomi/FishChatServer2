@@ -1,14 +1,12 @@
 package protocol;
 
-// cmdNum = 1001
 message ReqMsgServer {
-    required int32 cmd = 1;
+    required uint32 cmd = 1;
     optional string cmdStr = 2;
 }
 
-// cmdNum = 1002
 message SelectMsgServerForClient {
-    required int32 cmd = 1;
+    required uint32 cmd = 1;
     optional string cmdStr = 2;
     required string addr = 3;
 }

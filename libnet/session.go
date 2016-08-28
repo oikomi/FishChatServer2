@@ -69,7 +69,7 @@ func (session *Session) Codec() Codec {
 	return session.codec
 }
 
-func (session *Session) Receive() (interface{}, error) {
+func (session *Session) Receive() ([]byte, error) {
 	msg, err := session.codec.Receive()
 	if err != nil {
 		session.Close()

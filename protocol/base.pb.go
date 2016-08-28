@@ -7,14 +7,14 @@ Package protocol is a generated protocol buffer package.
 
 It is generated from these files:
 	base.proto
+	error.proto
 	gateway.proto
-	test.proto
 
 It has these top-level messages:
-	Cmd
+	Base
+	Error
 	ReqMsgServer
 	SelectMsgServerForClient
-	Test
 */
 package protocol
 
@@ -33,42 +33,34 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
 
-type Cmd struct {
-	Cmd              *int32  `protobuf:"varint,1,req,name=cmd" json:"cmd,omitempty"`
-	CmdStr           *string `protobuf:"bytes,2,opt,name=cmd_str" json:"cmd_str,omitempty"`
+// cmdNum = 1001
+type Base struct {
+	Cmd              *uint32 `protobuf:"varint,1,req,name=cmd" json:"cmd,omitempty"`
 	XXX_unrecognized []byte  `json:"-"`
 }
 
-func (m *Cmd) Reset()                    { *m = Cmd{} }
-func (m *Cmd) String() string            { return proto.CompactTextString(m) }
-func (*Cmd) ProtoMessage()               {}
-func (*Cmd) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{0} }
+func (m *Base) Reset()                    { *m = Base{} }
+func (m *Base) String() string            { return proto.CompactTextString(m) }
+func (*Base) ProtoMessage()               {}
+func (*Base) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{0} }
 
-func (m *Cmd) GetCmd() int32 {
+func (m *Base) GetCmd() uint32 {
 	if m != nil && m.Cmd != nil {
 		return *m.Cmd
 	}
 	return 0
 }
 
-func (m *Cmd) GetCmdStr() string {
-	if m != nil && m.CmdStr != nil {
-		return *m.CmdStr
-	}
-	return ""
-}
-
 func init() {
-	proto.RegisterType((*Cmd)(nil), "protocol.Cmd")
+	proto.RegisterType((*Base)(nil), "protocol.Base")
 }
 
 func init() { proto.RegisterFile("base.proto", fileDescriptor0) }
 
 var fileDescriptor0 = []byte{
-	// 80 bytes of a gzipped FileDescriptorProto
+	// 64 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0xe2, 0xe2, 0x4a, 0x4a, 0x2c, 0x4e,
-	0xd5, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0xe2, 0x00, 0x53, 0xc9, 0xf9, 0x39, 0x4a, 0xca, 0x5c,
-	0xcc, 0xce, 0xb9, 0x29, 0x42, 0xdc, 0x5c, 0xcc, 0xc9, 0xb9, 0x29, 0x12, 0x8c, 0x0a, 0x4c, 0x1a,
-	0xac, 0x42, 0xfc, 0x5c, 0xec, 0xc9, 0xb9, 0x29, 0xf1, 0xc5, 0x25, 0x45, 0x12, 0x4c, 0x0a, 0x8c,
-	0x1a, 0x9c, 0x80, 0x00, 0x00, 0x00, 0xff, 0xff, 0xa4, 0xdb, 0x19, 0xf5, 0x3b, 0x00, 0x00, 0x00,
+	0xd5, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0xe2, 0x00, 0x53, 0xc9, 0xf9, 0x39, 0x4a, 0xc2, 0x5c,
+	0x2c, 0x4e, 0x89, 0xc5, 0xa9, 0x42, 0xdc, 0x5c, 0xcc, 0xc9, 0xb9, 0x29, 0x12, 0x8c, 0x0a, 0x4c,
+	0x1a, 0xbc, 0x80, 0x00, 0x00, 0x00, 0xff, 0xff, 0x63, 0x4e, 0x06, 0x84, 0x2b, 0x00, 0x00, 0x00,
 }

@@ -11,7 +11,7 @@ type Protocol interface {
 }
 
 type Codec interface {
-	Receive() (interface{}, error)
+	Receive() ([]byte, error)
 	Send(interface{}) error
 	Close() error
 }

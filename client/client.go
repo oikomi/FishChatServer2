@@ -29,10 +29,13 @@ func checkErr(err error) {
 
 func clientLoop(session *libnet.Session) {
 	err := session.Send(&protocol.ReqMsgServer{
-		Cmd: proto.Int32(1001),
+		Cmd: proto.Uint32(protocol.ReqMsgServerCMD),
 	})
+	// err = session.Send(&protocol.SelectMsgServerForClient{
+	// 	Cmd:  proto.Uint32(1000001),
+	// 	Addr: proto.String("122"),
+	// })
 	checkErr(err)
-
 	// rsp, err := session.Receive()
 	// checkErr(err)
 	// glog.Info(rsp)
@@ -48,15 +51,4 @@ func main() {
 	client, err := libnet.Connect("tcp", addr, protobuf, 0)
 	checkErr(err)
 	clientLoop(client)
-
-	// go func() {
-	// 	var msg string
-	// 	for {
-	// 		if err := session.Receive(&msg); err != nil {
-	// 			glog.Error("session.Receive error: ", err)
-	// 			break
-	// 		}
-	// 		fmt.Printf("%s\n", msg)
-	// 	}
-	// }()
 }
