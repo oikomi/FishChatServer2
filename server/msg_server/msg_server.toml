@@ -1,0 +1,8 @@
+# gateway conf
+
+ver = "1.0.0"
+logPath = "/tmp/gateway.log"
+
+[server]
+proto = "tcp"
+addr = "0.0.0.0:17000"
