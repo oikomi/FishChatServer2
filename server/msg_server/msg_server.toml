@@ -8,6 +8,6 @@ proto = "tcp"
 addr = "0.0.0.0:18000"
 
 [zookeeper]
-root = "/microservice/account-service/"
+root = "/server/msg_server/"
 addrs = ["127.0.0.1:2181"]
-timeout = "1s"
+timeout = 1000

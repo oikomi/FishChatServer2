@@ -1,12 +1,12 @@
-package xrpc
+package service_discovery
 
 import (
 	"encoding/json"
+	commconf "github.com/oikomi/FishChatServer2/common/conf"
+	izk "github.com/samuel/go-zookeeper/zk"
 	"path"
 	"strings"
 	"time"
-
-	izk "github.com/samuel/go-zookeeper/zk"
 )
 
 const (
@@ -20,12 +20,12 @@ type event struct {
 
 type zk struct {
 	cli   *izk.Conn
-	conf  *conf.Zookeeper
+	conf  *commconf.Zookeeper
 	ev    chan event
 	nodes map[*conf.RPCServer]string
 }
 
-func newZKByServer(c *conf.Zookeeper, server int) (z *zk) {
+func newZKByServer(c *commconf.Zookeeper, server int) (z *zk) {
 	var err error
 	z = &zk{
 		conf:  c,
@@ -39,7 +39,7 @@ func newZKByServer(c *conf.Zookeeper, server int) (z *zk) {
 	return
 }
 
-func newZKByClient(c *conf.Zookeeper) (z *zk) {
+func newZKByClient(c *commconf.Zookeeper) (z *zk) {
 	var err error
 	if c.Root != "/" {
 		c.Root = strings.TrimRight(c.Root, "/")
