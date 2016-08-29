@@ -15,7 +15,7 @@ type Config struct {
 	*commconf.CommConf
 	configFile string
 	Server     *commconf.Server
-	Listen     string
+	Zookeeper  *commconf.Zookeeper
 }
 
 func init() {
