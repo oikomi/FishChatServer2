@@ -27,7 +27,7 @@ type zk struct {
 	nodes map[*commconf.Server]string
 }
 
-func newZKByServer(c *commconf.Zookeeper, server int) (z *zk) {
+func NewZKByServer(c *commconf.Zookeeper, server int) (z *zk) {
 	var err error
 	z = &zk{
 		conf:  c,
@@ -41,7 +41,7 @@ func newZKByServer(c *commconf.Zookeeper, server int) (z *zk) {
 	return
 }
 
-func newZKByClient(c *commconf.Zookeeper) (z *zk) {
+func NewZKByClient(c *commconf.Zookeeper) (z *zk) {
 	var err error
 	if c.Root != "/" {
 		c.Root = strings.TrimRight(c.Root, "/")
@@ -85,11 +85,11 @@ func (z *zk) eventproc(s <-chan izk.Event) {
 	}
 }
 
-func (z *zk) addServer(c *commconf.Server) {
+func (z *zk) AddServer(c *commconf.Server) {
 	z.ev <- event{ev: _evAddServer, c: c}
 }
 
-func (z *zk) delServer(c *commconf.Server) {
+func (z *zk) DelServer(c *commconf.Server) {
 	z.ev <- event{ev: _evDelServer, c: c}
 }
 
