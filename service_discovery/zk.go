@@ -2,6 +2,7 @@ package service_discovery
 
 import (
 	"encoding/json"
+	"github.com/golang/glog"
 	commconf "github.com/oikomi/FishChatServer2/common/conf"
 	izk "github.com/samuel/go-zookeeper/zk"
 	"path"
@@ -16,13 +17,14 @@ const (
 
 type event struct {
 	ev int
+	c  *commconf.Server
 }
 
 type zk struct {
 	cli   *izk.Conn
 	conf  *commconf.Zookeeper
 	ev    chan event
-	nodes map[*conf.RPCServer]string
+	nodes map[*commconf.Server]string
 }
 
 func newZKByServer(c *commconf.Zookeeper, server int) (z *zk) {
@@ -30,7 +32,7 @@ func newZKByServer(c *commconf.Zookeeper, server int) (z *zk) {
 	z = &zk{
 		conf:  c,
 		ev:    make(chan event, server*2),
-		nodes: make(map[*conf.RPCServer]string, server),
+		nodes: make(map[*commconf.Server]string, server),
 	} // add & del server, double it
 	if err = z.connect(); err != nil {
 		go z.reconnect()
@@ -58,7 +60,7 @@ func (z *zk) connect() (err error) {
 	if z.cli, ev, err = izk.Connect(z.conf.Addrs, time.Duration(z.conf.Timeout)); err == nil {
 		go z.eventproc(ev)
 	} else {
-		log.Error("zk.Connect(%v) error(%v)", z.conf.Addrs, err)
+		glog.Error(err)
 	}
 	return
 }
@@ -79,15 +81,15 @@ func (z *zk) eventproc(s <-chan izk.Event) {
 		if e, ok = <-s; !ok {
 			return
 		}
-		log.Info("zookeeper get a event: %s", e.State.String())
+		glog.Info("zookeeper get a event: %s", e.State.String())
 	}
 }
 
-func (z *zk) addServer(c *conf.RPCServer) {
+func (z *zk) addServer(c *commconf.Server) {
 	z.ev <- event{ev: _evAddServer, c: c}
 }
 
-func (z *zk) delServer(c *conf.RPCServer) {
+func (z *zk) delServer(c *commconf.Server) {
 	z.ev <- event{ev: _evDelServer, c: c}
 }
 
@@ -111,12 +113,11 @@ func (z *zk) serverproc() {
 			if ev.ev == _evAddServer {
 				// add node
 				if bs, err = json.Marshal(ev.c); err != nil {
-					log.Error("json.Marshal(%v) error(%v)", ev.c, err)
+					glog.Error(err)
 					break
 				}
-				if node, err = z.cli.Create(z.conf.Root, bs,
-					izk.FlagEphemeral|izk.FlagSequence, izk.WorldACL(izk.PermAll)); err != nil {
-					log.Error("zk.create(%s) error(%v)", z.conf.Root, err)
+				if node, err = z.cli.Create(z.conf.Root, bs, izk.FlagEphemeral|izk.FlagSequence, izk.WorldACL(izk.PermAll)); err != nil {
+					glog.Error(err)
 					time.Sleep(time.Second)
 					continue
 				}
@@ -138,34 +139,34 @@ func (z *zk) serverproc() {
 	}
 }
 
-func (z *zk) servers() (svrs []*conf.RPCServer, ev <-chan izk.Event, err error) {
+func (z *zk) servers() (svrs []*commconf.Server, ev <-chan izk.Event, err error) {
 	var (
 		addr  string
 		node  string
 		addrs []string
 		bs    []byte
-		svr   *conf.RPCServer
+		svr   *commconf.Server
 	)
 	if z.cli == nil {
 		return nil, nil, nil
 	}
 	if addrs, _, ev, err = z.cli.ChildrenW(z.conf.Root); err != nil {
-		log.Error("z.c.ChildrenW(%s) error(%v)", z.conf.Root, err)
+		glog.Error(err)
 		return
 	} else if len(addrs) == 0 {
-		log.Warn("server(%s) have not node in zk", z.conf.Root)
+		glog.Warning("server(%s) have not node in zk", z.conf.Root)
 		return
 	}
-	svrs = make([]*conf.RPCServer, 0, len(addrs))
+	svrs = make([]*commconf.Server, 0, len(addrs))
 	for _, addr = range addrs {
 		node = path.Join(z.conf.Root, addr)
 		if bs, _, err = z.cli.Get(node); err != nil {
-			log.Error("z.c.Get(%s) error(%v)", node, err)
+			glog.Error(err)
 			return
 		}
-		svr = new(conf.RPCServer)
+		svr = new(commconf.Server)
 		if err = json.Unmarshal(bs, svr); err != nil {
-			log.Error("json.Unmarshal(%s) node(%s) error(%v)", bs, node, err)
+			glog.Error(err)
 			return
 		}
 		svrs = append(svrs, svr)
