@@ -1,10 +1,10 @@
-package service_discovery
+package etcd
 
 import (
 	"context"
 	"encoding/json"
 	"github.com/coreos/etcd/clientv3"
-	"log"
+	"github.com/golang/glog"
 	"time"
 )
 
@@ -26,12 +26,10 @@ func NewMaster(endpoints []string) *Master {
 		Endpoints:   endpoints,
 		DialTimeout: time.Second,
 	}
-
 	etcdClient, err := clientv3.New(cfg)
 	if err != nil {
-		log.Fatal("Error: cannot connec to etcd:", err)
+		glog.Error("Error: cannot connec to etcd:", err)
 	}
-
 	master := &Master{
 		members: make(map[string]*Member),
 		etcCli:  etcdClient,
@@ -69,7 +67,7 @@ func (m *Master) WatchWorkers() {
 				info := &WorkerInfo{}
 				err := json.Unmarshal(ev.Kv.Value, info)
 				if err != nil {
-					log.Print(err)
+					glog.Error(err)
 				}
 				if _, ok := m.members[info.Name]; ok {
 					m.UpdateWorker(info)

@@ -1,6 +1,8 @@
+syntax = "proto3";
+
 package protocol;
 
 message Error {
-    required uint32 errCode = 1;
-    optional string errStr = 2;
+    uint32 errCode = 1;
+    string errStr = 2;
 }

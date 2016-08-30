@@ -8,6 +8,7 @@ import (
 	"github.com/oikomi/FishChatServer2/protocol"
 	"github.com/oikomi/FishChatServer2/server/msg_server/client"
 	"github.com/oikomi/FishChatServer2/server/msg_server/conf"
+	"github.com/oikomi/FishChatServer2/service_discovery/etcd"
 )
 
 type Server struct {
@@ -32,11 +33,11 @@ func (s *Server) sessionLoop(client *client.Client) {
 			baseCMD := &protocol.Base{}
 			if err = proto.Unmarshal(reqData, baseCMD); err != nil {
 				err = client.Session.Send(&protocol.Error{
-					ErrCode: proto.Uint32(ecode.ServerErr.Uint32()),
-					ErrStr:  proto.String(ecode.ServerErr.String()),
+					ErrCode: ecode.ServerErr.Uint32(),
+					ErrStr:  ecode.ServerErr.String(),
 				})
 			}
-			client.Parse(baseCMD.GetCmd(), reqData)
+			client.Parse(baseCMD.Cmd, reqData)
 		}
 	}
 }
@@ -49,4 +50,9 @@ func (s *Server) Loop() {
 		}
 		go s.sessionLoop(client.New(session))
 	}
+}
+
+func (s *Server) SDHeart() {
+	work := etcd.NewWorker(conf.Conf.Etcd.Name, conf.Conf.Server.Addr, conf.Conf.Etcd.Root, conf.Conf.Etcd.Addrs)
+	go work.HeartBeat()
 }

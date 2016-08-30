@@ -15,6 +15,8 @@ type Config struct {
 	*commconf.CommConf
 	configFile string
 	Server     *commconf.Server
+	RPCServer  *commconf.RPCServer
+	Etcd       *commconf.Etcd
 	Zookeeper  *commconf.Zookeeper
 }
 

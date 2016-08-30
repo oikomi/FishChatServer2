@@ -1,6 +1,8 @@
+syntax = "proto3";
+
 package protocol;
 
 // cmdNum = 1001
 message Base {
-    required uint32 cmd = 1;
+    uint32 cmd = 1;
 }

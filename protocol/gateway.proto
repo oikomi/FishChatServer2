@@ -1,13 +1,15 @@
+syntax = "proto3";
+
 package protocol;
 
 message ReqMsgServer {
-    required uint32 cmd = 1;
-    optional string cmdStr = 2;
+    uint32 cmd = 1;
+    string cmdStr = 2;
 }
 
 message SelectMsgServerForClient {
-    required uint32 cmd = 1;
-    optional string cmdStr = 2;
-    required string addr = 3;
+    uint32 cmd = 1;
+    string cmdStr = 2;
+    string addr = 3;
 }
 

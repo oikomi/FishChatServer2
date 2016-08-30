@@ -1,4 +1,4 @@
-package service_discovery
+package zookeeper
 
 import (
 	"encoding/json"

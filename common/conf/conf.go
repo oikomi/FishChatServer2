@@ -14,6 +14,18 @@ type Server struct {
 	Addr  string
 }
 
+type RPCServer struct {
+	Proto string
+	Addr  string
+}
+
+type Etcd struct {
+	Name    string
+	Root    string
+	Addrs   []string
+	Timeout time.Duration
+}
+
 type Zookeeper struct {
 	Root    string
 	Addrs   []string
