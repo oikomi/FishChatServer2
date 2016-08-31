@@ -28,5 +28,7 @@ func main() {
 		glog.Error(err)
 		panic(err)
 	}
+	go gwServer.DoServerDiscovery()
 	gwServer.Loop()
+
 }

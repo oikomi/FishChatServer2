@@ -9,8 +9,9 @@ import (
 )
 
 type Master struct {
-	members map[string]*Member
-	etcCli  *clientv3.Client
+	members  map[string]*Member
+	etcCli   *clientv3.Client
+	rootPath string
 }
 
 // Member is a client machine
@@ -21,7 +22,7 @@ type Member struct {
 	CPU     int
 }
 
-func NewMaster(endpoints []string) *Master {
+func NewMaster(rootPath string, endpoints []string) *Master {
 	cfg := clientv3.Config{
 		Endpoints:   endpoints,
 		DialTimeout: time.Second,
@@ -31,11 +32,17 @@ func NewMaster(endpoints []string) *Master {
 		glog.Error("Error: cannot connec to etcd:", err)
 	}
 	master := &Master{
-		members: make(map[string]*Member),
-		etcCli:  etcdClient,
+		members:  make(map[string]*Member),
+		etcCli:   etcdClient,
+		rootPath: rootPath,
 	}
 	go master.WatchWorkers()
 	return master
+}
+
+func (m *Master) Members() (ms map[string]*Member) {
+	ms = m.members
+	return
 }
 
 func (m *Master) AddWorker(info *WorkerInfo) {
@@ -54,32 +61,39 @@ func (m *Master) UpdateWorker(info *WorkerInfo) {
 }
 
 func (m *Master) WatchWorkers() {
-	rch := m.etcCli.Watch(context.Background(), "workers")
-	for wresp := range rch {
-		for _, ev := range wresp.Events {
-			//fmt.Printf("%s %q : %q\n", ev.Type, ev.Kv.Key, ev.Kv.Value)
-			if ev.Type.String() == "expire" {
-				member, ok := m.members[string(ev.Kv.Key)]
-				if ok {
-					member.InGroup = false
+	for {
+		glog.Info("WatchWorkers")
+		glog.Info(m.rootPath)
+		rch := m.etcCli.Watch(context.Background(), m.rootPath)
+		glog.Info(rch)
+		for wresp := range rch {
+			glog.Info(wresp)
+			for _, ev := range wresp.Events {
+				glog.Info(ev.Type.String())
+				//fmt.Printf("%s %q : %q\n", ev.Type, ev.Kv.Key, ev.Kv.Value)
+				if ev.Type.String() == "expire" {
+					member, ok := m.members[string(ev.Kv.Key)]
+					if ok {
+						member.InGroup = false
+					}
+				} else if ev.Type.String() == "set" || ev.Type.String() == "update" {
+					info := &WorkerInfo{}
+					err := json.Unmarshal(ev.Kv.Value, info)
+					if err != nil {
+						glog.Error(err)
+					}
+					if _, ok := m.members[info.Name]; ok {
+						m.UpdateWorker(info)
+					} else {
+						m.AddWorker(info)
+					}
+				} else if ev.Type.String() == "delete" {
+					delete(m.members, string(ev.Kv.Key))
 				}
-			} else if ev.Type.String() == "set" || ev.Type.String() == "update" {
-				info := &WorkerInfo{}
-				err := json.Unmarshal(ev.Kv.Value, info)
-				if err != nil {
-					glog.Error(err)
-				}
-				if _, ok := m.members[info.Name]; ok {
-					m.UpdateWorker(info)
-				} else {
-					m.AddWorker(info)
-				}
-			} else if ev.Type.String() == "delete" {
-				delete(m.members, string(ev.Kv.Key))
+
 			}
-
 		}
-
+		glog.Info("end WatchWorkers")
 	}
 
 	// watcher := m.etcCli.Watch("workers/", &client.WatcherOptions{

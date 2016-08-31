@@ -1,15 +1,19 @@
-# msg_server conf
+# monitor conf
 
 ver = "1.0.0"
 logPath = "/tmp/gateway.log"
 
 [server]
 proto = "tcp"
-addr = "127.0.0.1:18000"
+addr = "127.0.0.1:19000"
 
 [rpcServer]
 proto = "tcp"
-addr = "127.0.0.1:28000"
+addr = "127.0.0.1:29000"
+
+[rpcClient]
+    [rpcClient.msgServerClient]
+    addr = "127.0.0.1:22000"
 
 [etcd]
 name = "msg_server_0001"

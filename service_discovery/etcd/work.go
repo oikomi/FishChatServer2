@@ -1,10 +1,10 @@
 package etcd
 
 import (
-	"context"
 	"encoding/json"
 	"github.com/coreos/etcd/clientv3"
 	"github.com/golang/glog"
+	"golang.org/x/net/context"
 	"runtime"
 	"time"
 )
@@ -24,6 +24,7 @@ type WorkerInfo struct {
 }
 
 func NewWorker(name, ip, rootPath string, endpoints []string) *Worker {
+	glog.Info(endpoints)
 	cfg := clientv3.Config{
 		Endpoints:   endpoints,
 		DialTimeout: time.Second,
@@ -49,18 +50,20 @@ func (w *Worker) HeartBeat() {
 			IP:   w.IP,
 			CPU:  runtime.NumCPU(),
 		}
-		glog.Info(w.Name)
-		key := w.rootPath + w.Name
+		key := w.rootPath + "/" + w.Name
 		value, _ := json.Marshal(info)
-		glog.Info(key)
-		glog.Info(string(value))
 		// ctx, _ := context.WithTimeout(context.TODO(), 5*time.Second)
-		putResp, err := w.etcCli.Put(context.TODO(), key, string(value))
+		_, err := w.etcCli.Put(context.TODO(), key, string(value))
 		// cancel()
 		if err != nil {
 			glog.Error("Error: cannot put to etcd:", err)
 		}
-		glog.Info(putResp.Header.String())
 		time.Sleep(time.Second * 10)
+
+		// getResp, err := w.etcCli.Get(context.TODO(), key)
+		// if err != nil {
+		// 	glog.Error("Error: cannot put to etcd:", err)
+		// }
+		// glog.Info(getResp.Kvs)
 	}
 }

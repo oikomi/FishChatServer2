@@ -29,7 +29,8 @@ func main() {
 		glog.Error(err)
 		panic(err)
 	}
-	monitor.SDHeart()
+	// monitor.SDHeart()
+	go rpc.RPCInit()
+	rpc.NewMsgServerRPCCli(conf.Conf.RPCClient.MsgServerClient.Addr)
 	monitor.Loop()
-	rpc.RPCInit()
 }

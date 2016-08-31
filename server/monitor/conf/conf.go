@@ -16,8 +16,13 @@ type Config struct {
 	configFile string
 	Server     *commconf.Server
 	RPCServer  *commconf.RPCServer
+	RPCClient  *RPCClient
 	Etcd       *commconf.Etcd
 	Zookeeper  *commconf.Zookeeper
+}
+
+type RPCClient struct {
+	MsgServerClient *commconf.RPCClient
 }
 
 func init() {

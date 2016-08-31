@@ -5,16 +5,16 @@ logPath = "/tmp/gateway.log"
 
 [server]
 proto = "tcp"
-addr = "127.0.0.1:18000"
+addr = "127.0.0.1:12000"
 
 [rpcServer]
 proto = "tcp"
-addr = "127.0.0.1:28000"
+addr = "127.0.0.1:22000"
 
 [etcd]
 name = "msg_server_0001"
-root = "/server/msg_server/"
-addrs = ["127.0.0.1:2379"]
+root = "foo"
+addrs = ["localhost:2379"]
 timeout = 1000
 
 [zookeeper]

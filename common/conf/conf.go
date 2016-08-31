@@ -19,6 +19,10 @@ type RPCServer struct {
 	Addr  string
 }
 
+type RPCClient struct {
+	Addr string
+}
+
 type Etcd struct {
 	Name    string
 	Root    string

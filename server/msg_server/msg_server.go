@@ -30,6 +30,6 @@ func main() {
 		panic(err)
 	}
 	msgServer.SDHeart()
+	go rpc.RPCInit()
 	msgServer.Loop()
-	rpc.RPCInit()
 }

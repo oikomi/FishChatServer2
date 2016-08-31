@@ -5,4 +5,9 @@ logPath = "/tmp/gateway.log"
 
 [server]
 proto = "tcp"
-addr = "0.0.0.0:17000"
+addr = "0.0.0.0:11000"
+
+[etcd]
+root = "foo/msg_server_0001"
+addrs = ["localhost:2379"]
+timeout = 1000
