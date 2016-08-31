@@ -1,4 +1,4 @@
-# gateway conf
+# msg_server conf
 
 ver = "1.0.0"
 logPath = "/tmp/gateway.log"
