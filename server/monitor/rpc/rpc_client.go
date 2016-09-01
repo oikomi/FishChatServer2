@@ -2,7 +2,7 @@ package rpc
 
 import (
 	"github.com/golang/glog"
-	"github.com/oikomi/FishChatServer2/server/monitor/pb"
+	"github.com/oikomi/FishChatServer2/server/pb"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 )
