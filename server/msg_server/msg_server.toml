@@ -13,7 +13,7 @@ addr = "127.0.0.1:22000"
 
 [etcd]
 name = "msg_server_0001"
-root = "foo"
+root = "/server/msg_server/"
 addrs = ["localhost:2379"]
 timeout = 1000
 

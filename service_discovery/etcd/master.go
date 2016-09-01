@@ -62,21 +62,17 @@ func (m *Master) UpdateWorker(info *WorkerInfo) {
 
 func (m *Master) WatchWorkers() {
 	for {
-		glog.Info("WatchWorkers")
-		glog.Info(m.rootPath)
-		rch := m.etcCli.Watch(context.Background(), m.rootPath)
-		glog.Info(rch)
+		rch := m.etcCli.Watch(context.Background(), m.rootPath, clientv3.WithPrefix())
 		for wresp := range rch {
-			glog.Info(wresp)
 			for _, ev := range wresp.Events {
 				glog.Info(ev.Type.String())
 				//fmt.Printf("%s %q : %q\n", ev.Type, ev.Kv.Key, ev.Kv.Value)
-				if ev.Type.String() == "expire" {
+				if ev.Type.String() == "EXPIRE" {
 					member, ok := m.members[string(ev.Kv.Key)]
 					if ok {
 						member.InGroup = false
 					}
-				} else if ev.Type.String() == "set" || ev.Type.String() == "update" {
+				} else if ev.Type.String() == "PUT" {
 					info := &WorkerInfo{}
 					err := json.Unmarshal(ev.Kv.Value, info)
 					if err != nil {
@@ -87,7 +83,7 @@ func (m *Master) WatchWorkers() {
 					} else {
 						m.AddWorker(info)
 					}
-				} else if ev.Type.String() == "delete" {
+				} else if ev.Type.String() == "DELETE" {
 					delete(m.members, string(ev.Kv.Key))
 				}
 
@@ -95,35 +91,4 @@ func (m *Master) WatchWorkers() {
 		}
 		glog.Info("end WatchWorkers")
 	}
-
-	// watcher := m.etcCli.Watch("workers/", &client.WatcherOptions{
-	// 	Recursive: true,
-	// })
-	// for {
-	// 	res, err := watcher.Next(context.Background())
-	// 	if err != nil {
-	// 		log.Println("Error watch workers:", err)
-	// 		break
-	// 	}
-	// 	if res.Action == "expire" {
-	// 		member, ok := m.members[res.Node.Key]
-	// 		if ok {
-	// 			member.InGroup = false
-	// 		}
-	// 	} else if res.Action == "set" || res.Action == "update" {
-	// 		info := &WorkerInfo{}
-	// 		err := json.Unmarshal([]byte(res.Node.Value), info)
-	// 		if err != nil {
-	// 			log.Print(err)
-	// 		}
-	// 		if _, ok := m.members[info.Name]; ok {
-	// 			m.UpdateWorker(info)
-	// 		} else {
-	// 			m.AddWorker(info)
-	// 		}
-	// 	} else if res.Action == "delete" {
-	// 		delete(m.members, res.Node.Key)
-	// 	}
-	// }
-
 }

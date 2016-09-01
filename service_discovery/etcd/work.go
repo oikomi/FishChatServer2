@@ -43,27 +43,25 @@ func NewWorker(name, ip, rootPath string, endpoints []string) *Worker {
 }
 
 func (w *Worker) HeartBeat() {
-	// var err error
 	for {
 		info := &WorkerInfo{
 			Name: w.Name,
 			IP:   w.IP,
 			CPU:  runtime.NumCPU(),
 		}
-		key := w.rootPath + "/" + w.Name
-		value, _ := json.Marshal(info)
-		// ctx, _ := context.WithTimeout(context.TODO(), 5*time.Second)
-		_, err := w.etcCli.Put(context.TODO(), key, string(value))
-		// cancel()
+		key := w.rootPath + w.Name
+		value, err := json.Marshal(info)
+		if err != nil {
+			glog.Error(err)
+		}
+		resp, err := w.etcCli.Grant(context.TODO(), 10)
+		if err != nil {
+			glog.Error(err)
+		}
+		_, err = w.etcCli.Put(context.TODO(), key, string(value), clientv3.WithLease(resp.ID))
 		if err != nil {
 			glog.Error("Error: cannot put to etcd:", err)
 		}
-		time.Sleep(time.Second * 10)
-
-		// getResp, err := w.etcCli.Get(context.TODO(), key)
-		// if err != nil {
-		// 	glog.Error("Error: cannot put to etcd:", err)
-		// }
-		// glog.Info(getResp.Kvs)
+		time.Sleep(time.Second * 5)
 	}
 }
