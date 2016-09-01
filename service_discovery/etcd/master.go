@@ -22,22 +22,22 @@ type Member struct {
 	CPU     int
 }
 
-func NewMaster(rootPath string, endpoints []string) *Master {
+func NewMaster(rootPath string, endpoints []string) (master *Master, err error) {
+	var etcdClient *clientv3.Client
 	cfg := clientv3.Config{
 		Endpoints:   endpoints,
 		DialTimeout: time.Second,
 	}
-	etcdClient, err := clientv3.New(cfg)
-	if err != nil {
+	if etcdClient, err = clientv3.New(cfg); err != nil {
 		glog.Error("Error: cannot connec to etcd:", err)
+		return
 	}
-	master := &Master{
+	master = &Master{
 		members:  make(map[string]*Member),
 		etcCli:   etcdClient,
 		rootPath: rootPath,
 	}
-	go master.WatchWorkers()
-	return master
+	return
 }
 
 func (m *Master) Members() (ms map[string]*Member) {
@@ -45,7 +45,7 @@ func (m *Master) Members() (ms map[string]*Member) {
 	return
 }
 
-func (m *Master) AddWorker(info *WorkerInfo) {
+func (m *Master) addWorker(info *WorkerInfo) {
 	member := &Member{
 		InGroup: true,
 		IP:      info.IP,
@@ -55,40 +55,35 @@ func (m *Master) AddWorker(info *WorkerInfo) {
 	m.members[member.Name] = member
 }
 
-func (m *Master) UpdateWorker(info *WorkerInfo) {
+func (m *Master) updateWorker(info *WorkerInfo) {
 	member := m.members[info.Name]
 	member.InGroup = true
 }
 
 func (m *Master) WatchWorkers() {
-	for {
-		rch := m.etcCli.Watch(context.Background(), m.rootPath, clientv3.WithPrefix())
-		for wresp := range rch {
-			for _, ev := range wresp.Events {
-				glog.Info(ev.Type.String())
-				//fmt.Printf("%s %q : %q\n", ev.Type, ev.Kv.Key, ev.Kv.Value)
-				if ev.Type.String() == "EXPIRE" {
-					member, ok := m.members[string(ev.Kv.Key)]
-					if ok {
-						member.InGroup = false
-					}
-				} else if ev.Type.String() == "PUT" {
-					info := &WorkerInfo{}
-					err := json.Unmarshal(ev.Kv.Value, info)
-					if err != nil {
-						glog.Error(err)
-					}
-					if _, ok := m.members[info.Name]; ok {
-						m.UpdateWorker(info)
-					} else {
-						m.AddWorker(info)
-					}
-				} else if ev.Type.String() == "DELETE" {
-					delete(m.members, string(ev.Kv.Key))
+	rch := m.etcCli.Watch(context.Background(), m.rootPath, clientv3.WithPrefix())
+	for wresp := range rch {
+		for _, ev := range wresp.Events {
+			//fmt.Printf("%s %q : %q\n", ev.Type, ev.Kv.Key, ev.Kv.Value)
+			if ev.Type.String() == "EXPIRE" {
+				member, ok := m.members[string(ev.Kv.Key)]
+				if ok {
+					member.InGroup = false
 				}
-
+			} else if ev.Type.String() == "PUT" {
+				info := &WorkerInfo{}
+				err := json.Unmarshal(ev.Kv.Value, info)
+				if err != nil {
+					glog.Error(err)
+				}
+				if _, ok := m.members[info.Name]; ok {
+					m.updateWorker(info)
+				} else {
+					m.addWorker(info)
+				}
+			} else if ev.Type.String() == "DELETE" {
+				delete(m.members, string(ev.Kv.Key))
 			}
 		}
-		glog.Info("end WatchWorkers")
 	}
 }

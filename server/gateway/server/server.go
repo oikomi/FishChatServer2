@@ -12,8 +12,10 @@ import (
 )
 
 type Server struct {
-	Config *conf.Config
-	Server *libnet.Server
+	Config        *conf.Config
+	Server        *libnet.Server
+	Master        *etcd.Master
+	MsgServerList []*etcd.Member
 }
 
 func New(config *conf.Config) (s *Server) {
@@ -50,9 +52,4 @@ func (s *Server) Loop() {
 		}
 		go s.sessionLoop(client.New(session))
 	}
-}
-
-func (s *Server) DoServerDiscovery() {
-	master := etcd.NewMaster(conf.Conf.Etcd.Root, conf.Conf.Etcd.Addrs)
-	glog.Info(master.Members())
 }

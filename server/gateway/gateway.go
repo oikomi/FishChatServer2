@@ -6,6 +6,7 @@ import (
 	"github.com/oikomi/FishChatServer2/codec"
 	"github.com/oikomi/FishChatServer2/libnet"
 	"github.com/oikomi/FishChatServer2/server/gateway/conf"
+	"github.com/oikomi/FishChatServer2/server/gateway/job"
 	"github.com/oikomi/FishChatServer2/server/gateway/server"
 )
 
@@ -28,7 +29,7 @@ func main() {
 		glog.Error(err)
 		panic(err)
 	}
-	go gwServer.DoServerDiscovery()
+	go job.DoServerDiscovery()
 	gwServer.Loop()
 
 }
