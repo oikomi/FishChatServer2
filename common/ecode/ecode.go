@@ -39,6 +39,10 @@ var (
 		OK: "ok",
 		// common
 		ServerErr: "server error", // 服务器错误
+
+		// gateway
+		NoMsgServer: "no msgServer",
+
 		// network
 		NoData: "no data found",
 	}

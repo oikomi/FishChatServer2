@@ -9,12 +9,14 @@ It is generated from these files:
 	base.proto
 	error.proto
 	gateway.proto
+	msg_server.proto
 
 It has these top-level messages:
 	Base
 	Error
 	ReqMsgServer
-	SelectMsgServerForClient
+	ResSelectMsgServerForClient
+	SendClientID
 */
 package protocol
 

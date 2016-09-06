@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"github.com/golang/glog"
+	"github.com/golang/protobuf/proto"
 	"github.com/oikomi/FishChatServer2/codec"
 	"github.com/oikomi/FishChatServer2/libnet"
 	"github.com/oikomi/FishChatServer2/protocol"
@@ -27,6 +28,19 @@ func clientLoop(session *libnet.Session) {
 	rsp, err := session.Receive()
 	checkErr(err)
 	glog.Info(string(rsp))
+	if rsp != nil {
+		baseCMD := &protocol.Base{}
+		if err = proto.Unmarshal(rsp, baseCMD); err != nil {
+
+		}
+		switch baseCMD.Cmd {
+		case protocol.SelectMsgServerForClientCMD:
+			selectMsgServerForClientPB := &protocol.SelectMsgServerForClient{}
+			proto.Unmarshal(rsp, selectMsgServerForClientPB)
+			glog.Info(selectMsgServerForClientPB.Addr)
+		}
+
+	}
 }
 
 func main() {

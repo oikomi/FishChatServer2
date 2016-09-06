@@ -3,8 +3,7 @@
 dependence
 ======
 
-<pre><code>
-grpc :
+<pre><code>grpc :
 go get -u github.com/golang/protobuf
 go get -u google.golang.org/grpc
 

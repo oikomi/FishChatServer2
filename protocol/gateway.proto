@@ -7,9 +7,11 @@ message ReqMsgServer {
     string cmdStr = 2;
 }
 
-message SelectMsgServerForClient {
+message ResSelectMsgServerForClient {
     uint32 cmd = 1;
     string cmdStr = 2;
-    string addr = 3;
+    uint32 errCode = 3;
+    string errStr = 4;
+    string addr = 5;
 }
 

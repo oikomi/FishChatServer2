@@ -7,21 +7,17 @@ import (
 	"github.com/oikomi/FishChatServer2/libnet"
 	"github.com/oikomi/FishChatServer2/protocol"
 	"github.com/oikomi/FishChatServer2/server/gateway/client"
-	"github.com/oikomi/FishChatServer2/server/gateway/conf"
 	"github.com/oikomi/FishChatServer2/service_discovery/etcd"
 )
 
 type Server struct {
-	Config        *conf.Config
 	Server        *libnet.Server
 	Master        *etcd.Master
 	MsgServerList []*etcd.Member
 }
 
-func New(config *conf.Config) (s *Server) {
-	s = &Server{
-		Config: config,
-	}
+func New() (s *Server) {
+	s = &Server{}
 	return
 }
 

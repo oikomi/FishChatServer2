@@ -22,14 +22,13 @@ func main() {
 		glog.Error("conf.Init() error: ", err)
 		panic(err)
 	}
-	gwServer := server.New(conf.Conf)
+	gwServer := server.New()
 	protobuf := codec.Protobuf()
-	gwServer.Server, err = libnet.Serve(conf.Conf.Server.Proto, conf.Conf.Server.Addr, protobuf, 0 /* sync send */)
+	gwServer.Server, err = libnet.Serve(conf.Conf.Server.Proto, conf.Conf.Server.Addr, protobuf, 0)
 	if err != nil {
 		glog.Error(err)
 		panic(err)
 	}
 	go job.DoServerDiscovery()
 	gwServer.Loop()
-
 }
