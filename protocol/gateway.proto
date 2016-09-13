@@ -3,15 +3,15 @@ syntax = "proto3";
 package protocol;
 
 message ReqMsgServer {
-    uint32 cmd = 1;
+    uint32 cmd    = 1;
     string cmdStr = 2;
 }
 
 message ResSelectMsgServerForClient {
-    uint32 cmd = 1;
-    string cmdStr = 2;
+    uint32 cmd     = 1;
+    string cmdStr  = 2;
     uint32 errCode = 3;
-    string errStr = 4;
-    string addr = 5;
+    string errStr  = 4;
+    string addr    = 5;
 }
 

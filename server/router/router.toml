@@ -1,24 +1,24 @@
-# msg_server conf
+# monitor conf
 
 ver = "1.0.0"
 logPath = "/tmp/gateway.log"
 
 [server]
 proto = "tcp"
-addr = "127.0.0.1:12000"
+addr = "127.0.0.1:19000"
 
 [rpcServer]
 proto = "tcp"
-addr = "127.0.0.1:22000"
+addr = "127.0.0.1:29000"
 
 [rpcClient]
-    [rpcClient.managerClient]
-    addr = "127.0.0.1:24000"
+    [rpcClient.msgServerClient]
+    addr = "127.0.0.1:22000"
 
 [etcd]
 name = "msg_server_0001"
 root = "/server/msg_server/"
-addrs = ["localhost:2379"]
+addrs = ["127.0.0.1:2379"]
 timeout = 1000
 
 [zookeeper]
