@@ -17,7 +17,7 @@ func (s *RPCServer) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.Hell
 	return &pb.HelloReply{Message: "Hello " + in.Name}, nil
 }
 
-func RPCInit() {
+func RPCServerInit() {
 	lis, err := net.Listen(conf.Conf.RPCServer.Proto, conf.Conf.RPCServer.Addr)
 	if err != nil {
 		glog.Error(err)

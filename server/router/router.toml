@@ -1,15 +1,15 @@
 # monitor conf
 
 ver = "1.0.0"
-logPath = "/tmp/gateway.log"
+logPath = "/tmp/router.log"
 
 [server]
 proto = "tcp"
-addr = "127.0.0.1:19000"
+addr = "127.0.0.1:13000"
 
 [rpcServer]
 proto = "tcp"
-addr = "127.0.0.1:29000"
+addr = "127.0.0.1:23000"
 
 [rpcClient]
     [rpcClient.msgServerClient]

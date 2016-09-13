@@ -6,8 +6,8 @@ import (
 	"github.com/oikomi/FishChatServer2/common/ecode"
 	"github.com/oikomi/FishChatServer2/libnet"
 	"github.com/oikomi/FishChatServer2/protocol"
-	"github.com/oikomi/FishChatServer2/server/monitor/client"
-	"github.com/oikomi/FishChatServer2/server/monitor/conf"
+	"github.com/oikomi/FishChatServer2/server/manager/client"
+	"github.com/oikomi/FishChatServer2/server/manager/conf"
 	"github.com/oikomi/FishChatServer2/service_discovery/etcd"
 )
 

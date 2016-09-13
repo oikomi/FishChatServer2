@@ -8,18 +8,16 @@ import (
 	"github.com/oikomi/FishChatServer2/protocol"
 	"github.com/oikomi/FishChatServer2/server/msg_server/client"
 	"github.com/oikomi/FishChatServer2/server/msg_server/conf"
+	"github.com/oikomi/FishChatServer2/server/msg_server/rpc"
 	"github.com/oikomi/FishChatServer2/service_discovery/etcd"
 )
 
 type Server struct {
-	Config *conf.Config
 	Server *libnet.Server
 }
 
-func New(config *conf.Config) (s *Server) {
-	s = &Server{
-		Config: config,
-	}
+func New() (s *Server) {
+	s = &Server{}
 	return
 }
 
@@ -48,13 +46,13 @@ func (s *Server) sessionLoop(client *client.Client) {
 	}
 }
 
-func (s *Server) Loop() {
+func (s *Server) Loop(rpcClient *rpc.RPCClient) {
 	for {
 		session, err := s.Server.Accept()
 		if err != nil {
 			glog.Error(err)
 		}
-		go s.sessionLoop(client.New(session))
+		go s.sessionLoop(client.New(session, rpcClient))
 	}
 }
 

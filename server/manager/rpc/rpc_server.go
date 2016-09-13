@@ -2,7 +2,7 @@ package rpc
 
 import (
 	"github.com/golang/glog"
-	"github.com/oikomi/FishChatServer2/server/monitor/conf"
+	"github.com/oikomi/FishChatServer2/server/manager/conf"
 	"github.com/oikomi/FishChatServer2/server/pb"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
@@ -17,7 +17,8 @@ func (s *RPCServer) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.Hell
 	return &pb.HelloReply{Message: "Hello " + in.Name}, nil
 }
 
-func RPCInit() {
+func RPCServerInit() {
+	glog.Info("[manager] rpc server init")
 	lis, err := net.Listen(conf.Conf.RPCServer.Proto, conf.Conf.RPCServer.Addr)
 	if err != nil {
 		glog.Error(err)

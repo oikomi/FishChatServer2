@@ -18,7 +18,6 @@ func NewMsgServerRPCCli(address string) {
 	}
 	defer conn.Close()
 	c := pb.NewGreeterClient(conn)
-
 	r, err := c.SayHello(context.Background(), &pb.HelloRequest{Name: "miaohong"})
 	if err != nil {
 		glog.Error(err)

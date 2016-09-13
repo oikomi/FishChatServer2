@@ -1,7 +1,7 @@
 # msg_server conf
 
 ver = "1.0.0"
-logPath = "/tmp/gateway.log"
+logPath = "/tmp/msg_server.log"
 
 [server]
 proto = "tcp"

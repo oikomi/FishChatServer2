@@ -2,26 +2,25 @@ package rpc
 
 import (
 	"github.com/golang/glog"
-	"github.com/oikomi/FishChatServer2/server/pb"
-	"golang.org/x/net/context"
-	"google.golang.org/grpc"
+	"github.com/oikomi/FishChatServer2/server/msg_server/rpc/client"
 )
 
-type RouterRPCCli struct {
+type RPCClient struct {
+	manager *client.ManagerRPCCli
 }
 
-func NewRouterRPCCli(address string) (err error) {
-	glog.Info("NewRouterRPCCli")
-	conn, err := grpc.Dial(address, grpc.WithInsecure())
+func NewRPCClient() (c *RPCClient, err error) {
+	manager, err := client.NewManagerRPCCli()
 	if err != nil {
 		glog.Error(err)
+		return
 	}
-	defer conn.Close()
-	c := pb.NewGreeterClient(conn)
-	r, err := c.SayHello(context.Background(), &pb.HelloRequest{Name: "miaohong"})
-	if err != nil {
-		glog.Error(err)
+	c = &RPCClient{
+		manager: manager,
 	}
-	glog.Info(r.Message)
 	return
+}
+
+func (rc *RPCClient) init() {
+
 }

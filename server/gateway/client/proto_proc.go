@@ -12,7 +12,7 @@ func (c *Client) procReqMsgServer(reqData []byte) (err error) {
 	msgServerList := job.MsgServerList
 	if len(msgServerList) == 0 {
 		if err = c.Session.Send(&protocol.ResSelectMsgServerForClient{
-			Cmd:     protocol.SelectMsgServerForClientCMD,
+			Cmd:     protocol.ResSelectMsgServerForClientCMD,
 			ErrCode: ecode.NoMsgServer.Uint32(),
 			ErrStr:  ecode.NoMsgServer.String(),
 		}); err != nil {
@@ -24,7 +24,7 @@ func (c *Client) procReqMsgServer(reqData []byte) (err error) {
 		addr = v.IP
 	}
 	if err = c.Session.Send(&protocol.ResSelectMsgServerForClient{
-		Cmd:     protocol.SelectMsgServerForClientCMD,
+		Cmd:     protocol.ResSelectMsgServerForClientCMD,
 		ErrCode: ecode.OK.Uint32(),
 		ErrStr:  ecode.OK.String(),
 		Addr:    addr,
