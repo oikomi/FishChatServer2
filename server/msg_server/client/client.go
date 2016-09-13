@@ -21,7 +21,7 @@ func (c *Client) Parse(cmd uint32, reqData []byte) {
 	var err error
 	switch cmd {
 	case protocol.ReqMsgServerCMD:
-		if err = c.procSendClientID(reqData); err != nil {
+		if err = c.procLogin(reqData); err != nil {
 			glog.Error(err)
 		}
 	}

@@ -16,7 +16,8 @@ It has these top-level messages:
 	Error
 	ReqMsgServer
 	ResSelectMsgServerForClient
-	SendClientID
+	ReqLogin
+	ResLogin
 */
 package protocol
 
