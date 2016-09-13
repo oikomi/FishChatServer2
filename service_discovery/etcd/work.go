@@ -24,7 +24,6 @@ type WorkerInfo struct {
 }
 
 func NewWorker(name, ip, rootPath string, endpoints []string) *Worker {
-	glog.Info(endpoints)
 	cfg := clientv3.Config{
 		Endpoints:   endpoints,
 		DialTimeout: time.Second,

@@ -34,10 +34,10 @@ func clientLoop(session *libnet.Session) {
 
 		}
 		switch baseCMD.Cmd {
-		case protocol.SelectMsgServerForClientCMD:
-			selectMsgServerForClientPB := &protocol.SelectMsgServerForClient{}
-			proto.Unmarshal(rsp, selectMsgServerForClientPB)
-			glog.Info(selectMsgServerForClientPB.Addr)
+		case protocol.ResSelectMsgServerForClientCMD:
+			resSelectMsgServerForClientPB := &protocol.ResSelectMsgServerForClient{}
+			proto.Unmarshal(rsp, resSelectMsgServerForClientPB)
+			glog.Info(resSelectMsgServerForClientPB.Addr)
 		}
 
 	}

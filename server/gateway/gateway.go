@@ -24,8 +24,7 @@ func main() {
 	}
 	gwServer := server.New()
 	protobuf := codec.Protobuf()
-	gwServer.Server, err = libnet.Serve(conf.Conf.Server.Proto, conf.Conf.Server.Addr, protobuf, 0)
-	if err != nil {
+	if gwServer.Server, err = libnet.Serve(conf.Conf.Server.Proto, conf.Conf.Server.Addr, protobuf, 0); err != nil {
 		glog.Error(err)
 		panic(err)
 	}

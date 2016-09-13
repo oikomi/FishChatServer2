@@ -18,6 +18,10 @@ It has these top-level messages:
 	ResSelectMsgServerForClient
 	ReqLogin
 	ResLogin
+	ReqLogout
+	ResLogout
+	ReqSendP2PMsg
+	ResSendP2PMsg
 */
 package protocol
 

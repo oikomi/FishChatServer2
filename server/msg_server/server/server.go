@@ -32,12 +32,18 @@ func (s *Server) sessionLoop(client *client.Client) {
 		if reqData != nil {
 			baseCMD := &protocol.Base{}
 			if err = proto.Unmarshal(reqData, baseCMD); err != nil {
-				err = client.Session.Send(&protocol.Error{
+				if err = client.Session.Send(&protocol.Error{
 					ErrCode: ecode.ServerErr.Uint32(),
 					ErrStr:  ecode.ServerErr.String(),
-				})
+				}); err != nil {
+					glog.Error(err)
+				}
+				continue
 			}
-			client.Parse(baseCMD.Cmd, reqData)
+			if err = client.Parse(baseCMD.Cmd, reqData); err != nil {
+				glog.Error(err)
+				continue
+			}
 		}
 	}
 }

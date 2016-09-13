@@ -17,13 +17,13 @@ func New(session *libnet.Session) (c *Client) {
 	return
 }
 
-func (c *Client) Parse(cmd uint32, reqData []byte) {
-	var err error
+func (c *Client) Parse(cmd uint32, reqData []byte) (err error) {
 	switch cmd {
-	case protocol.ReqMsgServerCMD:
+	case protocol.ReqLoginCMD:
 		if err = c.procLogin(reqData); err != nil {
 			glog.Error(err)
+			return
 		}
 	}
-
+	return
 }
