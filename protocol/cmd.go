@@ -9,5 +9,6 @@ const (
 	ResSelectMsgServerForClientCMD = 10002
 
 	// msg_server
-	ReqLoginCMD = 20001
+	ReqLoginCMD      = 20001
+	ReqSendP2PMsgCMD = 20002
 )

@@ -7,10 +7,13 @@ Package pb is a generated protocol buffer package.
 
 It is generated from these files:
 	manager.proto
+	router.proto
 
 It has these top-level messages:
 	LoginReq
 	LoginRes
+	SendMsgP2PReq
+	SendMsgP2PRes
 */
 package pb
 
@@ -34,7 +37,6 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
 
-// The request message containing the user's name.
 type LoginReq struct {
 	UID   int64  `protobuf:"varint,3,opt,name=UID,json=uID" json:"UID,omitempty"`
 	Token string `protobuf:"bytes,4,opt,name=token" json:"token,omitempty"`
@@ -45,7 +47,6 @@ func (m *LoginReq) String() string            { return proto.CompactTextString(m
 func (*LoginReq) ProtoMessage()               {}
 func (*LoginReq) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{0} }
 
-// The response message containing the greetings
 type LoginRes struct {
 	ErrCode uint32 `protobuf:"varint,3,opt,name=errCode" json:"errCode,omitempty"`
 	ErrStr  string `protobuf:"bytes,4,opt,name=errStr" json:"errStr,omitempty"`

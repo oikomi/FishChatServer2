@@ -7,6 +7,7 @@ import (
 
 type RPCClient struct {
 	Manager *client.ManagerRPCCli
+	Router  *client.RouterRPCCli
 }
 
 func NewRPCClient() (c *RPCClient, err error) {
@@ -15,12 +16,14 @@ func NewRPCClient() (c *RPCClient, err error) {
 		glog.Error(err)
 		return
 	}
+	router, err := client.NewRouterRPCCli()
+	if err != nil {
+		glog.Error(err)
+		return
+	}
 	c = &RPCClient{
 		Manager: manager,
+		Router:  router,
 	}
 	return
 }
-
-// func (rc *RPCClient) init() {
-
-// }

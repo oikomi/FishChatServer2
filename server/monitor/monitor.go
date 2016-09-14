@@ -7,7 +7,6 @@ import (
 	"github.com/oikomi/FishChatServer2/libnet"
 	"github.com/oikomi/FishChatServer2/server/monitor/conf"
 	"github.com/oikomi/FishChatServer2/server/monitor/rpc"
-	"github.com/oikomi/FishChatServer2/server/monitor/server"
 )
 
 func init() {
@@ -22,15 +21,6 @@ func main() {
 		glog.Error("conf.Init() error: ", err)
 		panic(err)
 	}
-	monitor := server.New(conf.Conf)
-	protobuf := codec.Protobuf()
-	monitor.Server, err = libnet.Serve(conf.Conf.Server.Proto, conf.Conf.Server.Addr, protobuf, 0 /* sync send */)
-	if err != nil {
-		glog.Error(err)
-		panic(err)
-	}
-	// monitor.SDHeart()
-	go rpc.RPCInit()
+	rpc.RPCInit()
 	rpc.NewMsgServerRPCCli(conf.Conf.RPCClient.MsgServerClient.Addr)
-	monitor.Loop()
 }

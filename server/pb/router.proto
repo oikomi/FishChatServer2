@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package pb;
+
+service RouterRPC {
+    rpc SendMsgP2P (SendMsgP2PReq) returns (SendMsgP2PRes) {}
+}
+
+message SendMsgP2PReq {
+    int64  targetUID = 1;
+    string msg       = 2;
+
+}
+
+message SendMsgP2PRes {
+    uint32 errCode = 1;
+    string errStr  = 2;
+}

@@ -14,6 +14,8 @@ addr = "127.0.0.1:22000"
 [rpcClient]
     [rpcClient.managerClient]
     addr = "127.0.0.1:24000"
+    [rpcClient.routerClient]
+    addr = "127.0.0.1:23000"
 
 [etcd]
 name = "msg_server_0001"

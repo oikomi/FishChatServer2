@@ -12,7 +12,6 @@ import (
 type RPCServer struct {
 }
 
-// SayHello implements helloworld.GreeterServer
 func (s *RPCServer) Login(ctx context.Context, in *pb.LoginReq) (*pb.LoginRes, error) {
 	return &pb.LoginRes{}, nil
 }

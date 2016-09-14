@@ -12,18 +12,18 @@ import (
 type RPCServer struct {
 }
 
-// SayHello implements helloworld.GreeterServer
-func (s *RPCServer) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {
-	return &pb.HelloReply{Message: "Hello " + in.Name}, nil
+func (s *RPCServer) SendMsgP2P(ctx context.Context, in *pb.SendMsgP2PReq) (*pb.SendMsgP2PRes, error) {
+	return &pb.SendMsgP2PRes{}, nil
 }
 
 func RPCServerInit() {
+	glog.Info("[router] rpc server init")
 	lis, err := net.Listen(conf.Conf.RPCServer.Proto, conf.Conf.RPCServer.Addr)
 	if err != nil {
 		glog.Error(err)
 		panic(err)
 	}
 	s := grpc.NewServer()
-	pb.RegisterGreeterServer(s, &RPCServer{})
+	pb.RegisterRouterRPCServer(s, &RPCServer{})
 	s.Serve(lis)
 }
