@@ -25,3 +25,16 @@ timeout = 1000
 root = "/server/msg_server/"
 addrs = ["127.0.0.1:2181"]
 timeout = 1000
+
+
+[redis]
+name = "manager"
+proto = "tcp"
+addr = "127.0.0.1:6379"
+idle = 100
+active = 100
+dialTimeout = 1000
+readTimeout = 1000
+writeTimeout = 1000
+idleTimeout = 1000
+expire = 1000

@@ -20,8 +20,10 @@ func checkErr(err error) {
 	}
 }
 
-func clientLoop(session *libnet.Session) {
-	err := session.Send(&protocol.ReqMsgServer{
+func clientLoop(session *libnet.Session, protobuf *codec.ProtobufProtocol) {
+	var err error
+	var clientMsg *libnet.Session
+	err = session.Send(&protocol.ReqMsgServer{
 		Cmd: protocol.ReqMsgServerCMD,
 	})
 	checkErr(err)
@@ -38,9 +40,17 @@ func clientLoop(session *libnet.Session) {
 			resSelectMsgServerForClientPB := &protocol.ResSelectMsgServerForClient{}
 			proto.Unmarshal(rsp, resSelectMsgServerForClientPB)
 			glog.Info(resSelectMsgServerForClientPB.Addr)
+			clientMsg, err = libnet.Connect("tcp", resSelectMsgServerForClientPB.Addr, protobuf, 0)
+			checkErr(err)
 		}
-
 	}
+	err = clientMsg.Send(&protocol.ReqLogin{
+		Cmd: protocol.ReqLoginCMD,
+	})
+	checkErr(err)
+	rsp, err = clientMsg.Receive()
+	checkErr(err)
+	glog.Info(string(rsp))
 }
 
 func main() {
@@ -51,5 +61,5 @@ func main() {
 	// session, err := libnet.Connect("tcp", addr, libnet.Packet(2, 1024*1024, 1024, binary.BigEndian, TestCodec{}))
 	client, err := libnet.Connect("tcp", addr, protobuf, 0)
 	checkErr(err)
-	clientLoop(client)
+	clientLoop(client, protobuf)
 }

@@ -35,3 +35,15 @@ type Zookeeper struct {
 	Addrs   []string
 	Timeout time.Duration
 }
+
+type Redis struct {
+	Name         string
+	Proto        string
+	Addr         string
+	Active       int
+	Idle         int
+	DialTimeout  time.Duration
+	ReadTimeout  time.Duration
+	WriteTimeout time.Duration
+	IdleTimeout  time.Duration
+}

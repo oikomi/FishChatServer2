@@ -24,11 +24,13 @@ func NewManagerRPCCli() (managerRPCCli *ManagerRPCCli, err error) {
 	return
 }
 
-func (m *ManagerRPCCli) say() {
-	c := pb.NewGreeterClient(m.conn)
-	r, err := c.SayHello(context.Background(), &pb.HelloRequest{Name: "miaohong"})
+func (m *ManagerRPCCli) Login(uid int64, token string) (err error) {
+	c := pb.NewManagerRPCClient(m.conn)
+	r, err := c.Login(context.Background(), &pb.LoginReq{})
 	if err != nil {
 		glog.Error(err)
+		return
 	}
-	glog.Info(r.Message)
+	glog.Info(r.ErrCode)
+	return
 }

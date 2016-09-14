@@ -12,5 +12,6 @@ func (c *Client) procLogin(reqData []byte) (err error) {
 		glog.Error(err)
 		return
 	}
+	c.rpcCli.Manager.Login(reqLoginPB.UID, reqLoginPB.Token)
 	return
 }

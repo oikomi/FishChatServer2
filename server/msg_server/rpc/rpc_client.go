@@ -6,7 +6,7 @@ import (
 )
 
 type RPCClient struct {
-	manager *client.ManagerRPCCli
+	Manager *client.ManagerRPCCli
 }
 
 func NewRPCClient() (c *RPCClient, err error) {
@@ -16,11 +16,11 @@ func NewRPCClient() (c *RPCClient, err error) {
 		return
 	}
 	c = &RPCClient{
-		manager: manager,
+		Manager: manager,
 	}
 	return
 }
 
-func (rc *RPCClient) init() {
+// func (rc *RPCClient) init() {
 
-}
+// }

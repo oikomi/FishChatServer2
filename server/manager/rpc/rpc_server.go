@@ -13,8 +13,8 @@ type RPCServer struct {
 }
 
 // SayHello implements helloworld.GreeterServer
-func (s *RPCServer) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {
-	return &pb.HelloReply{Message: "Hello " + in.Name}, nil
+func (s *RPCServer) Login(ctx context.Context, in *pb.LoginReq) (*pb.LoginRes, error) {
+	return &pb.LoginRes{}, nil
 }
 
 func RPCServerInit() {
@@ -25,6 +25,6 @@ func RPCServerInit() {
 		panic(err)
 	}
 	s := grpc.NewServer()
-	pb.RegisterGreeterServer(s, &RPCServer{})
+	pb.RegisterManagerRPCServer(s, &RPCServer{})
 	s.Serve(lis)
 }

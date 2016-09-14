@@ -35,6 +35,5 @@ func main() {
 		panic(err)
 	}
 	msgServer.SDHeart()
-	go rpc.RPCServerInit()
 	msgServer.Loop(rpcClient)
 }
