@@ -3,7 +3,6 @@ package codec
 import (
 	"github.com/golang/glog"
 	"github.com/golang/protobuf/proto"
-	// "github.com/oikomi/FishChatServer2/common/ecode"
 	"github.com/oikomi/FishChatServer2/libnet"
 	"io"
 	"reflect"
