@@ -15,11 +15,10 @@ type Config struct {
 	*commconf.CommConf
 	configFile string
 	Server     *commconf.Server
-	Etcd       *commconf.Etcd
 }
 
 func init() {
-	flag.StringVar(&confPath, "conf", "./gateway.toml", "config path")
+	flag.StringVar(&confPath, "conf", "./access_server.toml", "config path")
 }
 
 func Init() (err error) {
