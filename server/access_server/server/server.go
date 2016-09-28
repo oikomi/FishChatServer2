@@ -51,6 +51,7 @@ func (s *Server) Loop() {
 		if err != nil {
 			glog.Error(err)
 		}
+		glog.Info("a new client ", session.ID())
 		go s.sessionLoop(client.New(session))
 	}
 }

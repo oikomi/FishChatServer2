@@ -19,7 +19,7 @@ func New(session *libnet.Session) (c *Client) {
 
 func (c *Client) Parse(cmd uint32, reqData []byte) (err error) {
 	switch cmd {
-	case external.ReqMsgServerCMD:
+	case external.ReqAccessServerCMD:
 		if err = c.procReqMsgServer(reqData); err != nil {
 			glog.Error(err)
 			return

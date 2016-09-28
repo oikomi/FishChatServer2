@@ -55,7 +55,7 @@ func clientLoop(session *libnet.Session, protobuf *codec.ProtobufProtocol) {
 
 func main() {
 	var addr string
-	flag.StringVar(&addr, "addr", "127.0.0.1:11000", "echo server address")
+	flag.StringVar(&addr, "addr", "127.0.0.1:10000", "echo server address")
 	flag.Parse()
 	protobuf := codec.Protobuf()
 	// session, err := libnet.Connect("tcp", addr, libnet.Packet(2, 1024*1024, 1024, binary.BigEndian, TestCodec{}))
