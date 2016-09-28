@@ -6,7 +6,9 @@ import (
 	"github.com/oikomi/FishChatServer2/common/ecode"
 	"github.com/oikomi/FishChatServer2/libnet"
 	"github.com/oikomi/FishChatServer2/protocol"
-	"github.com/oikomi/FishChatServer2/server/gateway/client"
+	"github.com/oikomi/FishChatServer2/server/access_server/client"
+	"github.com/oikomi/FishChatServer2/server/access_server/conf"
+	"github.com/oikomi/FishChatServer2/service_discovery/etcd"
 )
 
 type Server struct {
@@ -51,4 +53,9 @@ func (s *Server) Loop() {
 		}
 		go s.sessionLoop(client.New(session))
 	}
+}
+
+func (s *Server) SDHeart() {
+	work := etcd.NewWorker(conf.Conf.Etcd.Name, conf.Conf.Server.Addr, conf.Conf.Etcd.Root, conf.Conf.Etcd.Addrs)
+	go work.HeartBeat()
 }

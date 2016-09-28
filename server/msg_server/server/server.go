@@ -56,7 +56,7 @@ func (s *Server) Loop(rpcClient *rpc.RPCClient) {
 	}
 }
 
-func (s *Server) SDHeart() {
-	work := etcd.NewWorker(conf.Conf.Etcd.Name, conf.Conf.Server.Addr, conf.Conf.Etcd.Root, conf.Conf.Etcd.Addrs)
-	go work.HeartBeat()
-}
+// func (s *Server) SDHeart() {
+// 	work := etcd.NewWorker(conf.Conf.Etcd.Name, conf.Conf.Server.Addr, conf.Conf.Etcd.Root, conf.Conf.Etcd.Addrs)
+// 	go work.HeartBeat()
+// }

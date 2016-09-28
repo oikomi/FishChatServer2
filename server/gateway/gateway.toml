@@ -8,6 +8,6 @@ proto = "tcp"
 addr = "0.0.0.0:10000"
 
 [etcd]
-root = "/server/msg_server/"
+root = "/server/access_server/"
 addrs = ["localhost:2379"]
 timeout = 1000

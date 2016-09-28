@@ -27,5 +27,6 @@ func main() {
 		glog.Error(err)
 		panic(err)
 	}
+	accessServer.SDHeart()
 	accessServer.Loop()
 }

@@ -8,13 +8,13 @@ import (
 )
 
 var (
-	MsgServerList map[string]*etcd.Member
+	AccessServerList map[string]*etcd.Member
 )
 
-func loadMsgServer(master *etcd.Master) {
+func loadAccessServer(master *etcd.Master) {
 	for {
-		MsgServerList = master.Members()
-		glog.Info(MsgServerList)
+		AccessServerList = master.Members()
+		glog.Info(AccessServerList)
 		time.Sleep(time.Second * 5)
 	}
 }
@@ -25,6 +25,6 @@ func DoServerDiscovery() {
 		glog.Error("Error: cannot connec to etcd:", err)
 		panic(err)
 	}
-	go loadMsgServer(master)
+	go loadAccessServer(master)
 	master.WatchWorkers()
 }

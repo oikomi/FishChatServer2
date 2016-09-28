@@ -15,6 +15,7 @@ type Config struct {
 	*commconf.CommConf
 	configFile string
 	Server     *commconf.Server
+	Etcd       *commconf.Etcd
 }
 
 func init() {

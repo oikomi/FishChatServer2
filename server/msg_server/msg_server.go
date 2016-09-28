@@ -34,6 +34,5 @@ func main() {
 		glog.Error(err)
 		panic(err)
 	}
-	msgServer.SDHeart()
 	msgServer.Loop(rpcClient)
 }

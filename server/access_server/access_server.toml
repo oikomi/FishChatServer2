@@ -6,3 +6,9 @@ logPath = "/tmp/access_server.log"
 [server]
 proto = "tcp"
 addr = "0.0.0.0:11000"
+
+[etcd]
+name = "access_server_11000"
+root = "/server/access_server/"
+addrs = ["localhost:2379"]
+timeout = 1000
