@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package protocol;
+package external;
 
 message ReqMsgServer {
     uint32 cmd    = 1;

@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package protocol;
+package external;
 
 // p2p msg
 message ReqSendP2PMsg {

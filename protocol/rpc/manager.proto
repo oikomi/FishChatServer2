@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package pb;
+package rpc;
 
 service ManagerRPC {
     rpc Login (LoginReq) returns (LoginRes) {}

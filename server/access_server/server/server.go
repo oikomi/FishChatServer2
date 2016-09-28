@@ -5,7 +5,7 @@ import (
 	"github.com/golang/protobuf/proto"
 	"github.com/oikomi/FishChatServer2/common/ecode"
 	"github.com/oikomi/FishChatServer2/libnet"
-	"github.com/oikomi/FishChatServer2/protocol"
+	"github.com/oikomi/FishChatServer2/protocol/external"
 	"github.com/oikomi/FishChatServer2/server/access_server/client"
 	"github.com/oikomi/FishChatServer2/server/access_server/conf"
 	"github.com/oikomi/FishChatServer2/service_discovery/etcd"
@@ -27,9 +27,9 @@ func (s *Server) sessionLoop(client *client.Client) {
 			glog.Error(err)
 		}
 		if reqData != nil {
-			baseCMD := &protocol.Base{}
+			baseCMD := &external.Base{}
 			if err = proto.Unmarshal(reqData, baseCMD); err != nil {
-				if err = client.Session.Send(&protocol.Error{
+				if err = client.Session.Send(&external.Error{
 					ErrCode: ecode.ServerErr.Uint32(),
 					ErrStr:  ecode.ServerErr.String(),
 				}); err != nil {
