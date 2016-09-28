@@ -1,8 +1,8 @@
 # gateway conf
 
 ver = "1.0.0"
-logPath = "/tmp/gateway.log"
+logPath = "/tmp/access_server.log"
 
 [server]
 proto = "tcp"
-addr = "0.0.0.0:10000"
+addr = "0.0.0.0:11000"

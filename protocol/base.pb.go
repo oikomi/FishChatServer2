@@ -2,27 +2,6 @@
 // source: base.proto
 // DO NOT EDIT!
 
-/*
-Package protocol is a generated protocol buffer package.
-
-It is generated from these files:
-	base.proto
-	error.proto
-	gateway.proto
-	msg_server.proto
-
-It has these top-level messages:
-	Base
-	Error
-	ReqMsgServer
-	ResSelectMsgServerForClient
-	ReqLogin
-	ResLogin
-	ReqLogout
-	ResLogout
-	ReqSendP2PMsg
-	ResSendP2PMsg
-*/
 package protocol
 
 import proto "github.com/golang/protobuf/proto"
@@ -34,12 +13,6 @@ var _ = proto.Marshal
 var _ = fmt.Errorf
 var _ = math.Inf
 
-// This is a compile-time assertion to ensure that this generated file
-// is compatible with the proto package it is being compiled against.
-// A compilation error at this line likely means your copy of the
-// proto package needs to be updated.
-const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
-
 // cmdNum = 1001
 type Base struct {
 	Cmd uint32 `protobuf:"varint,1,opt,name=cmd" json:"cmd,omitempty"`
@@ -48,15 +21,15 @@ type Base struct {
 func (m *Base) Reset()                    { *m = Base{} }
 func (m *Base) String() string            { return proto.CompactTextString(m) }
 func (*Base) ProtoMessage()               {}
-func (*Base) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{0} }
+func (*Base) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{0} }
 
 func init() {
 	proto.RegisterType((*Base)(nil), "protocol.Base")
 }
 
-func init() { proto.RegisterFile("base.proto", fileDescriptor0) }
+func init() { proto.RegisterFile("base.proto", fileDescriptor1) }
 
-var fileDescriptor0 = []byte{
+var fileDescriptor1 = []byte{
 	// 71 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0xe2, 0xe2, 0x4a, 0x4a, 0x2c, 0x4e,
 	0xd5, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0xe2, 0x00, 0x53, 0xc9, 0xf9, 0x39, 0x4a, 0x12, 0x5c,

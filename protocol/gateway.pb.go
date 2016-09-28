@@ -21,7 +21,7 @@ type ReqMsgServer struct {
 func (m *ReqMsgServer) Reset()                    { *m = ReqMsgServer{} }
 func (m *ReqMsgServer) String() string            { return proto.CompactTextString(m) }
 func (*ReqMsgServer) ProtoMessage()               {}
-func (*ReqMsgServer) Descriptor() ([]byte, []int) { return fileDescriptor2, []int{0} }
+func (*ReqMsgServer) Descriptor() ([]byte, []int) { return fileDescriptor3, []int{0} }
 
 type ResSelectMsgServerForClient struct {
 	Cmd     uint32 `protobuf:"varint,1,opt,name=cmd" json:"cmd,omitempty"`
@@ -34,16 +34,16 @@ type ResSelectMsgServerForClient struct {
 func (m *ResSelectMsgServerForClient) Reset()                    { *m = ResSelectMsgServerForClient{} }
 func (m *ResSelectMsgServerForClient) String() string            { return proto.CompactTextString(m) }
 func (*ResSelectMsgServerForClient) ProtoMessage()               {}
-func (*ResSelectMsgServerForClient) Descriptor() ([]byte, []int) { return fileDescriptor2, []int{1} }
+func (*ResSelectMsgServerForClient) Descriptor() ([]byte, []int) { return fileDescriptor3, []int{1} }
 
 func init() {
 	proto.RegisterType((*ReqMsgServer)(nil), "protocol.ReqMsgServer")
 	proto.RegisterType((*ResSelectMsgServerForClient)(nil), "protocol.ResSelectMsgServerForClient")
 }
 
-func init() { proto.RegisterFile("gateway.proto", fileDescriptor2) }
+func init() { proto.RegisterFile("gateway.proto", fileDescriptor3) }
 
-var fileDescriptor2 = []byte{
+var fileDescriptor3 = []byte{
 	// 171 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0xe2, 0xe2, 0x4d, 0x4f, 0x2c, 0x49,
 	0x2d, 0x4f, 0xac, 0xd4, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0xe2, 0x00, 0x53, 0xc9, 0xf9, 0x39,

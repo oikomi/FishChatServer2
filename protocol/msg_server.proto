@@ -2,35 +2,6 @@ syntax = "proto3";
 
 package protocol;
 
-// login
-message ReqLogin {
-    uint32 cmd    = 1;
-    string cmdStr = 2;
-    int64  UID    = 3;
-    string token  = 4;
-}
-
-message ResLogin {
-    uint32 cmd     = 1;
-    string cmdStr  = 2;
-    uint32 errCode = 3;
-    string errStr  = 4;
-}
-
-// logout
-message ReqLogout {
-    uint32 cmd    = 1;
-    string cmdStr = 2;
-    int64  UID    = 3;
-}
-
-message ResLogout {
-    uint32 cmd     = 1;
-    string cmdStr  = 2;
-    uint32 errCode = 3;
-    string errStr  = 4;
-}
-
 // p2p msg
 message ReqSendP2PMsg {
     uint32 cmd       = 1;
