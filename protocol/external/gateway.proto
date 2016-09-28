@@ -2,12 +2,12 @@ syntax = "proto3";
 
 package external;
 
-message ReqMsgServer {
+message ReqAccessServer {
     uint32 cmd    = 1;
     string cmdStr = 2;
 }
 
-message ResSelectMsgServerForClient {
+message ResSelectAccessServerForClient {
     uint32 cmd     = 1;
     string cmdStr  = 2;
     uint32 errCode = 3;

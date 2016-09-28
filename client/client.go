@@ -6,7 +6,7 @@ import (
 	"github.com/golang/protobuf/proto"
 	"github.com/oikomi/FishChatServer2/codec"
 	"github.com/oikomi/FishChatServer2/libnet"
-	"github.com/oikomi/FishChatServer2/protocol"
+	"github.com/oikomi/FishChatServer2/protocol/external"
 )
 
 func init() {
@@ -23,29 +23,29 @@ func checkErr(err error) {
 func clientLoop(session *libnet.Session, protobuf *codec.ProtobufProtocol) {
 	var err error
 	var clientMsg *libnet.Session
-	err = session.Send(&protocol.ReqMsgServer{
-		Cmd: protocol.ReqMsgServerCMD,
+	err = session.Send(&external.ReqAccessServer{
+		Cmd: external.ReqAccessServerCMD,
 	})
 	checkErr(err)
 	rsp, err := session.Receive()
 	checkErr(err)
 	glog.Info(string(rsp))
 	if rsp != nil {
-		baseCMD := &protocol.Base{}
+		baseCMD := &external.Base{}
 		if err = proto.Unmarshal(rsp, baseCMD); err != nil {
 
 		}
 		switch baseCMD.Cmd {
-		case protocol.ResSelectMsgServerForClientCMD:
-			resSelectMsgServerForClientPB := &protocol.ResSelectMsgServerForClient{}
+		case external.ResSelectAccessServerForClientCMD:
+			resSelectMsgServerForClientPB := &external.ResSelectAccessServerForClient{}
 			proto.Unmarshal(rsp, resSelectMsgServerForClientPB)
 			glog.Info(resSelectMsgServerForClientPB.Addr)
 			clientMsg, err = libnet.Connect("tcp", resSelectMsgServerForClientPB.Addr, protobuf, 0)
 			checkErr(err)
 		}
 	}
-	err = clientMsg.Send(&protocol.ReqLogin{
-		Cmd: protocol.ReqLoginCMD,
+	err = clientMsg.Send(&external.ReqLogin{
+		Cmd: external.ReqLoginCMD,
 	})
 	checkErr(err)
 	rsp, err = clientMsg.Receive()
