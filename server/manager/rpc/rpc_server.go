@@ -2,8 +2,8 @@ package rpc
 
 import (
 	"github.com/golang/glog"
+	"github.com/oikomi/FishChatServer2/protocol/rpc"
 	"github.com/oikomi/FishChatServer2/server/manager/conf"
-	"github.com/oikomi/FishChatServer2/server/pb"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"net"
@@ -12,8 +12,8 @@ import (
 type RPCServer struct {
 }
 
-func (s *RPCServer) Login(ctx context.Context, in *pb.LoginReq) (*pb.LoginRes, error) {
-	return &pb.LoginRes{}, nil
+func (s *RPCServer) Login(ctx context.Context, in *rpc.LoginReq) (*rpc.LoginRes, error) {
+	return &rpc.LoginRes{}, nil
 }
 
 func RPCServerInit() {
@@ -24,6 +24,6 @@ func RPCServerInit() {
 		panic(err)
 	}
 	s := grpc.NewServer()
-	pb.RegisterManagerRPCServer(s, &RPCServer{})
+	rpc.RegisterManagerRPCServer(s, &RPCServer{})
 	s.Serve(lis)
 }
