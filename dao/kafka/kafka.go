@@ -194,8 +194,8 @@ func (c *Consumer) dial() (err error) {
 	} else {
 		cfg.Offsets.Initial = sarama.OffsetOldest
 	}
-	cfg.Zookeeper.Chroot = c.c.Zookeeper.Root
-	cfg.Zookeeper.Timeout = time.Duration(c.c.Zookeeper.Timeout)
+	// cfg.Zookeeper.Chroot = c.c.Zookeeper.Root
+	// cfg.Zookeeper.Timeout = time.Duration(c.c.Zookeeper.Timeout)
 	c.ConsumerGroup, err = consumergroup.JoinConsumerGroup(c.c.Group, c.c.Topics, c.c.Zookeeper.Addrs, cfg)
 	return
 }
@@ -207,7 +207,7 @@ func (c *Consumer) redial() {
 			glog.Info("kafka retry new consumer ok")
 			return
 		} else {
-			glog.Error("dial kafka consumer error ", err)
+			glog.Error("dial kafka consumer error: ", err)
 		}
 		time.Sleep(time.Second)
 	}

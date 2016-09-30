@@ -4,19 +4,19 @@ logPath = "/tmp/msg.log"
 
 [kafkaProducer]
 topic = "test"
-[kafka.producer]
+[kafkaProducer.producer]
 sync = false
 brokers = ["127.0.0.1:9092"]
-    [kafka.producer.zookeeper]
+    [kafkaProducer.producer.zookeeper]
     root = "/kafka"
     addrs = ["127.0.0.1:2181"]
     timeout = 2000
 
 [kafkaConsumer]
-group = "archive-videoshot"
-topics = ["reply_v2"]
+group = "test_group"
+topics = ["test"]
 offset = false
-    [kafka.zookeeper]
-    root = "/kafka"
-    addrs = ["172.16.0.148:2181"]
-    timeout = "200ms"
+    [kafkaConsumer.zookeeper]
+    root = "/brokers"
+    addrs = ["127.0.0.1:2181"]
+    timeout = 2000
