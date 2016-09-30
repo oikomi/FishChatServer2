@@ -47,3 +47,18 @@ type Redis struct {
 	WriteTimeout time.Duration
 	IdleTimeout  time.Duration
 }
+
+// KafkaProducer kafka producer settings.
+type KafkaProducer struct {
+	Zookeeper *Zookeeper
+	Brokers   []string
+	Sync      bool // true: sync, false: async
+}
+
+// KafkaConsumer kafka client settings.
+type KafkaConsumer struct {
+	Group     string
+	Topics    []string
+	Offset    bool // true: new, false: old
+	Zookeeper *Zookeeper
+}

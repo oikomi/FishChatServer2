@@ -13,17 +13,15 @@ var SessionBlockedError = errors.New("Session Blocked")
 var globalSessionId uint64
 
 type Session struct {
-	id       uint64
-	codec    Codec
-	manager  *Manager
-	sendChan chan interface{}
-
+	id             uint64
+	codec          Codec
+	manager        *Manager
+	sendChan       chan interface{}
 	closeFlag      int32
 	closeChan      chan int
 	closeMutex     sync.Mutex
 	closeCallbacks *list.List
-
-	State interface{}
+	State          interface{}
 }
 
 func NewSession(codec Codec, sendChanSize int) *Session {
@@ -115,14 +113,12 @@ func (session *Session) addCloseCallback(handler interface{}, callback func()) {
 	if session.IsClosed() {
 		return
 	}
-
 	session.closeMutex.Lock()
 	defer session.closeMutex.Unlock()
 
 	if session.closeCallbacks == nil {
 		session.closeCallbacks = list.New()
 	}
-
 	session.closeCallbacks.PushBack(closeCallback{handler, callback})
 }
 
@@ -130,10 +126,8 @@ func (session *Session) removeCloseCallback(handler interface{}) {
 	if session.IsClosed() {
 		return
 	}
-
 	session.closeMutex.Lock()
 	defer session.closeMutex.Unlock()
-
 	for i := session.closeCallbacks.Front(); i != nil; i = i.Next() {
 		if i.Value.(closeCallback).Handler == handler {
 			session.closeCallbacks.Remove(i)
@@ -145,11 +139,9 @@ func (session *Session) removeCloseCallback(handler interface{}) {
 func (session *Session) invokeCloseCallbacks() {
 	session.closeMutex.Lock()
 	defer session.closeMutex.Unlock()
-
 	if session.closeCallbacks == nil {
 		return
 	}
-
 	for i := session.closeCallbacks.Front(); i != nil; i = i.Next() {
 		callback := i.Value.(closeCallback)
 		callback.Func()

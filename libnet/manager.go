@@ -49,7 +49,6 @@ func (manager *Manager) GetSession(sessionID uint64) *Session {
 	smap := &manager.sessionMaps[sessionID%sessionMapNum]
 	smap.RLock()
 	defer smap.RUnlock()
-
 	session, _ := smap.sessions[sessionID]
 	return session
 }
@@ -58,7 +57,6 @@ func (manager *Manager) putSession(session *Session) {
 	smap := &manager.sessionMaps[session.id%sessionMapNum]
 	smap.Lock()
 	defer smap.Unlock()
-
 	smap.sessions[session.id] = session
 	manager.disposeWait.Add(1)
 }
@@ -68,11 +66,9 @@ func (manager *Manager) delSession(session *Session) {
 		manager.disposeWait.Done()
 		return
 	}
-
 	smap := &manager.sessionMaps[session.id%sessionMapNum]
 	smap.Lock()
 	defer smap.Unlock()
-
 	delete(smap.sessions, session.id)
 	manager.disposeWait.Done()
 }
