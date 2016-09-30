@@ -1,13 +1,13 @@
 package kafka
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"github.com/Shopify/sarama"
 	"github.com/golang/glog"
 	"github.com/oikomi/FishChatServer2/common/conf"
 	"github.com/wvanbergen/kafka/consumergroup"
-	"golang.org/x/net/context"
 	"time"
 )
 
@@ -47,7 +47,10 @@ func NewProducer(c *conf.KafkaProducer) (p *Producer) {
 }
 
 func (p *Producer) syncDial() (err error) {
-	p.SyncProducer, err = sarama.NewSyncProducer(p.c.Brokers, nil)
+	config := sarama.NewConfig()
+	config.Producer.RequiredAcks = sarama.WaitForAll // Wait for all in-sync replicas to ack the message
+	config.Producer.Retry.Max = 10                   // Retry up to 10 times to produce the message
+	p.SyncProducer, err = sarama.NewSyncProducer(p.c.Brokers, config)
 	return
 }
 
@@ -58,14 +61,18 @@ func (p *Producer) reSyncDial() {
 			glog.Info("kafka retry new sync producer ok")
 			return
 		} else {
-			glog.Error("dial kafka producer error(%v)", err)
+			glog.Error("dial kafka producer error: ", err)
 		}
 		time.Sleep(time.Second)
 	}
 }
 
 func (p *Producer) asyncDial() (err error) {
-	if p.AsyncProducer, err = sarama.NewAsyncProducer(p.c.Brokers, nil); err == nil {
+	config := sarama.NewConfig()
+	config.Producer.RequiredAcks = sarama.WaitForLocal       // Only wait for the leader to ack
+	config.Producer.Compression = sarama.CompressionSnappy   // Compress messages
+	config.Producer.Flush.Frequency = 500 * time.Millisecond // Flush batches every 500ms
+	if p.AsyncProducer, err = sarama.NewAsyncProducer(p.c.Brokers, config); err == nil {
 		go p.errproc()
 		go p.successproc()
 	}
@@ -79,17 +86,17 @@ func (p *Producer) reAsyncDial() {
 			glog.Info("kafka retry new async producer ok")
 			return
 		} else {
-			glog.Error("dial kafka producer error(%v)", err)
+			glog.Error("dial kafka producer error: ", err)
 		}
 		time.Sleep(time.Second)
 	}
-	return
 }
 
 // errproc errors when aync producer publish messages.
 // NOTE: Either Errors channel or Successes channel must be read. See the doc of AsyncProducer
 func (p *Producer) errproc() {
 	err := p.Errors()
+	glog.Info(err)
 	for {
 		e, ok := <-err
 		if !ok {
@@ -131,6 +138,7 @@ func (p *Producer) Input(c context.Context, msg *sarama.ProducerMessage) (err er
 			// 	t = t.Fork()
 			// 	t.ClientStart(_module, "async_input", p.env)
 			// }
+			glog.Info(msg)
 			p.AsyncProducer.Input() <- msg
 		}
 	} else {
@@ -142,7 +150,9 @@ func (p *Producer) Input(c context.Context, msg *sarama.ProducerMessage) (err er
 			// 	t.ClientStart(_module, "sync_input", p.env)
 			// 	defer t.ClientReceive()
 			// }
-			_, _, err = p.SyncProducer.SendMessage(msg)
+			if _, _, err = p.SyncProducer.SendMessage(msg); err != nil {
+				glog.Error(err)
+			}
 		}
 	}
 	return
