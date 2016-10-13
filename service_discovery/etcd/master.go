@@ -8,13 +8,14 @@ import (
 	"time"
 )
 
+// Master is a server
 type Master struct {
 	members  map[string]*Member
 	etcCli   *clientv3.Client
 	rootPath string
 }
 
-// Member is a client machine
+// Member is a client
 type Member struct {
 	InGroup bool
 	IP      string
