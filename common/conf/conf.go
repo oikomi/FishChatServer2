@@ -33,7 +33,7 @@ type Etcd struct {
 	Name    string
 	Root    string
 	Addrs   []string
-	Timeout time.Duration
+	Timeout xtime.Duration
 }
 
 type Zookeeper struct {

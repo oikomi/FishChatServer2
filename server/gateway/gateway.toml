@@ -10,7 +10,7 @@ addr = "0.0.0.0:10000"
 [etcd]
 root = "/server/access_server/"
 addrs = ["localhost:2379"]
-timeout = 1000
+timeout = "1s"
 
 [serviceDiscovery]
 role = "master"

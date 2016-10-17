@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"github.com/coreos/etcd/clientv3"
 	"github.com/golang/glog"
+	commconf "github.com/oikomi/FishChatServer2/common/conf"
 	"time"
 )
 
@@ -23,11 +24,11 @@ type Member struct {
 	CPU     int
 }
 
-func NewMaster(rootPath string, endpoints []string) (master *Master, err error) {
+func NewMaster(c *commconf.Etcd) (master *Master, err error) {
 	var etcdClient *clientv3.Client
 	cfg := clientv3.Config{
-		Endpoints:   endpoints,
-		DialTimeout: time.Second,
+		Endpoints:   c.Addrs,
+		DialTimeout: time.Duration(c.Timeout),
 	}
 	if etcdClient, err = clientv3.New(cfg); err != nil {
 		glog.Error("Error: cannot connec to etcd:", err)
@@ -36,7 +37,7 @@ func NewMaster(rootPath string, endpoints []string) (master *Master, err error) 
 	master = &Master{
 		members:  make(map[string]*Member),
 		etcCli:   etcdClient,
-		rootPath: rootPath,
+		rootPath: c.Root,
 	}
 	return
 }
