@@ -46,18 +46,18 @@ func (m *Master) Members() (ms map[string]*Member) {
 	return
 }
 
-func (m *Master) addWorker(info *WorkerInfo) {
+func (m *Master) addWorker(key string, info *WorkerInfo) {
 	member := &Member{
 		InGroup: true,
 		IP:      info.IP,
 		Name:    info.Name,
 		CPU:     info.CPU,
 	}
-	m.members[member.Name] = member
+	m.members[key] = member
 }
 
-func (m *Master) updateWorker(info *WorkerInfo) {
-	member := m.members[info.Name]
+func (m *Master) updateWorker(key string, info *WorkerInfo) {
+	member := m.members[key]
 	member.InGroup = true
 }
 
@@ -65,11 +65,12 @@ func (m *Master) WatchWorkers() {
 	rch := m.etcCli.Watch(context.Background(), m.rootPath, clientv3.WithPrefix())
 	for wresp := range rch {
 		for _, ev := range wresp.Events {
-			//fmt.Printf("%s %q : %q\n", ev.Type, ev.Kv.Key, ev.Kv.Value)
+			glog.Info(ev.Type, string(ev.Kv.Key), string(ev.Kv.Value))
 			if ev.Type.String() == "EXPIRE" {
 				member, ok := m.members[string(ev.Kv.Key)]
 				if ok {
 					member.InGroup = false
+					delete(m.members, string(ev.Kv.Key))
 				}
 			} else if ev.Type.String() == "PUT" {
 				info := &WorkerInfo{}
@@ -77,10 +78,10 @@ func (m *Master) WatchWorkers() {
 				if err != nil {
 					glog.Error(err)
 				}
-				if _, ok := m.members[info.Name]; ok {
-					m.updateWorker(info)
+				if _, ok := m.members[string(ev.Kv.Key)]; ok {
+					m.updateWorker(string(ev.Kv.Key), info)
 				} else {
-					m.addWorker(info)
+					m.addWorker(string(ev.Kv.Key), info)
 				}
 			} else if ev.Type.String() == "DELETE" {
 				delete(m.members, string(ev.Kv.Key))
