@@ -22,7 +22,7 @@ func loadAccessServer(master *etcd.Master) {
 func DoServerDiscovery() {
 	master, err := etcd.NewMaster(conf.Conf.Etcd.Root, conf.Conf.Etcd.Addrs)
 	if err != nil {
-		glog.Error("Error: cannot connec to etcd:", err)
+		glog.Error("Error: cannot connect to etcd:", err)
 		panic(err)
 	}
 	go loadAccessServer(master)
