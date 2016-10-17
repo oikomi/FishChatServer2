@@ -13,9 +13,10 @@ var (
 
 type Config struct {
 	*commconf.CommConf
-	configFile string
-	Server     *commconf.Server
-	Etcd       *commconf.Etcd
+	configFile       string
+	Server           *commconf.Server
+	ServiceDiscovery *commconf.ServiceDiscovery
+	Etcd             *commconf.Etcd
 }
 
 func init() {

@@ -15,7 +15,7 @@ func loadAccessServer(master *etcd.Master) {
 	for {
 		AccessServerList = master.Members()
 		glog.Info(AccessServerList)
-		time.Sleep(time.Second * 5)
+		time.Sleep(time.Duration(conf.Conf.ServiceDiscovery.Interval))
 	}
 }
 

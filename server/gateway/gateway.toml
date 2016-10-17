@@ -11,3 +11,7 @@ addr = "0.0.0.0:10000"
 root = "/server/access_server/"
 addrs = ["localhost:2379"]
 timeout = 1000
+
+[serviceDiscovery]
+role = "master"
+interval = "5s"
