@@ -7,7 +7,11 @@ const (
 	ServerErr ecode = 90001
 
 	//gateway
-	NoMsgServer ecode = 92001
+	NoAccessServer ecode = 92001
+
+	// access_server
+	NoToken ecode = 93001
+
 	// network
 	NoData ecode = 91001
 	//

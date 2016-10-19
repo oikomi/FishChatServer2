@@ -8,6 +8,7 @@ import (
 	"github.com/oikomi/FishChatServer2/protocol/external"
 	"github.com/oikomi/FishChatServer2/server/access_server/client"
 	"github.com/oikomi/FishChatServer2/server/access_server/conf"
+	"github.com/oikomi/FishChatServer2/server/access_server/rpc"
 	"github.com/oikomi/FishChatServer2/service_discovery/etcd"
 )
 
@@ -30,6 +31,7 @@ func (s *Server) sessionLoop(client *client.Client) {
 			baseCMD := &external.Base{}
 			if err = proto.Unmarshal(reqData, baseCMD); err != nil {
 				if err = client.Session.Send(&external.Error{
+					Cmd:     external.ErrServerCMD,
 					ErrCode: ecode.ServerErr.Uint32(),
 					ErrStr:  ecode.ServerErr.String(),
 				}); err != nil {
@@ -45,14 +47,14 @@ func (s *Server) sessionLoop(client *client.Client) {
 	}
 }
 
-func (s *Server) Loop() {
+func (s *Server) Loop(rpcClient *rpc.RPCClient) {
 	for {
 		session, err := s.Server.Accept()
 		if err != nil {
 			glog.Error(err)
 		}
 		glog.Info("a new client ", session.ID())
-		go s.sessionLoop(client.New(session))
+		go s.sessionLoop(client.New(session, rpcClient))
 	}
 }
 
@@ -60,3 +62,38 @@ func (s *Server) SDHeart() {
 	work := etcd.NewWorker(conf.Conf.Etcd.Name, conf.Conf.Server.Addr, conf.Conf.Etcd.Root, conf.Conf.Etcd.Addrs)
 	go work.HeartBeat()
 }
+
+// func (s *Server) rpcSessionLoop(client *client.Client) {
+// 	for {
+// 		reqData, err := client.Session.Receive()
+// 		if err != nil {
+// 			glog.Error(err)
+// 		}
+// 		if reqData != nil {
+// 			baseCMD := &protocol.Base{}
+// 			if err = proto.Unmarshal(reqData, baseCMD); err != nil {
+// 				if err = client.Session.Send(&protocol.Error{
+// 					ErrCode: ecode.ServerErr.Uint32(),
+// 					ErrStr:  ecode.ServerErr.String(),
+// 				}); err != nil {
+// 					glog.Error(err)
+// 				}
+// 				continue
+// 			}
+// 			if err = client.Parse(baseCMD.Cmd, reqData); err != nil {
+// 				glog.Error(err)
+// 				continue
+// 			}
+// 		}
+// 	}
+// }
+
+// func (s *Server) RPCLoop(rpcClient *rpc.RPCClient) {
+// 	for {
+// 		session, err := s.Server.Accept()
+// 		if err != nil {
+// 			glog.Error(err)
+// 		}
+// 		go s.rpcSessionLoop(client.New(session, rpcClient))
+// 	}
+// }

@@ -33,12 +33,15 @@ func clientLoop(session *libnet.Session, protobuf *codec.ProtobufProtocol) {
 	if rsp != nil {
 		baseCMD := &external.Base{}
 		if err = proto.Unmarshal(rsp, baseCMD); err != nil {
-
+			glog.Error(err)
 		}
 		switch baseCMD.Cmd {
 		case external.ResSelectAccessServerForClientCMD:
 			resSelectMsgServerForClientPB := &external.ResSelectAccessServerForClient{}
-			proto.Unmarshal(rsp, resSelectMsgServerForClientPB)
+			if err = proto.Unmarshal(rsp, resSelectMsgServerForClientPB); err != nil {
+				glog.Error(err)
+			}
+			glog.Info(resSelectMsgServerForClientPB)
 			glog.Info(resSelectMsgServerForClientPB.Addr)
 			clientMsg, err = libnet.Connect("tcp", resSelectMsgServerForClientPB.Addr, protobuf, 0)
 			checkErr(err)

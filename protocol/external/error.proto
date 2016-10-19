@@ -3,6 +3,7 @@ syntax = "proto3";
 package external;
 
 message Error {
-    uint32 errCode = 1;
-    string errStr = 2;
+    uint32 cmd     = 1;
+    uint32 errCode = 2;
+    string errStr  = 3;
 }

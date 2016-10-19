@@ -31,6 +31,7 @@ func (s *Server) sessionLoop(client *client.Client) {
 			baseCMD := &external.Base{}
 			if err = proto.Unmarshal(reqData, baseCMD); err != nil {
 				if err = client.Session.Send(&external.Error{
+					Cmd:     external.ErrServerCMD,
 					ErrCode: ecode.ServerErr.Uint32(),
 					ErrStr:  ecode.ServerErr.String(),
 				}); err != nil {

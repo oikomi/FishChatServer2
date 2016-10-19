@@ -6,6 +6,7 @@ import (
 	"github.com/oikomi/FishChatServer2/codec"
 	"github.com/oikomi/FishChatServer2/libnet"
 	"github.com/oikomi/FishChatServer2/server/access_server/conf"
+	"github.com/oikomi/FishChatServer2/server/access_server/rpc"
 	"github.com/oikomi/FishChatServer2/server/access_server/server"
 )
 
@@ -28,5 +29,10 @@ func main() {
 		panic(err)
 	}
 	accessServer.SDHeart()
-	accessServer.Loop()
+	rpcClient, err := rpc.NewRPCClient()
+	if err != nil {
+		glog.Error(err)
+		panic(err)
+	}
+	accessServer.Loop(rpcClient)
 }

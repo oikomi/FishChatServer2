@@ -3,11 +3,11 @@ package main
 import (
 	"flag"
 	"github.com/golang/glog"
-	"github.com/oikomi/FishChatServer2/codec"
-	"github.com/oikomi/FishChatServer2/libnet"
+	// "github.com/oikomi/FishChatServer2/codec"
+	// "github.com/oikomi/FishChatServer2/libnet"
 	"github.com/oikomi/FishChatServer2/server/msg_server/conf"
 	"github.com/oikomi/FishChatServer2/server/msg_server/rpc"
-	"github.com/oikomi/FishChatServer2/server/msg_server/server"
+	// "github.com/oikomi/FishChatServer2/server/msg_server/server"
 )
 
 func init() {
@@ -22,17 +22,18 @@ func main() {
 		glog.Error("conf.Init() error: ", err)
 		panic(err)
 	}
-	msgServer := server.New()
-	protobuf := codec.Protobuf()
-	msgServer.Server, err = libnet.Serve(conf.Conf.Server.Proto, conf.Conf.Server.Addr, protobuf, 0)
-	if err != nil {
-		glog.Error(err)
-		panic(err)
-	}
-	rpcClient, err := rpc.NewRPCClient()
-	if err != nil {
-		glog.Error(err)
-		panic(err)
-	}
-	msgServer.Loop(rpcClient)
+	// msgServer := server.New()
+	// protobuf := codec.Protobuf()
+	// msgServer.Server, err = libnet.Serve(conf.Conf.Server.Proto, conf.Conf.Server.Addr, protobuf, 0)
+	// if err != nil {
+	// 	glog.Error(err)
+	// 	panic(err)
+	// }
+	// rpcClient, err := rpc.NewRPCClient()
+	// if err != nil {
+	// 	glog.Error(err)
+	// 	panic(err)
+	// }
+	rpc.RPCServerInit()
+	// msgServer.Loop(rpcClient)
 }

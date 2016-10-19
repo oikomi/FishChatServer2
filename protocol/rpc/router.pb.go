@@ -26,7 +26,7 @@ type SendMsgP2PReq struct {
 func (m *SendMsgP2PReq) Reset()                    { *m = SendMsgP2PReq{} }
 func (m *SendMsgP2PReq) String() string            { return proto.CompactTextString(m) }
 func (*SendMsgP2PReq) ProtoMessage()               {}
-func (*SendMsgP2PReq) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{0} }
+func (*SendMsgP2PReq) Descriptor() ([]byte, []int) { return fileDescriptor2, []int{0} }
 
 type SendMsgP2PRes struct {
 	ErrCode uint32 `protobuf:"varint,1,opt,name=errCode" json:"errCode,omitempty"`
@@ -36,7 +36,7 @@ type SendMsgP2PRes struct {
 func (m *SendMsgP2PRes) Reset()                    { *m = SendMsgP2PRes{} }
 func (m *SendMsgP2PRes) String() string            { return proto.CompactTextString(m) }
 func (*SendMsgP2PRes) ProtoMessage()               {}
-func (*SendMsgP2PRes) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{1} }
+func (*SendMsgP2PRes) Descriptor() ([]byte, []int) { return fileDescriptor2, []int{1} }
 
 func init() {
 	proto.RegisterType((*SendMsgP2PReq)(nil), "rpc.SendMsgP2PReq")
@@ -112,12 +112,12 @@ var _RouterRPC_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: fileDescriptor1,
+	Metadata: fileDescriptor2,
 }
 
-func init() { proto.RegisterFile("router.proto", fileDescriptor1) }
+func init() { proto.RegisterFile("router.proto", fileDescriptor2) }
 
-var fileDescriptor1 = []byte{
+var fileDescriptor2 = []byte{
 	// 170 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0xe2, 0xe2, 0x29, 0xca, 0x2f, 0x2d,
 	0x49, 0x2d, 0xd2, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0x62, 0x2e, 0x2a, 0x48, 0x56, 0xb2, 0xe7,

@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package rpc;
+
+service MsgServerRPC {
+    rpc Login (LoginReq) returns (LoginRes) {}
+}
+
+message LoginReq {
+    int64  UID    = 1;
+    string token  = 2;
+}
+
+message LoginRes {
+    uint32 errCode = 1;
+    string errStr  = 2;
+}

@@ -41,7 +41,10 @@ var (
 		ServerErr: "server error", // 服务器错误
 
 		// gateway
-		NoMsgServer: "no msgServer",
+		NoAccessServer: "no accessServer",
+
+		// accessServer
+		NoToken: "no token",
 
 		// network
 		NoData: "no data found",

@@ -11,20 +11,19 @@ var (
 	AccessServerList map[string]*etcd.Member
 )
 
-func loadAccessServer(master *etcd.Master) {
+func loadAccessServerProc(master *etcd.Master) {
 	for {
 		AccessServerList = master.Members()
-		glog.Info(AccessServerList)
 		time.Sleep(time.Duration(conf.Conf.ServiceDiscovery.Interval))
 	}
 }
 
-func DoServerDiscovery() {
+func ServerDiscoveryProc() {
 	master, err := etcd.NewMaster(conf.Conf.Etcd)
 	if err != nil {
 		glog.Error("Error: cannot connect to etcd:", err)
 		panic(err)
 	}
-	go loadAccessServer(master)
+	go loadAccessServerProc(master)
 	master.WatchWorkers()
 }

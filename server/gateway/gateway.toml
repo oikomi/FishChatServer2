@@ -7,11 +7,12 @@ logPath = "/tmp/gateway.log"
 proto = "tcp"
 addr = "0.0.0.0:10000"
 
+[serviceDiscovery]
+role = "master"
+interval = "5s"
+
 [etcd]
 root = "/server/access_server/"
 addrs = ["localhost:2379"]
 timeout = "1s"
 
-[serviceDiscovery]
-role = "master"
-interval = "5s"

@@ -2,7 +2,7 @@ package external
 
 const (
 	// error
-	ErrServer = 90001
+	ErrServerCMD = 90001
 
 	// gateway
 	ReqAccessServerCMD                = 10001

@@ -15,7 +15,12 @@ type Config struct {
 	*commconf.CommConf
 	configFile string
 	Server     *commconf.Server
+	RPCClient  *RPCClient
 	Etcd       *commconf.Etcd
+}
+
+type RPCClient struct {
+	MsgServerClient *commconf.RPCClient
 }
 
 func init() {

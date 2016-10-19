@@ -21,7 +21,7 @@ addr = "127.0.0.1:22000"
 name = "msg_server_0001"
 root = "/server/msg_server/"
 addrs = ["localhost:2379"]
-timeout = 1000
+timeout = "1s"
 
 [zookeeper]
 root = "/server/msg_server/"
