@@ -4,6 +4,7 @@ package rpc;
 
 service MsgServerRPC {
     rpc Login (LoginReq) returns (LoginRes) {}
+    rpc SendP2PMsg (SendP2PMsgReq) returns (SendP2PMsgRes) {}
 }
 
 message LoginReq {
@@ -15,3 +16,15 @@ message LoginRes {
     uint32 errCode = 1;
     string errStr  = 2;
 }
+
+message SendP2PMsgReq {
+    int64  UID       = 1;
+    int64  targetUID = 2;
+    string msg       = 3;
+}
+
+message SendP2PMsgRes {
+    uint32 errCode = 1;
+    string errStr  = 2;
+}
+

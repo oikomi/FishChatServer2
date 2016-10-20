@@ -28,7 +28,14 @@ func (msgServerRPCCli *MsgServerRPCCli) Login(loginReq *rpc.LoginReq) (res *rpc.
 	m := rpc.NewMsgServerRPCClient(msgServerRPCCli.conn)
 	if res, err = m.Login(context.Background(), loginReq); err != nil {
 		glog.Error(err)
-		return
+	}
+	return
+}
+
+func (msgServerRPCCli *MsgServerRPCCli) SendP2PMsg(sendP2PMsgReq *rpc.SendP2PMsgReq) (res *rpc.SendP2PMsgRes, err error) {
+	m := rpc.NewMsgServerRPCClient(msgServerRPCCli.conn)
+	if res, err = m.SendP2PMsg(context.Background(), sendP2PMsgReq); err != nil {
+		glog.Error(err)
 	}
 	return
 }

@@ -13,8 +13,8 @@ It is generated from these files:
 It has these top-level messages:
 	LoginReq
 	LoginRes
-	SendMsgP2PReq
-	SendMsgP2PRes
+	SendP2PMsgReq
+	SendP2PMsgRes
 */
 package rpc
 

@@ -43,26 +43,6 @@ func (c *Client) procReqLogin(reqData []byte) (err error) {
 	}); err != nil {
 		glog.Error(err)
 	}
-
-	// // FIXME
-	// if reqLogin.Token == "" || reqLogin.UID < 0 {
-	// 	if err = c.Session.Send(&external.ResLogin{
-	// 		Cmd:     external.ReqLoginCMD,
-	// 		ErrCode: ecode.NoToken.Uint32(),
-	// 		ErrStr:  ecode.NoToken.String(),
-	// 	}); err != nil {
-	// 		glog.Error(err)
-	// 	}
-	// 	return
-	// }
-	// // success
-	// if err = c.Session.Send(&external.ResLogin{
-	// 	Cmd:     external.ResSelectAccessServerForClientCMD,
-	// 	ErrCode: ecode.OK.Uint32(),
-	// 	ErrStr:  ecode.OK.String(),
-	// }); err != nil {
-	// 	glog.Error(err)
-	// }
 	return
 }
 

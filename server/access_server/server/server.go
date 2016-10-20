@@ -62,38 +62,3 @@ func (s *Server) SDHeart() {
 	work := etcd.NewWorker(conf.Conf.Etcd.Name, conf.Conf.Server.Addr, conf.Conf.Etcd.Root, conf.Conf.Etcd.Addrs)
 	go work.HeartBeat()
 }
-
-// func (s *Server) rpcSessionLoop(client *client.Client) {
-// 	for {
-// 		reqData, err := client.Session.Receive()
-// 		if err != nil {
-// 			glog.Error(err)
-// 		}
-// 		if reqData != nil {
-// 			baseCMD := &protocol.Base{}
-// 			if err = proto.Unmarshal(reqData, baseCMD); err != nil {
-// 				if err = client.Session.Send(&protocol.Error{
-// 					ErrCode: ecode.ServerErr.Uint32(),
-// 					ErrStr:  ecode.ServerErr.String(),
-// 				}); err != nil {
-// 					glog.Error(err)
-// 				}
-// 				continue
-// 			}
-// 			if err = client.Parse(baseCMD.Cmd, reqData); err != nil {
-// 				glog.Error(err)
-// 				continue
-// 			}
-// 		}
-// 	}
-// }
-
-// func (s *Server) RPCLoop(rpcClient *rpc.RPCClient) {
-// 	for {
-// 		session, err := s.Server.Accept()
-// 		if err != nil {
-// 			glog.Error(err)
-// 		}
-// 		go s.rpcSessionLoop(client.New(session, rpcClient))
-// 	}
-// }
