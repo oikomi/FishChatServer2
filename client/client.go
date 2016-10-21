@@ -54,6 +54,17 @@ func clientLoop(session *libnet.Session, protobuf *codec.ProtobufProtocol) {
 	rsp, err = clientMsg.Receive()
 	checkErr(err)
 	glog.Info(string(rsp))
+
+	err = clientMsg.Send(&external.ReqSendP2PMsg{
+		Cmd:       external.ReqSendP2PMsgCMD,
+		UID:       123,
+		TargetUID: 321,
+		Msg:       "hello",
+	})
+	checkErr(err)
+	rsp, err = clientMsg.Receive()
+	checkErr(err)
+	glog.Info(string(rsp))
 }
 
 func main() {

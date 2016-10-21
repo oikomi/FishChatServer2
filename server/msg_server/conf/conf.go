@@ -13,12 +13,18 @@ var (
 
 type Config struct {
 	*commconf.CommConf
-	configFile string
-	Server     *commconf.Server
-	RPCServer  *commconf.RPCServer
-	RPCClient  *RPCClient
-	Etcd       *commconf.Etcd
-	Zookeeper  *commconf.Zookeeper
+	configFile    string
+	Server        *commconf.Server
+	RPCServer     *commconf.RPCServer
+	RPCClient     *RPCClient
+	Etcd          *commconf.Etcd
+	KafkaProducer *KafkaProducer
+	Zookeeper     *commconf.Zookeeper
+}
+
+type KafkaProducer struct {
+	Topic    string
+	Producer *commconf.KafkaProducer
 }
 
 type RPCClient struct {

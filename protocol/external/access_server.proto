@@ -35,8 +35,9 @@ message ResLogout {
 message ReqSendP2PMsg {
     uint32 cmd       = 1;
     string cmdStr    = 2;
-    int64  targetUID = 3;
-    string msg       = 4;
+    int64  UID       = 3;
+    int64  targetUID = 4;
+    string msg       = 5;
 }
 
 message ResSendP2PMsg {
