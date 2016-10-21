@@ -22,18 +22,5 @@ func main() {
 		glog.Error("conf.Init() error: ", err)
 		panic(err)
 	}
-	// msgServer := server.New()
-	// protobuf := codec.Protobuf()
-	// msgServer.Server, err = libnet.Serve(conf.Conf.Server.Proto, conf.Conf.Server.Addr, protobuf, 0)
-	// if err != nil {
-	// 	glog.Error(err)
-	// 	panic(err)
-	// }
-	// rpcClient, err := rpc.NewRPCClient()
-	// if err != nil {
-	// 	glog.Error(err)
-	// 	panic(err)
-	// }
 	rpc.RPCServerInit()
-	// msgServer.Loop(rpcClient)
 }

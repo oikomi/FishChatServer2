@@ -31,7 +31,7 @@ func (s *RPCServer) Login(ctx context.Context, in *rpc.LoginReq) (res *rpc.Login
 	return
 }
 
-func (s *RPCServer) SendP2PMsg(ctx context.Context, in *rpc.SendMsgP2PReq) (res *rpc.SendMsgP2PRes, err error) {
+func (s *RPCServer) SendP2PMsg(ctx context.Context, in *rpc.SendP2PMsgReq) (res *rpc.SendP2PMsgRes, err error) {
 	glog.Info("msg_server recive SendP2PMsg")
 
 	return

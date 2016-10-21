@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+package rpc;
+
+service AccessServerRPC {
+}
+
+

@@ -7,6 +7,10 @@ logPath = "/tmp/access_server.log"
 proto = "tcp"
 addr = "0.0.0.0:11000"
 
+[rpcServer]
+proto = "tcp"
+addr = "127.0.0.1:21000"
+
 [rpcClient]
     [rpcClient.msgServerClient]
     addr = "127.0.0.1:22000"

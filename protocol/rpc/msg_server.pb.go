@@ -26,7 +26,7 @@ type LoginReq struct {
 func (m *LoginReq) Reset()                    { *m = LoginReq{} }
 func (m *LoginReq) String() string            { return proto.CompactTextString(m) }
 func (*LoginReq) ProtoMessage()               {}
-func (*LoginReq) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{0} }
+func (*LoginReq) Descriptor() ([]byte, []int) { return fileDescriptor2, []int{0} }
 
 type LoginRes struct {
 	ErrCode uint32 `protobuf:"varint,1,opt,name=errCode" json:"errCode,omitempty"`
@@ -36,7 +36,7 @@ type LoginRes struct {
 func (m *LoginRes) Reset()                    { *m = LoginRes{} }
 func (m *LoginRes) String() string            { return proto.CompactTextString(m) }
 func (*LoginRes) ProtoMessage()               {}
-func (*LoginRes) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{1} }
+func (*LoginRes) Descriptor() ([]byte, []int) { return fileDescriptor2, []int{1} }
 
 type SendP2PMsgReq struct {
 	UID       int64  `protobuf:"varint,1,opt,name=UID" json:"UID,omitempty"`
@@ -47,7 +47,7 @@ type SendP2PMsgReq struct {
 func (m *SendP2PMsgReq) Reset()                    { *m = SendP2PMsgReq{} }
 func (m *SendP2PMsgReq) String() string            { return proto.CompactTextString(m) }
 func (*SendP2PMsgReq) ProtoMessage()               {}
-func (*SendP2PMsgReq) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{2} }
+func (*SendP2PMsgReq) Descriptor() ([]byte, []int) { return fileDescriptor2, []int{2} }
 
 type SendP2PMsgRes struct {
 	ErrCode uint32 `protobuf:"varint,1,opt,name=errCode" json:"errCode,omitempty"`
@@ -57,7 +57,7 @@ type SendP2PMsgRes struct {
 func (m *SendP2PMsgRes) Reset()                    { *m = SendP2PMsgRes{} }
 func (m *SendP2PMsgRes) String() string            { return proto.CompactTextString(m) }
 func (*SendP2PMsgRes) ProtoMessage()               {}
-func (*SendP2PMsgRes) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{3} }
+func (*SendP2PMsgRes) Descriptor() ([]byte, []int) { return fileDescriptor2, []int{3} }
 
 func init() {
 	proto.RegisterType((*LoginReq)(nil), "rpc.LoginReq")
@@ -168,12 +168,12 @@ var _MsgServerRPC_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: fileDescriptor1,
+	Metadata: fileDescriptor2,
 }
 
-func init() { proto.RegisterFile("msg_server.proto", fileDescriptor1) }
+func init() { proto.RegisterFile("msg_server.proto", fileDescriptor2) }
 
-var fileDescriptor1 = []byte{
+var fileDescriptor2 = []byte{
 	// 236 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0x9c, 0x91, 0x41, 0x4b, 0x03, 0x31,
 	0x10, 0x85, 0xbb, 0x0d, 0xad, 0x76, 0x70, 0xa1, 0x0c, 0x22, 0xa1, 0x78, 0x28, 0xb9, 0xd8, 0xd3,
