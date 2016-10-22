@@ -13,17 +13,11 @@ var (
 
 type Config struct {
 	*commconf.CommConf
-	RPCClient     *RPCClient
 	KafkaConsumer *commconf.KafkaConsumer
-	Etcd          *commconf.Etcd
-}
-
-type RPCClient struct {
-	AccessServerClient *commconf.RPCClient
 }
 
 func init() {
-	flag.StringVar(&confPath, "conf", "./msg_job.toml", "config path")
+	flag.StringVar(&confPath, "conf", "./es_job.toml", "config path")
 }
 
 func Init() (err error) {

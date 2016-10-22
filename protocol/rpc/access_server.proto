@@ -3,6 +3,17 @@ syntax = "proto3";
 package rpc;
 
 service AccessServerRPC {
+    rpc SendP2PMsg (ASSendP2PMsgReq) returns (ASSendP2PMsgRes) {}
 }
 
 
+message ASSendP2PMsgReq {
+    int64  UID       = 1;
+    int64  targetUID = 2;
+    string msg       = 3;
+}
+
+message ASSendP2PMsgRes {
+    uint32 errCode = 1;
+    string errStr  = 2;
+}

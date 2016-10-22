@@ -2,6 +2,11 @@
 ver = "1.0.0"
 logPath = "/tmp/msg-job.log"
 
+[rpcClient]
+    [rpcClient.accessServerClient]
+    addr = "127.0.0.1:21000"
+
+
 [kafkaConsumer]
 group = "msg-job"
 topics = ["msg_server_producer"]
