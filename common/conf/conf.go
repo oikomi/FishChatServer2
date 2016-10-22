@@ -39,7 +39,7 @@ type Etcd struct {
 type Zookeeper struct {
 	Root    string
 	Addrs   []string
-	Timeout time.Duration
+	Timeout xtime.Duration
 }
 
 type Redis struct {

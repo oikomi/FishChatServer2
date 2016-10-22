@@ -58,6 +58,7 @@ func (c *Client) procSendP2PMsg(reqData []byte) (err error) {
 		}); err != nil {
 			glog.Error(err)
 		}
+		glog.Error(err)
 		return
 	}
 	reqSendP2PMsgRPC := &rpc.SendP2PMsgReq{
