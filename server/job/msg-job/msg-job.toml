@@ -11,7 +11,6 @@ offset = true
     addrs = ["127.0.0.1:2181"]
     timeout = "1s"
 
-
 [etcd]
 name = "msg-job"
 root = "/server/msg-job/"
