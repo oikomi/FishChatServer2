@@ -31,9 +31,9 @@ brokers = ["127.0.0.1:9092"]
     [kafkaProducer.producer.zookeeper]
     root = "/kafka"
     addrs = ["127.0.0.1:2181"]
-    timeout = 2000
+    timeout = "2s"
 
 [zookeeper]
 root = "/server/msg_server/"
 addrs = ["127.0.0.1:2181"]
-timeout = 1000
+timeout = "1s"

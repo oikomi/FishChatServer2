@@ -48,6 +48,7 @@ func (s *Server) sessionLoop(client *client.Client) {
 }
 
 func (s *Server) Loop() {
+	glog.Info("loop")
 	for {
 		session, err := s.Server.Accept()
 		if err != nil {
