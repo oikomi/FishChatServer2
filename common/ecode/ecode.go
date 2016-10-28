@@ -44,7 +44,8 @@ var (
 		NoAccessServer: "no accessServer",
 
 		// accessServer
-		NoToken: "no token",
+		NoToken:         "no token",
+		CalcTokenFailed: "calc token failed",
 
 		// network
 		NoData: "no data found",

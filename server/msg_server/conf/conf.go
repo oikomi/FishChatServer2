@@ -28,7 +28,7 @@ type KafkaProducer struct {
 }
 
 type RPCClient struct {
-	ManagerClient *commconf.RPCClient
+	AuthClient *commconf.RPCClient
 }
 
 func init() {

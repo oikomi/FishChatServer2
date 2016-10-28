@@ -14,8 +14,14 @@ var (
 type Config struct {
 	*commconf.CommConf
 	configFile string
+	Auth       *Auth
 	RPCServer  *commconf.RPCServer
 	Etcd       *commconf.Etcd
+}
+
+type Auth struct {
+	Encryption string
+	Salt       string
 }
 
 func init() {

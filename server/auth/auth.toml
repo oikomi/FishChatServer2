@@ -3,6 +3,10 @@
 ver = "1.0.0"
 logPath = "/tmp/auth.log"
 
+[auth]
+encryption ＝ "md5"
+salt = "!0h#?123(ABM"
+
 [rpcServer]
 proto = "tcp"
 addr = "127.0.0.1:30000"
