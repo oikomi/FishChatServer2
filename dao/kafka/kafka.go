@@ -134,22 +134,12 @@ func (p *Producer) Input(c context.Context, msg *sarama.ProducerMessage) (err er
 			err = ErrProducer
 		} else {
 			msg.Metadata = c
-			// if t, ok := trace.FromContext(c); ok {
-			// 	t = t.Fork()
-			// 	t.ClientStart(_module, "async_input", p.env)
-			// }
-			// glog.Info(msg)
 			p.AsyncProducer.Input() <- msg
 		}
 	} else {
 		if p.SyncProducer == nil {
 			err = ErrProducer
 		} else {
-			// if t, ok := trace.FromContext(c); ok {
-			// 	t = t.Fork()
-			// 	t.ClientStart(_module, "sync_input", p.env)
-			// 	defer t.ClientReceive()
-			// }
 			if _, _, err = p.SyncProducer.SendMessage(msg); err != nil {
 				glog.Error(err)
 			}
