@@ -1,0 +1,14 @@
+# auth conf
+
+ver = "1.0.0"
+logPath = "/tmp/auth.log"
+
+[rpcServer]
+proto = "tcp"
+addr = "127.0.0.1:30000"
+
+[etcd]
+name = "auth_0001"
+root = "/server/auth/"
+addrs = ["127.0.0.1:2379"]
+timeout = "1s"

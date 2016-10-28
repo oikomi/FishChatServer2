@@ -10,6 +10,30 @@ type CommConf struct {
 	LogPath string
 }
 
+// =================================== HTTP ==================================
+// HTTPServer http server settings.
+type HTTPServer struct {
+	Addrs        []string
+	MaxListen    int32
+	ReadTimeout  xtime.Duration
+	WriteTimeout xtime.Duration
+}
+
+// HTTPClient http client settings.
+type HTTPClient struct {
+	Dial      xtime.Duration
+	Timeout   xtime.Duration
+	KeepAlive xtime.Duration
+	Timer     int
+}
+
+// MultiHttp outer/inner/local http server settings.
+type MultiHTTP struct {
+	Outer *HTTPServer
+	Inner *HTTPServer
+	Local *HTTPServer
+}
+
 type Server struct {
 	Proto string
 	Addr  string

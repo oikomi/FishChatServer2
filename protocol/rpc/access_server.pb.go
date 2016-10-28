@@ -7,6 +7,7 @@ Package rpc is a generated protocol buffer package.
 
 It is generated from these files:
 	access_server.proto
+	auth.proto
 	manager.proto
 	msg_server.proto
 	router.proto
@@ -14,6 +15,8 @@ It is generated from these files:
 It has these top-level messages:
 	ASSendP2PMsgReq
 	ASSendP2PMsgRes
+	AuthLoginReq
+	AuthLoginRes
 	LoginReq
 	LoginRes
 	SendP2PMsgReq
