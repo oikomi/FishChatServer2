@@ -10,6 +10,7 @@ It is generated from these files:
 	auth.proto
 	manager.proto
 	msg_server.proto
+	register.proto
 	router.proto
 
 It has these top-level messages:

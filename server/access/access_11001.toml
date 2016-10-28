@@ -1,0 +1,22 @@
+# gateway conf
+
+ver = "1.0.0"
+logPath = "/tmp/access_server.log"
+
+[server]
+proto = "tcp"
+addr = "0.0.0.0:11001"
+
+[rpcServer]
+proto = "tcp"
+addr = "127.0.0.1:21001"
+
+[rpcClient]
+    [rpcClient.msgServerClient]
+    addr = "127.0.0.1:22000"
+
+[etcd]
+name = "access_server_11001"
+root = "/server/access_server/"
+addrs = ["localhost:2379"]
+timeout = "1s"

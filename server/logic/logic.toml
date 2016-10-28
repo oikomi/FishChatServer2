@@ -1,0 +1,37 @@
+# msg_server conf
+
+ver = "1.0.0"
+logPath = "/tmp/msg_server.log"
+
+[server]
+proto = "tcp"
+addr = "127.0.0.1:12000"
+
+[rpcServer]
+proto = "tcp"
+addr = "127.0.0.1:22000"
+
+[rpcClient]
+    [rpcClient.authClient]
+    addr = "127.0.0.1:30000"
+
+[etcd]
+name = "msg_server_0001"
+root = "/server/msg_server/"
+addrs = ["localhost:2379"]
+timeout = "1s"
+
+[kafkaProducer]
+topic = "msg_server_producer"
+[kafkaProducer.producer]
+sync = false
+brokers = ["127.0.0.1:9092"]
+    [kafkaProducer.producer.zookeeper]
+    root = "/kafka"
+    addrs = ["127.0.0.1:2181"]
+    timeout = "2s"
+
+[zookeeper]
+root = "/server/msg_server/"
+addrs = ["127.0.0.1:2181"]
+timeout = "1s"
