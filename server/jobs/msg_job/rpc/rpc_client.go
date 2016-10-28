@@ -2,21 +2,21 @@ package rpc
 
 import (
 	"github.com/golang/glog"
-	"github.com/oikomi/FishChatServer2/server/jobs/msg_job/client"
+	"github.com/oikomi/FishChatServer2/server/jobs/msg_job/rpc/client"
 )
 
 type RPCClient struct {
-	MsgServer *client.MsgServerRPCCli
+	AccessServer *client.AccessServerRPCCli
 }
 
 func NewRPCClient() (c *RPCClient, err error) {
-	msgServer, err := client.NewMsgServerRPCCli()
+	accessServer, err := client.NewAccessServerRPCCli()
 	if err != nil {
 		glog.Error(err)
 		return
 	}
 	c = &RPCClient{
-		MsgServer: msgServer,
+		AccessServer: accessServer,
 	}
 	return
 }

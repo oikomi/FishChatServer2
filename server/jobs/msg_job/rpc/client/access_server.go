@@ -3,7 +3,7 @@ package client
 import (
 	"github.com/golang/glog"
 	"github.com/oikomi/FishChatServer2/protocol/rpc"
-	"github.com/oikomi/FishChatServer2/server/access_server/conf"
+	"github.com/oikomi/FishChatServer2/server/jobs/msg_job/conf"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 )
@@ -13,7 +13,7 @@ type AccessServerRPCCli struct {
 }
 
 func NewAccessServerRPCCli() (accessServerRPCCli *AccessServerRPCCli, err error) {
-	conn, err := grpc.Dial(conf.Conf.RPCClient.MsgServerClient.Addr, grpc.WithInsecure())
+	conn, err := grpc.Dial(conf.Conf.RPCClient.AccessServerClient.Addr, grpc.WithInsecure())
 	if err != nil {
 		glog.Error(err)
 		return

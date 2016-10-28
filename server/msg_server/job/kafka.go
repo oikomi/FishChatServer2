@@ -65,6 +65,7 @@ func (kp *KafkaProducer) Process() {
 				glog.Error(err)
 				return
 			}
+			glog.Info("send to kafka : ", string(vBytes))
 			if err := kp.producer.Input(context.Background(), &sarama.ProducerMessage{
 				Topic: conf.Conf.KafkaProducer.Topic,
 				Key:   sarama.StringEncoder(model.SendP2PMsgKey),

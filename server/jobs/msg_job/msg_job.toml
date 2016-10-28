@@ -14,7 +14,7 @@ offset = true
     [kafkaConsumer.zookeeper]
     root = "/brokers"
     addrs = ["127.0.0.1:2181"]
-    timeout = "1s"
+    timeout = "5s"
 
 [etcd]
 name = "msg-job"

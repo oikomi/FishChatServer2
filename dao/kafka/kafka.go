@@ -138,7 +138,7 @@ func (p *Producer) Input(c context.Context, msg *sarama.ProducerMessage) (err er
 			// 	t = t.Fork()
 			// 	t.ClientStart(_module, "async_input", p.env)
 			// }
-			glog.Info(msg)
+			// glog.Info(msg)
 			p.AsyncProducer.Input() <- msg
 		}
 	} else {
@@ -182,6 +182,7 @@ func NewConsumer(c *conf.KafkaConsumer) (kc *Consumer) {
 		c: c,
 	}
 	if err = kc.dial(); err != nil {
+		glog.Info("redial zk: ", err)
 		go kc.redial()
 	}
 	return

@@ -5,6 +5,7 @@ import (
 	"github.com/golang/glog"
 	"github.com/oikomi/FishChatServer2/dao/kafka"
 	"github.com/oikomi/FishChatServer2/server/jobs/msg_job/conf"
+	"github.com/oikomi/FishChatServer2/server/jobs/msg_job/rpc"
 	"sync"
 	"time"
 )
@@ -20,21 +21,28 @@ type action struct {
 }
 
 type Service struct {
-	c        *conf.Config
-	waiter   *sync.WaitGroup
-	consumer *kafka.Consumer
+	c         *conf.Config
+	waiter    *sync.WaitGroup
+	consumer  *kafka.Consumer
+	rpcClient *rpc.RPCClient
 }
 
 func New(c *conf.Config) (s *Service) {
+	rpcClient, err := rpc.NewRPCClient()
+	if err != nil {
+		glog.Error(err)
+		return
+	}
 	s = &Service{
-		c:        c,
-		waiter:   new(sync.WaitGroup),
-		consumer: kafka.NewConsumer(c.KafkaConsumer),
+		c:         c,
+		waiter:    new(sync.WaitGroup),
+		consumer:  kafka.NewConsumer(c.KafkaConsumer),
+		rpcClient: rpcClient,
 	}
 	for s.consumer.ConsumerGroup == nil {
 		time.Sleep(time.Second)
 	}
-	for i := 0; i < 8; i++ {
+	for i := 0; i < 1; i++ {
 		glog.Info("start proc")
 		go s.consumeproc()
 	}
@@ -46,11 +54,13 @@ func (s *Service) consumeproc() {
 	s.waiter.Add(1)
 	defer s.waiter.Done()
 	for {
+		glog.Info("start consume...")
 		msg, ok := <-s.consumer.ConsumerGroup.Messages()
 		if !ok {
-			glog.Info("consumeproc exit")
+			glog.Error("consumeproc exit")
 			return
 		}
+		glog.Info(string(msg.Value))
 		if msg.Topic != s.c.KafkaConsumer.Topics[0] {
 			continue
 		}
@@ -87,7 +97,6 @@ func (s *Service) errproc() {
 			return
 		}
 		glog.Error(err)
-		// glog.Error("topic(%s) partition(%d) error(%v)", err.Topic, err.Partition, err.Err)
 	}
 }
 

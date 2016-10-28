@@ -66,7 +66,7 @@ func (c *Client) procSendP2PMsg(reqData []byte) (err error) {
 		TargetUID: reqSendP2PMsg.TargetUID,
 		Msg:       reqSendP2PMsg.Msg,
 	}
-	_, err = c.RPCClient.MsgServer.SendP2PMsg(reqSendP2PMsgRPC)
+	resSendP2PMsgRPC, err := c.RPCClient.MsgServer.SendP2PMsg(reqSendP2PMsgRPC)
 	if err != nil {
 		if err = c.Session.Send(&external.Error{
 			Cmd:     external.ErrServerCMD,
@@ -77,6 +77,13 @@ func (c *Client) procSendP2PMsg(reqData []byte) (err error) {
 		}
 		glog.Error(err)
 		return
+	}
+	if err = c.Session.Send(&external.Error{
+		Cmd:     external.ReqSendP2PMsgCMD,
+		ErrCode: resSendP2PMsgRPC.ErrCode,
+		ErrStr:  resSendP2PMsgRPC.ErrStr,
+	}); err != nil {
+		glog.Error(err)
 	}
 	return
 }
