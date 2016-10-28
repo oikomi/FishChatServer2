@@ -2,7 +2,7 @@ package conf
 
 import (
 	"github.com/oikomi/FishChatServer2/common/xtime"
-	"time"
+	// "time"
 )
 
 type CommConf struct {
@@ -66,16 +66,17 @@ type Zookeeper struct {
 	Timeout xtime.Duration
 }
 
+// Redis client settings.
 type Redis struct {
-	Name         string
+	Name         string // redis name, for trace
 	Proto        string
 	Addr         string
-	Active       int
-	Idle         int
-	DialTimeout  time.Duration
-	ReadTimeout  time.Duration
-	WriteTimeout time.Duration
-	IdleTimeout  time.Duration
+	Active       int // pool
+	Idle         int // pool
+	DialTimeout  xtime.Duration
+	ReadTimeout  xtime.Duration
+	WriteTimeout xtime.Duration
+	IdleTimeout  xtime.Duration
 }
 
 // KafkaProducer kafka producer settings.

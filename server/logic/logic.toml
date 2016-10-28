@@ -1,7 +1,7 @@
-# msg_server conf
+# logic conf
 
 ver = "1.0.0"
-logPath = "/tmp/msg_server.log"
+logPath = "/tmp/logic.log"
 
 [server]
 proto = "tcp"
@@ -16,13 +16,13 @@ addr = "127.0.0.1:22000"
     addr = "127.0.0.1:30000"
 
 [etcd]
-name = "msg_server_0001"
-root = "/server/msg_server/"
+name = "logic_0001"
+root = "/server/logic/"
 addrs = ["localhost:2379"]
 timeout = "1s"
 
 [kafkaProducer]
-topic = "msg_server_producer"
+topic = "logic_producer"
 [kafkaProducer.producer]
 sync = false
 brokers = ["127.0.0.1:9092"]
@@ -30,8 +30,3 @@ brokers = ["127.0.0.1:9092"]
     root = "/kafka"
     addrs = ["127.0.0.1:2181"]
     timeout = "2s"
-
-[zookeeper]
-root = "/server/msg_server/"
-addrs = ["127.0.0.1:2181"]
-timeout = "1s"

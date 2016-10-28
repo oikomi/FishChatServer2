@@ -8,6 +8,7 @@ import (
 	"github.com/oikomi/FishChatServer2/common/ecode"
 	"github.com/oikomi/FishChatServer2/protocol/rpc"
 	"github.com/oikomi/FishChatServer2/server/auth/conf"
+	"github.com/oikomi/FishChatServer2/server/auth/dao"
 	"github.com/oikomi/FishChatServer2/service_discovery/etcd"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
@@ -15,6 +16,7 @@ import (
 )
 
 type RPCServer struct {
+	dao *dao.Dao
 }
 
 func (s *RPCServer) Login(ctx context.Context, in *rpc.AuthLoginReq) (res *rpc.AuthLoginRes, err error) {
@@ -45,7 +47,10 @@ func RPCServerInit() {
 		panic(err)
 	}
 	s := grpc.NewServer()
-	rpc.RegisterAuthServerRPCServer(s, &RPCServer{})
+	rpcServer := &RPCServer{
+		dao: dao.NewDao(),
+	}
+	rpc.RegisterAuthServerRPCServer(s, rpcServer)
 	s.Serve(lis)
 }
 

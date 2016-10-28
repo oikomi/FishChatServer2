@@ -19,7 +19,6 @@ type Config struct {
 	RPCClient     *RPCClient
 	Etcd          *commconf.Etcd
 	KafkaProducer *KafkaProducer
-	Zookeeper     *commconf.Zookeeper
 }
 
 type KafkaProducer struct {

@@ -45,7 +45,6 @@ func (c *Client) procReqLogin(reqData []byte) (err error) {
 	}); err != nil {
 		glog.Error(err)
 	}
-
 	// success
 	global.GSessions[reqLogin.UID] = c.Session
 	return

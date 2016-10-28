@@ -4,6 +4,7 @@ import (
 	"flag"
 	"github.com/BurntSushi/toml"
 	commconf "github.com/oikomi/FishChatServer2/common/conf"
+	"github.com/oikomi/FishChatServer2/common/xtime"
 )
 
 var (
@@ -15,6 +16,7 @@ type Config struct {
 	*commconf.CommConf
 	configFile string
 	Auth       *Auth
+	Redis      *Redis
 	RPCServer  *commconf.RPCServer
 	Etcd       *commconf.Etcd
 }
@@ -22,6 +24,11 @@ type Config struct {
 type Auth struct {
 	Encryption string
 	Salt       string
+}
+
+type Redis struct {
+	*commconf.Redis
+	Expire xtime.Duration
 }
 
 func init() {
