@@ -13,11 +13,13 @@ import (
 )
 
 type Server struct {
-	Server *libnet.Server
+	Server    *libnet.Server
+	RPCServer *rpc.RPCServer
 }
 
 func New() (s *Server) {
 	s = &Server{}
+	go rpc.RPCServerInit()
 	return
 }
 
@@ -54,7 +56,8 @@ func (s *Server) Loop(rpcClient *rpc.RPCClient) {
 			glog.Error(err)
 		}
 		glog.Info("a new client ", session.ID())
-		go s.sessionLoop(client.New(session, rpcClient))
+		c := client.New(session, rpcClient)
+		go s.sessionLoop(c)
 	}
 }
 

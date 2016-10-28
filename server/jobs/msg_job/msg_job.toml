@@ -10,7 +10,7 @@ logPath = "/tmp/msg-job.log"
 [kafkaConsumer]
 group = "msg-job"
 topics = ["msg_server_producer"]
-offset = true
+offset = false
     [kafkaConsumer.zookeeper]
     root = "/brokers"
     addrs = ["127.0.0.1:2181"]

@@ -2,8 +2,11 @@ package rpc
 
 import (
 	"github.com/golang/glog"
+	"github.com/oikomi/FishChatServer2/common/ecode"
+	"github.com/oikomi/FishChatServer2/protocol/external"
 	"github.com/oikomi/FishChatServer2/protocol/rpc"
 	"github.com/oikomi/FishChatServer2/server/access_server/conf"
+	"github.com/oikomi/FishChatServer2/server/access_server/global"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"net"
@@ -14,7 +17,27 @@ type RPCServer struct {
 
 func (s *RPCServer) SendP2PMsg(ctx context.Context, in *rpc.ASSendP2PMsgReq) (res *rpc.ASSendP2PMsgRes, err error) {
 	glog.Info("access_server recive SendP2PMsg")
-	res = &rpc.ASSendP2PMsgRes{}
+	if session, ok := global.GSessions[in.TargetUID]; ok {
+		if err = session.Send(&external.ResSendP2PMsg{
+			Cmd:       external.SendP2PMsgCMD,
+			SourceUID: in.SourceUID,
+			TargetUID: in.TargetUID,
+			Msg:       in.Msg,
+		}); err != nil {
+			glog.Error(err)
+			res = &rpc.ASSendP2PMsgRes{
+				ErrCode: ecode.ServerErr.Uint32(),
+				ErrStr:  ecode.ServerErr.String(),
+			}
+			return
+		}
+	} else {
+		// offline msg
+	}
+	res = &rpc.ASSendP2PMsgRes{
+		ErrCode: ecode.OK.Uint32(),
+		ErrStr:  ecode.OK.String(),
+	}
 	return
 }
 

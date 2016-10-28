@@ -6,6 +6,7 @@ import (
 	"github.com/oikomi/FishChatServer2/common/ecode"
 	"github.com/oikomi/FishChatServer2/protocol/external"
 	"github.com/oikomi/FishChatServer2/protocol/rpc"
+	"github.com/oikomi/FishChatServer2/server/access_server/global"
 )
 
 func (c *Client) procReqLogin(reqData []byte) (err error) {
@@ -38,12 +39,15 @@ func (c *Client) procReqLogin(reqData []byte) (err error) {
 		return
 	}
 	if err = c.Session.Send(&external.Error{
-		Cmd:     external.ReqLoginCMD,
+		Cmd:     external.LoginCMD,
 		ErrCode: resLoginRPC.ErrCode,
 		ErrStr:  resLoginRPC.ErrStr,
 	}); err != nil {
 		glog.Error(err)
 	}
+
+	// success
+	global.GSessions[reqLogin.UID] = c.Session
 	return
 }
 
@@ -62,7 +66,7 @@ func (c *Client) procSendP2PMsg(reqData []byte) (err error) {
 		return
 	}
 	reqSendP2PMsgRPC := &rpc.SendP2PMsgReq{
-		UID:       reqSendP2PMsg.UID,
+		SourceUID: reqSendP2PMsg.SourceUID,
 		TargetUID: reqSendP2PMsg.TargetUID,
 		Msg:       reqSendP2PMsg.Msg,
 	}
@@ -79,7 +83,7 @@ func (c *Client) procSendP2PMsg(reqData []byte) (err error) {
 		return
 	}
 	if err = c.Session.Send(&external.Error{
-		Cmd:     external.ReqSendP2PMsgCMD,
+		Cmd:     external.SendP2PMsgCMD,
 		ErrCode: resSendP2PMsgRPC.ErrCode,
 		ErrStr:  resSendP2PMsgRPC.ErrStr,
 	}); err != nil {

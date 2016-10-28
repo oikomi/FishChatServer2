@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"github.com/Shopify/sarama"
 	"github.com/golang/glog"
+	"github.com/oikomi/FishChatServer2/common/model"
 	"github.com/oikomi/FishChatServer2/dao/kafka"
 	"github.com/oikomi/FishChatServer2/server/msg_server/conf"
-	"github.com/oikomi/FishChatServer2/server/msg_server/job/model"
 	"golang.org/x/net/context"
 )
 

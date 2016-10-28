@@ -12,7 +12,7 @@ func (c *Client) procReqAccessServer(reqData []byte) (err error) {
 	accessServerList := job.AccessServerList
 	if len(accessServerList) == 0 {
 		if err = c.Session.Send(&external.ResSelectAccessServerForClient{
-			Cmd:     external.ResSelectAccessServerForClientCMD,
+			Cmd:     external.ReqAccessServerCMD,
 			ErrCode: ecode.NoAccessServer.Uint32(),
 			ErrStr:  ecode.NoAccessServer.String(),
 		}); err != nil {
@@ -24,7 +24,7 @@ func (c *Client) procReqAccessServer(reqData []byte) (err error) {
 		addr = v.IP
 	}
 	if err = c.Session.Send(&external.ResSelectAccessServerForClient{
-		Cmd:     external.ResSelectAccessServerForClientCMD,
+		Cmd:     external.ReqAccessServerCMD,
 		ErrCode: ecode.OK.Uint32(),
 		ErrStr:  ecode.OK.String(),
 		Addr:    addr,

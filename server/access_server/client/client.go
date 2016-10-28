@@ -22,12 +22,12 @@ func New(session *libnet.Session, rpcClient *rpc.RPCClient) (c *Client) {
 
 func (c *Client) Parse(cmd uint32, reqData []byte) (err error) {
 	switch cmd {
-	case external.ReqLoginCMD:
+	case external.LoginCMD:
 		if err = c.procReqLogin(reqData); err != nil {
 			glog.Error(err)
 			return
 		}
-	case external.ReqSendP2PMsgCMD:
+	case external.SendP2PMsgCMD:
 		if err = c.procSendP2PMsg(reqData); err != nil {
 			glog.Error(err)
 			return

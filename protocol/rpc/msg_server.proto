@@ -18,7 +18,7 @@ message LoginRes {
 }
 
 message SendP2PMsgReq {
-    int64  UID       = 1;
+    int64  sourceUID = 1;
     int64  targetUID = 2;
     string msg       = 3;
 }

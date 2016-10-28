@@ -3,10 +3,10 @@ package rpc
 import (
 	"github.com/golang/glog"
 	"github.com/oikomi/FishChatServer2/common/ecode"
+	"github.com/oikomi/FishChatServer2/common/model"
 	"github.com/oikomi/FishChatServer2/protocol/rpc"
 	"github.com/oikomi/FishChatServer2/server/msg_server/conf"
 	"github.com/oikomi/FishChatServer2/server/msg_server/job"
-	"github.com/oikomi/FishChatServer2/server/msg_server/job/model"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"net"
@@ -37,7 +37,7 @@ func (s *RPCServer) Login(ctx context.Context, in *rpc.LoginReq) (res *rpc.Login
 func (s *RPCServer) SendP2PMsg(ctx context.Context, in *rpc.SendP2PMsgReq) (res *rpc.SendP2PMsgRes, err error) {
 	glog.Info("msg_server recive SendP2PMsg")
 	sendP2PMsgKafka := &model.SendP2PMsgKafka{
-		UID:       in.UID,
+		UID:       in.SourceUID,
 		TargetUID: in.TargetUID,
 		Msg:       in.Msg,
 	}

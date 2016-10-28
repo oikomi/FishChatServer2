@@ -3,7 +3,9 @@ package service
 import (
 	"encoding/json"
 	"github.com/golang/glog"
+	"github.com/oikomi/FishChatServer2/common/model"
 	"github.com/oikomi/FishChatServer2/dao/kafka"
+	protoRPC "github.com/oikomi/FishChatServer2/protocol/rpc"
 	"github.com/oikomi/FishChatServer2/server/jobs/msg_job/conf"
 	"github.com/oikomi/FishChatServer2/server/jobs/msg_job/rpc"
 	"sync"
@@ -14,11 +16,6 @@ var (
 	_module = "msg_job"
 	_add    = "add"
 )
-
-// action the message struct of kafka
-type action struct {
-	Action string `json:"action"`
-}
 
 type Service struct {
 	c         *conf.Config
@@ -64,14 +61,14 @@ func (s *Service) consumeproc() {
 		if msg.Topic != s.c.KafkaConsumer.Topics[0] {
 			continue
 		}
-		act := &action{}
-		if err := json.Unmarshal(msg.Value, act); err != nil {
+		sendP2PMsgKafka := &model.SendP2PMsgKafka{}
+		if err := json.Unmarshal(msg.Value, sendP2PMsgKafka); err != nil {
 			glog.Error("json.Unmarshal() error ", err)
 			continue
 		}
-		if act.Action != _add {
-			continue
-		}
+		// if act.Action != _add {
+		// 	continue
+		// }
 		// aid, err := strconv.ParseInt(string(msg.Key), 10, 64)
 		// if err == nil {
 		// 	ctx := context.Background()
@@ -84,6 +81,12 @@ func (s *Service) consumeproc() {
 		// 		log.Error("moment add(%d) error(%v)", aid, err)
 		// 	}
 		// }
+		sendP2PMsgReq := &protoRPC.ASSendP2PMsgReq{
+			SourceUID: sendP2PMsgKafka.UID,
+			TargetUID: sendP2PMsgKafka.TargetUID,
+			Msg:       sendP2PMsgKafka.Msg,
+		}
+		s.rpcClient.AccessServer.SendP2PMsg(sendP2PMsgReq)
 		s.consumer.ConsumerGroup.CommitUpto(msg)
 	}
 }
