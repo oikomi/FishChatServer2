@@ -27,5 +27,5 @@ dialTimeout = "1s"
 readTimeout = "1s"
 writeTimeout = "1s"
 idleTimeout = "10s"
-expire = "10s"
+expire = "24h"
 

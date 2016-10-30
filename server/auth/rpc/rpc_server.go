@@ -25,14 +25,37 @@ func (s *RPCServer) Login(ctx context.Context, in *rpc.AuthLoginReq) (res *rpc.A
 	md5Ctx.Write([]byte(conf.Conf.Auth.Salt))
 	cipherStr := md5Ctx.Sum(nil)
 	calcToken := hex.EncodeToString(cipherStr)
-	if calcToken != in.Token {
+	if err = s.dao.SetToken(ctx, in.UID, calcToken); err != nil {
 		res = &rpc.AuthLoginRes{
+			ErrCode: ecode.ServerErr.Uint32(),
+			ErrStr:  ecode.ServerErr.String(),
+		}
+		return
+	}
+	res = &rpc.AuthLoginRes{
+		ErrCode: ecode.OK.Uint32(),
+		ErrStr:  ecode.OK.String(),
+	}
+	return
+}
+
+func (s *RPCServer) Auth(ctx context.Context, in *rpc.AuthAuthReq) (res *rpc.AuthAuthRes, err error) {
+	var token string
+	if token, err = s.dao.Token(ctx, in.UID); err != nil {
+		res = &rpc.AuthAuthRes{
 			ErrCode: ecode.CalcTokenFailed.Uint32(),
 			ErrStr:  ecode.CalcTokenFailed.String(),
 		}
 		return
 	}
-	res = &rpc.AuthLoginRes{
+	if token != in.Token {
+		res = &rpc.AuthAuthRes{
+			ErrCode: ecode.CalcTokenFailed.Uint32(),
+			ErrStr:  ecode.CalcTokenFailed.String(),
+		}
+		return
+	}
+	res = &rpc.AuthAuthRes{
 		ErrCode: ecode.OK.Uint32(),
 		ErrStr:  ecode.OK.String(),
 	}

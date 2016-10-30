@@ -4,15 +4,25 @@ package rpc;
 
 service AuthServerRPC {
     rpc Login (AuthLoginReq) returns (AuthLoginRes) {}
+    rpc Auth (AuthAuthReq) returns (AuthAuthRes) {}
 }
 
-
 message AuthLoginReq {
+    int64  UID    = 1;
+}
+
+message AuthLoginRes {
+    uint32 errCode = 1;
+    string errStr  = 2;
+    string token   = 3;
+}
+
+message AuthAuthReq {
     int64  UID    = 1;
     string token  = 2;
 }
 
-message AuthLoginRes {
+message AuthAuthRes {
     uint32 errCode = 1;
     string errStr  = 2;
 }
