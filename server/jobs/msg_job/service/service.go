@@ -3,8 +3,8 @@ package service
 import (
 	"encoding/json"
 	"github.com/golang/glog"
+	"github.com/oikomi/FishChatServer2/common/dao/kafka"
 	"github.com/oikomi/FishChatServer2/common/model"
-	"github.com/oikomi/FishChatServer2/dao/kafka"
 	protoRPC "github.com/oikomi/FishChatServer2/protocol/rpc"
 	"github.com/oikomi/FishChatServer2/server/jobs/msg_job/conf"
 	"github.com/oikomi/FishChatServer2/server/jobs/msg_job/rpc"

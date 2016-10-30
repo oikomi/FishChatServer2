@@ -1,7 +1,7 @@
 package dao
 
 import (
-	"github.com/oikomi/FishChatServer2/dao/xredis"
+	"github.com/oikomi/FishChatServer2/common/dao/xredis"
 	"github.com/oikomi/FishChatServer2/server/auth/conf"
 )
 
