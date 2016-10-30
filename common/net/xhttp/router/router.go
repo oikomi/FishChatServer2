@@ -5,24 +5,24 @@ import (
 	"fmt"
 	"github.com/golang/glog"
 	"github.com/oikomi/FishChatServer2/common/ecode"
-	"github.com/oikomi/FishChatServer2/common/net/trace"
+	// "github.com/oikomi/FishChatServer2/common/net/trace"
 	"github.com/oikomi/FishChatServer2/common/net/xweb"
 	wctx "github.com/oikomi/FishChatServer2/common/net/xweb/context"
 	"net/http"
-	"net/url"
+	// "net/url"
 	"strconv"
-	"time"
+	// "time"
 )
 
-var (
-	allowOrigin = map[string]string{
-		"www.bilibili.com":     "http://www.bilibili.com",
-		"space.bilibili.com":   "http://space.bilibili.com",
-		"member.bilibili.com":  "http://member.bilibili.com",
-		"search.bilibili.com":  "http://search.bilibili.com",
-		"bangumi.bilibili.com": "http://bangumi.bilibili.com",
-	}
-)
+// var (
+// 	allowOrigin = map[string]string{
+// 		"www.bilibili.com":     "http://www.bilibili.com",
+// 		"space.bilibili.com":   "http://space.bilibili.com",
+// 		"member.bilibili.com":  "http://member.bilibili.com",
+// 		"search.bilibili.com":  "http://search.bilibili.com",
+// 		"bangumi.bilibili.com": "http://bangumi.bilibili.com",
+// 	}
+// )
 
 type Identify interface {
 	Access(c wctx.Context, ip string) (mid int64, err error)
@@ -32,9 +32,9 @@ type Identify interface {
 // Router is http router.
 // Statsd for stat, need set value by called.
 type Router struct {
-	m        *http.ServeMux
-	r        *xweb.Router
-	Identify Identify
+	m *http.ServeMux
+	r *xweb.Router
+	// Identify Identify
 	// degrades map[string]degrade.Ratio
 }
 
@@ -114,7 +114,7 @@ func (r *Router) Degrade(p string) {
 
 func (r *Router) preHandler(c wctx.Context) {
 	req := c.Request()
-	res := c.Response()
+	// res := c.Response()
 	// if r.isDegrade(req.URL.Path) {
 	// 	c.Cancel()
 	// 	res := c.Result()
@@ -123,92 +123,92 @@ func (r *Router) preHandler(c wctx.Context) {
 	// 	return
 	// }
 	req.ParseForm()
-	if req.Form.Get("jsonp") == "jsonp" || req.Form.Get("cross_domain") == "true" {
-		u, err := url.Parse(req.Referer())
-		if err == nil {
-			if origin, ok := allowOrigin[u.Host]; ok {
-				res.Header().Set("Access-Control-Allow-Origin", origin)
-				res.Header().Set("Access-Control-Allow-Credentials", "true")
-			}
-		}
-	}
+	// if req.Form.Get("jsonp") == "jsonp" || req.Form.Get("cross_domain") == "true" {
+	// 	u, err := url.Parse(req.Referer())
+	// 	if err == nil {
+	// 		// if origin, ok := allowOrigin[u.Host]; ok {
+	// 		// 	res.Header().Set("Access-Control-Allow-Origin", origin)
+	// 		// 	res.Header().Set("Access-Control-Allow-Credentials", "true")
+	// 		// }
+	// 	}
+	// }
 }
 
 func (r *Router) guestHandler(c wctx.Context) {
 	var (
-		req    = c.Request()
-		mid, _ = r.Identify.Access(c, c.RemoteIP())
+	// req = c.Request()
+	// mid, _ = r.Identify.Access(c, c.RemoteIP())
 	)
-	if mid == 0 {
-		midStr := req.Form.Get("mid")
-		if midStr != "" {
-			var err error
-			mid, err = strconv.ParseInt(midStr, 10, 64)
-			if err != nil {
-				glog.Error("strconv.ParseInt(%s) error(%v)", midStr, err)
-			}
-		}
-	}
-	c.Set("mid", mid)
+	// if mid == 0 {
+	// 	midStr := req.Form.Get("mid")
+	// 	if midStr != "" {
+	// 		var err error
+	// 		mid, err = strconv.ParseInt(midStr, 10, 64)
+	// 		if err != nil {
+	// 			glog.Error("strconv.ParseInt(%s) error(%v)", midStr, err)
+	// 		}
+	// 	}
+	// }
+	// c.Set("mid", mid)
 }
 
 func (r *Router) userHandler(c wctx.Context) {
-	var (
-		mid, err = r.Identify.Access(c, c.RemoteIP())
-	)
-	if (err != nil && err != ecode.OK) || mid == 0 {
-		if err == nil || err == ecode.OK {
-			err = ecode.RequestErr
-		}
-		c.Result()["code"] = err
-		r.writerHandler(c)
-		c.Cancel()
-		return
-	}
-	c.Set("mid", mid)
+	// var (
+	// 	mid, err = r.Identify.Access(c, c.RemoteIP())
+	// )
+	// if (err != nil && err != ecode.OK) || mid == 0 {
+	// 	if err == nil || err == ecode.OK {
+	// 		err = ecode.RequestErr
+	// 	}
+	c.Result()["code"] = ecode.OK
+	r.writerHandler(c)
+	c.Cancel()
+	return
+	// }
+	// c.Set("mid", mid)
 }
 
 func (r *Router) verifyHandler(c wctx.Context) {
-	err := r.Identify.Verify(c)
-	if err != nil && err != ecode.OK {
-		c.Result()["code"] = err
-		r.writerHandler(c)
-		c.Cancel()
-		return
-	}
-	midStr := c.Request().Form.Get("mid")
-	if midStr != "" {
-		mid, err := strconv.ParseInt(midStr, 10, 64)
-		if err != nil {
-			glog.Error("strconv.ParseInt(%s) error(%v)", midStr, err)
-		}
-		c.Set("mid", mid)
-	}
+	// err := r.Identify.Verify(c)
+	// if err != nil && err != ecode.OK {
+	c.Result()["code"] = ecode.OK
+	r.writerHandler(c)
+	c.Cancel()
+	return
+	// }
+	// midStr := c.Request().Form.Get("mid")
+	// if midStr != "" {
+	// 	mid, err := strconv.ParseInt(midStr, 10, 64)
+	// 	if err != nil {
+	// 		glog.Error("strconv.ParseInt(%s) error(%v)", midStr, err)
+	// 	}
+	// 	c.Set("mid", mid)
+	// }
 }
 
 // writerHandler is a json writer for http server.
 func (r *Router) writerHandler(c wctx.Context) {
 	var (
-		bs     []byte
-		err    error
-		tid    = "-"
+		bs  []byte
+		err error
+		// tid    = "-"
 		ret    = ecode.OK
 		req    = c.Request()
 		resp   = c.Response()
 		res    = c.Result()
 		params = req.Form
-		ip     = c.RemoteIP()
+		// ip     = c.RemoteIP()
 	)
 	defer func() {
-		p := req.URL.Path[1:]
-		tmsub := time.Now().Sub(c.Now())
+		// p := req.URL.Path[1:]
+		// tmsub := time.Now().Sub(c.Now())
 		// if r.Statsd != nil {
 		// 	r.Statsd.Incr(fmt.Sprintf("%s.%d", p, ret))
 		// 	r.Statsd.Timing(p, int64(tmsub/time.Millisecond))
 		// }
-		if t, ok := trace.FromContext(c); ok && t.Sampled {
-			tid = t.ID
-		}
+		// if t, ok := trace.FromContext(c); ok && t.Sampled {
+		// 	tid = t.ID
+		// }
 		// glog.InfoTrace(tid, req.URL.Path, fmt.Sprintf("method:%s,ip:%s,params:%s,ret:%d", req.Method, ip, params.Encode(), ret), tmsub.Seconds())
 	}()
 	if ec := res["code"]; ec != nil {

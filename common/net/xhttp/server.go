@@ -15,7 +15,7 @@ func Serve(mux *http.ServeMux, c *conf.HTTPServer) (err error) {
 	for _, addr := range c.Addrs {
 		l, err := net.Listen("tcp", addr)
 		if err != nil {
-			glog.Error("net.Listen(\"tcp\", \"%s\") error(%v)", addr, err)
+			glog.Errorf("net.Listen(\"tcp\", \"%s\") error(%v)", addr, err)
 			return err
 		}
 		if c.MaxListen > 0 {
@@ -26,7 +26,7 @@ func Serve(mux *http.ServeMux, c *conf.HTTPServer) (err error) {
 			go func() {
 				server := &http.Server{Handler: mux, ReadTimeout: time.Duration(c.ReadTimeout), WriteTimeout: time.Duration(c.WriteTimeout)}
 				if err := server.Serve(l); err != nil {
-					glog.Info("server.Serve error(%v)", err)
+					glog.Errorf("server.Serve error(%v)", err)
 				}
 			}()
 		}
