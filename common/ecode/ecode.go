@@ -35,6 +35,9 @@ func From(e error) ecode {
 
 var (
 	ecodeMessage = map[ecode]string{
+		// api
+		RequestErr: "request err",
+
 		// common
 		OK: "ok",
 		// common

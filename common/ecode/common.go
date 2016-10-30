@@ -1,6 +1,9 @@
 package ecode
 
 const (
+	//api
+	RequestErr ecode = 10001
+
 	// common error code
 	OK ecode = 0
 	// server
