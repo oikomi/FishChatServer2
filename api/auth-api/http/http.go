@@ -8,6 +8,7 @@ import (
 	"github.com/oikomi/FishChatServer2/common/net/xhttp/router"
 	wctx "github.com/oikomi/FishChatServer2/common/net/xweb/context"
 	// "go-common/business/service/identify"
+	"github.com/oikomi/FishChatServer2/common/ecode"
 	"net/http"
 )
 
@@ -62,7 +63,7 @@ func outerRouter(r *router.Router) {
 	// r.Degrade("/platform/history/degrade")
 	// r.Get("/history/health/check", xhttp.SlbChecker(conf.Conf.CheckFile))
 	// init api
-	r.Group("/x/v2/auth", func(cr *router.Router) {
+	r.Group("/x/auth", func(cr *router.Router) {
 		cr.GuestPost("/login", login)
 	})
 	return
@@ -70,10 +71,6 @@ func outerRouter(r *router.Router) {
 
 // innerRouter init inner router api path.
 func innerRouter(r *router.Router) {
-	// r.Degrade("/platform/history/degrade")
-	// r.Get("/history/health/check", xhttp.SlbChecker(conf.Conf.CheckFile))
-	// r.VerifyPost("/x/v2/history/add", addHistory)
-
 	r.Group("/x/v2/history", func(cr *router.Router) {
 		cr.VerifyPost("/add", addHistory)
 		// cr.VerifyGet("/getAids", getAids)
@@ -98,9 +95,13 @@ func localRouter(r *router.Router) {
 // 	res["data"], res["code"] = hisSvc.GetAids(c, mid.(int64))
 // }
 
+type aa struct {
+	A string
+}
+
 // history get a user history, for mobile app service
 func login(c wctx.Context) {
-	// res := c.Result()
+	res := c.Result()
 	// pnStr := c.Request().Form.Get("pn")
 	// psStr := c.Request().Form.Get("ps")
 	// mid, ok := c.Get("mid")
@@ -119,6 +120,12 @@ func login(c wctx.Context) {
 	// 	ps = conf.Conf.Max
 	// }
 	// res["data"], res["code"] = hisSvc.Get(c, mid.(int64), pn, ps, c.RemoteIP())
+	var tmp []*aa
+	tmp1 := &aa{
+		A: "hello",
+	}
+	tmp = append(tmp, tmp1)
+	res["data"], res["code"] = tmp, ecode.OK
 }
 
 // clearHistory user history

@@ -11,6 +11,11 @@ import (
 	"syscall"
 )
 
+func init() {
+	flag.Set("alsologtostderr", "true")
+	flag.Set("log_dir", "false")
+}
+
 func main() {
 	flag.Parse()
 	if err := conf.Init(); err != nil {

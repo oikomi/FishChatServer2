@@ -2,7 +2,7 @@ package router
 
 import (
 	"encoding/json"
-	"fmt"
+	// "fmt"
 	"github.com/golang/glog"
 	"github.com/oikomi/FishChatServer2/common/ecode"
 	// "github.com/oikomi/FishChatServer2/common/net/trace"
@@ -12,6 +12,7 @@ import (
 	// "net/url"
 	"strconv"
 	// "time"
+	// "github.com/oikomi/FishChatServer2/server/access/global"
 )
 
 // var (
@@ -213,7 +214,7 @@ func (r *Router) writerHandler(c wctx.Context) {
 	}()
 	if ec := res["code"]; ec != nil {
 		if code, ok := ec.(error); !ok {
-			glog.Error("http(%s) response have not ecode return", req.URL.Path)
+			glog.Errorf("http(%s) response have not ecode return", req.URL.Path)
 			return
 		} else {
 			ret = ecode.From(code)
@@ -222,27 +223,27 @@ func (r *Router) writerHandler(c wctx.Context) {
 	res["code"] = ret
 	res["message"] = ret.String()
 	if bs, err = json.Marshal(res); err != nil {
-		glog.Error("json.Marshal(%v) error(%v)", res, err)
+		glog.Errorf("json.Marshal(%v) error(%v)", res, err)
 		return
 	}
 	resp.Header().Set("Content-Type", "application/json;charset=utf-8")
-	if params.Get("jsonp") == "jsonp" {
-		cb := params.Get("callback")
-		if cb != "" {
-			bs = []byte(fmt.Sprintf("%s(%s)", cb, bs))
-		}
-		script := params.Get("script")
-		if script == "script" {
-			resp.Header().Set("Content-Type", "text/html;charset=utf-8")
-			bs = []byte(fmt.Sprintf(
-				`<script type="text/javascript">
-					document.domain = 'bilibili.com';
-					window.parent.%s;
-				</script>`, bs))
-		}
-	}
+	// if params.Get("jsonp") == "jsonp" {
+	// 	cb := params.Get("callback")
+	// 	if cb != "" {
+	// 		bs = []byte(fmt.Sprintf("%s(%s)", cb, bs))
+	// 	}
+	// 	script := params.Get("script")
+	// 	if script == "script" {
+	// 		resp.Header().Set("Content-Type", "text/html;charset=utf-8")
+	// 		bs = []byte(fmt.Sprintf(
+	// 			`<script type="text/javascript">
+	// 				document.domain = 'bilibili.com';
+	// 				window.parent.%s;
+	// 			</script>`, bs))
+	// 	}
+	// }
 	if _, err = resp.Write(bs); err != nil {
-		glog.Error("c.Response.Write(%s, %s) failed (%v)", req.URL.Path, params.Encode(), err)
+		glog.Errorf("c.Response.Write(%s, %s) failed (%v)", req.URL.Path, params.Encode(), err)
 	}
 }
 
