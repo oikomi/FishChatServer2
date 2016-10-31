@@ -60,32 +60,3 @@ readTimeout = "1s"
 writeTimeout = "1s"
 idleTimeout = "10s"
 expire = "10s"
-
-[kafka]
-topic = "history"
-firstTopic = "his_first"
-[kafka.producer]
-sync = false
-brokers = ["172.16.0.148:9092"]
-    [kafka.producer.zookeeper]
-    root = "/kafka"
-    addrs = ["172.16.0.148:2181"]
-    timeout = "200ms"
-
-[tracer]
-proto = "udp"
-addr = "172.16.0.148:5640"
-tag = "platform/history"
-
-[hbase]
-master = ""
-meta = ""
-dialTimeout = "1s"
-readTimeout = "200ms"
-readsTimeout = "1s"
-writeTimeout = "200ms"
-writesTimeout = "200ms"
-    [hbase.zookeeper]
-    root = ""
-    addrs = ["172.16.33.45:2181"]
-    timeout = "200ms"

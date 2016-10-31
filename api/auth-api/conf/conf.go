@@ -2,10 +2,8 @@ package conf
 
 import (
 	"flag"
-	// "go-common/business/service/identify"
-	"github.com/oikomi/FishChatServer2/common/conf"
-	// "go-common/xlog"
 	"github.com/BurntSushi/toml"
+	"github.com/oikomi/FishChatServer2/common/conf"
 	"github.com/oikomi/FishChatServer2/common/xtime"
 )
 
@@ -16,18 +14,8 @@ var (
 
 type Config struct {
 	conf.CommConf
-	// http
 	MultiHTTP *conf.MultiHTTP
-	// redis
-	Redis *Redis
-	// kafka
-	Kafka *Kafka
-	// ELK
-	// ELK *xlog.ELKConfig
-	// // tracer
-	// Tracer *conf.Tracer
-	// // hbase
-	// HBase *conf.HBase
+	Redis     *Redis
 }
 
 type Redis struct {
@@ -35,19 +23,8 @@ type Redis struct {
 	Expire xtime.Duration
 }
 
-// type RPC struct {
-// 	Account *conf.RPCClient2
-// 	Archive *conf.RPCClient2
-// }
-
-type Kafka struct {
-	Topic      string
-	FirstTopic string
-	Producer   *conf.KafkaProducer
-}
-
 func init() {
-	flag.StringVar(&confPath, "conf", "./history-example.toml", "config path")
+	flag.StringVar(&confPath, "conf", "./auth-api.toml", "config path")
 }
 
 func Init() error {

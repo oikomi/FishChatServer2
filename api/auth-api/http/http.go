@@ -9,7 +9,6 @@ import (
 	wctx "github.com/oikomi/FishChatServer2/common/net/xweb/context"
 	// "go-common/business/service/identify"
 	"net/http"
-	// "strconv"
 )
 
 // var (
@@ -60,23 +59,20 @@ func Init(c *conf.Config) {
 
 // outerRouter init outer router api path.
 func outerRouter(r *router.Router) {
-	r.Degrade("/platform/history/degrade")
+	// r.Degrade("/platform/history/degrade")
 	// r.Get("/history/health/check", xhttp.SlbChecker(conf.Conf.CheckFile))
 	// init api
-	r.Group("/x/v2/history", func(cr *router.Router) {
-		cr.UserGet("", history)
-		cr.UserPost("/add", addHistory)
-		cr.UserPost("/del", deleteHistory)
-		cr.UserPost("/clear", clearHistory)
+	r.Group("/x/v2/auth", func(cr *router.Router) {
+		cr.GuestPost("/login", login)
 	})
 	return
 }
 
 // innerRouter init inner router api path.
 func innerRouter(r *router.Router) {
-	r.Degrade("/platform/history/degrade")
+	// r.Degrade("/platform/history/degrade")
 	// r.Get("/history/health/check", xhttp.SlbChecker(conf.Conf.CheckFile))
-	r.VerifyPost("/x/v2/history/add", addHistory)
+	// r.VerifyPost("/x/v2/history/add", addHistory)
 
 	r.Group("/x/v2/history", func(cr *router.Router) {
 		cr.VerifyPost("/add", addHistory)
@@ -103,7 +99,7 @@ func localRouter(r *router.Router) {
 // }
 
 // history get a user history, for mobile app service
-func history(c wctx.Context) {
+func login(c wctx.Context) {
 	// res := c.Result()
 	// pnStr := c.Request().Form.Get("pn")
 	// psStr := c.Request().Form.Get("ps")
