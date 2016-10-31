@@ -21,7 +21,7 @@ func main() {
 		glog.Errorf("conf.Init() error(%v)", err)
 		panic(err)
 	}
-	glog.Info("auth-api [version: %s] start", conf.Conf.Ver)
+	glog.Infof("auth-api [version: %s] start", conf.Conf.Ver)
 	http.Init(conf.Conf)
 	// init signal
 	c := make(chan os.Signal, 1)
@@ -31,7 +31,7 @@ func main() {
 		glog.Info("auth-api get a signal %s", s.String())
 		switch s {
 		case syscall.SIGQUIT, syscall.SIGTERM, syscall.SIGSTOP, syscall.SIGINT:
-			glog.Info("auth-api [version: %s] exit", conf.Conf.Ver)
+			glog.Infof("auth-api [version: %s] exit", conf.Conf.Ver)
 			return
 		case syscall.SIGHUP:
 		// TODO reload

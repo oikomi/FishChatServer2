@@ -20,6 +20,7 @@ type RPCServer struct {
 }
 
 func (s *RPCServer) Login(ctx context.Context, in *rpc.AuthLoginReq) (res *rpc.AuthLoginRes, err error) {
+	glog.Info("login")
 	md5Ctx := md5.New()
 	md5Ctx.Write([]byte(fmt.Sprintf("%d", in.UID)))
 	md5Ctx.Write([]byte(conf.Conf.Auth.Salt))
@@ -35,6 +36,7 @@ func (s *RPCServer) Login(ctx context.Context, in *rpc.AuthLoginReq) (res *rpc.A
 	res = &rpc.AuthLoginRes{
 		ErrCode: ecode.OK.Uint32(),
 		ErrStr:  ecode.OK.String(),
+		Token:   calcToken,
 	}
 	return
 }
