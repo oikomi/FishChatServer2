@@ -6,7 +6,7 @@ import (
 )
 
 type RPCClient struct {
-	Auth *client.MsgServerRPCCli
+	Auth *client.AuthRPCCli
 }
 
 func NewRPCClient() (c *RPCClient, err error) {

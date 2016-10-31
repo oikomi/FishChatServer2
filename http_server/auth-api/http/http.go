@@ -9,13 +9,13 @@ import (
 	wctx "github.com/oikomi/FishChatServer2/common/net/xweb/context"
 	// "go-common/business/service/identify"
 	"github.com/oikomi/FishChatServer2/common/ecode"
+	"github.com/oikomi/FishChatServer2/http_server/auth-api/service"
 	"net/http"
 )
 
-// var (
-// 	hisSvc *service.Service
-// 	idfSvc *identify.Service
-// )
+var (
+	authSvc *service.Service
+)
 
 func Init(c *conf.Config) {
 	// idfSvc = identify.New(c.Identify)

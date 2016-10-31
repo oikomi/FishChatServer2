@@ -1,11 +1,11 @@
 package service
 
 import (
-	"github.com/oikomi/FishChatServer2/http_server/auth-api/rpc/client"
+	"github.com/oikomi/FishChatServer2/http_server/auth-api/rpc"
 )
 
 type Service struct {
-	rpcClient *client.RPCClient
+	rpcClient *rpc.RPCClient
 }
 
 func New() {
