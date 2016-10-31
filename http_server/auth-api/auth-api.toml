@@ -49,6 +49,11 @@ debug = false
     addrs = ["0.0.0.0:6003"]
     maxListen = 10
 
+
+[rpcClient]
+    [rpcClient.authClient]
+    addr = "127.0.0.1:30000"
+
 [redis]
 name = "history"
 proto = "tcp"

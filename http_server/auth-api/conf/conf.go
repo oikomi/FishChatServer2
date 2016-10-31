@@ -3,7 +3,7 @@ package conf
 import (
 	"flag"
 	"github.com/BurntSushi/toml"
-	"github.com/oikomi/FishChatServer2/common/conf"
+	commconf "github.com/oikomi/FishChatServer2/common/conf"
 	"github.com/oikomi/FishChatServer2/common/xtime"
 )
 
@@ -13,13 +13,18 @@ var (
 )
 
 type Config struct {
-	conf.CommConf
-	MultiHTTP *conf.MultiHTTP
+	commconf.CommConf
+	MultiHTTP *commconf.MultiHTTP
+	RPCClient *RPCClient
 	Redis     *Redis
 }
 
+type RPCClient struct {
+	AuthClient *commconf.RPCClient
+}
+
 type Redis struct {
-	*conf.Redis
+	*commconf.Redis
 	Expire xtime.Duration
 }
 

@@ -2,10 +2,9 @@ package main
 
 import (
 	"flag"
+	"github.com/golang/glog"
 	"github.com/oikomi/FishChatServer2/http_server/auth-api/conf"
 	"github.com/oikomi/FishChatServer2/http_server/auth-api/http"
-	// "github.com/oikomi/FishChatServer2/common/net/trace"
-	"github.com/golang/glog"
 	"os"
 	"os/signal"
 	"syscall"
