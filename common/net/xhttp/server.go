@@ -21,7 +21,7 @@ func Serve(mux *http.ServeMux, c *conf.HTTPServer) (err error) {
 		if c.MaxListen > 0 {
 			l = netutil.LimitListener(l, c.MaxListen)
 		}
-		glog.Info("start http listen addr: %s", addr)
+		glog.Infof("start http listen addr: %s", addr)
 		for i := 0; i < runtime.NumCPU(); i++ {
 			go func() {
 				server := &http.Server{Handler: mux, ReadTimeout: time.Duration(c.ReadTimeout), WriteTimeout: time.Duration(c.WriteTimeout)}

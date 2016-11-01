@@ -9,8 +9,10 @@ import (
 	"fmt"
 	"github.com/oikomi/FishChatServer2/common/conf"
 	"github.com/oikomi/FishChatServer2/common/net/trace"
-	wctx "github.com/oikomi/FishChatServer2/common/net/xweb/context"
+	// wctx "github.com/oikomi/FishChatServer2/common/net/xweb/context"
+	"github.com/golang/glog"
 	"github.com/oikomi/FishChatServer2/common/xtime"
+	"golang.org/x/net/context"
 	itime "golang/marmot/time"
 	"io"
 	"io/ioutil"
@@ -20,9 +22,6 @@ import (
 	"os"
 	"strings"
 	"time"
-
-	"github.com/golang/glog"
-	"golang.org/x/net/context"
 )
 
 const (
@@ -33,7 +32,7 @@ const (
 )
 
 var (
-	_noKickUserAgent = "haoguanwei@bilibili.com Golang/1.5.3 "
+	_noKickUserAgent = "im"
 )
 
 func init() {
@@ -113,7 +112,7 @@ func (client *Client) Do(c context.Context, req *http.Request, res interface{}) 
 	resp, err := client.client.Do(req)
 	td.Stop()
 	if err != nil {
-		glog.Error("httpClient.Do(%s) error(%v)", realURL(req), err)
+		glog.Errorf("httpClient.Do(%s) error(%v)", realURL(req), err)
 		return
 	}
 	defer resp.Body.Close()
@@ -122,11 +121,11 @@ func (client *Client) Do(c context.Context, req *http.Request, res interface{}) 
 	}
 	bs, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		glog.Error("ioutil.ReadAll(%s) uri(%s) error(%v)", bs, realURL(req), err)
+		glog.Errorf("ioutil.ReadAll(%s) uri(%s) error(%v)", bs, realURL(req), err)
 		return
 	}
 	if err = json.Unmarshal(bs, res); err != nil {
-		glog.Error("json.Unmarshal(%s) uri(%s) error(%v)", bs, realURL(req), err)
+		glog.Errorf("json.Unmarshal(%s) uri(%s) error(%v)", bs, realURL(req), err)
 	}
 	return
 }
@@ -165,7 +164,7 @@ func Sign(params url.Values) (query string, err error) {
 func newRequest(method, uri, realIP string, params url.Values) (req *http.Request) {
 	enc, err := Sign(params)
 	if err != nil {
-		glog.Error("http check params or sign error(%v)", err)
+		glog.Errorf("http check params or sign error(%v)", err)
 		return
 	}
 	ru := uri
@@ -178,7 +177,7 @@ func newRequest(method, uri, realIP string, params url.Values) (req *http.Reques
 		req, err = http.NewRequest(_post, uri, strings.NewReader(enc))
 	}
 	if err != nil {
-		glog.Error("http.NewRequest(%s, %s) error(%v)", method, ru, err)
+		glog.Errorf("http.NewRequest(%s, %s) error(%v)", method, ru, err)
 		return
 	}
 	if realIP != "" {
@@ -208,22 +207,6 @@ func realURL(req *http.Request) string {
 		return ru
 	}
 	return req.URL.Path
-}
-
-// SlbChecker slb check
-func SlbChecker(filePath string) func(wctx.Context) {
-	return func(c wctx.Context) {
-		_, err := os.Stat(_allCheckFile)
-		if os.IsNotExist(err) {
-			http.Error(c.Response(), http.StatusText(http.StatusServiceUnavailable), http.StatusServiceUnavailable)
-		}
-		_, err = os.Stat(filePath)
-		if os.IsNotExist(err) {
-			http.Error(c.Response(), http.StatusText(http.StatusServiceUnavailable), http.StatusServiceUnavailable)
-		}
-		// not must print log
-		c.Done()
-	}
 }
 
 // InetAtoN conver ip addr to uint32.

@@ -3,15 +3,14 @@ package trace
 import (
 	"encoding/hex"
 	"fmt"
+	"github.com/golang/glog"
+	"golang.org/x/net/context"
 	"golang/uuid"
 	"io"
 	"math/rand"
 	"net/http"
 	"strconv"
 	"time"
-
-	"github.com/golang/glog"
-	"golang.org/x/net/context"
 )
 
 var (
