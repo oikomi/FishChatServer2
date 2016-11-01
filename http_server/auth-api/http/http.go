@@ -21,6 +21,7 @@ func Init(c *conf.Config) {
 	authSvc, err = service.New()
 	if err != nil {
 		glog.Error(err)
+		return
 	}
 	// init external router
 	extM := http.NewServeMux()
@@ -52,7 +53,6 @@ func outerRouter(r *router.Router) {
 
 // innerRouter init local router api path.
 func localRouter(r *router.Router) {
-	r.Get("/history/monitor/ping", ping)
 }
 
 func login(c wctx.Context) {
@@ -67,22 +67,3 @@ func login(c wctx.Context) {
 	}
 	res["data"], res["code"] = authSvc.Login(uid, pwStr)
 }
-
-// ping check server ok.
-func ping(c wctx.Context) {
-	// res := c.Result()
-	// if err := hisSvc.Ping(c); err != nil {
-	// 	res["code"] = err
-	// 	log.Error("history service ping error(%v)", err)
-	// 	http.Error(c.Response(), "", http.StatusServiceUnavailable)
-	// 	c.Done()
-	// }
-}
-
-// version check server ver.
-// func version(c wctx.Context) {
-// 	res := c.Result()
-// 	res["data"] = map[string]interface{}{
-// 		"version": conf.Conf..Version,
-// 	}
-// }

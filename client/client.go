@@ -60,8 +60,7 @@ func clientLoop(session *libnet.Session, protobuf *codec.ProtobufProtocol) {
 	checkErr(err)
 	rsp, err = clientMsg.Receive()
 	checkErr(err)
-	glog.Info(string(rsp))
-
+	// glog.Info(string(rsp))
 	go func() {
 		for {
 			rsp, err := clientMsg.Receive()
@@ -69,7 +68,7 @@ func clientLoop(session *libnet.Session, protobuf *codec.ProtobufProtocol) {
 				glog.Error(err.Error())
 			}
 			// fmt.Printf("%s\n", rmsg)
-			glog.Info(string(rsp))
+			fmt.Println(string(rsp))
 		}
 	}()
 	for {
@@ -98,7 +97,6 @@ func main() {
 	flag.StringVar(&addr, "addr", "127.0.0.1:10000", "echo server address")
 	flag.Parse()
 	protobuf := codec.Protobuf()
-	// session, err := libnet.Connect("tcp", addr, libnet.Packet(2, 1024*1024, 1024, binary.BigEndian, TestCodec{}))
 	client, err := libnet.Connect("tcp", addr, protobuf, 0)
 	checkErr(err)
 	clientLoop(client, protobuf)
