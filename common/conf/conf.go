@@ -93,3 +93,9 @@ type KafkaConsumer struct {
 	Offset    bool // true: new, false: old
 	Zookeeper *Zookeeper
 }
+
+type MongoDB struct {
+	Addrs       string
+	DB          string
+	DialTimeout xtime.Duration
+}

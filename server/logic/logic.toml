@@ -30,3 +30,9 @@ brokers = ["127.0.0.1:9092"]
     root = "/kafka"
     addrs = ["127.0.0.1:2181"]
     timeout = "2s"
+
+[mongoDB]
+addrs = "127.0.0.1:27017"
+db = "im"
+dialTimeout = "1s"
+offlineMsgCollection = "offline_msg"

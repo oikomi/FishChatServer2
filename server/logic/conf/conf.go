@@ -19,6 +19,7 @@ type Config struct {
 	RPCClient     *RPCClient
 	Etcd          *commconf.Etcd
 	KafkaProducer *KafkaProducer
+	MongoDB       *MongoDB
 }
 
 type KafkaProducer struct {
@@ -28,6 +29,11 @@ type KafkaProducer struct {
 
 type RPCClient struct {
 	AuthClient *commconf.RPCClient
+}
+
+type MongoDB struct {
+	*commconf.MongoDB
+	OfflineMsgCollection string
 }
 
 func init() {
