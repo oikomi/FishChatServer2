@@ -64,6 +64,28 @@ func (c *Client) procReqPing(reqData []byte) (err error) {
 		glog.Error(err)
 		return
 	}
+	reqPingRPC := &rpc.PingReq{
+		UID: reqPing.UID,
+	}
+	resPingRPC, err := c.RPCClient.Logic.Ping(reqPingRPC)
+	if err != nil {
+		if err = c.Session.Send(&external.Error{
+			Cmd:     external.ErrServerCMD,
+			ErrCode: ecode.ServerErr.Uint32(),
+			ErrStr:  ecode.ServerErr.String(),
+		}); err != nil {
+			glog.Error(err)
+		}
+		glog.Error(err)
+		return
+	}
+	if err = c.Session.Send(&external.Error{
+		Cmd:     external.PingCMD,
+		ErrCode: resPingRPC.ErrCode,
+		ErrStr:  resPingRPC.ErrStr,
+	}); err != nil {
+		glog.Error(err)
+	}
 
 	return
 }

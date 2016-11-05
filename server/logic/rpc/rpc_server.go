@@ -34,6 +34,26 @@ func (s *RPCServer) Login(ctx context.Context, in *rpc.LoginReq) (res *rpc.Login
 	return
 }
 
+func (s *RPCServer) Ping(ctx context.Context, in *rpc.PingReq) (res *rpc.PingRes, err error) {
+	glog.Info("logic recive login")
+	// FIXME
+	if in.UID < 0 {
+		res = &rpc.PingRes{
+			ErrCode: ecode.NoToken.Uint32(),
+			ErrStr:  ecode.NoToken.String(),
+		}
+		return
+	}
+	// check
+
+	// success
+	res = &rpc.PingRes{
+		ErrCode: ecode.OK.Uint32(),
+		ErrStr:  ecode.OK.String(),
+	}
+	return
+}
+
 func (s *RPCServer) SendP2PMsg(ctx context.Context, in *rpc.SendP2PMsgReq) (res *rpc.SendP2PMsgRes, err error) {
 	glog.Info("msg_server recive SendP2PMsg")
 	sendP2PMsgKafka := &model.SendP2PMsgKafka{

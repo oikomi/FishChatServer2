@@ -32,9 +32,9 @@ func (logicRPCCli *LogicRPCCli) Login(loginReq *rpc.LoginReq) (res *rpc.LoginRes
 	return
 }
 
-func (logicRPCCli *LogicRPCCli) Ping(loginReq *rpc.LoginReq) (res *rpc.LoginRes, err error) {
+func (logicRPCCli *LogicRPCCli) Ping(pingReq *rpc.PingReq) (res *rpc.PingRes, err error) {
 	l := rpc.NewLogicRPCClient(logicRPCCli.conn)
-	if res, err = l.Login(context.Background(), loginReq); err != nil {
+	if res, err = l.Ping(context.Background(), pingReq); err != nil {
 		glog.Error(err)
 	}
 	return
