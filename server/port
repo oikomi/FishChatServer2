@@ -1,4 +1,10 @@
 
+[http]
+auth-api : 6001
+
+[external]
+access : 11000
+
 [rpc]
 access : 20000
 logic : 21000
