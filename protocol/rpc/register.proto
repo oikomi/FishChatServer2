@@ -3,4 +3,26 @@ syntax = "proto3";
 package rpc;
 
 service RegisterServerRPC {
+    rpc Ping (RGPingReq) returns (RGPingRes) {}
+    rpc Online (RGOnlineReq) returns (RGOnlineRes) {}
 }
+
+message RGPingReq {
+    int64  UID    = 1;
+}
+
+message RGPingRes {
+    uint32 errCode = 1;
+    string errStr  = 2;
+}
+
+message RGOnlineReq {
+    int64  UID    = 1;
+}
+
+message RGOnlineRes {
+    uint32 errCode = 1;
+    string errStr  = 2;
+    bool   online  = 3;
+}
+

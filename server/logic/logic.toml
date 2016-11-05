@@ -14,6 +14,8 @@ addr = "127.0.0.1:22000"
 [rpcClient]
     [rpcClient.authClient]
     addr = "127.0.0.1:30000"
+    [rpcClient.registerClient]
+    addr = "127.0.0.1:30000"
 
 [etcd]
 name = "logic_0001"

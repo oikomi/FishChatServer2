@@ -3,17 +3,19 @@ package rpc
 import (
 	"github.com/golang/glog"
 	"github.com/oikomi/FishChatServer2/common/ecode"
-	"github.com/oikomi/FishChatServer2/common/model"
+	commmodel "github.com/oikomi/FishChatServer2/common/model"
 	"github.com/oikomi/FishChatServer2/protocol/rpc"
 	"github.com/oikomi/FishChatServer2/server/logic/conf"
-	"github.com/oikomi/FishChatServer2/server/logic/job"
+	"github.com/oikomi/FishChatServer2/server/logic/dao"
+	"github.com/oikomi/FishChatServer2/server/logic/model"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"net"
 )
 
 type RPCServer struct {
-	kafkaJob *job.KafkaProducer
+	rpcClient *RPCClient
+	dao       *dao.Dao
 }
 
 func (s *RPCServer) Login(ctx context.Context, in *rpc.LoginReq) (res *rpc.LoginRes, err error) {
@@ -56,17 +58,32 @@ func (s *RPCServer) Ping(ctx context.Context, in *rpc.PingReq) (res *rpc.PingRes
 
 func (s *RPCServer) SendP2PMsg(ctx context.Context, in *rpc.SendP2PMsgReq) (res *rpc.SendP2PMsgRes, err error) {
 	glog.Info("msg_server recive SendP2PMsg")
-	sendP2PMsgKafka := &model.SendP2PMsgKafka{
+	sendP2PMsgKafka := &commmodel.SendP2PMsgKafka{
 		UID:       in.SourceUID,
 		TargetUID: in.TargetUID,
 		Msg:       in.Msg,
 	}
-	s.kafkaJob.SendP2PMsg(sendP2PMsgKafka)
+	// Online
+	if _, err = s.rpcClient.Register.Online(in.TargetUID); err != nil {
+		glog.Info(in.TargetUID, " is offline")
+		// set offline msg
+		offlineMsg := &model.OfflineMsg{
+			MsgID:     122,
+			SourceUID: in.SourceUID,
+			TargetUID: in.TargetUID,
+			Msg:       in.Msg,
+		}
+		if err = s.dao.MongoDB.StoreOfflineMsg(offlineMsg); err != nil {
+			glog.Error(err)
+		}
+		return
+	}
+	s.dao.KafkaProducer.SendP2PMsg(sendP2PMsgKafka)
 	res = &rpc.SendP2PMsgRes{}
 	return
 }
 
-func RPCServerInit() {
+func RPCServerInit(rpcClient *RPCClient) {
 	glog.Info("[msg_server] rpc server init")
 	lis, err := net.Listen(conf.Conf.RPCServer.Proto, conf.Conf.RPCServer.Addr)
 	if err != nil {
@@ -74,12 +91,15 @@ func RPCServerInit() {
 		panic(err)
 	}
 	s := grpc.NewServer()
-	rpcServer := &RPCServer{
-		kafkaJob: job.NewKafkaProducer(),
+	dao, err := dao.NewDao()
+	if err != nil {
+		glog.Error(err)
+		panic(err)
 	}
-	go rpcServer.kafkaJob.HandleError()
-	go rpcServer.kafkaJob.HandleSuccess()
-	go rpcServer.kafkaJob.Process()
-	rpc.RegisterMsgServerRPCServer(s, rpcServer)
+	rpcServer := &RPCServer{
+		rpcClient: rpcClient,
+		dao:       dao,
+	}
+	rpc.RegisterLogicRPCServer(s, rpcServer)
 	s.Serve(lis)
 }

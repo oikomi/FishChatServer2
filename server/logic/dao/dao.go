@@ -2,29 +2,30 @@ package dao
 
 import (
 	"github.com/golang/glog"
-	"github.com/oikomi/FishChatServer2/common/dao/mongodb"
-	"github.com/oikomi/FishChatServer2/server/logic/conf"
-	"github.com/oikomi/FishChatServer2/server/logic/model"
+	// "github.com/oikomi/FishChatServer2/server/logic/conf"
+	// "github.com/oikomi/FishChatServer2/server/logic/model"
 )
 
 // const
 
 type Dao struct {
-	m *mongodb.MongoDB
+	MongoDB       *MongoDB
+	KafkaProducer *KafkaProducer
 }
 
 func NewDao() (dao *Dao, err error) {
-	m, err := mongodb.NewMongoDB(conf.Conf.MongoDB.MongoDB)
-	dao = &Dao{
-		m: m,
-	}
-	return
-}
-
-func (dao *Dao) StoreOfflineMsg(msg *model.OfflineMsg) (err error) {
-	c := dao.m.Session.DB(conf.Conf.MongoDB.DB).C(conf.Conf.MongoDB.OfflineMsgCollection)
-	if err = c.Insert(msg); err != nil {
+	m, err := NewMongoDB()
+	if err != nil {
 		glog.Error(err)
+		return
 	}
+	KafkaProducer := NewKafkaProducer()
+	dao = &Dao{
+		MongoDB:       m,
+		KafkaProducer: KafkaProducer,
+	}
+	go dao.KafkaProducer.HandleError()
+	go dao.KafkaProducer.HandleSuccess()
+	go dao.KafkaProducer.Process()
 	return
 }

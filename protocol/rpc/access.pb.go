@@ -26,6 +26,10 @@ It has these top-level messages:
 	PingRes
 	SendP2PMsgReq
 	SendP2PMsgRes
+	RGPingReq
+	RGPingRes
+	RGOnlineReq
+	RGOnlineRes
 */
 package rpc
 

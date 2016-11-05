@@ -1,4 +1,4 @@
-package job
+package dao
 
 import (
 	"encoding/json"
