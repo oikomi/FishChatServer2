@@ -1,7 +1,7 @@
 # gateway conf
 
 ver = "1.0.0"
-logPath = "/tmp/access_server.log"
+logPath = "/tmp/access.log"
 
 [server]
 proto = "tcp"
