@@ -2,11 +2,7 @@ package dao
 
 import (
 	"github.com/golang/glog"
-	// "github.com/oikomi/FishChatServer2/server/logic/conf"
-	// "github.com/oikomi/FishChatServer2/server/logic/model"
 )
-
-// const
 
 type Dao struct {
 	MongoDB       *MongoDB
