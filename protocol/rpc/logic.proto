@@ -2,8 +2,9 @@ syntax = "proto3";
 
 package rpc;
 
-service MsgServerRPC {
+service LogicRPC {
     rpc Login (LoginReq) returns (LoginRes) {}
+    rpc Ping (PingReq) returns (PingRes) {}
     rpc SendP2PMsg (SendP2PMsgReq) returns (SendP2PMsgRes) {}
 }
 
@@ -13,6 +14,15 @@ message LoginReq {
 }
 
 message LoginRes {
+    uint32 errCode = 1;
+    string errStr  = 2;
+}
+
+message PingReq {
+    int64  UID    = 1;
+}
+
+message PingRes {
     uint32 errCode = 1;
     string errStr  = 2;
 }

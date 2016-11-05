@@ -26,7 +26,7 @@ func (c *Client) procReqLogin(reqData []byte) (err error) {
 		UID:   reqLogin.UID,
 		Token: reqLogin.Token,
 	}
-	resLoginRPC, err := c.RPCClient.MsgServer.Login(reqLoginRPC)
+	resLoginRPC, err := c.RPCClient.Logic.Login(reqLoginRPC)
 	if err != nil {
 		if err = c.Session.Send(&external.Error{
 			Cmd:     external.ErrServerCMD,
@@ -50,6 +50,24 @@ func (c *Client) procReqLogin(reqData []byte) (err error) {
 	return
 }
 
+func (c *Client) procReqPing(reqData []byte) (err error) {
+	glog.Info("procReqPing")
+	reqPing := &external.ReqPing{}
+	if err = proto.Unmarshal(reqData, reqPing); err != nil {
+		if err = c.Session.Send(&external.Error{
+			Cmd:     external.ErrServerCMD,
+			ErrCode: ecode.ServerErr.Uint32(),
+			ErrStr:  ecode.ServerErr.String(),
+		}); err != nil {
+			glog.Error(err)
+		}
+		glog.Error(err)
+		return
+	}
+
+	return
+}
+
 func (c *Client) procSendP2PMsg(reqData []byte) (err error) {
 	glog.Info("procSendP2PMsg")
 	reqSendP2PMsg := &external.ReqSendP2PMsg{}
@@ -69,7 +87,7 @@ func (c *Client) procSendP2PMsg(reqData []byte) (err error) {
 		TargetUID: reqSendP2PMsg.TargetUID,
 		Msg:       reqSendP2PMsg.Msg,
 	}
-	resSendP2PMsgRPC, err := c.RPCClient.MsgServer.SendP2PMsg(reqSendP2PMsgRPC)
+	resSendP2PMsgRPC, err := c.RPCClient.Logic.SendP2PMsg(reqSendP2PMsgRPC)
 	if err != nil {
 		if err = c.Session.Send(&external.Error{
 			Cmd:     external.ErrServerCMD,

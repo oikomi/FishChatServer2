@@ -8,7 +8,8 @@ const (
 	ReqAccessServerCMD = 10001
 	// ResSelectAccessServerForClientCMD = 10002
 
-	// msg_server
+	// acess
 	LoginCMD      = 20001
-	SendP2PMsgCMD = 20002
+	PingCMD       = 20002
+	SendP2PMsgCMD = 20003
 )

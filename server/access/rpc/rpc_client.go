@@ -6,17 +6,17 @@ import (
 )
 
 type RPCClient struct {
-	MsgServer *client.MsgServerRPCCli
+	Logic *client.LogicRPCCli
 }
 
 func NewRPCClient() (c *RPCClient, err error) {
-	msgServer, err := client.NewMsgServerRPCCli()
+	logic, err := client.NewLogicRPCCli()
 	if err != nil {
 		glog.Error(err)
 		return
 	}
 	c = &RPCClient{
-		MsgServer: msgServer,
+		Logic: logic,
 	}
 	return
 }

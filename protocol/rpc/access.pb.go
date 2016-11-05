@@ -8,8 +8,8 @@ Package rpc is a generated protocol buffer package.
 It is generated from these files:
 	access.proto
 	auth.proto
+	logic.proto
 	manager.proto
-	msg_server.proto
 	register.proto
 	router.proto
 
@@ -22,6 +22,8 @@ It has these top-level messages:
 	AuthAuthRes
 	LoginReq
 	LoginRes
+	PingReq
+	PingRes
 	SendP2PMsgReq
 	SendP2PMsgRes
 */
@@ -84,7 +86,6 @@ const _ = grpc.SupportPackageIsVersion3
 // Client API for AccessServerRPC service
 
 type AccessServerRPCClient interface {
-	// rpc SendP2PMsg (ASSendP2PMsgReq) returns () {}
 	SendP2PMsg(ctx context.Context, in *ASSendP2PMsgReq, opts ...grpc.CallOption) (*ASSendP2PMsgRes, error)
 }
 
@@ -108,7 +109,6 @@ func (c *accessServerRPCClient) SendP2PMsg(ctx context.Context, in *ASSendP2PMsg
 // Server API for AccessServerRPC service
 
 type AccessServerRPCServer interface {
-	// rpc SendP2PMsg (ASSendP2PMsgReq) returns () {}
 	SendP2PMsg(context.Context, *ASSendP2PMsgReq) (*ASSendP2PMsgRes, error)
 }
 

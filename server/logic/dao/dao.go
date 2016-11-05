@@ -14,7 +14,7 @@ type Dao struct {
 }
 
 func NewDao() (dao *Dao, err error) {
-	m, err := mongodb.NewMongoDB(conf.Conf.MongoDB)
+	m, err := mongodb.NewMongoDB(conf.Conf.MongoDB.MongoDB)
 	dao = &Dao{
 		m: m,
 	}
@@ -22,7 +22,7 @@ func NewDao() (dao *Dao, err error) {
 }
 
 func (dao *Dao) StoreOfflineMsg(msg *model.OfflineMsg) (err error) {
-	c := dao.m.Session.DB(conf.Conf.MongoDB.DB).C("people")
+	c := dao.m.Session.DB(conf.Conf.MongoDB.DB).C(conf.Conf.MongoDB.OfflineMsgCollection)
 	if err = c.Insert(msg); err != nil {
 		glog.Error(err)
 	}
