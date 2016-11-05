@@ -4,7 +4,7 @@ import (
 	"flag"
 	"github.com/BurntSushi/toml"
 	commconf "github.com/oikomi/FishChatServer2/common/conf"
-	"time"
+	"github.com/oikomi/FishChatServer2/common/xtime"
 )
 
 var (
@@ -15,25 +15,18 @@ var (
 type Config struct {
 	*commconf.CommConf
 	configFile string
-	Server     *commconf.Server
 	RPCServer  *commconf.RPCServer
-	RPCClient  *RPCClient
-	Etcd       *commconf.Etcd
-	Zookeeper  *commconf.Zookeeper
 	Redis      *Redis
-}
-
-type RPCClient struct {
-	MsgServerClient *commconf.RPCClient
+	Etcd       *commconf.Etcd
 }
 
 type Redis struct {
 	*commconf.Redis
-	Expire time.Duration
+	Expire xtime.Duration
 }
 
 func init() {
-	flag.StringVar(&confPath, "conf", "./manager.toml", "config path")
+	flag.StringVar(&confPath, "conf", "./router.toml", "config path")
 }
 
 func Init() (err error) {

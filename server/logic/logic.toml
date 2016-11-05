@@ -9,13 +9,13 @@ addr = "127.0.0.1:12000"
 
 [rpcServer]
 proto = "tcp"
-addr = "127.0.0.1:22000"
+addr = "127.0.0.1:21000"
 
 [rpcClient]
     [rpcClient.authClient]
-    addr = "127.0.0.1:30000"
+    addr = "127.0.0.1:22000"
     [rpcClient.registerClient]
-    addr = "127.0.0.1:30000"
+    addr = "127.0.0.1:23000"
 
 [etcd]
 name = "logic_0001"

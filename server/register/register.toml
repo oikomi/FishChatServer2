@@ -5,16 +5,16 @@ logPath = "/tmp/register.log"
 
 [rpcServer]
 proto = "tcp"
-addr = "127.0.0.1:30000"
+addr = "127.0.0.1:23000"
 
 [etcd]
 name = "auth_0001"
-root = "/server/auth/"
+root = "/server/register/"
 addrs = ["127.0.0.1:2379"]
 timeout = "1s"
 
 [redis]
-name = "auth"
+name = "register"
 proto = "tcp"
 addr = "127.0.0.1:6379"
 idle = 100

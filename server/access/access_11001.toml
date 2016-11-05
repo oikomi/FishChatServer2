@@ -12,8 +12,8 @@ proto = "tcp"
 addr = "127.0.0.1:21001"
 
 [rpcClient]
-    [rpcClient.msgServerClient]
-    addr = "127.0.0.1:22000"
+    [rpcClient.logicClient]
+    addr = "127.0.0.1:21000"
 
 [etcd]
 name = "access_server_11001"

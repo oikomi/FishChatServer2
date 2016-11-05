@@ -21,7 +21,7 @@ type Config struct {
 }
 
 type RPCClient struct {
-	MsgServerClient *commconf.RPCClient
+	LogicClient *commconf.RPCClient
 }
 
 func init() {

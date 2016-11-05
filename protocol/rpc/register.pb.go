@@ -25,7 +25,7 @@ type RGPingReq struct {
 func (m *RGPingReq) Reset()                    { *m = RGPingReq{} }
 func (m *RGPingReq) String() string            { return proto.CompactTextString(m) }
 func (*RGPingReq) ProtoMessage()               {}
-func (*RGPingReq) Descriptor() ([]byte, []int) { return fileDescriptor4, []int{0} }
+func (*RGPingReq) Descriptor() ([]byte, []int) { return fileDescriptor3, []int{0} }
 
 type RGPingRes struct {
 	ErrCode uint32 `protobuf:"varint,1,opt,name=errCode" json:"errCode,omitempty"`
@@ -35,7 +35,7 @@ type RGPingRes struct {
 func (m *RGPingRes) Reset()                    { *m = RGPingRes{} }
 func (m *RGPingRes) String() string            { return proto.CompactTextString(m) }
 func (*RGPingRes) ProtoMessage()               {}
-func (*RGPingRes) Descriptor() ([]byte, []int) { return fileDescriptor4, []int{1} }
+func (*RGPingRes) Descriptor() ([]byte, []int) { return fileDescriptor3, []int{1} }
 
 type RGOnlineReq struct {
 	UID int64 `protobuf:"varint,1,opt,name=UID" json:"UID,omitempty"`
@@ -44,7 +44,7 @@ type RGOnlineReq struct {
 func (m *RGOnlineReq) Reset()                    { *m = RGOnlineReq{} }
 func (m *RGOnlineReq) String() string            { return proto.CompactTextString(m) }
 func (*RGOnlineReq) ProtoMessage()               {}
-func (*RGOnlineReq) Descriptor() ([]byte, []int) { return fileDescriptor4, []int{2} }
+func (*RGOnlineReq) Descriptor() ([]byte, []int) { return fileDescriptor3, []int{2} }
 
 type RGOnlineRes struct {
 	ErrCode uint32 `protobuf:"varint,1,opt,name=errCode" json:"errCode,omitempty"`
@@ -55,7 +55,7 @@ type RGOnlineRes struct {
 func (m *RGOnlineRes) Reset()                    { *m = RGOnlineRes{} }
 func (m *RGOnlineRes) String() string            { return proto.CompactTextString(m) }
 func (*RGOnlineRes) ProtoMessage()               {}
-func (*RGOnlineRes) Descriptor() ([]byte, []int) { return fileDescriptor4, []int{3} }
+func (*RGOnlineRes) Descriptor() ([]byte, []int) { return fileDescriptor3, []int{3} }
 
 func init() {
 	proto.RegisterType((*RGPingReq)(nil), "rpc.RGPingReq")
@@ -166,12 +166,12 @@ var _RegisterServerRPC_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: fileDescriptor4,
+	Metadata: fileDescriptor3,
 }
 
-func init() { proto.RegisterFile("register.proto", fileDescriptor4) }
+func init() { proto.RegisterFile("register.proto", fileDescriptor3) }
 
-var fileDescriptor4 = []byte{
+var fileDescriptor3 = []byte{
 	// 209 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0xe2, 0xe2, 0x2b, 0x4a, 0x4d, 0xcf,
 	0x2c, 0x2e, 0x49, 0x2d, 0xd2, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0x62, 0x2e, 0x2a, 0x48, 0x56,

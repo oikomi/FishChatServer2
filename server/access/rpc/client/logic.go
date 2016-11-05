@@ -13,7 +13,7 @@ type LogicRPCCli struct {
 }
 
 func NewLogicRPCCli() (logicRPCCli *LogicRPCCli, err error) {
-	conn, err := grpc.Dial(conf.Conf.RPCClient.MsgServerClient.Addr, grpc.WithInsecure())
+	conn, err := grpc.Dial(conf.Conf.RPCClient.LogicClient.Addr, grpc.WithInsecure())
 	if err != nil {
 		glog.Error(err)
 		return

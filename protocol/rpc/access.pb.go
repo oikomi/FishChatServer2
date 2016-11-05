@@ -9,7 +9,6 @@ It is generated from these files:
 	access.proto
 	auth.proto
 	logic.proto
-	manager.proto
 	register.proto
 	router.proto
 
@@ -30,6 +29,8 @@ It has these top-level messages:
 	RGPingRes
 	RGOnlineReq
 	RGOnlineRes
+	RTAccessReq
+	RTAccessRes
 */
 package rpc
 

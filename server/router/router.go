@@ -3,8 +3,8 @@ package main
 import (
 	"flag"
 	"github.com/golang/glog"
-	"github.com/oikomi/FishChatServer2/server/manager/conf"
-	"github.com/oikomi/FishChatServer2/server/manager/rpc"
+	"github.com/oikomi/FishChatServer2/server/router/conf"
+	"github.com/oikomi/FishChatServer2/server/router/rpc"
 )
 
 func init() {
@@ -13,11 +13,11 @@ func init() {
 }
 
 func main() {
-	var err error
 	flag.Parse()
-	if err = conf.Init(); err != nil {
+	if err := conf.Init(); err != nil {
 		glog.Error("conf.Init() error: ", err)
 		panic(err)
 	}
+	go rpc.SDHeart()
 	rpc.RPCServerInit()
 }
