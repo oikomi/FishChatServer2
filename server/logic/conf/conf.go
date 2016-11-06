@@ -20,7 +20,7 @@ type Config struct {
 	Etcd          *commconf.Etcd
 	KafkaProducer *KafkaProducer
 	MongoDB       *MongoDB
-	ES            *commconf.ES
+	ES            *ES
 }
 
 type KafkaProducer struct {
@@ -36,6 +36,11 @@ type RPCClient struct {
 type MongoDB struct {
 	*commconf.MongoDB
 	OfflineMsgCollection string
+}
+
+type ES struct {
+	*commconf.ES
+	Index string
 }
 
 func init() {

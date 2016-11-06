@@ -11,7 +11,7 @@ type ES struct {
 }
 
 func NewES() (es *ES, err error) {
-	client, err := elastic.NewClient(elastic.SetURL(conf.Conf.ES.Addrs))
+	client, err := elastic.NewClient(elastic.SetURL(conf.Conf.ES.ES.Addrs))
 	if err != nil {
 		glog.Error(err)
 		return

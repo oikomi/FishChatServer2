@@ -41,3 +41,4 @@ offlineMsgCollection = "offline_msg"
 
 [es]
 addrs = "127.0.0.1:9200"
+index = "msg"

@@ -11,5 +11,5 @@ type OfflineMsg struct {
 	Msg       string
 	CTime     xtime.Time
 	MTime     xtime.Time
-	flag      bool
+	Flag      bool
 }
