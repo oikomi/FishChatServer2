@@ -99,3 +99,7 @@ type MongoDB struct {
 	DB          string
 	DialTimeout xtime.Duration
 }
+
+type ES struct {
+	Addrs string
+}

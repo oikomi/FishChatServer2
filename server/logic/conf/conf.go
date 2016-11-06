@@ -20,6 +20,7 @@ type Config struct {
 	Etcd          *commconf.Etcd
 	KafkaProducer *KafkaProducer
 	MongoDB       *MongoDB
+	ES            *commconf.ES
 }
 
 type KafkaProducer struct {

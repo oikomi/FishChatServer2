@@ -78,7 +78,9 @@ func (s *RPCServer) SendP2PMsg(ctx context.Context, in *rpc.SendP2PMsgReq) (res 
 		}
 		return
 	}
+	// send to kafka
 	s.dao.KafkaProducer.SendP2PMsg(sendP2PMsgKafka)
+	// send to es
 	res = &rpc.SendP2PMsgRes{}
 	return
 }
