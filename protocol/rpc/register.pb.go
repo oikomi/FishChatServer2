@@ -18,6 +18,68 @@ var _ = proto.Marshal
 var _ = fmt.Errorf
 var _ = math.Inf
 
+type RGLoginReq struct {
+	UID        int64  `protobuf:"varint,1,opt,name=UID" json:"UID,omitempty"`
+	Token      string `protobuf:"bytes,2,opt,name=token" json:"token,omitempty"`
+	AccessAddr string `protobuf:"bytes,3,opt,name=accessAddr" json:"accessAddr,omitempty"`
+}
+
+func (m *RGLoginReq) Reset()                    { *m = RGLoginReq{} }
+func (m *RGLoginReq) String() string            { return proto.CompactTextString(m) }
+func (*RGLoginReq) ProtoMessage()               {}
+func (*RGLoginReq) Descriptor() ([]byte, []int) { return fileDescriptor2, []int{0} }
+
+type RGLoginRes struct {
+	ErrCode uint32 `protobuf:"varint,1,opt,name=errCode" json:"errCode,omitempty"`
+	ErrStr  string `protobuf:"bytes,2,opt,name=errStr" json:"errStr,omitempty"`
+	Token   string `protobuf:"bytes,3,opt,name=token" json:"token,omitempty"`
+}
+
+func (m *RGLoginRes) Reset()                    { *m = RGLoginRes{} }
+func (m *RGLoginRes) String() string            { return proto.CompactTextString(m) }
+func (*RGLoginRes) ProtoMessage()               {}
+func (*RGLoginRes) Descriptor() ([]byte, []int) { return fileDescriptor2, []int{1} }
+
+type RGAccessReq struct {
+	UID int64 `protobuf:"varint,1,opt,name=UID" json:"UID,omitempty"`
+}
+
+func (m *RGAccessReq) Reset()                    { *m = RGAccessReq{} }
+func (m *RGAccessReq) String() string            { return proto.CompactTextString(m) }
+func (*RGAccessReq) ProtoMessage()               {}
+func (*RGAccessReq) Descriptor() ([]byte, []int) { return fileDescriptor2, []int{2} }
+
+type RGAccessRes struct {
+	ErrCode    uint32 `protobuf:"varint,1,opt,name=errCode" json:"errCode,omitempty"`
+	ErrStr     string `protobuf:"bytes,2,opt,name=errStr" json:"errStr,omitempty"`
+	AccessAddr string `protobuf:"bytes,3,opt,name=accessAddr" json:"accessAddr,omitempty"`
+}
+
+func (m *RGAccessRes) Reset()                    { *m = RGAccessRes{} }
+func (m *RGAccessRes) String() string            { return proto.CompactTextString(m) }
+func (*RGAccessRes) ProtoMessage()               {}
+func (*RGAccessRes) Descriptor() ([]byte, []int) { return fileDescriptor2, []int{3} }
+
+type RGAuthReq struct {
+	UID   int64  `protobuf:"varint,1,opt,name=UID" json:"UID,omitempty"`
+	Token string `protobuf:"bytes,2,opt,name=token" json:"token,omitempty"`
+}
+
+func (m *RGAuthReq) Reset()                    { *m = RGAuthReq{} }
+func (m *RGAuthReq) String() string            { return proto.CompactTextString(m) }
+func (*RGAuthReq) ProtoMessage()               {}
+func (*RGAuthReq) Descriptor() ([]byte, []int) { return fileDescriptor2, []int{4} }
+
+type RGAuthRes struct {
+	ErrCode uint32 `protobuf:"varint,1,opt,name=errCode" json:"errCode,omitempty"`
+	ErrStr  string `protobuf:"bytes,2,opt,name=errStr" json:"errStr,omitempty"`
+}
+
+func (m *RGAuthRes) Reset()                    { *m = RGAuthRes{} }
+func (m *RGAuthRes) String() string            { return proto.CompactTextString(m) }
+func (*RGAuthRes) ProtoMessage()               {}
+func (*RGAuthRes) Descriptor() ([]byte, []int) { return fileDescriptor2, []int{5} }
+
 type RGPingReq struct {
 	UID int64 `protobuf:"varint,1,opt,name=UID" json:"UID,omitempty"`
 }
@@ -25,7 +87,7 @@ type RGPingReq struct {
 func (m *RGPingReq) Reset()                    { *m = RGPingReq{} }
 func (m *RGPingReq) String() string            { return proto.CompactTextString(m) }
 func (*RGPingReq) ProtoMessage()               {}
-func (*RGPingReq) Descriptor() ([]byte, []int) { return fileDescriptor3, []int{0} }
+func (*RGPingReq) Descriptor() ([]byte, []int) { return fileDescriptor2, []int{6} }
 
 type RGPingRes struct {
 	ErrCode uint32 `protobuf:"varint,1,opt,name=errCode" json:"errCode,omitempty"`
@@ -35,7 +97,7 @@ type RGPingRes struct {
 func (m *RGPingRes) Reset()                    { *m = RGPingRes{} }
 func (m *RGPingRes) String() string            { return proto.CompactTextString(m) }
 func (*RGPingRes) ProtoMessage()               {}
-func (*RGPingRes) Descriptor() ([]byte, []int) { return fileDescriptor3, []int{1} }
+func (*RGPingRes) Descriptor() ([]byte, []int) { return fileDescriptor2, []int{7} }
 
 type RGOnlineReq struct {
 	UID int64 `protobuf:"varint,1,opt,name=UID" json:"UID,omitempty"`
@@ -44,7 +106,7 @@ type RGOnlineReq struct {
 func (m *RGOnlineReq) Reset()                    { *m = RGOnlineReq{} }
 func (m *RGOnlineReq) String() string            { return proto.CompactTextString(m) }
 func (*RGOnlineReq) ProtoMessage()               {}
-func (*RGOnlineReq) Descriptor() ([]byte, []int) { return fileDescriptor3, []int{2} }
+func (*RGOnlineReq) Descriptor() ([]byte, []int) { return fileDescriptor2, []int{8} }
 
 type RGOnlineRes struct {
 	ErrCode uint32 `protobuf:"varint,1,opt,name=errCode" json:"errCode,omitempty"`
@@ -55,9 +117,15 @@ type RGOnlineRes struct {
 func (m *RGOnlineRes) Reset()                    { *m = RGOnlineRes{} }
 func (m *RGOnlineRes) String() string            { return proto.CompactTextString(m) }
 func (*RGOnlineRes) ProtoMessage()               {}
-func (*RGOnlineRes) Descriptor() ([]byte, []int) { return fileDescriptor3, []int{3} }
+func (*RGOnlineRes) Descriptor() ([]byte, []int) { return fileDescriptor2, []int{9} }
 
 func init() {
+	proto.RegisterType((*RGLoginReq)(nil), "rpc.RGLoginReq")
+	proto.RegisterType((*RGLoginRes)(nil), "rpc.RGLoginRes")
+	proto.RegisterType((*RGAccessReq)(nil), "rpc.RGAccessReq")
+	proto.RegisterType((*RGAccessRes)(nil), "rpc.RGAccessRes")
+	proto.RegisterType((*RGAuthReq)(nil), "rpc.RGAuthReq")
+	proto.RegisterType((*RGAuthRes)(nil), "rpc.RGAuthRes")
 	proto.RegisterType((*RGPingReq)(nil), "rpc.RGPingReq")
 	proto.RegisterType((*RGPingRes)(nil), "rpc.RGPingRes")
 	proto.RegisterType((*RGOnlineReq)(nil), "rpc.RGOnlineReq")
@@ -75,6 +143,9 @@ const _ = grpc.SupportPackageIsVersion3
 // Client API for RegisterServerRPC service
 
 type RegisterServerRPCClient interface {
+	Login(ctx context.Context, in *RGLoginReq, opts ...grpc.CallOption) (*RGLoginRes, error)
+	RouterAccess(ctx context.Context, in *RGAccessReq, opts ...grpc.CallOption) (*RGAccessRes, error)
+	Auth(ctx context.Context, in *RGAuthReq, opts ...grpc.CallOption) (*RGAuthRes, error)
 	Ping(ctx context.Context, in *RGPingReq, opts ...grpc.CallOption) (*RGPingRes, error)
 	Online(ctx context.Context, in *RGOnlineReq, opts ...grpc.CallOption) (*RGOnlineRes, error)
 }
@@ -85,6 +156,33 @@ type registerServerRPCClient struct {
 
 func NewRegisterServerRPCClient(cc *grpc.ClientConn) RegisterServerRPCClient {
 	return &registerServerRPCClient{cc}
+}
+
+func (c *registerServerRPCClient) Login(ctx context.Context, in *RGLoginReq, opts ...grpc.CallOption) (*RGLoginRes, error) {
+	out := new(RGLoginRes)
+	err := grpc.Invoke(ctx, "/rpc.RegisterServerRPC/Login", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *registerServerRPCClient) RouterAccess(ctx context.Context, in *RGAccessReq, opts ...grpc.CallOption) (*RGAccessRes, error) {
+	out := new(RGAccessRes)
+	err := grpc.Invoke(ctx, "/rpc.RegisterServerRPC/RouterAccess", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *registerServerRPCClient) Auth(ctx context.Context, in *RGAuthReq, opts ...grpc.CallOption) (*RGAuthRes, error) {
+	out := new(RGAuthRes)
+	err := grpc.Invoke(ctx, "/rpc.RegisterServerRPC/Auth", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *registerServerRPCClient) Ping(ctx context.Context, in *RGPingReq, opts ...grpc.CallOption) (*RGPingRes, error) {
@@ -108,12 +206,69 @@ func (c *registerServerRPCClient) Online(ctx context.Context, in *RGOnlineReq, o
 // Server API for RegisterServerRPC service
 
 type RegisterServerRPCServer interface {
+	Login(context.Context, *RGLoginReq) (*RGLoginRes, error)
+	RouterAccess(context.Context, *RGAccessReq) (*RGAccessRes, error)
+	Auth(context.Context, *RGAuthReq) (*RGAuthRes, error)
 	Ping(context.Context, *RGPingReq) (*RGPingRes, error)
 	Online(context.Context, *RGOnlineReq) (*RGOnlineRes, error)
 }
 
 func RegisterRegisterServerRPCServer(s *grpc.Server, srv RegisterServerRPCServer) {
 	s.RegisterService(&_RegisterServerRPC_serviceDesc, srv)
+}
+
+func _RegisterServerRPC_Login_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RGLoginReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RegisterServerRPCServer).Login(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/rpc.RegisterServerRPC/Login",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RegisterServerRPCServer).Login(ctx, req.(*RGLoginReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _RegisterServerRPC_RouterAccess_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RGAccessReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RegisterServerRPCServer).RouterAccess(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/rpc.RegisterServerRPC/RouterAccess",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RegisterServerRPCServer).RouterAccess(ctx, req.(*RGAccessReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _RegisterServerRPC_Auth_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RGAuthReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RegisterServerRPCServer).Auth(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/rpc.RegisterServerRPC/Auth",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RegisterServerRPCServer).Auth(ctx, req.(*RGAuthReq))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _RegisterServerRPC_Ping_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -157,6 +312,18 @@ var _RegisterServerRPC_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*RegisterServerRPCServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
+			MethodName: "Login",
+			Handler:    _RegisterServerRPC_Login_Handler,
+		},
+		{
+			MethodName: "RouterAccess",
+			Handler:    _RegisterServerRPC_RouterAccess_Handler,
+		},
+		{
+			MethodName: "Auth",
+			Handler:    _RegisterServerRPC_Auth_Handler,
+		},
+		{
 			MethodName: "Ping",
 			Handler:    _RegisterServerRPC_Ping_Handler,
 		},
@@ -166,25 +333,33 @@ var _RegisterServerRPC_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: fileDescriptor3,
+	Metadata: fileDescriptor2,
 }
 
-func init() { proto.RegisterFile("register.proto", fileDescriptor3) }
+func init() { proto.RegisterFile("register.proto", fileDescriptor2) }
 
-var fileDescriptor3 = []byte{
-	// 209 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0xe2, 0xe2, 0x2b, 0x4a, 0x4d, 0xcf,
-	0x2c, 0x2e, 0x49, 0x2d, 0xd2, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0x62, 0x2e, 0x2a, 0x48, 0x56,
-	0x92, 0xe5, 0xe2, 0x0c, 0x72, 0x0f, 0xc8, 0xcc, 0x4b, 0x0f, 0x4a, 0x2d, 0x14, 0x12, 0xe0, 0x62,
-	0x0e, 0xf5, 0x74, 0x91, 0x60, 0x54, 0x60, 0xd4, 0x60, 0x0e, 0x02, 0x31, 0x95, 0x6c, 0x11, 0xd2,
-	0xc5, 0x42, 0x12, 0x5c, 0xec, 0xa9, 0x45, 0x45, 0xce, 0xf9, 0x29, 0xa9, 0x60, 0x25, 0xbc, 0x41,
-	0x30, 0xae, 0x90, 0x18, 0x17, 0x5b, 0x6a, 0x51, 0x51, 0x70, 0x49, 0x91, 0x04, 0x93, 0x02, 0xa3,
-	0x06, 0x67, 0x10, 0x94, 0xa7, 0x24, 0xcf, 0xc5, 0x1d, 0xe4, 0xee, 0x9f, 0x97, 0x93, 0x99, 0x97,
-	0x8a, 0xdd, 0xfc, 0x70, 0x64, 0x05, 0x64, 0xd8, 0x00, 0x12, 0xcf, 0x07, 0x6b, 0x97, 0x60, 0x56,
-	0x60, 0xd4, 0xe0, 0x08, 0x82, 0xf2, 0x8c, 0x72, 0xb9, 0x04, 0x83, 0xa0, 0xde, 0x0d, 0x4e, 0x2d,
-	0x2a, 0x4b, 0x2d, 0x0a, 0x0a, 0x70, 0x16, 0xd2, 0xe0, 0x62, 0x01, 0xf9, 0x45, 0x88, 0x4f, 0xaf,
-	0xa8, 0x20, 0x59, 0x0f, 0xee, 0x6f, 0x29, 0x54, 0x7e, 0xb1, 0x12, 0x83, 0x90, 0x1e, 0x17, 0x1b,
-	0xc4, 0x55, 0x42, 0x02, 0x50, 0x39, 0xb8, 0x2f, 0xa4, 0xd0, 0x45, 0x8a, 0x95, 0x18, 0x92, 0xd8,
-	0xc0, 0x41, 0x6a, 0x0c, 0x08, 0x00, 0x00, 0xff, 0xff, 0x2a, 0x02, 0x9f, 0xff, 0x64, 0x01, 0x00,
+var fileDescriptor2 = []byte{
+	// 337 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0x9c, 0x53, 0x41, 0x4b, 0xf3, 0x40,
+	0x10, 0x6d, 0xbe, 0x7c, 0x8d, 0x76, 0xd4, 0x5a, 0x17, 0x29, 0x21, 0xa0, 0x96, 0x3d, 0x15, 0x84,
+	0x1c, 0xac, 0xd7, 0x1e, 0x4a, 0x85, 0x22, 0x08, 0x96, 0xad, 0xe2, 0x51, 0x34, 0x1d, 0x6a, 0x50,
+	0xb2, 0x75, 0x76, 0xeb, 0x8f, 0xf7, 0x24, 0xbb, 0xd9, 0x26, 0x69, 0x29, 0x88, 0xb9, 0xe5, 0xcd,
+	0xbc, 0x79, 0x33, 0xfb, 0x66, 0x02, 0x6d, 0xc2, 0x45, 0xaa, 0x34, 0x52, 0xbc, 0x24, 0xa9, 0x25,
+	0xf3, 0x69, 0x99, 0xf0, 0x07, 0x00, 0x31, 0xb9, 0x93, 0x8b, 0x34, 0x13, 0xf8, 0xc9, 0x3a, 0xe0,
+	0x3f, 0xde, 0xde, 0x84, 0x5e, 0xcf, 0xeb, 0xfb, 0xc2, 0x7c, 0xb2, 0x53, 0x68, 0x6a, 0xf9, 0x8e,
+	0x59, 0xf8, 0xaf, 0xe7, 0xf5, 0x5b, 0x22, 0x07, 0xec, 0x1c, 0xe0, 0x25, 0x49, 0x50, 0xa9, 0xd1,
+	0x7c, 0x4e, 0xa1, 0x6f, 0x53, 0x95, 0xc8, 0x86, 0xaa, 0x62, 0x21, 0xec, 0x21, 0xd1, 0x58, 0xce,
+	0xd1, 0x2a, 0x1f, 0x89, 0x35, 0x64, 0x5d, 0x08, 0x90, 0x68, 0xa6, 0xc9, 0xc9, 0x3b, 0x54, 0x76,
+	0xf5, 0x2b, 0x5d, 0xf9, 0x05, 0x1c, 0x88, 0xc9, 0xc8, 0x76, 0xd9, 0x39, 0x2c, 0x7f, 0xae, 0x12,
+	0xea, 0xf4, 0xfd, 0xed, 0x5d, 0x03, 0x68, 0x89, 0xc9, 0x68, 0xa5, 0xdf, 0xfe, 0x60, 0x16, 0x1f,
+	0x96, 0x45, 0x35, 0x66, 0xe2, 0x67, 0xa6, 0x7c, 0x9a, 0x66, 0x8b, 0xdd, 0x6f, 0x1e, 0x96, 0xe9,
+	0x3a, 0xea, 0xd6, 0xd3, 0xfb, 0xec, 0x23, 0xcd, 0x70, 0xb7, 0xfe, 0x53, 0x95, 0x50, 0xc7, 0xd3,
+	0x2e, 0x04, 0xd2, 0x96, 0x5b, 0x3f, 0xf7, 0x85, 0x43, 0x57, 0xdf, 0x1e, 0x9c, 0x08, 0x77, 0x91,
+	0x33, 0xa4, 0x2f, 0x24, 0x31, 0x1d, 0xb3, 0x4b, 0x68, 0xda, 0xbb, 0x61, 0xc7, 0x31, 0x2d, 0x93,
+	0xb8, 0xbc, 0xcd, 0x68, 0x2b, 0xa0, 0x78, 0x83, 0x5d, 0xc3, 0xa1, 0x90, 0x2b, 0x8d, 0x94, 0xef,
+	0x9c, 0x75, 0x1c, 0xa5, 0xb8, 0x91, 0x68, 0x3b, 0x62, 0xaa, 0xfa, 0xf0, 0xdf, 0x6c, 0x83, 0xb5,
+	0xd7, 0xb9, 0x7c, 0x9f, 0xd1, 0x26, 0x76, 0x4c, 0xe3, 0x6c, 0xc1, 0x74, 0x5b, 0x88, 0x36, 0xb1,
+	0x61, 0xc6, 0x10, 0xe4, 0x1e, 0x15, 0x33, 0x14, 0x9e, 0x46, 0xdb, 0x11, 0xc5, 0x1b, 0xaf, 0x81,
+	0xfd, 0x05, 0x07, 0x3f, 0x01, 0x00, 0x00, 0xff, 0xff, 0xde, 0xab, 0x2e, 0xf9, 0x94, 0x03, 0x00,
 	0x00,
 }

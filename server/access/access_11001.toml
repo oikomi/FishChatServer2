@@ -5,7 +5,7 @@ logPath = "/tmp/access_server.log"
 
 [server]
 proto = "tcp"
-addr = "0.0.0.0:11001"
+addr = "127.0.0.1:11001"
 
 [rpcServer]
 proto = "tcp"

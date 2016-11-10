@@ -7,6 +7,11 @@ logPath = "/tmp/register.log"
 proto = "tcp"
 addr = "127.0.0.1:23000"
 
+[auth]
+encryption = "md5"
+salt = "!0h#?123(ABM"
+
+
 [etcd]
 name = "auth_0001"
 root = "/server/register/"

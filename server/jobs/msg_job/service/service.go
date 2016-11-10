@@ -14,7 +14,7 @@ import (
 
 var (
 	_module = "msg_job"
-	_add    = "add"
+	// _add    = "add"
 )
 
 type Service struct {
@@ -86,7 +86,10 @@ func (s *Service) consumeproc() {
 			TargetUID: sendP2PMsgKafka.TargetUID,
 			Msg:       sendP2PMsgKafka.Msg,
 		}
-		s.rpcClient.AccessServer.SendP2PMsg(sendP2PMsgReq)
+		_, err := s.rpcClient.AccessServer.SendP2PMsg(sendP2PMsgReq)
+		if err != nil {
+			glog.Error(err)
+		}
 		s.consumer.ConsumerGroup.CommitUpto(msg)
 	}
 }

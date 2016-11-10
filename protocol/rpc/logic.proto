@@ -9,8 +9,9 @@ service LogicRPC {
 }
 
 message LoginReq {
-    int64  UID    = 1;
-    string token  = 2;
+    int64  UID        = 1;
+    string token      = 2;
+    string accessAddr = 3;
 }
 
 message LoginRes {

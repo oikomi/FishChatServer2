@@ -24,16 +24,32 @@ func NewRegisterRPCCli() (registerRPCCli *RegisterRPCCli, err error) {
 	return
 }
 
-func (routerRPCCli *RegisterRPCCli) Online(ctx context.Context, uid int64) (res *rpc.RGOnlineRes, err error) {
-	r := rpc.NewRegisterServerRPCClient(routerRPCCli.conn)
+func (registerRPCCli *RegisterRPCCli) Login(ctx context.Context, uid int64, token, accessAddr string) (res *rpc.RGLoginRes, err error) {
+	r := rpc.NewRegisterServerRPCClient(registerRPCCli.conn)
+	if res, err = r.Login(ctx, &rpc.RGLoginReq{UID: uid, Token: token, AccessAddr: accessAddr}); err != nil {
+		glog.Error(err)
+	}
+	return
+}
+
+func (registerRPCCli *RegisterRPCCli) Auth(ctx context.Context, uid int64, token string) (res *rpc.RGAuthRes, err error) {
+	a := rpc.NewRegisterServerRPCClient(registerRPCCli.conn)
+	if res, err = a.Auth(ctx, &rpc.RGAuthReq{UID: uid, Token: token}); err != nil {
+		glog.Error(err)
+	}
+	return
+}
+
+func (registerRPCCli *RegisterRPCCli) Online(ctx context.Context, uid int64) (res *rpc.RGOnlineRes, err error) {
+	r := rpc.NewRegisterServerRPCClient(registerRPCCli.conn)
 	if res, err = r.Online(ctx, &rpc.RGOnlineReq{UID: uid}); err != nil {
 		glog.Error(err)
 	}
 	return
 }
 
-func (routerRPCCli *RegisterRPCCli) Ping(ctx context.Context, uid int64) (res *rpc.RGPingRes, err error) {
-	r := rpc.NewRegisterServerRPCClient(routerRPCCli.conn)
+func (registerRPCCli *RegisterRPCCli) Ping(ctx context.Context, uid int64) (res *rpc.RGPingRes, err error) {
+	r := rpc.NewRegisterServerRPCClient(registerRPCCli.conn)
 	if res, err = r.Ping(ctx, &rpc.RGPingReq{UID: uid}); err != nil {
 		glog.Error(err)
 	}

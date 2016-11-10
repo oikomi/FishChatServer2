@@ -6,7 +6,6 @@ service AccessServerRPC {
     rpc SendP2PMsg (ASSendP2PMsgReq) returns (ASSendP2PMsgRes) {}
 }
 
-
 message ASSendP2PMsgReq {
     int64  sourceUID = 1;
     int64  targetUID = 2;

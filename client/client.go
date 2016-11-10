@@ -11,10 +11,10 @@ import (
 	"time"
 )
 
-func init() {
-	flag.Set("alsologtostderr", "true")
-	flag.Set("log_dir", "false")
-}
+// func init() {
+// 	flag.Set("alsologtostderr", "true")
+// 	flag.Set("log_dir", "false")
+// }
 
 func checkErr(err error) {
 	if err != nil {
@@ -105,7 +105,7 @@ func clientLoop(session *libnet.Session, protobuf *codec.ProtobufProtocol) {
 
 func main() {
 	var addr string
-	flag.StringVar(&addr, "addr", "127.0.0.1:10000", "echo server address")
+	flag.StringVar(&addr, "addr", "127.0.0.1:10000", "server address")
 	flag.Parse()
 	protobuf := codec.Protobuf()
 	client, err := libnet.Connect("tcp", addr, protobuf, 0)

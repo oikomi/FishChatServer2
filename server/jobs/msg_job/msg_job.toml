@@ -4,7 +4,7 @@ logPath = "/tmp/msg-job.log"
 
 [rpcClient]
     [rpcClient.accessServerClient]
-    addr = "127.0.0.1:21000"
+    addr = "127.0.0.1:20000"
 
 
 [kafkaConsumer]

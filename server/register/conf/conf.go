@@ -16,8 +16,14 @@ type Config struct {
 	*commconf.CommConf
 	configFile string
 	RPCServer  *commconf.RPCServer
+	Auth       *Auth
 	Redis      *Redis
 	Etcd       *commconf.Etcd
+}
+
+type Auth struct {
+	Encryption string
+	Salt       string
 }
 
 type Redis struct {

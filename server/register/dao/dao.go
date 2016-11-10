@@ -31,6 +31,46 @@ func NewDao() (dao *Dao) {
 	return
 }
 
+func (dao *Dao) Token(ctx context.Context, uid int64) (res string, err error) {
+	conn := dao.redis.Get(ctx)
+	defer conn.Close()
+	res, err = redis.String(conn.Do("GET", key(uid)))
+	if err != nil {
+		glog.Error(err)
+	}
+	return
+}
+
+func (dao *Dao) SetToken(ctx context.Context, uid int64, token string) (err error) {
+	conn := dao.redis.Get(ctx)
+	defer conn.Close()
+	_, err = conn.Do("SETEX", key(uid), int(time.Duration(conf.Conf.Redis.Expire)/time.Second), token)
+	if err != nil {
+		glog.Error(err)
+	}
+	return
+}
+
+func (dao *Dao) RegisterAccess(ctx context.Context, uid int64, accessAddr string) (err error) {
+	conn := dao.redis.Get(ctx)
+	defer conn.Close()
+	_, err = conn.Do("SET", key(uid), accessAddr)
+	if err != nil {
+		glog.Error(err)
+	}
+	return
+}
+
+func (dao *Dao) RouterAccess(ctx context.Context, uid int64) (res string, err error) {
+	conn := dao.redis.Get(ctx)
+	defer conn.Close()
+	res, err = redis.String(conn.Do("GET", key(uid)))
+	if err != nil {
+		glog.Error(err)
+	}
+	return
+}
+
 func (dao *Dao) GetOnline(ctx context.Context, uid int64) (res int, err error) {
 	conn := dao.redis.Get(ctx)
 	defer conn.Close()

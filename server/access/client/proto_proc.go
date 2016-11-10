@@ -6,6 +6,7 @@ import (
 	"github.com/oikomi/FishChatServer2/common/ecode"
 	"github.com/oikomi/FishChatServer2/protocol/external"
 	"github.com/oikomi/FishChatServer2/protocol/rpc"
+	"github.com/oikomi/FishChatServer2/server/access/conf"
 	"github.com/oikomi/FishChatServer2/server/access/global"
 )
 
@@ -23,8 +24,9 @@ func (c *Client) procReqLogin(reqData []byte) (err error) {
 		return
 	}
 	reqLoginRPC := &rpc.LoginReq{
-		UID:   reqLogin.UID,
-		Token: reqLogin.Token,
+		UID:        reqLogin.UID,
+		Token:      reqLogin.Token,
+		AccessAddr: conf.Conf.RPCServer.Addr,
 	}
 	resLoginRPC, err := c.RPCClient.Logic.Login(reqLoginRPC)
 	if err != nil {

@@ -28,6 +28,7 @@ func (s *RPCServer) Login(ctx context.Context, in *rpc.LoginReq) (res *rpc.Login
 		}
 		return
 	}
+	s.rpcClient.Register.Login(ctx, in.UID, in.Token, in.AccessAddr)
 	// success
 	res = &rpc.LoginRes{
 		ErrCode: ecode.OK.Uint32(),

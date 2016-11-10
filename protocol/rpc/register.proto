@@ -3,8 +3,43 @@ syntax = "proto3";
 package rpc;
 
 service RegisterServerRPC {
+    rpc Login (RGLoginReq) returns (RGLoginRes) {}
+    rpc RouterAccess (RGAccessReq) returns (RGAccessRes) {}
+    rpc Auth (RGAuthReq) returns (RGAuthRes) {}
     rpc Ping (RGPingReq) returns (RGPingRes) {}
     rpc Online (RGOnlineReq) returns (RGOnlineRes) {}
+}
+
+message RGLoginReq {
+    int64  UID        = 1;
+    string token      = 2;
+    string accessAddr = 3;
+}
+
+message RGLoginRes {
+    uint32 errCode = 1;
+    string errStr  = 2;
+    string token   = 3;
+}
+
+message RGAccessReq {
+    int64  UID      = 1;
+}
+
+message RGAccessRes {
+    uint32 errCode    = 1;
+    string errStr     = 2;
+    string accessAddr = 3;
+}
+
+message RGAuthReq {
+    int64  UID    = 1;
+    string token  = 2;
+}
+
+message RGAuthRes {
+    uint32 errCode = 1;
+    string errStr  = 2;
 }
 
 message RGPingReq {
@@ -25,4 +60,3 @@ message RGOnlineRes {
     string errStr  = 2;
     bool   online  = 3;
 }
-

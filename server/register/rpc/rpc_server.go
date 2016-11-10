@@ -1,6 +1,9 @@
 package rpc
 
 import (
+	"crypto/md5"
+	"encoding/hex"
+	"fmt"
 	"github.com/golang/glog"
 	"github.com/oikomi/FishChatServer2/common/ecode"
 	"github.com/oikomi/FishChatServer2/protocol/rpc"
@@ -14,6 +17,87 @@ import (
 
 type RPCServer struct {
 	dao *dao.Dao
+}
+
+func (s *RPCServer) Login(ctx context.Context, in *rpc.RGLoginReq) (res *rpc.RGLoginRes, err error) {
+	glog.Info("login")
+	md5Ctx := md5.New()
+	md5Ctx.Write([]byte(fmt.Sprintf("%d", in.UID)))
+	md5Ctx.Write([]byte(conf.Conf.Auth.Salt))
+	cipherStr := md5Ctx.Sum(nil)
+	calcToken := hex.EncodeToString(cipherStr)
+	if calcToken != in.Token {
+		res = &rpc.RGLoginRes{
+			ErrCode: ecode.CalcTokenFailed.Uint32(),
+			ErrStr:  ecode.CalcTokenFailed.String(),
+		}
+		return
+	}
+	// if err = s.dao.SetToken(ctx, in.UID, calcToken); err != nil {
+	// 	res = &rpc.RGLoginRes{
+	// 		ErrCode: ecode.ServerErr.Uint32(),
+	// 		ErrStr:  ecode.ServerErr.String(),
+	// 	}
+	// 	return
+	// }
+	// regster
+	if err = s.dao.RegisterAccess(ctx, in.UID, in.AccessAddr); err != nil {
+		res = &rpc.RGLoginRes{
+			ErrCode: ecode.ServerErr.Uint32(),
+			ErrStr:  ecode.ServerErr.String(),
+		}
+		glog.Error(err)
+		return
+	}
+	res = &rpc.RGLoginRes{
+		ErrCode: ecode.OK.Uint32(),
+		ErrStr:  ecode.OK.String(),
+		Token:   calcToken,
+	}
+	return
+}
+
+func (s *RPCServer) RouterAccess(ctx context.Context, in *rpc.RGAccessReq) (res *rpc.RGAccessRes, err error) {
+	glog.Info("RouterAccess")
+	var accessAddr string
+	if accessAddr, err = s.dao.RouterAccess(ctx, in.UID); err != nil {
+		res = &rpc.RGAccessRes{
+			ErrCode: ecode.CalcTokenFailed.Uint32(),
+			ErrStr:  ecode.CalcTokenFailed.String(),
+		}
+		glog.Error(err)
+		return
+	}
+	res = &rpc.RGAccessRes{
+		ErrCode:    ecode.OK.Uint32(),
+		ErrStr:     ecode.OK.String(),
+		AccessAddr: accessAddr,
+	}
+	return
+}
+
+func (s *RPCServer) Auth(ctx context.Context, in *rpc.RGAuthReq) (res *rpc.RGAuthRes, err error) {
+	glog.Info("auth")
+	var token string
+	if token, err = s.dao.Token(ctx, in.UID); err != nil {
+		res = &rpc.RGAuthRes{
+			ErrCode: ecode.CalcTokenFailed.Uint32(),
+			ErrStr:  ecode.CalcTokenFailed.String(),
+		}
+		return
+	}
+	if token != in.Token {
+		res = &rpc.RGAuthRes{
+			ErrCode: ecode.CalcTokenFailed.Uint32(),
+			ErrStr:  ecode.CalcTokenFailed.String(),
+		}
+		return
+	}
+	res = &rpc.RGAuthRes{
+		ErrCode: ecode.OK.Uint32(),
+		ErrStr:  ecode.OK.String(),
+	}
+	return
 }
 
 func (s *RPCServer) Online(ctx context.Context, in *rpc.RGOnlineReq) (res *rpc.RGOnlineRes, err error) {
