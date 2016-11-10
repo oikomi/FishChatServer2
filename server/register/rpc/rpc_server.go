@@ -17,8 +17,11 @@ type RPCServer struct {
 }
 
 func (s *RPCServer) Online(ctx context.Context, in *rpc.RGOnlineReq) (res *rpc.RGOnlineRes, err error) {
+	glog.Info("Online")
 	if _, err = s.dao.GetOnline(ctx, in.UID); err != nil {
 		glog.Error(err)
+		// not found
+		err = nil
 		res = &rpc.RGOnlineRes{
 			ErrCode: ecode.ServerErr.Uint32(),
 			ErrStr:  ecode.ServerErr.String(),
@@ -35,6 +38,7 @@ func (s *RPCServer) Online(ctx context.Context, in *rpc.RGOnlineReq) (res *rpc.R
 }
 
 func (s *RPCServer) Ping(ctx context.Context, in *rpc.RGPingReq) (res *rpc.RGPingRes, err error) {
+	glog.Info("Ping")
 	if err = s.dao.SetOnline(ctx, in.UID); err != nil {
 		glog.Error(err)
 		res = &rpc.RGPingRes{

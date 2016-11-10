@@ -36,6 +36,7 @@ func (dao *Dao) GetOnline(ctx context.Context, uid int64) (res int, err error) {
 	defer conn.Close()
 	res, err = redis.Int(conn.Do("GET", key(uid)))
 	if err != nil {
+		res = _offline
 		glog.Error(err)
 	}
 	return

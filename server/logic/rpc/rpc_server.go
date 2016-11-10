@@ -37,7 +37,7 @@ func (s *RPCServer) Login(ctx context.Context, in *rpc.LoginReq) (res *rpc.Login
 }
 
 func (s *RPCServer) Ping(ctx context.Context, in *rpc.PingReq) (res *rpc.PingRes, err error) {
-	glog.Info("logic recive login")
+	glog.Info("logic recive Ping")
 	// FIXME
 	if in.UID < 0 {
 		res = &rpc.PingRes{
@@ -65,7 +65,7 @@ func (s *RPCServer) Ping(ctx context.Context, in *rpc.PingReq) (res *rpc.PingRes
 }
 
 func (s *RPCServer) SendP2PMsg(ctx context.Context, in *rpc.SendP2PMsgReq) (res *rpc.SendP2PMsgRes, err error) {
-	glog.Info("msg_server recive SendP2PMsg")
+	glog.Info("logic recive SendP2PMsg")
 	sendP2PMsgKafka := &commmodel.SendP2PMsgKafka{
 		UID:       in.SourceUID,
 		TargetUID: in.TargetUID,
@@ -94,7 +94,7 @@ func (s *RPCServer) SendP2PMsg(ctx context.Context, in *rpc.SendP2PMsgReq) (res 
 }
 
 func RPCServerInit(rpcClient *RPCClient) {
-	glog.Info("[msg_server] rpc server init")
+	glog.Info("[logic] rpc server init")
 	lis, err := net.Listen(conf.Conf.RPCServer.Proto, conf.Conf.RPCServer.Addr)
 	if err != nil {
 		glog.Error(err)
