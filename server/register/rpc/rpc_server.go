@@ -26,6 +26,7 @@ func (s *RPCServer) Login(ctx context.Context, in *rpc.RGLoginReq) (res *rpc.RGL
 	md5Ctx.Write([]byte(conf.Conf.Auth.Salt))
 	cipherStr := md5Ctx.Sum(nil)
 	calcToken := hex.EncodeToString(cipherStr)
+	glog.Info(calcToken)
 	if calcToken != in.Token {
 		res = &rpc.RGLoginRes{
 			ErrCode: ecode.CalcTokenFailed.Uint32(),

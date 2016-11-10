@@ -55,8 +55,9 @@ func clientLoop(session *libnet.Session, protobuf *codec.ProtobufProtocol) {
 		glog.Error(err.Error())
 	}
 	err = clientMsg.Send(&external.ReqLogin{
-		Cmd: external.LoginCMD,
-		UID: myID,
+		Cmd:   external.LoginCMD,
+		UID:   myID,
+		Token: "1111",
 	})
 	checkErr(err)
 	rsp, err = clientMsg.Receive()
@@ -68,7 +69,7 @@ func clientLoop(session *libnet.Session, protobuf *codec.ProtobufProtocol) {
 				UID: myID,
 			})
 			checkErr(err)
-			time.Sleep(5 * time.Second)
+			time.Sleep(10 * time.Second)
 		}
 	}()
 	// glog.Info(string(rsp))

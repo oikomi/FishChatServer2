@@ -28,11 +28,19 @@ func (s *RPCServer) Login(ctx context.Context, in *rpc.LoginReq) (res *rpc.Login
 		}
 		return
 	}
-	s.rpcClient.Register.Login(ctx, in.UID, in.Token, in.AccessAddr)
+	rgRes, err := s.rpcClient.Register.Login(ctx, in.UID, in.Token, in.AccessAddr)
+	if err != nil {
+		res = &rpc.LoginRes{
+			ErrCode: ecode.ServerErr.Uint32(),
+			ErrStr:  ecode.ServerErr.String(),
+		}
+		glog.Error(err)
+		return
+	}
 	// success
 	res = &rpc.LoginRes{
-		ErrCode: ecode.OK.Uint32(),
-		ErrStr:  ecode.OK.String(),
+		ErrCode: rgRes.ErrCode,
+		ErrStr:  rgRes.ErrStr,
 	}
 	return
 }
