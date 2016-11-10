@@ -86,7 +86,6 @@ func (c *Client) procReqPing(reqData []byte) (err error) {
 	}); err != nil {
 		glog.Error(err)
 	}
-
 	return
 }
 

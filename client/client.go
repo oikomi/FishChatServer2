@@ -8,6 +8,7 @@ import (
 	"github.com/oikomi/FishChatServer2/codec"
 	"github.com/oikomi/FishChatServer2/libnet"
 	"github.com/oikomi/FishChatServer2/protocol/external"
+	"time"
 )
 
 func init() {
@@ -60,6 +61,16 @@ func clientLoop(session *libnet.Session, protobuf *codec.ProtobufProtocol) {
 	checkErr(err)
 	rsp, err = clientMsg.Receive()
 	checkErr(err)
+	go func() {
+		for {
+			err = clientMsg.Send(&external.ReqPing{
+				Cmd: external.PingCMD,
+				UID: myID,
+			})
+			checkErr(err)
+			time.Sleep(5 * time.Second)
+		}
+	}()
 	// glog.Info(string(rsp))
 	go func() {
 		for {

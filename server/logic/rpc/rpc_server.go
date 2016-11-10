@@ -41,17 +41,25 @@ func (s *RPCServer) Ping(ctx context.Context, in *rpc.PingReq) (res *rpc.PingRes
 	// FIXME
 	if in.UID < 0 {
 		res = &rpc.PingRes{
-			ErrCode: ecode.NoToken.Uint32(),
-			ErrStr:  ecode.NoToken.String(),
+			ErrCode: ecode.ServerErr.Uint32(),
+			ErrStr:  ecode.ServerErr.String(),
 		}
 		return
 	}
 	// check
-
+	rgPingRes, err := s.rpcClient.Register.Ping(ctx, in.UID)
+	if err != nil {
+		res = &rpc.PingRes{
+			ErrCode: ecode.ServerErr.Uint32(),
+			ErrStr:  ecode.ServerErr.String(),
+		}
+		glog.Error(err)
+		return
+	}
 	// success
 	res = &rpc.PingRes{
-		ErrCode: ecode.OK.Uint32(),
-		ErrStr:  ecode.OK.String(),
+		ErrCode: rgPingRes.ErrCode,
+		ErrStr:  rgPingRes.ErrStr,
 	}
 	return
 }
@@ -64,7 +72,7 @@ func (s *RPCServer) SendP2PMsg(ctx context.Context, in *rpc.SendP2PMsgReq) (res 
 		Msg:       in.Msg,
 	}
 	// Online
-	if _, err = s.rpcClient.Register.Online(in.TargetUID); err != nil {
+	if _, err = s.rpcClient.Register.Online(ctx, in.TargetUID); err != nil {
 		glog.Info(in.TargetUID, " is offline")
 		// set offline msg
 		offlineMsg := &model.OfflineMsg{
