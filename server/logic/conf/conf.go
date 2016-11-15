@@ -20,7 +20,7 @@ type Config struct {
 	Etcd          *commconf.Etcd
 	KafkaProducer *KafkaProducer
 	MongoDB       *MongoDB
-	ES            *ES
+	// ES            *ES
 }
 
 type KafkaProducer struct {
@@ -38,10 +38,10 @@ type MongoDB struct {
 	OfflineMsgCollection string
 }
 
-type ES struct {
-	*commconf.ES
-	Index string
-}
+// type ES struct {
+// 	*commconf.ES
+// 	Index string
+// }
 
 func init() {
 	flag.StringVar(&confPath, "conf", "./logic.toml", "config path")
