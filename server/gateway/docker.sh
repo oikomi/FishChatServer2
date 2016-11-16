@@ -1,2 +1,2 @@
 
-docker build -t FishChatServer2/gateway latest . 
+docker build -t gateway latest . 
