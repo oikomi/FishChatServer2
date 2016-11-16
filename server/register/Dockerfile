@@ -10,6 +10,7 @@ RUN go get -u -v github.com/BurntSushi/toml
 RUN go get -u -v github.com/golang/glog
 RUN go get -u -v github.com/golang/protobuf/proto
 RUN go get -u -v github.com/coreos/etcd/clientv3
+RUN go get -u -v gopkg.in/mgo.v2
 
 RUN go get  -d github.com/oikomi/FishChatServer2
 
