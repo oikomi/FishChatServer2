@@ -81,7 +81,11 @@ func (s *RPCServer) SendP2PMsg(ctx context.Context, in *rpc.SendP2PMsgReq) (res 
 		Msg:       in.Msg,
 	}
 	// Online
-	if _, err = s.rpcClient.Register.Online(ctx, in.TargetUID); err != nil {
+	onlineRes, err := s.rpcClient.Register.Online(ctx, in.TargetUID)
+	if err != nil {
+		glog.Error(err)
+	}
+	if !onlineRes.Online {
 		glog.Info(in.TargetUID, " is offline")
 		// set offline msg
 		offlineMsg := &model.OfflineMsg{
@@ -91,14 +95,25 @@ func (s *RPCServer) SendP2PMsg(ctx context.Context, in *rpc.SendP2PMsgReq) (res 
 			Msg:       in.Msg,
 		}
 		if err = s.dao.MongoDB.StoreOfflineMsg(offlineMsg); err != nil {
+			res = &rpc.SendP2PMsgRes{
+				ErrCode: ecode.ServerErr.Uint32(),
+				ErrStr:  ecode.ServerErr.String(),
+			}
 			glog.Error(err)
+			return
+		}
+		res = &rpc.SendP2PMsgRes{
+			ErrCode: ecode.OK.Uint32(),
+			ErrStr:  ecode.OK.String(),
 		}
 		return
 	}
 	// send to kafka
 	s.dao.KafkaProducer.SendP2PMsg(sendP2PMsgKafka)
-	// send to es
-	res = &rpc.SendP2PMsgRes{}
+	res = &rpc.SendP2PMsgRes{
+		ErrCode: ecode.OK.Uint32(),
+		ErrStr:  ecode.OK.String(),
+	}
 	return
 }
 

@@ -66,21 +66,6 @@ func (s *Service) consumeproc() {
 			glog.Error("json.Unmarshal() error ", err)
 			continue
 		}
-		// if act.Action != _add {
-		// 	continue
-		// }
-		// aid, err := strconv.ParseInt(string(msg.Key), 10, 64)
-		// if err == nil {
-		// 	ctx := context.Background()
-		// 	now := time.Now()
-		// 	if err := s.arcRPC.AddMoment(trace.NewContext(ctx, t), &model.ArgAid{Aid: aid}); err != nil {
-		// 		if s.elk != nil {
-		// 			tmsub := time.Now().Sub(now)
-		// 			s.elk.Error(t.ID, "moment-job", err.Error(), tmsub.Nanoseconds())
-		// 		}
-		// 		log.Error("moment add(%d) error(%v)", aid, err)
-		// 	}
-		// }
 		sendP2PMsgReq := &protoRPC.ASSendP2PMsgReq{
 			SourceUID: sendP2PMsgKafka.UID,
 			TargetUID: sendP2PMsgKafka.TargetUID,
@@ -88,6 +73,7 @@ func (s *Service) consumeproc() {
 		}
 		_, err := s.rpcClient.AccessServer.SendP2PMsg(sendP2PMsgReq)
 		if err != nil {
+			// store offline msg
 			glog.Error(err)
 		}
 		s.consumer.ConsumerGroup.CommitUpto(msg)
