@@ -1,4 +1,4 @@
-# auth conf
+# register conf
 
 ver = "1.0.0"
 logPath = "/tmp/register.log"

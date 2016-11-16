@@ -3,9 +3,9 @@
 ver = "1.0.0"
 logPath = "/tmp/logic.log"
 
-[server]
-proto = "tcp"
-addr = "127.0.0.1:12000"
+# [server]
+# proto = "tcp"
+# addr = "127.0.0.1:12000"
 
 [rpcServer]
 proto = "tcp"

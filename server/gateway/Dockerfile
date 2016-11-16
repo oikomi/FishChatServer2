@@ -3,8 +3,6 @@ FROM golang
 ENV GOPATH /go
 ENV USER root
 
-
-
 RUN mkdir -p "$GOPATH/src/" "$GOPATH/bin"
 RUN go get -u -v github.com/BurntSushi/toml
 RUN go get -u -v github.com/golang/glog
@@ -15,7 +13,7 @@ RUN go get  -d github.com/oikomi/FishChatServer2
 
 RUN cd "$GOPATH/src/github.com/oikomi/FishChatServer2/server/gateway" &&  go build
 RUN cp "$GOPATH/src/github.com/oikomi/FishChatServer2/server/gateway/gateway" "/bin/"
-RUN cp "$GOPATH/src/github.com/oikomi/FishChatServer2/server/gateway/gateway.toml" "/bin/"
+RUN cp "$GOPATH/src/github.com/oikomi/FishChatServer2/server/gateway/gateway.toml" "/etc/"
 
 EXPOSE 10000
-ENTRYPOINT ["/bin/gateway"]
+ENTRYPOINT ["/bin/gateway -conf /etc/gateway.toml"]
