@@ -20,4 +20,4 @@ RUN cp "$GOPATH/src/github.com/oikomi/FishChatServer2/server/access/access.toml"
 
 EXPOSE 11000
 EXPOSE 20000
-ENTRYPOINT ["/bin/access -conf /etc/access.toml"]
+ENTRYPOINT ["/bin/access", "-conf", "/etc/access.toml"]

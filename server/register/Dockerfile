@@ -19,4 +19,4 @@ RUN cp "$GOPATH/src/github.com/oikomi/FishChatServer2/server/register/register" 
 RUN cp "$GOPATH/src/github.com/oikomi/FishChatServer2/server/register/register.toml" "/etc/"
 
 EXPOSE 23000
-ENTRYPOINT ["/bin/register -conf /etc/register.toml"]
+ENTRYPOINT ["/bin/register", "-conf", "/etc/register.toml"]

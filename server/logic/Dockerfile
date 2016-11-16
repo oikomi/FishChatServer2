@@ -19,4 +19,4 @@ RUN cp "$GOPATH/src/github.com/oikomi/FishChatServer2/server/logic/logic" "/bin/
 RUN cp "$GOPATH/src/github.com/oikomi/FishChatServer2/server/logic/logic.toml" "/etc/"
 
 EXPOSE 21000
-ENTRYPOINT ["/bin/logic -conf /etc/logic.toml"]
+ENTRYPOINT ["/bin/logic", "-conf", "/etc/logic.toml"]

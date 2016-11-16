@@ -19,4 +19,4 @@ RUN cp "$GOPATH/src/github.com/oikomi/FishChatServer2/server/gateway/gateway" "/
 RUN cp "$GOPATH/src/github.com/oikomi/FishChatServer2/server/gateway/gateway.toml" "/etc/"
 
 EXPOSE 10000
-ENTRYPOINT ["/bin/gateway -conf /etc/gateway.toml"]
+ENTRYPOINT ["/bin/gateway", "-conf", "/etc/gateway.toml"]
