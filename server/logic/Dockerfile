@@ -1,5 +1,7 @@
 FROM golang
 
+MAINTAINER miaohong@miaohong.org
+
 ENV GOPATH /go
 ENV USER root
 
