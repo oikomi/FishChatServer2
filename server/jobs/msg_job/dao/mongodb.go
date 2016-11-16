@@ -3,8 +3,8 @@ package dao
 import (
 	"github.com/golang/glog"
 	"github.com/oikomi/FishChatServer2/common/dao/mongodb"
-	"github.com/oikomi/FishChatServer2/server/logic/conf"
-	"github.com/oikomi/FishChatServer2/server/logic/model"
+	commmodel "github.com/oikomi/FishChatServer2/common/model"
+	"github.com/oikomi/FishChatServer2/server/jobs/msg_job/conf"
 )
 
 type MongoDB struct {
@@ -22,7 +22,7 @@ func NewMongoDB() (mdb *MongoDB, err error) {
 	return
 }
 
-func (m *MongoDB) StoreOfflineMsg(msg *model.OfflineMsg) (err error) {
+func (m *MongoDB) StoreOfflineMsg(msg *commmodel.OfflineMsg) (err error) {
 	c := m.m.Session.DB(conf.Conf.MongoDB.DB).C(conf.Conf.MongoDB.OfflineMsgCollection)
 	if err = c.Insert(msg); err != nil {
 		glog.Error(err)

@@ -7,7 +7,6 @@ import (
 	"github.com/oikomi/FishChatServer2/protocol/rpc"
 	"github.com/oikomi/FishChatServer2/server/logic/conf"
 	"github.com/oikomi/FishChatServer2/server/logic/dao"
-	"github.com/oikomi/FishChatServer2/server/logic/model"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"net"
@@ -76,7 +75,7 @@ func (s *RPCServer) Ping(ctx context.Context, in *rpc.PingReq) (res *rpc.PingRes
 func (s *RPCServer) SendP2PMsg(ctx context.Context, in *rpc.SendP2PMsgReq) (res *rpc.SendP2PMsgRes, err error) {
 	glog.Info("logic recive SendP2PMsg")
 	sendP2PMsgKafka := &commmodel.SendP2PMsgKafka{
-		UID:       in.SourceUID,
+		SourceUID: in.SourceUID,
 		TargetUID: in.TargetUID,
 		Msg:       in.Msg,
 	}
@@ -87,26 +86,9 @@ func (s *RPCServer) SendP2PMsg(ctx context.Context, in *rpc.SendP2PMsgReq) (res 
 	}
 	if !onlineRes.Online {
 		glog.Info(in.TargetUID, " is offline")
-		// set offline msg
-		offlineMsg := &model.OfflineMsg{
-			MsgID:     122,
-			SourceUID: in.SourceUID,
-			TargetUID: in.TargetUID,
-			Msg:       in.Msg,
-		}
-		if err = s.dao.MongoDB.StoreOfflineMsg(offlineMsg); err != nil {
-			res = &rpc.SendP2PMsgRes{
-				ErrCode: ecode.ServerErr.Uint32(),
-				ErrStr:  ecode.ServerErr.String(),
-			}
-			glog.Error(err)
-			return
-		}
-		res = &rpc.SendP2PMsgRes{
-			ErrCode: ecode.OK.Uint32(),
-			ErrStr:  ecode.OK.String(),
-		}
-		return
+		sendP2PMsgKafka.Online = false
+	} else {
+		sendP2PMsgKafka.Online = true
 	}
 	// send to kafka
 	s.dao.KafkaProducer.SendP2PMsg(sendP2PMsgKafka)

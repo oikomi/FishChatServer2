@@ -3,10 +3,10 @@ package service
 import (
 	"encoding/json"
 	"github.com/golang/glog"
-	"github.com/oikomi/FishChatServer2/common/dao/kafka"
-	"github.com/oikomi/FishChatServer2/common/model"
+	commmodel "github.com/oikomi/FishChatServer2/common/model"
 	protoRPC "github.com/oikomi/FishChatServer2/protocol/rpc"
 	"github.com/oikomi/FishChatServer2/server/jobs/msg_job/conf"
+	"github.com/oikomi/FishChatServer2/server/jobs/msg_job/dao"
 	"github.com/oikomi/FishChatServer2/server/jobs/msg_job/rpc"
 	"sync"
 	"time"
@@ -18,9 +18,10 @@ var (
 )
 
 type Service struct {
-	c         *conf.Config
-	waiter    *sync.WaitGroup
-	consumer  *kafka.Consumer
+	c      *conf.Config
+	waiter *sync.WaitGroup
+	dao    *dao.Dao
+	// consumer  *kafka.Consumer
 	rpcClient *rpc.RPCClient
 }
 
@@ -30,13 +31,18 @@ func New(c *conf.Config) (s *Service) {
 		glog.Error(err)
 		return
 	}
+	dao, err := dao.NewDao()
+	if err != nil {
+		glog.Error(err)
+		return
+	}
 	s = &Service{
 		c:         c,
 		waiter:    new(sync.WaitGroup),
-		consumer:  kafka.NewConsumer(c.KafkaConsumer),
+		dao:       dao,
 		rpcClient: rpcClient,
 	}
-	for s.consumer.ConsumerGroup == nil {
+	for s.dao.Kafka.Consumer.ConsumerGroup == nil {
 		time.Sleep(time.Second)
 	}
 	for i := 0; i < 1; i++ {
@@ -52,7 +58,7 @@ func (s *Service) consumeproc() {
 	defer s.waiter.Done()
 	for {
 		glog.Info("start consume...")
-		msg, ok := <-s.consumer.ConsumerGroup.Messages()
+		msg, ok := <-s.dao.Kafka.Consumer.ConsumerGroup.Messages()
 		if !ok {
 			glog.Error("consumeproc exit")
 			return
@@ -61,27 +67,45 @@ func (s *Service) consumeproc() {
 		if msg.Topic != s.c.KafkaConsumer.Topics[0] {
 			continue
 		}
-		sendP2PMsgKafka := &model.SendP2PMsgKafka{}
+		sendP2PMsgKafka := &commmodel.SendP2PMsgKafka{}
 		if err := json.Unmarshal(msg.Value, sendP2PMsgKafka); err != nil {
 			glog.Error("json.Unmarshal() error ", err)
 			continue
 		}
-		sendP2PMsgReq := &protoRPC.ASSendP2PMsgReq{
-			SourceUID: sendP2PMsgKafka.UID,
-			TargetUID: sendP2PMsgKafka.TargetUID,
-			Msg:       sendP2PMsgKafka.Msg,
+		if sendP2PMsgKafka.Online {
+			sendP2PMsgReq := &protoRPC.ASSendP2PMsgReq{
+				SourceUID: sendP2PMsgKafka.SourceUID,
+				TargetUID: sendP2PMsgKafka.TargetUID,
+				Msg:       sendP2PMsgKafka.Msg,
+			}
+			_, err := s.rpcClient.AccessServer.SendP2PMsg(sendP2PMsgReq)
+			if err != nil {
+				// store offline msg
+				glog.Error(err)
+			}
+		} else {
+			// set offline msg
+			offlineMsg := &commmodel.OfflineMsg{
+				MsgID:     122,
+				SourceUID: sendP2PMsgKafka.SourceUID,
+				TargetUID: sendP2PMsgKafka.TargetUID,
+				Msg:       sendP2PMsgKafka.Msg,
+			}
+			if err := s.dao.MongoDB.StoreOfflineMsg(offlineMsg); err != nil {
+				// res = &rpc.SendP2PMsgRes{
+				// 	ErrCode: ecode.ServerErr.Uint32(),
+				// 	ErrStr:  ecode.ServerErr.String(),
+				// }
+				glog.Error(err)
+				return
+			}
 		}
-		_, err := s.rpcClient.AccessServer.SendP2PMsg(sendP2PMsgReq)
-		if err != nil {
-			// store offline msg
-			glog.Error(err)
-		}
-		s.consumer.ConsumerGroup.CommitUpto(msg)
+		s.dao.Kafka.Consumer.ConsumerGroup.CommitUpto(msg)
 	}
 }
 
 func (s *Service) errproc() {
-	errs := s.consumer.ConsumerGroup.Errors()
+	errs := s.dao.Kafka.Consumer.ConsumerGroup.Errors()
 	for {
 		err, ok := <-errs
 		if !ok {
@@ -93,7 +117,7 @@ func (s *Service) errproc() {
 }
 
 func (s *Service) Close() error {
-	return s.consumer.Close()
+	return s.dao.Kafka.Consumer.Close()
 }
 
 func (s *Service) Wait() {

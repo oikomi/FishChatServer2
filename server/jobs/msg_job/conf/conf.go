@@ -15,11 +15,17 @@ type Config struct {
 	*commconf.CommConf
 	RPCClient     *RPCClient
 	KafkaConsumer *commconf.KafkaConsumer
+	MongoDB       *MongoDB
 	Etcd          *commconf.Etcd
 }
 
 type RPCClient struct {
 	AccessServerClient *commconf.RPCClient
+}
+
+type MongoDB struct {
+	*commconf.MongoDB
+	OfflineMsgCollection string
 }
 
 func init() {

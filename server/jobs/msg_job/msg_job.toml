@@ -16,6 +16,12 @@ offset = false
     addrs = ["127.0.0.1:2181"]
     timeout = "5s"
 
+[mongoDB]
+addrs = "127.0.0.1:27017"
+db = "im"
+dialTimeout = "1s"
+offlineMsgCollection = "offline_msg"
+
 [etcd]
 name = "msg-job"
 root = "/server/msg_job/"
