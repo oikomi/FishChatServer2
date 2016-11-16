@@ -14,14 +14,12 @@ import (
 
 var (
 	_module = "msg_job"
-	// _add    = "add"
 )
 
 type Service struct {
-	c      *conf.Config
-	waiter *sync.WaitGroup
-	dao    *dao.Dao
-	// consumer  *kafka.Consumer
+	c         *conf.Config
+	waiter    *sync.WaitGroup
+	dao       *dao.Dao
 	rpcClient *rpc.RPCClient
 }
 
@@ -92,10 +90,6 @@ func (s *Service) consumeproc() {
 				Msg:       sendP2PMsgKafka.Msg,
 			}
 			if err := s.dao.MongoDB.StoreOfflineMsg(offlineMsg); err != nil {
-				// res = &rpc.SendP2PMsgRes{
-				// 	ErrCode: ecode.ServerErr.Uint32(),
-				// 	ErrStr:  ecode.ServerErr.String(),
-				// }
 				glog.Error(err)
 				return
 			}
