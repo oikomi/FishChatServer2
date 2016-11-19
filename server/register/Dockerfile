@@ -13,7 +13,7 @@ RUN go get -u -v github.com/coreos/etcd/clientv3
 RUN go get -u -v gopkg.in/mgo.v2
 RUN go get -u -v github.com/garyburd/redigo/redis
 
-RUN go get -u -v github.com/oikomi/FishChatServer2
+RUN go get -u github.com/oikomi/FishChatServer2
 
 RUN cd "$GOPATH/src/github.com/oikomi/FishChatServer2/server/register" &&  go build
 RUN cp "$GOPATH/src/github.com/oikomi/FishChatServer2/server/register/register" "/bin/"
