@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: register
+spec:
+  replicas: 1
+  selector:
+    app: register
+  template:
+    metadata:
+      labels:
+        app: register
+    spec:
+      containers:
+      - name: register
+        image: register
+        ports:
+        - containerPort: 23000

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: register
+spec:
+  type: NodePort
+  ports:
+    - port: 23000
+      nodePort: 23000
+  selector:
+    app: register
