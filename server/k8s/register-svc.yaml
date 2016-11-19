@@ -6,6 +6,6 @@ spec:
   type: NodePort
   ports:
     - port: 23000
-      nodePort: 23000
+      nodePort: 33000
   selector:
     app: register
