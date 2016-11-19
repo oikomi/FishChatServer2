@@ -14,5 +14,6 @@ spec:
       containers:
       - name: register
         image: register
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 23000
