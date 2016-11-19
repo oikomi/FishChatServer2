@@ -3,6 +3,7 @@ package xredis
 import (
 	"fmt"
 	"github.com/garyburd/redigo/redis"
+	"github.com/golang/glog"
 	"github.com/oikomi/FishChatServer2/common/conf"
 	"golang.org/x/net/context"
 	"time"
@@ -29,8 +30,12 @@ func NewPool(c *conf.Redis) (p *Pool) {
 	cnop := redis.DialConnectTimeout(time.Duration(c.DialTimeout))
 	rdop := redis.DialReadTimeout(time.Duration(c.ReadTimeout))
 	wrop := redis.DialWriteTimeout(time.Duration(c.WriteTimeout))
-	p.Pool = redis.NewPool(func() (redis.Conn, error) {
-		return redis.Dial(c.Proto, c.Addr, cnop, rdop, wrop)
+	p.Pool = redis.NewPool(func() (rconn redis.Conn, err error) {
+		rconn, err = redis.Dial(c.Proto, c.Addr, cnop, rdop, wrop)
+		if err != nil {
+			glog.Error(err)
+		}
+		return
 	}, c.Idle)
 	p.IdleTimeout = time.Duration(c.IdleTimeout)
 	p.MaxActive = c.Active
