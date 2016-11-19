@@ -8,4 +8,4 @@ spec:
     - port: 23000
       nodePort: 30001
   selector:
-    app: register
+    name: register
