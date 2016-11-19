@@ -63,6 +63,27 @@ func (m *ASSendP2PMsgReq) String() string            { return proto.CompactTextS
 func (*ASSendP2PMsgReq) ProtoMessage()               {}
 func (*ASSendP2PMsgReq) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{0} }
 
+func (m *ASSendP2PMsgReq) GetSourceUID() int64 {
+	if m != nil {
+		return m.SourceUID
+	}
+	return 0
+}
+
+func (m *ASSendP2PMsgReq) GetTargetUID() int64 {
+	if m != nil {
+		return m.TargetUID
+	}
+	return 0
+}
+
+func (m *ASSendP2PMsgReq) GetMsg() string {
+	if m != nil {
+		return m.Msg
+	}
+	return ""
+}
+
 type ASSendP2PMsgRes struct {
 	ErrCode uint32 `protobuf:"varint,1,opt,name=errCode" json:"errCode,omitempty"`
 	ErrStr  string `protobuf:"bytes,2,opt,name=errStr" json:"errStr,omitempty"`
@@ -72,6 +93,20 @@ func (m *ASSendP2PMsgRes) Reset()                    { *m = ASSendP2PMsgRes{} }
 func (m *ASSendP2PMsgRes) String() string            { return proto.CompactTextString(m) }
 func (*ASSendP2PMsgRes) ProtoMessage()               {}
 func (*ASSendP2PMsgRes) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{1} }
+
+func (m *ASSendP2PMsgRes) GetErrCode() uint32 {
+	if m != nil {
+		return m.ErrCode
+	}
+	return 0
+}
+
+func (m *ASSendP2PMsgRes) GetErrStr() string {
+	if m != nil {
+		return m.ErrStr
+	}
+	return ""
+}
 
 func init() {
 	proto.RegisterType((*ASSendP2PMsgReq)(nil), "rpc.ASSendP2PMsgReq")
@@ -84,7 +119,7 @@ var _ grpc.ClientConn
 
 // This is a compile-time assertion to ensure that this generated file
 // is compatible with the grpc package it is being compiled against.
-const _ = grpc.SupportPackageIsVersion3
+const _ = grpc.SupportPackageIsVersion4
 
 // Client API for AccessServerRPC service
 
@@ -147,7 +182,7 @@ var _AccessServerRPC_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: fileDescriptor0,
+	Metadata: "access.proto",
 }
 
 func init() { proto.RegisterFile("access.proto", fileDescriptor0) }

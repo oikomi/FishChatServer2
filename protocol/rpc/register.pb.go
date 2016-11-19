@@ -29,6 +29,27 @@ func (m *RGLoginReq) String() string            { return proto.CompactTextString
 func (*RGLoginReq) ProtoMessage()               {}
 func (*RGLoginReq) Descriptor() ([]byte, []int) { return fileDescriptor2, []int{0} }
 
+func (m *RGLoginReq) GetUID() int64 {
+	if m != nil {
+		return m.UID
+	}
+	return 0
+}
+
+func (m *RGLoginReq) GetToken() string {
+	if m != nil {
+		return m.Token
+	}
+	return ""
+}
+
+func (m *RGLoginReq) GetAccessAddr() string {
+	if m != nil {
+		return m.AccessAddr
+	}
+	return ""
+}
+
 type RGLoginRes struct {
 	ErrCode uint32 `protobuf:"varint,1,opt,name=errCode" json:"errCode,omitempty"`
 	ErrStr  string `protobuf:"bytes,2,opt,name=errStr" json:"errStr,omitempty"`
@@ -40,6 +61,27 @@ func (m *RGLoginRes) String() string            { return proto.CompactTextString
 func (*RGLoginRes) ProtoMessage()               {}
 func (*RGLoginRes) Descriptor() ([]byte, []int) { return fileDescriptor2, []int{1} }
 
+func (m *RGLoginRes) GetErrCode() uint32 {
+	if m != nil {
+		return m.ErrCode
+	}
+	return 0
+}
+
+func (m *RGLoginRes) GetErrStr() string {
+	if m != nil {
+		return m.ErrStr
+	}
+	return ""
+}
+
+func (m *RGLoginRes) GetToken() string {
+	if m != nil {
+		return m.Token
+	}
+	return ""
+}
+
 type RGAccessReq struct {
 	UID int64 `protobuf:"varint,1,opt,name=UID" json:"UID,omitempty"`
 }
@@ -48,6 +90,13 @@ func (m *RGAccessReq) Reset()                    { *m = RGAccessReq{} }
 func (m *RGAccessReq) String() string            { return proto.CompactTextString(m) }
 func (*RGAccessReq) ProtoMessage()               {}
 func (*RGAccessReq) Descriptor() ([]byte, []int) { return fileDescriptor2, []int{2} }
+
+func (m *RGAccessReq) GetUID() int64 {
+	if m != nil {
+		return m.UID
+	}
+	return 0
+}
 
 type RGAccessRes struct {
 	ErrCode    uint32 `protobuf:"varint,1,opt,name=errCode" json:"errCode,omitempty"`
@@ -60,6 +109,27 @@ func (m *RGAccessRes) String() string            { return proto.CompactTextStrin
 func (*RGAccessRes) ProtoMessage()               {}
 func (*RGAccessRes) Descriptor() ([]byte, []int) { return fileDescriptor2, []int{3} }
 
+func (m *RGAccessRes) GetErrCode() uint32 {
+	if m != nil {
+		return m.ErrCode
+	}
+	return 0
+}
+
+func (m *RGAccessRes) GetErrStr() string {
+	if m != nil {
+		return m.ErrStr
+	}
+	return ""
+}
+
+func (m *RGAccessRes) GetAccessAddr() string {
+	if m != nil {
+		return m.AccessAddr
+	}
+	return ""
+}
+
 type RGAuthReq struct {
 	UID   int64  `protobuf:"varint,1,opt,name=UID" json:"UID,omitempty"`
 	Token string `protobuf:"bytes,2,opt,name=token" json:"token,omitempty"`
@@ -69,6 +139,20 @@ func (m *RGAuthReq) Reset()                    { *m = RGAuthReq{} }
 func (m *RGAuthReq) String() string            { return proto.CompactTextString(m) }
 func (*RGAuthReq) ProtoMessage()               {}
 func (*RGAuthReq) Descriptor() ([]byte, []int) { return fileDescriptor2, []int{4} }
+
+func (m *RGAuthReq) GetUID() int64 {
+	if m != nil {
+		return m.UID
+	}
+	return 0
+}
+
+func (m *RGAuthReq) GetToken() string {
+	if m != nil {
+		return m.Token
+	}
+	return ""
+}
 
 type RGAuthRes struct {
 	ErrCode uint32 `protobuf:"varint,1,opt,name=errCode" json:"errCode,omitempty"`
@@ -80,6 +164,20 @@ func (m *RGAuthRes) String() string            { return proto.CompactTextString(
 func (*RGAuthRes) ProtoMessage()               {}
 func (*RGAuthRes) Descriptor() ([]byte, []int) { return fileDescriptor2, []int{5} }
 
+func (m *RGAuthRes) GetErrCode() uint32 {
+	if m != nil {
+		return m.ErrCode
+	}
+	return 0
+}
+
+func (m *RGAuthRes) GetErrStr() string {
+	if m != nil {
+		return m.ErrStr
+	}
+	return ""
+}
+
 type RGPingReq struct {
 	UID int64 `protobuf:"varint,1,opt,name=UID" json:"UID,omitempty"`
 }
@@ -88,6 +186,13 @@ func (m *RGPingReq) Reset()                    { *m = RGPingReq{} }
 func (m *RGPingReq) String() string            { return proto.CompactTextString(m) }
 func (*RGPingReq) ProtoMessage()               {}
 func (*RGPingReq) Descriptor() ([]byte, []int) { return fileDescriptor2, []int{6} }
+
+func (m *RGPingReq) GetUID() int64 {
+	if m != nil {
+		return m.UID
+	}
+	return 0
+}
 
 type RGPingRes struct {
 	ErrCode uint32 `protobuf:"varint,1,opt,name=errCode" json:"errCode,omitempty"`
@@ -99,6 +204,20 @@ func (m *RGPingRes) String() string            { return proto.CompactTextString(
 func (*RGPingRes) ProtoMessage()               {}
 func (*RGPingRes) Descriptor() ([]byte, []int) { return fileDescriptor2, []int{7} }
 
+func (m *RGPingRes) GetErrCode() uint32 {
+	if m != nil {
+		return m.ErrCode
+	}
+	return 0
+}
+
+func (m *RGPingRes) GetErrStr() string {
+	if m != nil {
+		return m.ErrStr
+	}
+	return ""
+}
+
 type RGOnlineReq struct {
 	UID int64 `protobuf:"varint,1,opt,name=UID" json:"UID,omitempty"`
 }
@@ -107,6 +226,13 @@ func (m *RGOnlineReq) Reset()                    { *m = RGOnlineReq{} }
 func (m *RGOnlineReq) String() string            { return proto.CompactTextString(m) }
 func (*RGOnlineReq) ProtoMessage()               {}
 func (*RGOnlineReq) Descriptor() ([]byte, []int) { return fileDescriptor2, []int{8} }
+
+func (m *RGOnlineReq) GetUID() int64 {
+	if m != nil {
+		return m.UID
+	}
+	return 0
+}
 
 type RGOnlineRes struct {
 	ErrCode uint32 `protobuf:"varint,1,opt,name=errCode" json:"errCode,omitempty"`
@@ -118,6 +244,27 @@ func (m *RGOnlineRes) Reset()                    { *m = RGOnlineRes{} }
 func (m *RGOnlineRes) String() string            { return proto.CompactTextString(m) }
 func (*RGOnlineRes) ProtoMessage()               {}
 func (*RGOnlineRes) Descriptor() ([]byte, []int) { return fileDescriptor2, []int{9} }
+
+func (m *RGOnlineRes) GetErrCode() uint32 {
+	if m != nil {
+		return m.ErrCode
+	}
+	return 0
+}
+
+func (m *RGOnlineRes) GetErrStr() string {
+	if m != nil {
+		return m.ErrStr
+	}
+	return ""
+}
+
+func (m *RGOnlineRes) GetOnline() bool {
+	if m != nil {
+		return m.Online
+	}
+	return false
+}
 
 func init() {
 	proto.RegisterType((*RGLoginReq)(nil), "rpc.RGLoginReq")
@@ -138,7 +285,7 @@ var _ grpc.ClientConn
 
 // This is a compile-time assertion to ensure that this generated file
 // is compatible with the grpc package it is being compiled against.
-const _ = grpc.SupportPackageIsVersion3
+const _ = grpc.SupportPackageIsVersion4
 
 // Client API for RegisterServerRPC service
 
@@ -333,7 +480,7 @@ var _RegisterServerRPC_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: fileDescriptor2,
+	Metadata: "register.proto",
 }
 
 func init() { proto.RegisterFile("register.proto", fileDescriptor2) }

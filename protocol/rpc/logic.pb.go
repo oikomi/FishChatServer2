@@ -29,6 +29,27 @@ func (m *LoginReq) String() string            { return proto.CompactTextString(m
 func (*LoginReq) ProtoMessage()               {}
 func (*LoginReq) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{0} }
 
+func (m *LoginReq) GetUID() int64 {
+	if m != nil {
+		return m.UID
+	}
+	return 0
+}
+
+func (m *LoginReq) GetToken() string {
+	if m != nil {
+		return m.Token
+	}
+	return ""
+}
+
+func (m *LoginReq) GetAccessAddr() string {
+	if m != nil {
+		return m.AccessAddr
+	}
+	return ""
+}
+
 type LoginRes struct {
 	ErrCode uint32 `protobuf:"varint,1,opt,name=errCode" json:"errCode,omitempty"`
 	ErrStr  string `protobuf:"bytes,2,opt,name=errStr" json:"errStr,omitempty"`
@@ -39,6 +60,20 @@ func (m *LoginRes) String() string            { return proto.CompactTextString(m
 func (*LoginRes) ProtoMessage()               {}
 func (*LoginRes) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{1} }
 
+func (m *LoginRes) GetErrCode() uint32 {
+	if m != nil {
+		return m.ErrCode
+	}
+	return 0
+}
+
+func (m *LoginRes) GetErrStr() string {
+	if m != nil {
+		return m.ErrStr
+	}
+	return ""
+}
+
 type PingReq struct {
 	UID int64 `protobuf:"varint,1,opt,name=UID" json:"UID,omitempty"`
 }
@@ -47,6 +82,13 @@ func (m *PingReq) Reset()                    { *m = PingReq{} }
 func (m *PingReq) String() string            { return proto.CompactTextString(m) }
 func (*PingReq) ProtoMessage()               {}
 func (*PingReq) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{2} }
+
+func (m *PingReq) GetUID() int64 {
+	if m != nil {
+		return m.UID
+	}
+	return 0
+}
 
 type PingRes struct {
 	ErrCode uint32 `protobuf:"varint,1,opt,name=errCode" json:"errCode,omitempty"`
@@ -57,6 +99,20 @@ func (m *PingRes) Reset()                    { *m = PingRes{} }
 func (m *PingRes) String() string            { return proto.CompactTextString(m) }
 func (*PingRes) ProtoMessage()               {}
 func (*PingRes) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{3} }
+
+func (m *PingRes) GetErrCode() uint32 {
+	if m != nil {
+		return m.ErrCode
+	}
+	return 0
+}
+
+func (m *PingRes) GetErrStr() string {
+	if m != nil {
+		return m.ErrStr
+	}
+	return ""
+}
 
 type SendP2PMsgReq struct {
 	SourceUID int64  `protobuf:"varint,1,opt,name=sourceUID" json:"sourceUID,omitempty"`
@@ -69,6 +125,27 @@ func (m *SendP2PMsgReq) String() string            { return proto.CompactTextStr
 func (*SendP2PMsgReq) ProtoMessage()               {}
 func (*SendP2PMsgReq) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{4} }
 
+func (m *SendP2PMsgReq) GetSourceUID() int64 {
+	if m != nil {
+		return m.SourceUID
+	}
+	return 0
+}
+
+func (m *SendP2PMsgReq) GetTargetUID() int64 {
+	if m != nil {
+		return m.TargetUID
+	}
+	return 0
+}
+
+func (m *SendP2PMsgReq) GetMsg() string {
+	if m != nil {
+		return m.Msg
+	}
+	return ""
+}
+
 type SendP2PMsgRes struct {
 	ErrCode uint32 `protobuf:"varint,1,opt,name=errCode" json:"errCode,omitempty"`
 	ErrStr  string `protobuf:"bytes,2,opt,name=errStr" json:"errStr,omitempty"`
@@ -78,6 +155,20 @@ func (m *SendP2PMsgRes) Reset()                    { *m = SendP2PMsgRes{} }
 func (m *SendP2PMsgRes) String() string            { return proto.CompactTextString(m) }
 func (*SendP2PMsgRes) ProtoMessage()               {}
 func (*SendP2PMsgRes) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{5} }
+
+func (m *SendP2PMsgRes) GetErrCode() uint32 {
+	if m != nil {
+		return m.ErrCode
+	}
+	return 0
+}
+
+func (m *SendP2PMsgRes) GetErrStr() string {
+	if m != nil {
+		return m.ErrStr
+	}
+	return ""
+}
 
 func init() {
 	proto.RegisterType((*LoginReq)(nil), "rpc.LoginReq")
@@ -94,7 +185,7 @@ var _ grpc.ClientConn
 
 // This is a compile-time assertion to ensure that this generated file
 // is compatible with the grpc package it is being compiled against.
-const _ = grpc.SupportPackageIsVersion3
+const _ = grpc.SupportPackageIsVersion4
 
 // Client API for LogicRPC service
 
@@ -223,7 +314,7 @@ var _LogicRPC_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: fileDescriptor1,
+	Metadata: "logic.proto",
 }
 
 func init() { proto.RegisterFile("logic.proto", fileDescriptor1) }
