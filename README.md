@@ -12,11 +12,10 @@
 ======
 在`protocol`目录下
 
-```shell
-external 是对外的协议，采用`protobuf`实现
-rpc 是服务内部的调用，采用`grpc`
+* external 是对外的协议，采用`protobuf`实现
+* rpc 是服务内部的调用，采用`grpc`
 
-```
+
 
 部署
 ======
