@@ -5,11 +5,11 @@ logPath = "/tmp/access.log"
 
 [server]
 proto = "tcp"
-addr = "127.0.0.1:11000"
+addr = "0.0.0.0:11000"
 
 [rpcServer]
 proto = "tcp"
-addr = "127.0.0.1:20000"
+addr = "0.0.0.0:20000"
 
 [rpcClient]
     [rpcClient.logicClient]

@@ -29,7 +29,6 @@ type KafkaProducer struct {
 }
 
 type RPCClient struct {
-	AuthClient     *commconf.RPCClient
 	RegisterClient *commconf.RPCClient
 }
 
