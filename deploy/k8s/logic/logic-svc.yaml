@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: logic
+  labels:
+    name: logic
+spec:
+  type: NodePort
+  ports:
+    - port: 21000
+      nodePort: 30002
+  selector:
+    name: logic
