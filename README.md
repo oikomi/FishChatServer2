@@ -8,6 +8,9 @@
 架构
 ======
 
+![](./doc/architecture.png)
+
+
 协议
 ======
 在`protocol`目录下
