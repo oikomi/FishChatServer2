@@ -1,4 +1,4 @@
-# gateway conf
+# access conf
 
 ver = "1.0.0"
 logPath = "/tmp/access.log"

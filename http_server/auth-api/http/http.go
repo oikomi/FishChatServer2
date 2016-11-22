@@ -46,7 +46,7 @@ func Init(c *conf.Config) {
 // outerRouter init outer router api path.
 func outerRouter(r *router.Router) {
 	r.Group("/x/auth", func(cr *router.Router) {
-		cr.GuestPost("/login", login)
+		cr.GuestPost("/auth", auth)
 	})
 	return
 }
@@ -55,7 +55,7 @@ func outerRouter(r *router.Router) {
 func localRouter(r *router.Router) {
 }
 
-func login(c wctx.Context) {
+func auth(c wctx.Context) {
 	res := c.Result()
 	uidStr := c.Request().Form.Get("uid")
 	pwStr := c.Request().Form.Get("pw")
@@ -65,5 +65,5 @@ func login(c wctx.Context) {
 		res["code"] = ecode.RequestErr
 		return
 	}
-	res["data"], res["code"] = authSvc.Login(uid, pwStr)
+	res["data"], res["code"] = authSvc.Auth(uid, pwStr)
 }

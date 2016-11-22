@@ -6,17 +6,17 @@ import (
 )
 
 type RPCClient struct {
-	Auth *client.AuthRPCCli
+	Register *client.RegisterRPCCli
 }
 
 func NewRPCClient() (c *RPCClient, err error) {
-	auth, err := client.NewAuthRPCCli()
+	register, err := client.NewRegisterRPCCli()
 	if err != nil {
 		glog.Error(err)
 		return
 	}
 	c = &RPCClient{
-		Auth: auth,
+		Register: register,
 	}
 	return
 }

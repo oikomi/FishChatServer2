@@ -23,14 +23,15 @@ func New() (service *Service, err error) {
 	return
 }
 
-func (s *Service) Login(uid int64, pw string) (loginModel *model.Login, err error) {
+func (s *Service) Auth(uid int64, pw string) (loginModel *model.Login, err error) {
 	// check uid pw
-	authLoginReq := &rpc.AuthLoginReq{
+	rgAuthReq := &rpc.RGAuthReq{
 		UID: uid,
 	}
-	res, err := s.rpcClient.Auth.Login(authLoginReq)
+	res, err := s.rpcClient.Register.Auth(rgAuthReq)
 	if err != nil {
 		glog.Error(err)
+		return
 	}
 	loginModel = &model.Login{
 		Token: res.Token,

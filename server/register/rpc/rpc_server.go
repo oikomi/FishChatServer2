@@ -19,7 +19,7 @@ type RPCServer struct {
 }
 
 func (s *RPCServer) Login(ctx context.Context, in *rpc.RGLoginReq) (res *rpc.RGLoginRes, err error) {
-	glog.Info("login")
+	glog.Info("register recive login")
 	md5Ctx := md5.New()
 	md5Ctx.Write([]byte(fmt.Sprintf("%d", in.UID)))
 	md5Ctx.Write([]byte(conf.Conf.Auth.Salt))
@@ -67,7 +67,7 @@ func (s *RPCServer) Login(ctx context.Context, in *rpc.RGLoginReq) (res *rpc.RGL
 }
 
 func (s *RPCServer) RouterAccess(ctx context.Context, in *rpc.RGAccessReq) (res *rpc.RGAccessRes, err error) {
-	glog.Info("RouterAccess")
+	glog.Info("register recive RouterAccess")
 	var accessAddr string
 	if accessAddr, err = s.dao.RouterAccess(ctx, in.UID); err != nil {
 		res = &rpc.RGAccessRes{
@@ -86,7 +86,7 @@ func (s *RPCServer) RouterAccess(ctx context.Context, in *rpc.RGAccessReq) (res 
 }
 
 func (s *RPCServer) Auth(ctx context.Context, in *rpc.RGAuthReq) (res *rpc.RGAuthRes, err error) {
-	glog.Info("auth")
+	glog.Info("register recive auth")
 	var token string
 	if token, err = s.dao.Token(ctx, in.UID); err != nil {
 		res = &rpc.RGAuthRes{
@@ -95,16 +95,17 @@ func (s *RPCServer) Auth(ctx context.Context, in *rpc.RGAuthReq) (res *rpc.RGAut
 		}
 		return
 	}
-	if token != in.Token {
-		res = &rpc.RGAuthRes{
-			ErrCode: ecode.CalcTokenFailed.Uint32(),
-			ErrStr:  ecode.CalcTokenFailed.String(),
-		}
-		return
-	}
+	// if token != in.Token {
+	// 	res = &rpc.RGAuthRes{
+	// 		ErrCode: ecode.CalcTokenFailed.Uint32(),
+	// 		ErrStr:  ecode.CalcTokenFailed.String(),
+	// 	}
+	// 	return
+	// }
 	res = &rpc.RGAuthRes{
 		ErrCode: ecode.OK.Uint32(),
 		ErrStr:  ecode.OK.String(),
+		Token:   token,
 	}
 	return
 }
@@ -148,7 +149,7 @@ func (s *RPCServer) Ping(ctx context.Context, in *rpc.RGPingReq) (res *rpc.RGPin
 }
 
 func RPCServerInit() {
-	glog.Info("[register] rpc server init")
+	glog.Info("[register] rpc server init: ", conf.Conf.RPCServer.Addr)
 	lis, err := net.Listen(conf.Conf.RPCServer.Proto, conf.Conf.RPCServer.Addr)
 	if err != nil {
 		glog.Error(err)
