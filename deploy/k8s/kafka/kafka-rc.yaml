@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: kafka
+spec:
+  replicas: 1
+  selector:
+    app: kafka
+  template:
+    metadata:
+      labels:
+        app: kafka
+    spec:
+      containers:
+      - name: kafka
+        image: wurstmeister/kafka
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 9092
