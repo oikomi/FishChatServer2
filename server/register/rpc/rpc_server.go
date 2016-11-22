@@ -33,6 +33,13 @@ func (s *RPCServer) Login(ctx context.Context, in *rpc.RGLoginReq) (res *rpc.RGL
 		}
 		return
 	}
+	if _, err = s.dao.Token(ctx, in.UID); err != nil {
+		res = &rpc.RGLoginRes{
+			ErrCode: ecode.CalcTokenFailed.Uint32(),
+			ErrStr:  ecode.CalcTokenFailed.String(),
+		}
+		return
+	}
 	// if err = s.dao.SetToken(ctx, in.UID, calcToken); err != nil {
 	// 	res = &rpc.RGLoginRes{
 	// 		ErrCode: ecode.ServerErr.Uint32(),
@@ -87,25 +94,23 @@ func (s *RPCServer) RouterAccess(ctx context.Context, in *rpc.RGAccessReq) (res 
 
 func (s *RPCServer) Auth(ctx context.Context, in *rpc.RGAuthReq) (res *rpc.RGAuthRes, err error) {
 	glog.Info("register recive auth")
-	var token string
-	if token, err = s.dao.Token(ctx, in.UID); err != nil {
+	md5Ctx := md5.New()
+	md5Ctx.Write([]byte(fmt.Sprintf("%d", in.UID)))
+	md5Ctx.Write([]byte(conf.Conf.Auth.Salt))
+	cipherStr := md5Ctx.Sum(nil)
+	calcToken := hex.EncodeToString(cipherStr)
+	glog.Info(calcToken)
+	if err = s.dao.SetToken(ctx, in.UID, calcToken); err != nil {
 		res = &rpc.RGAuthRes{
-			ErrCode: ecode.CalcTokenFailed.Uint32(),
-			ErrStr:  ecode.CalcTokenFailed.String(),
+			ErrCode: ecode.ServerErr.Uint32(),
+			ErrStr:  ecode.ServerErr.String(),
 		}
 		return
 	}
-	// if token != in.Token {
-	// 	res = &rpc.RGAuthRes{
-	// 		ErrCode: ecode.CalcTokenFailed.Uint32(),
-	// 		ErrStr:  ecode.CalcTokenFailed.String(),
-	// 	}
-	// 	return
-	// }
 	res = &rpc.RGAuthRes{
 		ErrCode: ecode.OK.Uint32(),
 		ErrStr:  ecode.OK.String(),
-		Token:   token,
+		Token:   calcToken,
 	}
 	return
 }
