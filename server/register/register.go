@@ -18,6 +18,5 @@ func main() {
 		glog.Error("conf.Init() error: ", err)
 		panic(err)
 	}
-	//go rpc.SDHeart()
 	rpc.RPCServerInit()
 }

@@ -9,7 +9,6 @@ import (
 	"github.com/oikomi/FishChatServer2/protocol/rpc"
 	"github.com/oikomi/FishChatServer2/server/register/conf"
 	"github.com/oikomi/FishChatServer2/server/register/dao"
-	"github.com/oikomi/FishChatServer2/service_discovery/etcd"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"net"
@@ -42,12 +41,21 @@ func (s *RPCServer) Login(ctx context.Context, in *rpc.RGLoginReq) (res *rpc.RGL
 	// 	return
 	// }
 	// regster
+	glog.Info(in.AccessAddr)
 	if err = s.dao.RegisterAccess(ctx, in.UID, in.AccessAddr); err != nil {
 		res = &rpc.RGLoginRes{
 			ErrCode: ecode.ServerErr.Uint32(),
 			ErrStr:  ecode.ServerErr.String(),
 		}
 		glog.Error(err)
+		return
+	}
+	if err = s.dao.SetOnline(ctx, in.UID); err != nil {
+		glog.Error(err)
+		res = &rpc.RGLoginRes{
+			ErrCode: ecode.ServerErr.Uint32(),
+			ErrStr:  ecode.ServerErr.String(),
+		}
 		return
 	}
 	res = &rpc.RGLoginRes{
@@ -152,9 +160,4 @@ func RPCServerInit() {
 	}
 	rpc.RegisterRegisterServerRPCServer(s, rpcServer)
 	s.Serve(lis)
-}
-
-func SDHeart() {
-	work := etcd.NewWorker(conf.Conf.Etcd.Name, conf.Conf.RPCServer.Addr, conf.Conf.Etcd.Root, conf.Conf.Etcd.Addrs)
-	go work.HeartBeat()
 }

@@ -1,6 +1,8 @@
 package main
 
 import (
+	"crypto/md5"
+	"encoding/hex"
 	"flag"
 	"fmt"
 	"github.com/golang/glog"
@@ -54,10 +56,15 @@ func clientLoop(session *libnet.Session, protobuf *codec.ProtobufProtocol) {
 	if _, err := fmt.Scanf("%d\n", &myID); err != nil {
 		glog.Error(err.Error())
 	}
+	md5Ctx := md5.New()
+	md5Ctx.Write([]byte(fmt.Sprintf("%d", myID)))
+	md5Ctx.Write([]byte("!0h#?123(ABM"))
+	cipherStr := md5Ctx.Sum(nil)
+	calcToken := hex.EncodeToString(cipherStr)
 	err = clientMsg.Send(&external.ReqLogin{
 		Cmd:   external.LoginCMD,
 		UID:   myID,
-		Token: "1111",
+		Token: calcToken,
 	})
 	checkErr(err)
 	rsp, err = clientMsg.Receive()

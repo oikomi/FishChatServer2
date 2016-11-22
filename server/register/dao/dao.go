@@ -11,13 +11,18 @@ import (
 )
 
 const (
-	_key     = "re_"
-	_online  = 1
-	_offline = 0
+	_keyOnline = "rgo_"
+	_keyAccess = "rga_"
+	_online    = 1
+	_offline   = 0
 )
 
-func key(uid int64) string {
-	return _key + strconv.FormatInt(uid, 10)
+func keyOnline(uid int64) string {
+	return _keyOnline + strconv.FormatInt(uid, 10)
+}
+
+func keyAccess(uid int64) string {
+	return _keyAccess + strconv.FormatInt(uid, 10)
 }
 
 type Dao struct {
@@ -34,7 +39,7 @@ func NewDao() (dao *Dao) {
 func (dao *Dao) Token(ctx context.Context, uid int64) (res string, err error) {
 	conn := dao.redis.Get(ctx)
 	defer conn.Close()
-	res, err = redis.String(conn.Do("GET", key(uid)))
+	res, err = redis.String(conn.Do("GET", keyOnline(uid)))
 	if err != nil {
 		glog.Error(err)
 	}
@@ -44,7 +49,7 @@ func (dao *Dao) Token(ctx context.Context, uid int64) (res string, err error) {
 func (dao *Dao) SetToken(ctx context.Context, uid int64, token string) (err error) {
 	conn := dao.redis.Get(ctx)
 	defer conn.Close()
-	_, err = conn.Do("SETEX", key(uid), int(time.Duration(conf.Conf.Redis.Expire)/time.Second), token)
+	_, err = conn.Do("SETEX", keyOnline(uid), int(time.Duration(conf.Conf.Redis.Expire)/time.Second), token)
 	if err != nil {
 		glog.Error(err)
 	}
@@ -54,7 +59,7 @@ func (dao *Dao) SetToken(ctx context.Context, uid int64, token string) (err erro
 func (dao *Dao) RegisterAccess(ctx context.Context, uid int64, accessAddr string) (err error) {
 	conn := dao.redis.Get(ctx)
 	defer conn.Close()
-	_, err = conn.Do("SET", key(uid), accessAddr)
+	_, err = conn.Do("SET", keyAccess(uid), accessAddr)
 	if err != nil {
 		glog.Error(err)
 	}
@@ -64,7 +69,7 @@ func (dao *Dao) RegisterAccess(ctx context.Context, uid int64, accessAddr string
 func (dao *Dao) RouterAccess(ctx context.Context, uid int64) (res string, err error) {
 	conn := dao.redis.Get(ctx)
 	defer conn.Close()
-	res, err = redis.String(conn.Do("GET", key(uid)))
+	res, err = redis.String(conn.Do("GET", keyAccess(uid)))
 	if err != nil {
 		glog.Error(err)
 	}
@@ -74,7 +79,7 @@ func (dao *Dao) RouterAccess(ctx context.Context, uid int64) (res string, err er
 func (dao *Dao) GetOnline(ctx context.Context, uid int64) (res int, err error) {
 	conn := dao.redis.Get(ctx)
 	defer conn.Close()
-	res, err = redis.Int(conn.Do("GET", key(uid)))
+	res, err = redis.Int(conn.Do("GET", keyOnline(uid)))
 	if err != nil {
 		res = _offline
 		glog.Error(err)
@@ -85,7 +90,7 @@ func (dao *Dao) GetOnline(ctx context.Context, uid int64) (res int, err error) {
 func (dao *Dao) SetOnline(ctx context.Context, uid int64) (err error) {
 	conn := dao.redis.Get(ctx)
 	defer conn.Close()
-	_, err = conn.Do("SETEX", key(uid), int(time.Duration(conf.Conf.Redis.Expire)/time.Second), _online)
+	_, err = conn.Do("SETEX", keyOnline(uid), int(time.Duration(conf.Conf.Redis.Expire)/time.Second), _online)
 	if err != nil {
 		glog.Error(err)
 	}

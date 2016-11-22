@@ -11,13 +11,6 @@ addr = "0.0.0.0:23000"
 encryption = "md5"
 salt = "!0h#?123(ABM"
 
-
-[etcd]
-name = "auth_0001"
-root = "/server/register/"
-addrs = ["127.0.0.1:2379"]
-timeout = "1s"
-
 [redis]
 name = "register"
 proto = "tcp"
@@ -28,5 +21,5 @@ dialTimeout = "1s"
 readTimeout = "1s"
 writeTimeout = "1s"
 idleTimeout = "10s"
-expire = "5s"
+expire = "15s"
 

@@ -34,6 +34,7 @@ func NewPool(c *conf.Redis) (p *Pool) {
 		rconn, err = redis.Dial(c.Proto, c.Addr, cnop, rdop, wrop)
 		if err != nil {
 			glog.Error(err)
+			// panic(err)
 		}
 		return
 	}, c.Idle)

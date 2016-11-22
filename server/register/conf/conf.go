@@ -18,7 +18,6 @@ type Config struct {
 	RPCServer  *commconf.RPCServer
 	Auth       *Auth
 	Redis      *Redis
-	Etcd       *commconf.Etcd
 }
 
 type Auth struct {
