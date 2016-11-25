@@ -131,3 +131,21 @@ func (c *Client) procSendP2PMsg(reqData []byte) (err error) {
 	}
 	return
 }
+
+func (c *Client) procAcceptP2PMsgAck(reqData []byte) (err error) {
+	glog.Info("procAcceptP2PMsgAck")
+	reqAcceptP2PMsgAck := &external.ResAcceptP2PMsgAck{}
+	if err = proto.Unmarshal(reqData, reqAcceptP2PMsgAck); err != nil {
+		if err = c.Session.Send(&external.Error{
+			Cmd:     external.ErrServerCMD,
+			ErrCode: ecode.ServerErr.Uint32(),
+			ErrStr:  ecode.ServerErr.String(),
+		}); err != nil {
+			glog.Error(err)
+		}
+		glog.Error(err)
+		return
+	}
+	// add rpc logic
+	return
+}

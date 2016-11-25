@@ -23,6 +23,20 @@ func (m *ReqAccessServer) String() string            { return proto.CompactTextS
 func (*ReqAccessServer) ProtoMessage()               {}
 func (*ReqAccessServer) Descriptor() ([]byte, []int) { return fileDescriptor3, []int{0} }
 
+func (m *ReqAccessServer) GetCmd() uint32 {
+	if m != nil {
+		return m.Cmd
+	}
+	return 0
+}
+
+func (m *ReqAccessServer) GetCmdStr() string {
+	if m != nil {
+		return m.CmdStr
+	}
+	return ""
+}
+
 type ResSelectAccessServerForClient struct {
 	Cmd     uint32 `protobuf:"varint,1,opt,name=cmd" json:"cmd,omitempty"`
 	CmdStr  string `protobuf:"bytes,2,opt,name=cmdStr" json:"cmdStr,omitempty"`
@@ -35,6 +49,41 @@ func (m *ResSelectAccessServerForClient) Reset()                    { *m = ResSe
 func (m *ResSelectAccessServerForClient) String() string            { return proto.CompactTextString(m) }
 func (*ResSelectAccessServerForClient) ProtoMessage()               {}
 func (*ResSelectAccessServerForClient) Descriptor() ([]byte, []int) { return fileDescriptor3, []int{1} }
+
+func (m *ResSelectAccessServerForClient) GetCmd() uint32 {
+	if m != nil {
+		return m.Cmd
+	}
+	return 0
+}
+
+func (m *ResSelectAccessServerForClient) GetCmdStr() string {
+	if m != nil {
+		return m.CmdStr
+	}
+	return ""
+}
+
+func (m *ResSelectAccessServerForClient) GetErrCode() uint32 {
+	if m != nil {
+		return m.ErrCode
+	}
+	return 0
+}
+
+func (m *ResSelectAccessServerForClient) GetErrStr() string {
+	if m != nil {
+		return m.ErrStr
+	}
+	return ""
+}
+
+func (m *ResSelectAccessServerForClient) GetAddr() string {
+	if m != nil {
+		return m.Addr
+	}
+	return ""
+}
 
 func init() {
 	proto.RegisterType((*ReqAccessServer)(nil), "external.ReqAccessServer")

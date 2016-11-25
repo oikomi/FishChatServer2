@@ -9,7 +9,8 @@ const (
 	// ResSelectAccessServerForClientCMD = 10002
 
 	// acess
-	LoginCMD      = 20001
-	PingCMD       = 20002
-	SendP2PMsgCMD = 20003
+	LoginCMD           = 20001
+	PingCMD            = 20002
+	SendP2PMsgCMD      = 20003
+	AcceptP2PMsgAckCMD = 20004
 )

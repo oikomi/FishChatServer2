@@ -23,6 +23,13 @@ func (m *Base) String() string            { return proto.CompactTextString(m) }
 func (*Base) ProtoMessage()               {}
 func (*Base) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{0} }
 
+func (m *Base) GetCmd() uint32 {
+	if m != nil {
+		return m.Cmd
+	}
+	return 0
+}
+
 func init() {
 	proto.RegisterType((*Base)(nil), "external.Base")
 }

@@ -56,3 +56,49 @@ message ResSendP2PMsg {
     string msg       = 7;
 }
 
+// p2p msg read ack
+message ReqReadP2PMsgAck {
+    uint32 cmd       = 1;
+    string cmdStr    = 2;
+    int64  sourceUID = 3;
+    int64  targetUID = 4;
+}
+
+message ResReadP2PMsgAck {
+    uint32 cmd     = 1;
+    string cmdStr  = 2;
+    uint32 errCode = 3;
+    string errStr  = 4;
+}
+
+// p2p msg delivery ack
+message ReqDeliveryP2PMsgAck {
+    uint32 cmd       = 1;
+    string cmdStr    = 2;
+    int64  sourceUID = 3;
+    int64  targetUID = 4;
+}
+
+message ResDeliveryP2PMsgAck {
+    uint32 cmd     = 1;
+    string cmdStr  = 2;
+    uint32 errCode = 3;
+    string errStr  = 4;
+}
+
+// p2p msg accept ack
+message ReqAcceptP2PMsgAck {
+    uint32 cmd       = 1;
+    string cmdStr    = 2;
+    int64  sourceUID = 3;
+    int64  targetUID = 4;
+}
+
+message ResAcceptP2PMsgAck {
+    uint32 cmd     = 1;
+    string cmdStr  = 2;
+    uint32 errCode = 3;
+    string errStr  = 4;
+}
+
+

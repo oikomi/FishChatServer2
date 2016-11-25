@@ -24,6 +24,27 @@ func (m *Error) String() string            { return proto.CompactTextString(m) }
 func (*Error) ProtoMessage()               {}
 func (*Error) Descriptor() ([]byte, []int) { return fileDescriptor2, []int{0} }
 
+func (m *Error) GetCmd() uint32 {
+	if m != nil {
+		return m.Cmd
+	}
+	return 0
+}
+
+func (m *Error) GetErrCode() uint32 {
+	if m != nil {
+		return m.ErrCode
+	}
+	return 0
+}
+
+func (m *Error) GetErrStr() string {
+	if m != nil {
+		return m.ErrStr
+	}
+	return ""
+}
+
 func init() {
 	proto.RegisterType((*Error)(nil), "external.Error")
 }
