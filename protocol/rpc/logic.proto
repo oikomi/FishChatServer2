@@ -39,3 +39,16 @@ message SendP2PMsgRes {
     string errStr  = 2;
 }
 
+// p2p msg accept ack
+message AcceptP2PMsgAckReq {
+    int64  sourceUID = 1;
+    int64  targetUID = 2;
+    int64  msgID     = 5;
+}
+
+message AcceptP2PMsgAckRes {
+    uint32 errCode = 1;
+    string errStr  = 2;
+}
+
+

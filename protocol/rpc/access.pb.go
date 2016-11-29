@@ -19,6 +19,8 @@ It has these top-level messages:
 	PingRes
 	SendP2PMsgReq
 	SendP2PMsgRes
+	AcceptP2PMsgAckReq
+	AcceptP2PMsgAckRes
 	RGLoginReq
 	RGLoginRes
 	RGAccessReq

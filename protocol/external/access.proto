@@ -31,6 +31,7 @@ message ResLogout {
     string errStr  = 4;
 }
 
+// ping
 message ReqPing {
     uint32 cmd    = 1;
     string cmdStr = 2;
@@ -92,6 +93,7 @@ message ReqAcceptP2PMsgAck {
     string cmdStr    = 2;
     int64  sourceUID = 3;
     int64  targetUID = 4;
+    int64  msgID     = 5;
 }
 
 message ResAcceptP2PMsgAck {
