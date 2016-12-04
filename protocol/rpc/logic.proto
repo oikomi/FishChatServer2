@@ -31,7 +31,8 @@ message PingRes {
 message SendP2PMsgReq {
     int64  sourceUID = 1;
     int64  targetUID = 2;
-    string msg       = 3;
+    string msgID     = 3;
+    string msg       = 4;
 }
 
 message SendP2PMsgRes {
@@ -43,7 +44,7 @@ message SendP2PMsgRes {
 message AcceptP2PMsgAckReq {
     int64  sourceUID = 1;
     int64  targetUID = 2;
-    int64  msgID     = 5;
+    string msgID     = 5;
 }
 
 message AcceptP2PMsgAckRes {

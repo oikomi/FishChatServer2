@@ -44,7 +44,8 @@ message ReqSendP2PMsg {
     string cmdStr    = 2;
     int64  sourceUID = 3;
     int64  targetUID = 4;
-    string msg       = 5;
+    string msgID     = 5;
+    string msg       = 6;
 }
 
 message ResSendP2PMsg {
@@ -54,7 +55,8 @@ message ResSendP2PMsg {
     string errStr    = 4;
     int64  sourceUID = 5;
     int64  targetUID = 6;
-    string msg       = 7;
+    string msgID     = 7;
+    string msg       = 8;
 }
 
 // p2p msg read ack
