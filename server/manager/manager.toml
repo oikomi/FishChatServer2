@@ -1,14 +1,14 @@
-# register conf
+# manager conf
 
 ver = "1.0.0"
-logPath = "/tmp/register.log"
+logPath = "/tmp/manager.log"
 
 [rpcServer]
 proto = "tcp"
 addr = "0.0.0.0:24000"
 
 [redis]
-name = "register"
+name = "manager"
 proto = "tcp"
 addr = "127.0.0.1:6379"
 idle = 100
