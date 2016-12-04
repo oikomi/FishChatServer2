@@ -100,6 +100,11 @@ func (s *RPCServer) SendP2PMsg(ctx context.Context, in *rpc.SendP2PMsgReq) (res 
 	return
 }
 
+func (s *RPCServer) AcceptP2PMsgAck(ctx context.Context, in *rpc.AcceptP2PMsgAckReq) (res *rpc.AcceptP2PMsgAckRes, err error) {
+	glog.Info("logic recive AcceptP2PMsgAck")
+	return
+}
+
 func RPCServerInit(rpcClient *RPCClient) {
 	glog.Info("[logic] rpc server init")
 	lis, err := net.Listen(conf.Conf.RPCServer.Proto, conf.Conf.RPCServer.Addr)

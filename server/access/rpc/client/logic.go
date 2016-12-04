@@ -47,3 +47,11 @@ func (logicRPCCli *LogicRPCCli) SendP2PMsg(sendP2PMsgReq *rpc.SendP2PMsgReq) (re
 	}
 	return
 }
+
+func (logicRPCCli *LogicRPCCli) AcceptP2PMsgAck(acceptP2PMsgAckReq *rpc.AcceptP2PMsgAckReq) (res *rpc.AcceptP2PMsgAckRes, err error) {
+	l := rpc.NewLogicRPCClient(logicRPCCli.conn)
+	if res, err = l.AcceptP2PMsgAck(context.Background(), acceptP2PMsgAckReq); err != nil {
+		glog.Error(err)
+	}
+	return
+}

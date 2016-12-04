@@ -6,6 +6,7 @@ service LogicRPC {
     rpc Login (LoginReq) returns (LoginRes) {}
     rpc Ping (PingReq) returns (PingRes) {}
     rpc SendP2PMsg (SendP2PMsgReq) returns (SendP2PMsgRes) {}
+    rpc AcceptP2PMsgAck (AcceptP2PMsgAckReq) returns (AcceptP2PMsgAckRes) {}
 }
 
 message LoginReq {
@@ -44,7 +45,7 @@ message SendP2PMsgRes {
 message AcceptP2PMsgAckReq {
     int64  sourceUID = 1;
     int64  targetUID = 2;
-    string msgID     = 5;
+    string msgID     = 3;
 }
 
 message AcceptP2PMsgAckRes {
