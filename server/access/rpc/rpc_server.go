@@ -22,6 +22,7 @@ func (s *RPCServer) SendP2PMsg(ctx context.Context, in *rpc.ASSendP2PMsgReq) (re
 			Cmd:       external.SendP2PMsgCMD,
 			SourceUID: in.SourceUID,
 			TargetUID: in.TargetUID,
+			MsgID:     in.MsgID,
 			Msg:       in.Msg,
 		}); err != nil {
 			glog.Error(err)

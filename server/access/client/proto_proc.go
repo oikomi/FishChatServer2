@@ -108,6 +108,7 @@ func (c *Client) procSendP2PMsg(reqData []byte) (err error) {
 	reqSendP2PMsgRPC := &rpc.SendP2PMsgReq{
 		SourceUID: reqSendP2PMsg.SourceUID,
 		TargetUID: reqSendP2PMsg.TargetUID,
+		MsgID:     reqSendP2PMsg.MsgID,
 		Msg:       reqSendP2PMsg.Msg,
 	}
 	resSendP2PMsgRPC, err := c.RPCClient.Logic.SendP2PMsg(reqSendP2PMsgRPC)

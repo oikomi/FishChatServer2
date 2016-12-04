@@ -77,6 +77,7 @@ func (s *RPCServer) SendP2PMsg(ctx context.Context, in *rpc.SendP2PMsgReq) (res 
 	sendP2PMsgKafka := &commmodel.SendP2PMsgKafka{
 		SourceUID: in.SourceUID,
 		TargetUID: in.TargetUID,
+		MsgID:     in.MsgID,
 		Msg:       in.Msg,
 	}
 	// Online

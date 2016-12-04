@@ -32,9 +32,9 @@ func (registerRPCCli *RegisterRPCCli) Login(ctx context.Context, uid int64, toke
 	return
 }
 
-func (registerRPCCli *RegisterRPCCli) Auth(ctx context.Context, uid int64, token string) (res *rpc.RGAuthRes, err error) {
+func (registerRPCCli *RegisterRPCCli) Auth(ctx context.Context, uid int64) (res *rpc.RGAuthRes, err error) {
 	a := rpc.NewRegisterServerRPCClient(registerRPCCli.conn)
-	if res, err = a.Auth(ctx, &rpc.RGAuthReq{UID: uid, Token: token}); err != nil {
+	if res, err = a.Auth(ctx, &rpc.RGAuthReq{UID: uid}); err != nil {
 		glog.Error(err)
 	}
 	return

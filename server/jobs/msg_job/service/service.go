@@ -74,6 +74,7 @@ func (s *Service) consumeproc() {
 			sendP2PMsgReq := &protoRPC.ASSendP2PMsgReq{
 				SourceUID: sendP2PMsgKafka.SourceUID,
 				TargetUID: sendP2PMsgKafka.TargetUID,
+				MsgID:     sendP2PMsgKafka.MsgID,
 				Msg:       sendP2PMsgKafka.Msg,
 			}
 			_, err := s.rpcClient.AccessServer.SendP2PMsg(sendP2PMsgReq)
@@ -84,7 +85,7 @@ func (s *Service) consumeproc() {
 		} else {
 			// set offline msg
 			offlineMsg := &commmodel.OfflineMsg{
-				MsgID:     122,
+				MsgID:     sendP2PMsgKafka.MsgID,
 				SourceUID: sendP2PMsgKafka.SourceUID,
 				TargetUID: sendP2PMsgKafka.TargetUID,
 				Msg:       sendP2PMsgKafka.Msg,

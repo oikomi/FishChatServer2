@@ -7,6 +7,7 @@ const (
 type SendP2PMsgKafka struct {
 	SourceUID int64
 	TargetUID int64
+	MsgID     string
 	Msg       string
 	Online    bool
 }

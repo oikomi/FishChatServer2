@@ -5,7 +5,7 @@ import (
 )
 
 type OfflineMsg struct {
-	MsgID     int64
+	MsgID     string
 	SourceUID int64
 	TargetUID int64
 	Msg       string
