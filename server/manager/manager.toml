@@ -1,0 +1,21 @@
+# register conf
+
+ver = "1.0.0"
+logPath = "/tmp/register.log"
+
+[rpcServer]
+proto = "tcp"
+addr = "0.0.0.0:24000"
+
+[redis]
+name = "register"
+proto = "tcp"
+addr = "127.0.0.1:6379"
+idle = 100
+active = 100
+dialTimeout = "1s"
+readTimeout = "1s"
+writeTimeout = "1s"
+idleTimeout = "10s"
+expire = "15s"
+

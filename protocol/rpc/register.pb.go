@@ -27,7 +27,7 @@ type RGLoginReq struct {
 func (m *RGLoginReq) Reset()                    { *m = RGLoginReq{} }
 func (m *RGLoginReq) String() string            { return proto.CompactTextString(m) }
 func (*RGLoginReq) ProtoMessage()               {}
-func (*RGLoginReq) Descriptor() ([]byte, []int) { return fileDescriptor2, []int{0} }
+func (*RGLoginReq) Descriptor() ([]byte, []int) { return fileDescriptor3, []int{0} }
 
 func (m *RGLoginReq) GetUID() int64 {
 	if m != nil {
@@ -59,7 +59,7 @@ type RGLoginRes struct {
 func (m *RGLoginRes) Reset()                    { *m = RGLoginRes{} }
 func (m *RGLoginRes) String() string            { return proto.CompactTextString(m) }
 func (*RGLoginRes) ProtoMessage()               {}
-func (*RGLoginRes) Descriptor() ([]byte, []int) { return fileDescriptor2, []int{1} }
+func (*RGLoginRes) Descriptor() ([]byte, []int) { return fileDescriptor3, []int{1} }
 
 func (m *RGLoginRes) GetErrCode() uint32 {
 	if m != nil {
@@ -89,7 +89,7 @@ type RGAccessReq struct {
 func (m *RGAccessReq) Reset()                    { *m = RGAccessReq{} }
 func (m *RGAccessReq) String() string            { return proto.CompactTextString(m) }
 func (*RGAccessReq) ProtoMessage()               {}
-func (*RGAccessReq) Descriptor() ([]byte, []int) { return fileDescriptor2, []int{2} }
+func (*RGAccessReq) Descriptor() ([]byte, []int) { return fileDescriptor3, []int{2} }
 
 func (m *RGAccessReq) GetUID() int64 {
 	if m != nil {
@@ -107,7 +107,7 @@ type RGAccessRes struct {
 func (m *RGAccessRes) Reset()                    { *m = RGAccessRes{} }
 func (m *RGAccessRes) String() string            { return proto.CompactTextString(m) }
 func (*RGAccessRes) ProtoMessage()               {}
-func (*RGAccessRes) Descriptor() ([]byte, []int) { return fileDescriptor2, []int{3} }
+func (*RGAccessRes) Descriptor() ([]byte, []int) { return fileDescriptor3, []int{3} }
 
 func (m *RGAccessRes) GetErrCode() uint32 {
 	if m != nil {
@@ -137,7 +137,7 @@ type RGAuthReq struct {
 func (m *RGAuthReq) Reset()                    { *m = RGAuthReq{} }
 func (m *RGAuthReq) String() string            { return proto.CompactTextString(m) }
 func (*RGAuthReq) ProtoMessage()               {}
-func (*RGAuthReq) Descriptor() ([]byte, []int) { return fileDescriptor2, []int{4} }
+func (*RGAuthReq) Descriptor() ([]byte, []int) { return fileDescriptor3, []int{4} }
 
 func (m *RGAuthReq) GetUID() int64 {
 	if m != nil {
@@ -155,7 +155,7 @@ type RGAuthRes struct {
 func (m *RGAuthRes) Reset()                    { *m = RGAuthRes{} }
 func (m *RGAuthRes) String() string            { return proto.CompactTextString(m) }
 func (*RGAuthRes) ProtoMessage()               {}
-func (*RGAuthRes) Descriptor() ([]byte, []int) { return fileDescriptor2, []int{5} }
+func (*RGAuthRes) Descriptor() ([]byte, []int) { return fileDescriptor3, []int{5} }
 
 func (m *RGAuthRes) GetErrCode() uint32 {
 	if m != nil {
@@ -185,7 +185,7 @@ type RGPingReq struct {
 func (m *RGPingReq) Reset()                    { *m = RGPingReq{} }
 func (m *RGPingReq) String() string            { return proto.CompactTextString(m) }
 func (*RGPingReq) ProtoMessage()               {}
-func (*RGPingReq) Descriptor() ([]byte, []int) { return fileDescriptor2, []int{6} }
+func (*RGPingReq) Descriptor() ([]byte, []int) { return fileDescriptor3, []int{6} }
 
 func (m *RGPingReq) GetUID() int64 {
 	if m != nil {
@@ -202,7 +202,7 @@ type RGPingRes struct {
 func (m *RGPingRes) Reset()                    { *m = RGPingRes{} }
 func (m *RGPingRes) String() string            { return proto.CompactTextString(m) }
 func (*RGPingRes) ProtoMessage()               {}
-func (*RGPingRes) Descriptor() ([]byte, []int) { return fileDescriptor2, []int{7} }
+func (*RGPingRes) Descriptor() ([]byte, []int) { return fileDescriptor3, []int{7} }
 
 func (m *RGPingRes) GetErrCode() uint32 {
 	if m != nil {
@@ -225,7 +225,7 @@ type RGOnlineReq struct {
 func (m *RGOnlineReq) Reset()                    { *m = RGOnlineReq{} }
 func (m *RGOnlineReq) String() string            { return proto.CompactTextString(m) }
 func (*RGOnlineReq) ProtoMessage()               {}
-func (*RGOnlineReq) Descriptor() ([]byte, []int) { return fileDescriptor2, []int{8} }
+func (*RGOnlineReq) Descriptor() ([]byte, []int) { return fileDescriptor3, []int{8} }
 
 func (m *RGOnlineReq) GetUID() int64 {
 	if m != nil {
@@ -243,7 +243,7 @@ type RGOnlineRes struct {
 func (m *RGOnlineRes) Reset()                    { *m = RGOnlineRes{} }
 func (m *RGOnlineRes) String() string            { return proto.CompactTextString(m) }
 func (*RGOnlineRes) ProtoMessage()               {}
-func (*RGOnlineRes) Descriptor() ([]byte, []int) { return fileDescriptor2, []int{9} }
+func (*RGOnlineRes) Descriptor() ([]byte, []int) { return fileDescriptor3, []int{9} }
 
 func (m *RGOnlineRes) GetErrCode() uint32 {
 	if m != nil {
@@ -483,9 +483,9 @@ var _RegisterServerRPC_serviceDesc = grpc.ServiceDesc{
 	Metadata: "register.proto",
 }
 
-func init() { proto.RegisterFile("register.proto", fileDescriptor2) }
+func init() { proto.RegisterFile("register.proto", fileDescriptor3) }
 
-var fileDescriptor2 = []byte{
+var fileDescriptor3 = []byte{
 	// 333 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0xac, 0x53, 0xcd, 0x4b, 0xfb, 0x40,
 	0x10, 0x6d, 0x7e, 0xf9, 0x35, 0xda, 0x51, 0x6b, 0x5d, 0xa4, 0x84, 0x80, 0x5a, 0x72, 0x2a, 0x08,

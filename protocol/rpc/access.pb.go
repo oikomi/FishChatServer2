@@ -8,6 +8,7 @@ Package rpc is a generated protocol buffer package.
 It is generated from these files:
 	access.proto
 	logic.proto
+	manager.proto
 	register.proto
 
 It has these top-level messages:
@@ -21,6 +22,8 @@ It has these top-level messages:
 	SendP2PMsgRes
 	AcceptP2PMsgAckReq
 	AcceptP2PMsgAckRes
+	MGExceptionMsgReq
+	MGExceptionMsgRes
 	RGLoginReq
 	RGLoginRes
 	RGAccessReq
