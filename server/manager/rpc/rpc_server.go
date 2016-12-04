@@ -1,9 +1,9 @@
 package rpc
 
 import (
-	"github.com/golang/glog"
-	// "github.com/oikomi/FishChatServer2/common/ecode"
 	"encoding/json"
+	"github.com/golang/glog"
+	"github.com/oikomi/FishChatServer2/common/ecode"
 	commmodel "github.com/oikomi/FishChatServer2/common/model"
 	"github.com/oikomi/FishChatServer2/protocol/rpc"
 	"github.com/oikomi/FishChatServer2/server/manager/conf"
@@ -28,10 +28,23 @@ func (s *RPCServer) ExceptionMsg(ctx context.Context, in *rpc.MGExceptionMsgReq)
 	data, err := json.Marshal(exceptionMsg)
 	if err != nil {
 		glog.Error(err)
+		res = &rpc.MGExceptionMsgRes{
+			ErrCode: ecode.ServerErr.Uint32(),
+			ErrStr:  ecode.ServerErr.String(),
+		}
 		return
 	}
 	if err = s.dao.SetExceptionMsg(ctx, in.MsgID, string(data)); err != nil {
 		glog.Error(err)
+		res = &rpc.MGExceptionMsgRes{
+			ErrCode: ecode.ServerErr.Uint32(),
+			ErrStr:  ecode.ServerErr.String(),
+		}
+		return
+	}
+	res = &rpc.MGExceptionMsgRes{
+		ErrCode: ecode.OK.Uint32(),
+		ErrStr:  ecode.OK.String(),
 	}
 	return
 }
