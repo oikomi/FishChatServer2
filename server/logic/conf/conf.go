@@ -30,6 +30,7 @@ type KafkaProducer struct {
 
 type RPCClient struct {
 	RegisterClient *commconf.RPCClient
+	ManagerClient  *commconf.RPCClient
 }
 
 type MongoDB struct {

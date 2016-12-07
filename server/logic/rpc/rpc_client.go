@@ -7,6 +7,7 @@ import (
 
 type RPCClient struct {
 	Register *client.RegisterRPCCli
+	Manager  *client.ManagerRPCCli
 }
 
 func NewRPCClient() (c *RPCClient, err error) {
@@ -15,8 +16,14 @@ func NewRPCClient() (c *RPCClient, err error) {
 		glog.Error(err)
 		return
 	}
+	manager, err := client.NewManagerRPCCli()
+	if err != nil {
+		glog.Error(err)
+		return
+	}
 	c = &RPCClient{
 		Register: register,
+		Manager:  manager,
 	}
 	return
 }
