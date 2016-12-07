@@ -1,7 +1,7 @@
 package dao
 
 import (
-	// "github.com/garyburd/redigo/redis"
+	"github.com/garyburd/redigo/redis"
 	"github.com/golang/glog"
 	"github.com/oikomi/FishChatServer2/common/dao/xredis"
 	"github.com/oikomi/FishChatServer2/server/manager/conf"
@@ -31,6 +31,16 @@ func (dao *Dao) SetExceptionMsg(ctx context.Context, msgID string, data string) 
 	conn := dao.redis.Get(ctx)
 	defer conn.Close()
 	_, err = conn.Do("SET", keyExceptionMsg(msgID), data)
+	if err != nil {
+		glog.Error(err)
+	}
+	return
+}
+
+func (dao *Dao) ExceptionMsg(ctx context.Context, msgID string) (res string, err error) {
+	conn := dao.redis.Get(ctx)
+	defer conn.Close()
+	res, err = redis.String(conn.Do("GET", keyExceptionMsg(msgID)))
 	if err != nil {
 		glog.Error(err)
 	}
