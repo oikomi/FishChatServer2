@@ -10,10 +10,15 @@ import (
 
 const (
 	_keyExceptionMsg = "mge_"
+	_keyNormalMsg    = "mgn_"
 )
 
 func keyExceptionMsg(msgID string) string {
 	return _keyExceptionMsg + msgID
+}
+
+func keyNormalMsg(msgID string) string {
+	return _keyNormalMsg + msgID
 }
 
 type Dao struct {
@@ -41,6 +46,16 @@ func (dao *Dao) ExceptionMsg(ctx context.Context, msgID string) (res string, err
 	conn := dao.redis.Get(ctx)
 	defer conn.Close()
 	res, err = redis.String(conn.Do("GET", keyExceptionMsg(msgID)))
+	if err != nil {
+		glog.Error(err)
+	}
+	return
+}
+
+func (dao *Dao) SetNormalMsg(ctx context.Context, msgID string, data string) (err error) {
+	conn := dao.redis.Get(ctx)
+	defer conn.Close()
+	_, err = conn.Do("SET", keyNormalMsg(msgID), data)
 	if err != nil {
 		glog.Error(err)
 	}
