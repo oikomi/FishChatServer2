@@ -19,6 +19,11 @@ type RPCServer struct {
 
 func (s *RPCServer) ExceptionMsg(ctx context.Context, in *rpc.MGExceptionMsgReq) (res *rpc.MGExceptionMsgRes, err error) {
 	glog.Info("ExceptionMsg")
+	return
+}
+
+func (s *RPCServer) SetExceptionMsg(ctx context.Context, in *rpc.MGExceptionMsgReq) (res *rpc.MGExceptionMsgRes, err error) {
+	glog.Info("SetExceptionMsg")
 	exceptionMsg := &commmodel.ExceptionMsg{
 		SourceUID: in.SourceUID,
 		TargetUID: in.TargetUID,

@@ -3,7 +3,7 @@ syntax = "proto3";
 package rpc;
 
 service ManagerServerRPC {
-    rpc ExceptionMsg (MGExceptionMsgReq) returns (MGExceptionMsgRes) {}
+    rpc SetExceptionMsg (MGExceptionMsgReq) returns (MGExceptionMsgRes) {}
 }
 
 message MGExceptionMsgReq {
