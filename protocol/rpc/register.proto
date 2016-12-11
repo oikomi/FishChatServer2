@@ -8,6 +8,8 @@ service RegisterServerRPC {
     rpc Auth (RGAuthReq) returns (RGAuthRes) {}
     rpc Ping (RGPingReq) returns (RGPingRes) {}
     rpc Online (RGOnlineReq) returns (RGOnlineRes) {}
+    // group
+    rpc CreateGroup (RGCreateGroupReq) returns (RGCreateGroupRes) {}
 }
 
 message RGLoginReq {
@@ -60,4 +62,16 @@ message RGOnlineRes {
     uint32 errCode = 1;
     string errStr  = 2;
     bool   online  = 3;
+}
+
+
+// group
+message RGCreateGroupReq {
+    int64  UID       = 1;
+    string groupName = 2;
+}
+
+message RGCreateGroupRes {
+    uint32 errCode = 1;
+    string errStr  = 2;
 }

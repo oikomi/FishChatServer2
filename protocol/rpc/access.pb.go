@@ -38,6 +38,8 @@ It has these top-level messages:
 	RGPingRes
 	RGOnlineReq
 	RGOnlineRes
+	RGCreateGroupReq
+	RGCreateGroupRes
 */
 package rpc
 
