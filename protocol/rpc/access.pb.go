@@ -7,6 +7,7 @@ Package rpc is a generated protocol buffer package.
 
 It is generated from these files:
 	access.proto
+	idgen.proto
 	logic.proto
 	manager.proto
 	register.proto
@@ -16,6 +17,7 @@ It has these top-level messages:
 	ASSendP2PMsgRes
 	ASSendGroupMsgReq
 	ASSendGroupMsgRes
+	Snowflake
 	LoginReq
 	LoginRes
 	PingReq

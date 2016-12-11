@@ -28,7 +28,7 @@ type MGExceptionMsgReq struct {
 func (m *MGExceptionMsgReq) Reset()                    { *m = MGExceptionMsgReq{} }
 func (m *MGExceptionMsgReq) String() string            { return proto.CompactTextString(m) }
 func (*MGExceptionMsgReq) ProtoMessage()               {}
-func (*MGExceptionMsgReq) Descriptor() ([]byte, []int) { return fileDescriptor2, []int{0} }
+func (*MGExceptionMsgReq) Descriptor() ([]byte, []int) { return fileDescriptor3, []int{0} }
 
 func (m *MGExceptionMsgReq) GetSourceUID() int64 {
 	if m != nil {
@@ -66,7 +66,7 @@ type MGExceptionMsgRes struct {
 func (m *MGExceptionMsgRes) Reset()                    { *m = MGExceptionMsgRes{} }
 func (m *MGExceptionMsgRes) String() string            { return proto.CompactTextString(m) }
 func (*MGExceptionMsgRes) ProtoMessage()               {}
-func (*MGExceptionMsgRes) Descriptor() ([]byte, []int) { return fileDescriptor2, []int{1} }
+func (*MGExceptionMsgRes) Descriptor() ([]byte, []int) { return fileDescriptor3, []int{1} }
 
 func (m *MGExceptionMsgRes) GetErrCode() uint32 {
 	if m != nil {
@@ -159,9 +159,9 @@ var _ManagerServerRPC_serviceDesc = grpc.ServiceDesc{
 	Metadata: "manager.proto",
 }
 
-func init() { proto.RegisterFile("manager.proto", fileDescriptor2) }
+func init() { proto.RegisterFile("manager.proto", fileDescriptor3) }
 
-var fileDescriptor2 = []byte{
+var fileDescriptor3 = []byte{
 	// 214 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0x6c, 0x90, 0x4d, 0x4b, 0xc4, 0x30,
 	0x10, 0x86, 0xad, 0xd1, 0x95, 0x0e, 0x2c, 0xae, 0x83, 0x2c, 0x41, 0x3c, 0x94, 0x9e, 0x7a, 0xea,

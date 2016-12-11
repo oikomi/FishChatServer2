@@ -27,7 +27,7 @@ type LoginReq struct {
 func (m *LoginReq) Reset()                    { *m = LoginReq{} }
 func (m *LoginReq) String() string            { return proto.CompactTextString(m) }
 func (*LoginReq) ProtoMessage()               {}
-func (*LoginReq) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{0} }
+func (*LoginReq) Descriptor() ([]byte, []int) { return fileDescriptor2, []int{0} }
 
 func (m *LoginReq) GetUID() int64 {
 	if m != nil {
@@ -58,7 +58,7 @@ type LoginRes struct {
 func (m *LoginRes) Reset()                    { *m = LoginRes{} }
 func (m *LoginRes) String() string            { return proto.CompactTextString(m) }
 func (*LoginRes) ProtoMessage()               {}
-func (*LoginRes) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{1} }
+func (*LoginRes) Descriptor() ([]byte, []int) { return fileDescriptor2, []int{1} }
 
 func (m *LoginRes) GetErrCode() uint32 {
 	if m != nil {
@@ -81,7 +81,7 @@ type PingReq struct {
 func (m *PingReq) Reset()                    { *m = PingReq{} }
 func (m *PingReq) String() string            { return proto.CompactTextString(m) }
 func (*PingReq) ProtoMessage()               {}
-func (*PingReq) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{2} }
+func (*PingReq) Descriptor() ([]byte, []int) { return fileDescriptor2, []int{2} }
 
 func (m *PingReq) GetUID() int64 {
 	if m != nil {
@@ -98,7 +98,7 @@ type PingRes struct {
 func (m *PingRes) Reset()                    { *m = PingRes{} }
 func (m *PingRes) String() string            { return proto.CompactTextString(m) }
 func (*PingRes) ProtoMessage()               {}
-func (*PingRes) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{3} }
+func (*PingRes) Descriptor() ([]byte, []int) { return fileDescriptor2, []int{3} }
 
 func (m *PingRes) GetErrCode() uint32 {
 	if m != nil {
@@ -124,7 +124,7 @@ type SendP2PMsgReq struct {
 func (m *SendP2PMsgReq) Reset()                    { *m = SendP2PMsgReq{} }
 func (m *SendP2PMsgReq) String() string            { return proto.CompactTextString(m) }
 func (*SendP2PMsgReq) ProtoMessage()               {}
-func (*SendP2PMsgReq) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{4} }
+func (*SendP2PMsgReq) Descriptor() ([]byte, []int) { return fileDescriptor2, []int{4} }
 
 func (m *SendP2PMsgReq) GetSourceUID() int64 {
 	if m != nil {
@@ -162,7 +162,7 @@ type SendP2PMsgRes struct {
 func (m *SendP2PMsgRes) Reset()                    { *m = SendP2PMsgRes{} }
 func (m *SendP2PMsgRes) String() string            { return proto.CompactTextString(m) }
 func (*SendP2PMsgRes) ProtoMessage()               {}
-func (*SendP2PMsgRes) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{5} }
+func (*SendP2PMsgRes) Descriptor() ([]byte, []int) { return fileDescriptor2, []int{5} }
 
 func (m *SendP2PMsgRes) GetErrCode() uint32 {
 	if m != nil {
@@ -188,7 +188,7 @@ type AcceptP2PMsgAckReq struct {
 func (m *AcceptP2PMsgAckReq) Reset()                    { *m = AcceptP2PMsgAckReq{} }
 func (m *AcceptP2PMsgAckReq) String() string            { return proto.CompactTextString(m) }
 func (*AcceptP2PMsgAckReq) ProtoMessage()               {}
-func (*AcceptP2PMsgAckReq) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{6} }
+func (*AcceptP2PMsgAckReq) Descriptor() ([]byte, []int) { return fileDescriptor2, []int{6} }
 
 func (m *AcceptP2PMsgAckReq) GetSourceUID() int64 {
 	if m != nil {
@@ -219,7 +219,7 @@ type AcceptP2PMsgAckRes struct {
 func (m *AcceptP2PMsgAckRes) Reset()                    { *m = AcceptP2PMsgAckRes{} }
 func (m *AcceptP2PMsgAckRes) String() string            { return proto.CompactTextString(m) }
 func (*AcceptP2PMsgAckRes) ProtoMessage()               {}
-func (*AcceptP2PMsgAckRes) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{7} }
+func (*AcceptP2PMsgAckRes) Descriptor() ([]byte, []int) { return fileDescriptor2, []int{7} }
 
 func (m *AcceptP2PMsgAckRes) GetErrCode() uint32 {
 	if m != nil {
@@ -245,7 +245,7 @@ type SendGroupMsgReq struct {
 func (m *SendGroupMsgReq) Reset()                    { *m = SendGroupMsgReq{} }
 func (m *SendGroupMsgReq) String() string            { return proto.CompactTextString(m) }
 func (*SendGroupMsgReq) ProtoMessage()               {}
-func (*SendGroupMsgReq) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{8} }
+func (*SendGroupMsgReq) Descriptor() ([]byte, []int) { return fileDescriptor2, []int{8} }
 
 func (m *SendGroupMsgReq) GetGroupID() int64 {
 	if m != nil {
@@ -276,7 +276,7 @@ type SendGroupMsgRes struct {
 func (m *SendGroupMsgRes) Reset()                    { *m = SendGroupMsgRes{} }
 func (m *SendGroupMsgRes) String() string            { return proto.CompactTextString(m) }
 func (*SendGroupMsgRes) ProtoMessage()               {}
-func (*SendGroupMsgRes) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{9} }
+func (*SendGroupMsgRes) Descriptor() ([]byte, []int) { return fileDescriptor2, []int{9} }
 
 func (m *SendGroupMsgRes) GetErrCode() uint32 {
 	if m != nil {
@@ -509,9 +509,9 @@ var _LogicRPC_serviceDesc = grpc.ServiceDesc{
 	Metadata: "logic.proto",
 }
 
-func init() { proto.RegisterFile("logic.proto", fileDescriptor1) }
+func init() { proto.RegisterFile("logic.proto", fileDescriptor2) }
 
-var fileDescriptor1 = []byte{
+var fileDescriptor2 = []byte{
 	// 381 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0xb4, 0x54, 0x4d, 0x6b, 0xea, 0x40,
 	0x14, 0xd5, 0xc4, 0x8f, 0xe7, 0x7d, 0x8a, 0x8f, 0x8b, 0xbc, 0x17, 0xf2, 0x4a, 0x91, 0xa1, 0x50,

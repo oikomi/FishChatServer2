@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package rpc;
+
+service IDGenServerRPC {
+    rpc Next(Snowflake.Key) returns (Snowflake.Value); // 产生下一个序号
+    rpc GetUUID(Snowflake.NullRequest) returns (Snowflake.UUID); // UUID 发生器
+}
+
+message Snowflake{
+	message Key {
+		string name=1;
+	}
+	message Value {
+		int64 value=1;
+	}
+	message NullRequest{
+	}
+	message UUID {
+		uint64 uuid =1;
+	}
+}
+
