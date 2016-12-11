@@ -1,29 +1,25 @@
 package dao
 
 import (
-// "github.com/garyburd/redigo/redis"
-// "github.com/golang/glog"
-// "github.com/oikomi/FishChatServer2/common/dao/xredis"
-// "github.com/oikomi/FishChatServer2/server/idgen/conf"
-// "golang.org/x/net/context"
+	// "github.com/garyburd/redigo/redis"
+	// "github.com/golang/glog"
+	// "github.com/oikomi/FishChatServer2/common/dao/xredis"
+	"github.com/oikomi/FishChatServer2/server/idgen/conf"
+	// "golang.org/x/net/context"
+	"github.com/golang/glog"
 )
-
-const (
-	_keyExceptionMsg = "mge_"
-	_keyNormalMsg    = "mgn_"
-)
-
-func keyExceptionMsg(msgID string) string {
-	return _keyExceptionMsg + msgID
-}
-
-func keyNormalMsg(msgID string) string {
-	return _keyNormalMsg + msgID
-}
 
 type Dao struct {
+	Etcd *Etcd
 }
 
-func NewDao() (dao *Dao) {
+func NewDao() (dao *Dao, err error) {
+	e, err := NewEtcd(conf.Conf.Etcd)
+	if err != nil {
+		glog.Error(err)
+	}
+	dao = &Dao{
+		Etcd: e,
+	}
 	return
 }

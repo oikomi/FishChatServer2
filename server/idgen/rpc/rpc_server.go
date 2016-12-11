@@ -1,6 +1,8 @@
 package rpc
 
 import (
+	"errors"
+	"fmt"
 	"github.com/golang/glog"
 	"github.com/oikomi/FishChatServer2/protocol/rpc"
 	"github.com/oikomi/FishChatServer2/server/idgen/conf"
@@ -8,11 +10,31 @@ import (
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"net"
+	"strconv"
 )
 
 type RPCServer struct {
-	dao *dao.Dao
+	dao         *dao.Dao
+	machine_id  uint64 // 10-bit machine id
+	client_pool chan etcd.KeysAPI
+	ch_proc     chan chan uint64
 }
+
+const (
+	SERVICE        = "[SNOWFLAKE]"
+	ENV_MACHINE_ID = "MACHINE_ID" // specific machine id
+	PATH           = "/seqs/"
+	UUID_KEY       = "/seqs/snowflake-uuid"
+	BACKOFF        = 100  // max backoff delay millisecond
+	CONCURRENT     = 128  // max concurrent connections to etcd
+	UUID_QUEUE     = 1024 // uuid process queue
+)
+
+const (
+	TS_MASK         = 0x1FFFFFFFFFF // 41bit
+	SN_MASK         = 0xFFF         // 12bit
+	MACHINE_ID_MASK = 0x3FF         // 10bit
+)
 
 // get next value of a key, like auto-increment in mysql
 func (s *RPCServer) Next(ctx context.Context, in *rpc.Snowflake_Key) (*rpc.Snowflake_Value, error) {
@@ -23,13 +45,13 @@ func (s *RPCServer) Next(ctx context.Context, in *rpc.Snowflake_Key) (*rpc.Snowf
 		// get the key
 		resp, err := client.Get(context.Background(), key, nil)
 		if err != nil {
-			log.Error(err)
+			glog.Error(err)
 			return nil, errors.New("Key not exists, need to create first")
 		}
 		// get prevValue & prevIndex
 		prevValue, err := strconv.Atoi(resp.Node.Value)
 		if err != nil {
-			log.Error(err)
+			glog.Error(err)
 			return nil, errors.New("marlformed value")
 		}
 		prevIndex := resp.Node.ModifiedIndex
@@ -39,7 +61,7 @@ func (s *RPCServer) Next(ctx context.Context, in *rpc.Snowflake_Key) (*rpc.Snowf
 			cas_delay()
 			continue
 		}
-		return &pb.Snowflake_Value{int64(prevValue + 1)}, nil
+		return &rpc.Snowflake_Value{int64(prevValue + 1)}, nil
 	}
 }
 
@@ -47,7 +69,7 @@ func (s *RPCServer) Next(ctx context.Context, in *rpc.Snowflake_Key) (*rpc.Snowf
 func (s *RPCServer) GetUUID(context.Context, *rpc.Snowflake_NullRequest) (*rpc.Snowflake_UUID, error) {
 	req := make(chan uint64, 1)
 	s.ch_proc <- req
-	return &pb.Snowflake_UUID{<-req}, nil
+	return &rpc.Snowflake_UUID{<-req}, nil
 }
 
 // uuid generator
@@ -105,15 +127,20 @@ func ts() int64 {
 }
 
 func RPCServerInit() {
-	glog.Info("[manager] rpc server init: ", conf.Conf.RPCServer.Addr)
+	glog.Info("[idgen] rpc server init: ", conf.Conf.RPCServer.Addr)
 	lis, err := net.Listen(conf.Conf.RPCServer.Proto, conf.Conf.RPCServer.Addr)
 	if err != nil {
 		glog.Error(err)
 		panic(err)
 	}
 	s := grpc.NewServer()
+	d, err := dao.NewDao()
+	if err != nil {
+		glog.Error(err)
+		panic(err)
+	}
 	rpcServer := &RPCServer{
-		dao: dao.NewDao(),
+		dao: d,
 	}
 	rpc.RegisterIDGenServerRPCServer(s, rpcServer)
 	s.Serve(lis)

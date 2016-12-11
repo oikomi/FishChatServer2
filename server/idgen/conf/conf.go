@@ -16,6 +16,7 @@ type Config struct {
 	*commconf.CommConf
 	configFile string
 	RPCServer  *commconf.RPCServer
+	Etcd       *commconf.Etcd
 }
 
 func init() {
