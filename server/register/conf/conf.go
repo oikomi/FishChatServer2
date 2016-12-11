@@ -18,6 +18,7 @@ type Config struct {
 	RPCServer  *commconf.RPCServer
 	Auth       *Auth
 	Redis      *Redis
+	MongoDB    *MongoDB
 }
 
 type Auth struct {
@@ -28,6 +29,11 @@ type Auth struct {
 type Redis struct {
 	*commconf.Redis
 	Expire xtime.Duration
+}
+
+type MongoDB struct {
+	*commconf.MongoDB
+	GroupCollection string
 }
 
 func init() {
