@@ -58,12 +58,12 @@ func localRouter(r *router.Router) {
 func createGroup(c wctx.Context) {
 	res := c.Result()
 	uidStr := c.Request().Form.Get("uid")
-	pwStr := c.Request().Form.Get("pw")
+	groupNameStr := c.Request().Form.Get("groupName")
 	uid, err := strconv.ParseInt(uidStr, 10, 64)
 	if err != nil {
 		glog.Error(err)
 		res["code"] = ecode.RequestErr
 		return
 	}
-	res["data"], res["code"] = groupSvc.CreateGroup(uid, pwStr)
+	res["code"] = groupSvc.CreateGroup(uid, groupNameStr)
 }
