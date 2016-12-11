@@ -174,3 +174,45 @@ func (c *Client) procAcceptP2PMsgAck(reqData []byte) (err error) {
 	}
 	return
 }
+
+func (c *Client) procSendGroupMsg(reqData []byte) (err error) {
+	glog.Info("procSendGroupMsg")
+	reqSendGroupMsg := &external.ReqSendGroupMsg{}
+	if err = proto.Unmarshal(reqData, reqSendGroupMsg); err != nil {
+		if err = c.Session.Send(&external.Error{
+			Cmd:     external.ErrServerCMD,
+			ErrCode: ecode.ServerErr.Uint32(),
+			ErrStr:  ecode.ServerErr.String(),
+		}); err != nil {
+			glog.Error(err)
+		}
+		glog.Error(err)
+		return
+	}
+	reqSendGroupMsgRPC := &rpc.SendGroupMsgReq{
+		GroupID: reqSendGroupMsg.GroupID,
+		MsgID:   reqSendGroupMsg.MsgID,
+		Msg:     reqSendGroupMsg.Msg,
+	}
+	// add rpc logic
+	resSendGroupMsgRPC, err := c.RPCClient.Logic.SendGroupMsg(reqSendGroupMsgRPC)
+	if err != nil {
+		if err = c.Session.Send(&external.Error{
+			Cmd:     external.ErrServerCMD,
+			ErrCode: ecode.ServerErr.Uint32(),
+			ErrStr:  ecode.ServerErr.String(),
+		}); err != nil {
+			glog.Error(err)
+		}
+		glog.Error(err)
+		return
+	}
+	if err = c.Session.Send(&external.Error{
+		Cmd:     external.SendP2PMsgCMD,
+		ErrCode: resSendGroupMsgRPC.ErrCode,
+		ErrStr:  resSendGroupMsgRPC.ErrStr,
+	}); err != nil {
+		glog.Error(err)
+	}
+	return
+}

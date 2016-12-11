@@ -13,4 +13,5 @@ const (
 	PingCMD            = 20002
 	SendP2PMsgCMD      = 20003
 	AcceptP2PMsgAckCMD = 20004
+	SendGroupMsgCMD    = 20005
 )

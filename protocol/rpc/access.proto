@@ -4,6 +4,7 @@ package rpc;
 
 service AccessServerRPC {
     rpc SendP2PMsg (ASSendP2PMsgReq) returns (ASSendP2PMsgRes) {}
+    //rpc SendGroupMsg (ASSendGroupMsgReq) returns (ASSendGroupMsgRes) {}
 }
 
 message ASSendP2PMsgReq {
@@ -14,6 +15,17 @@ message ASSendP2PMsgReq {
 }
 
 message ASSendP2PMsgRes {
+    uint32 errCode = 1;
+    string errStr  = 2;
+}
+
+message ASSendGroupMsgReq {
+    int64  groupID   = 1;
+    string msgID     = 2;
+    string msg       = 3;
+}
+
+message ASSendGroupMsgRes {
     uint32 errCode = 1;
     string errStr  = 2;
 }

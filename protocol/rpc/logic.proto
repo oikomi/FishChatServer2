@@ -7,6 +7,7 @@ service LogicRPC {
     rpc Ping (PingReq) returns (PingRes) {}
     rpc SendP2PMsg (SendP2PMsgReq) returns (SendP2PMsgRes) {}
     rpc AcceptP2PMsgAck (AcceptP2PMsgAckReq) returns (AcceptP2PMsgAckRes) {}
+    rpc SendGroupMsg (SendGroupMsgReq) returns (SendGroupMsgRes) {}
 }
 
 message LoginReq {
@@ -49,6 +50,18 @@ message AcceptP2PMsgAckReq {
 }
 
 message AcceptP2PMsgAckRes {
+    uint32 errCode = 1;
+    string errStr  = 2;
+}
+
+// group msg
+message SendGroupMsgReq {
+    int64  groupID   = 1;
+    string msgID     = 2;
+    string msg       = 3;
+}
+
+message SendGroupMsgRes {
     uint32 errCode = 1;
     string errStr  = 2;
 }

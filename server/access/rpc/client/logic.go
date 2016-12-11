@@ -55,3 +55,11 @@ func (logicRPCCli *LogicRPCCli) AcceptP2PMsgAck(acceptP2PMsgAckReq *rpc.AcceptP2
 	}
 	return
 }
+
+func (logicRPCCli *LogicRPCCli) SendGroupMsg(sendGroupMsgReq *rpc.SendGroupMsgReq) (res *rpc.SendGroupMsgRes, err error) {
+	l := rpc.NewLogicRPCClient(logicRPCCli.conn)
+	if res, err = l.SendGroupMsg(context.Background(), sendGroupMsgReq); err != nil {
+		glog.Error(err)
+	}
+	return
+}
