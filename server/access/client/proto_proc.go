@@ -147,6 +147,30 @@ func (c *Client) procAcceptP2PMsgAck(reqData []byte) (err error) {
 		glog.Error(err)
 		return
 	}
+	reqAcceptP2PMsgAckRPC := &rpc.AcceptP2PMsgAckReq{
+		SourceUID: reqAcceptP2PMsgAck.SourceUID,
+		TargetUID: reqAcceptP2PMsgAck.TargetUID,
+		MsgID:     reqAcceptP2PMsgAck.MsgID,
+	}
 	// add rpc logic
+	resAcceptP2PMsgAckRPC, err := c.RPCClient.Logic.AcceptP2PMsgAck(reqAcceptP2PMsgAckRPC)
+	if err != nil {
+		if err = c.Session.Send(&external.Error{
+			Cmd:     external.ErrServerCMD,
+			ErrCode: ecode.ServerErr.Uint32(),
+			ErrStr:  ecode.ServerErr.String(),
+		}); err != nil {
+			glog.Error(err)
+		}
+		glog.Error(err)
+		return
+	}
+	if err = c.Session.Send(&external.Error{
+		Cmd:     external.SendP2PMsgCMD,
+		ErrCode: resAcceptP2PMsgAckRPC.ErrCode,
+		ErrStr:  resAcceptP2PMsgAckRPC.ErrStr,
+	}); err != nil {
+		glog.Error(err)
+	}
 	return
 }

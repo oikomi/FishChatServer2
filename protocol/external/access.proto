@@ -95,7 +95,7 @@ message ReqAcceptP2PMsgAck {
     string cmdStr    = 2;
     int64  sourceUID = 3;
     int64  targetUID = 4;
-    int64  msgID     = 5;
+    string msgID     = 5;
 }
 
 message ResAcceptP2PMsgAck {
