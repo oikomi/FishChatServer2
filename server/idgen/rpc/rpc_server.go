@@ -19,8 +19,7 @@ import (
 type RPCServer struct {
 	dao        *dao.Dao
 	machine_id uint64 // 10-bit machine id
-	// client_pool chan etcd.KeysAPI
-	ch_proc chan chan uint64
+	chProc     chan chan uint64
 }
 
 const (
@@ -40,31 +39,12 @@ const (
 )
 
 func (s *RPCServer) init() {
-	// s.client_pool = make(chan etcd.KeysAPI, CONCURRENT)
-	s.ch_proc = make(chan chan uint64, UUID_QUEUE)
-	// init client pool
-	// for i := 0; i < CONCURRENT; i++ {
-	// 	s.client_pool <- etcdclient.KeysAPI()
-	// }
-
-	// check if user specified machine id is set
-	// if env := os.Getenv(ENV_MACHINE_ID); env != "" {
-	// 	if id, err := strconv.Atoi(env); err == nil {
-	// 		s.machine_id = (uint64(id) & MACHINE_ID_MASK) << 12
-	// 		log.Info("machine id specified:", id)
-	// 	} else {
-	// 		log.Panic(err)
-	// 		os.Exit(-1)
-	// 	}
-	// } else {
+	s.chProc = make(chan chan uint64, UUID_QUEUE)
 	s.initMachineID()
-	// }
-	go s.uuid_task()
+	go s.uuidTask()
 }
 
 func (s *RPCServer) initMachineID() {
-	// client := <-s.client_pool
-	// defer func() { s.client_pool <- client }()
 	var prevIndex int64
 	var prevValue int
 	for {
@@ -84,16 +64,10 @@ func (s *RPCServer) initMachineID() {
 			glog.Info(prevValue)
 			glog.Info(prevIndex)
 		}
-		// get prevValue & prevIndex
-		// prevValue, err := strconv.Atoi(resp.Node.Value)
-		// if err != nil {
-		// 	log.Panic(err)
-		// 	os.Exit(-1)
-		// }
-		// prevIndex := resp.Node.ModifiedIndex
-
-		// CompareAndSwap
-		_, err = s.dao.Etcd.EtcCli.Put(context.Background(), UUID_KEY, fmt.Sprint(prevValue+1), clientv3.WithRev(prevIndex))
+		glog.Info(prevValue)
+		glog.Info(prevIndex)
+		// _, err = s.dao.Etcd.EtcCli.Put(context.Background(), UUID_KEY, fmt.Sprint(prevValue+1), clientv3.WithRev(0))
+		_, err = s.dao.Etcd.EtcCli.Put(context.Background(), UUID_KEY, fmt.Sprint(prevValue+1))
 		if err != nil {
 			cas_delay()
 			continue
@@ -106,8 +80,6 @@ func (s *RPCServer) initMachineID() {
 
 // get next value of a key, like auto-increment in mysql
 func (s *RPCServer) Next(ctx context.Context, in *rpc.Snowflake_Key) (sfRes *rpc.Snowflake_Value, err error) {
-	// client := <-s.client_pool
-	// defer func() { s.client_pool <- client }()
 	var prevIndex int64
 	var prevValue int
 	var resp *clientv3.GetResponse
@@ -133,14 +105,9 @@ func (s *RPCServer) Next(ctx context.Context, in *rpc.Snowflake_Key) (sfRes *rpc
 			}
 			prevIndex = value.ModRevision
 		}
-		// prevValue, err := strconv.Atoi(resp.Node.Value)
-		// if err != nil {
-		// 	glog.Error(err)
-		// 	return nil, errors.New("marlformed value")
-		// }
-		// prevIndex := resp.Node.ModifiedIndex
-		// CompareAndSwap
-		_, err = s.dao.Etcd.EtcCli.Put(context.Background(), key, fmt.Sprint(prevValue+1), clientv3.WithRev(prevIndex))
+		glog.Info(prevValue)
+		glog.Info(prevIndex)
+		_, err = s.dao.Etcd.EtcCli.Put(context.Background(), key, fmt.Sprint(prevValue+1))
 		if err != nil {
 			cas_delay()
 			continue
@@ -153,16 +120,16 @@ func (s *RPCServer) Next(ctx context.Context, in *rpc.Snowflake_Key) (sfRes *rpc
 // generate an unique uuid
 func (s *RPCServer) GetUUID(context.Context, *rpc.Snowflake_NullRequest) (*rpc.Snowflake_UUID, error) {
 	req := make(chan uint64, 1)
-	s.ch_proc <- req
+	s.chProc <- req
 	return &rpc.Snowflake_UUID{<-req}, nil
 }
 
 // uuid generator
-func (s *RPCServer) uuid_task() {
+func (s *RPCServer) uuidTask() {
 	var sn uint64     // 12-bit serial no
 	var last_ts int64 // last timestamp
 	for {
-		ret := <-s.ch_proc
+		ret := <-s.chProc
 		// get a correct serial number
 		t := ts()
 		if t < last_ts { // clock shift backward
@@ -200,7 +167,6 @@ func (s *RPCServer) wait_ms(last_ts int64) int64 {
 	return t
 }
 
-////////////////////////////////////////////////////////////////////////////////
 // random delay
 func cas_delay() {
 	<-time.After(time.Duration(rand.Int63n(BACKOFF)) * time.Millisecond)
