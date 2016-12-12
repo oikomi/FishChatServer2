@@ -4,7 +4,7 @@ import (
 	"github.com/golang/glog"
 	"github.com/oikomi/FishChatServer2/common/dao/mongodb"
 	commmodel "github.com/oikomi/FishChatServer2/common/model"
-	"github.com/oikomi/FishChatServer2/server/jobs/msg_job/conf"
+	"github.com/oikomi/FishChatServer2/jobs/msg_job/conf"
 )
 
 type MongoDB struct {

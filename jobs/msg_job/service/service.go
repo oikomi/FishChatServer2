@@ -4,10 +4,10 @@ import (
 	"encoding/json"
 	"github.com/golang/glog"
 	commmodel "github.com/oikomi/FishChatServer2/common/model"
+	"github.com/oikomi/FishChatServer2/jobs/msg_job/conf"
+	"github.com/oikomi/FishChatServer2/jobs/msg_job/dao"
+	"github.com/oikomi/FishChatServer2/jobs/msg_job/rpc"
 	protoRPC "github.com/oikomi/FishChatServer2/protocol/rpc"
-	"github.com/oikomi/FishChatServer2/server/jobs/msg_job/conf"
-	"github.com/oikomi/FishChatServer2/server/jobs/msg_job/dao"
-	"github.com/oikomi/FishChatServer2/server/jobs/msg_job/rpc"
 	"sync"
 	"time"
 )

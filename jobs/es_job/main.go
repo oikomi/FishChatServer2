@@ -3,8 +3,8 @@ package main
 import (
 	"flag"
 	"github.com/golang/glog"
-	"github.com/oikomi/FishChatServer2/server/jobs/msg_job/conf"
-	"github.com/oikomi/FishChatServer2/server/jobs/msg_job/service"
+	"github.com/oikomi/FishChatServer2/jobs/msg_job/conf"
+	"github.com/oikomi/FishChatServer2/jobs/msg_job/service"
 	"os"
 	"os/signal"
 	"syscall"
@@ -26,10 +26,10 @@ func main() {
 		panic(err)
 	}
 	s = service.New(conf.Conf)
-	signalHandler()
-	// for {
+	// signalHandler()
+	for {
 
-	// }
+	}
 }
 
 func signalHandler() {
@@ -42,7 +42,7 @@ func signalHandler() {
 		si := <-ch
 		switch si {
 		case syscall.SIGQUIT, syscall.SIGTERM, syscall.SIGSTOP, syscall.SIGINT:
-			glog.Infof("get a signal %s, stop the consume process", si.String())
+			glog.Info("get a signal %s, stop the consume process", si.String())
 			if err = s.Close(); err != nil {
 				glog.Error("close consumer error :", err)
 			}
