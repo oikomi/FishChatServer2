@@ -17,19 +17,17 @@ import (
 )
 
 type RPCServer struct {
-	dao        *dao.Dao
-	machine_id uint64 // 10-bit machine id
-	chProc     chan chan uint64
+	dao       *dao.Dao
+	machineID uint64 // 10-bit machine id
+	chProc    chan chan uint64
 }
 
 const (
-	SERVICE        = "[SNOWFLAKE]"
-	ENV_MACHINE_ID = "MACHINE_ID" // specific machine id
-	PATH           = "/seqs/"
-	UUID_KEY       = "/seqs/snowflake-uuid"
-	BACKOFF        = 100  // max backoff delay millisecond
-	CONCURRENT     = 128  // max concurrent connections to etcd
-	UUID_QUEUE     = 1024 // uuid process queue
+	PATH       = "/seqs/"
+	UUID_KEY   = "/seqs/snowflake-uuid"
+	BACKOFF    = 100  // max backoff delay millisecond
+	CONCURRENT = 128  // max concurrent connections to etcd
+	UUID_QUEUE = 1024 // uuid process queue
 )
 
 const (
@@ -73,7 +71,7 @@ func (s *RPCServer) initMachineID() {
 			continue
 		}
 		// record serial number of this service, already shifted
-		s.machine_id = (uint64(prevValue+1) & MACHINE_ID_MASK) << 12
+		s.machineID = (uint64(prevValue+1) & MACHINE_ID_MASK) << 12
 		return
 	}
 }
@@ -152,7 +150,7 @@ func (s *RPCServer) uuidTask() {
 		// 1-bit	41bit timestamp			10bit machine-id	12bit sn
 		var uuid uint64
 		uuid |= (uint64(t) & TS_MASK) << 22
-		uuid |= s.machine_id
+		uuid |= s.machineID
 		uuid |= sn
 		ret <- uuid
 	}
