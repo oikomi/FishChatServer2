@@ -8,7 +8,7 @@ import (
 )
 
 type Etcd struct {
-	etcCli   *clientv3.Client
+	EtcCli   *clientv3.Client
 	rootPath string
 }
 
@@ -23,7 +23,7 @@ func NewEtcd(c *commconf.Etcd) (etcd *Etcd, err error) {
 		return
 	}
 	etcd = &Etcd{
-		etcCli:   etcdClient,
+		EtcCli:   etcdClient,
 		rootPath: c.Root,
 	}
 	return

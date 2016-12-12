@@ -1,12 +1,8 @@
 package dao
 
 import (
-	// "github.com/garyburd/redigo/redis"
-	// "github.com/golang/glog"
-	// "github.com/oikomi/FishChatServer2/common/dao/xredis"
-	"github.com/oikomi/FishChatServer2/server/idgen/conf"
-	// "golang.org/x/net/context"
 	"github.com/golang/glog"
+	"github.com/oikomi/FishChatServer2/server/idgen/conf"
 )
 
 type Dao struct {
@@ -17,6 +13,7 @@ func NewDao() (dao *Dao, err error) {
 	e, err := NewEtcd(conf.Conf.Etcd)
 	if err != nil {
 		glog.Error(err)
+		return
 	}
 	dao = &Dao{
 		Etcd: e,
