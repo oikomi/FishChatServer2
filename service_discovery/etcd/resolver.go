@@ -4,8 +4,10 @@ import (
 	"errors"
 	"fmt"
 	etcd "github.com/coreos/etcd/clientv3"
+	"github.com/golang/glog"
 	"google.golang.org/grpc/naming"
 	"strings"
+	"time"
 )
 
 // EtcdResolver is the implementaion of grpc.naming.Resolver
@@ -21,13 +23,15 @@ func NewResolver(serviceName string) *EtcdResolver {
 // Resolve to resolve the service from etcd, target is the dial address of etcd
 // target example: "http://127.0.0.1:2379;http://127.0.0.1:12379;http://127.0.0.1:22379"
 func (er *EtcdResolver) Resolve(target string) (naming.Watcher, error) {
+	glog.Info("Resolve")
 	if er.ServiceName == "" {
 		return nil, errors.New("wonaming: no service name provided")
 	}
 	// generate etcd client, return if error
 	endpoints := strings.Split(target, ",")
 	conf := etcd.Config{
-		Endpoints: endpoints,
+		Endpoints:   endpoints,
+		DialTimeout: time.Second,
 	}
 	client, err := etcd.New(conf)
 	if err != nil {
