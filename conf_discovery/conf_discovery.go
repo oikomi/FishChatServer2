@@ -1,4 +1,4 @@
-package service_discovery
+package conf_discovery
 
 import (
 	"github.com/oikomi/FishChatServer2/common/constant"

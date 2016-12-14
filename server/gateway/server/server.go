@@ -4,10 +4,10 @@ import (
 	"github.com/golang/glog"
 	"github.com/golang/protobuf/proto"
 	"github.com/oikomi/FishChatServer2/common/ecode"
+	"github.com/oikomi/FishChatServer2/conf_discovery/etcd"
 	"github.com/oikomi/FishChatServer2/libnet"
 	"github.com/oikomi/FishChatServer2/protocol/external"
 	"github.com/oikomi/FishChatServer2/server/gateway/client"
-	"github.com/oikomi/FishChatServer2/service_discovery/etcd"
 )
 
 type Server struct {

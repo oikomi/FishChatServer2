@@ -7,9 +7,11 @@ import (
 	"github.com/oikomi/FishChatServer2/protocol/rpc"
 	"github.com/oikomi/FishChatServer2/server/access/conf"
 	"github.com/oikomi/FishChatServer2/server/access/global"
+	sd "github.com/oikomi/FishChatServer2/service_discovery/etcd"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"net"
+	"time"
 )
 
 type RPCServer struct {
@@ -44,6 +46,10 @@ func (s *RPCServer) SendP2PMsg(ctx context.Context, in *rpc.ASSendP2PMsgReq) (re
 
 func RPCServerInit() {
 	glog.Info("[access] rpc server init")
+	err := sd.Register("access_server", "127.0.0.1", 20000, conf.Conf.Etcd.Addrs[0], time.Second*3, 5)
+	if err != nil {
+		panic(err)
+	}
 	lis, err := net.Listen(conf.Conf.RPCServer.Proto, conf.Conf.RPCServer.Addr)
 	if err != nil {
 		glog.Error(err)
