@@ -8,6 +8,7 @@ import (
 	"github.com/oikomi/FishChatServer2/protocol/rpc"
 	"github.com/oikomi/FishChatServer2/server/manager/conf"
 	"github.com/oikomi/FishChatServer2/server/manager/dao"
+	sd "github.com/oikomi/FishChatServer2/service_discovery/etcd"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"net"
@@ -57,6 +58,11 @@ func (s *RPCServer) SetExceptionMsg(ctx context.Context, in *rpc.MGExceptionMsgR
 func RPCServerInit() {
 	glog.Info("[manager] rpc server init: ", conf.Conf.RPCServer.Addr)
 	lis, err := net.Listen(conf.Conf.RPCServer.Proto, conf.Conf.RPCServer.Addr)
+	if err != nil {
+		glog.Error(err)
+		panic(err)
+	}
+	err = sd.Register(conf.Conf.ServiceDiscoveryServer.ServiceName, conf.Conf.ServiceDiscoveryServer.RPCAddr, conf.Conf.ServiceDiscoveryServer.EtcdAddr, conf.Conf.ServiceDiscoveryServer.Interval, conf.Conf.ServiceDiscoveryServer.TTL)
 	if err != nil {
 		glog.Error(err)
 		panic(err)

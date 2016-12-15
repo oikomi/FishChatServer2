@@ -4,6 +4,7 @@ import (
 	"github.com/golang/glog"
 	"github.com/oikomi/FishChatServer2/protocol/rpc"
 	"github.com/oikomi/FishChatServer2/server/logic/conf"
+	sd "github.com/oikomi/FishChatServer2/service_discovery/etcd"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 )
@@ -13,10 +14,12 @@ type ManagerRPCCli struct {
 }
 
 func NewManagerRPCCli() (managerRPCCli *ManagerRPCCli, err error) {
-	conn, err := grpc.Dial(conf.Conf.RPCClient.ManagerClient.Addr, grpc.WithInsecure())
+	r := sd.NewResolver(conf.Conf.RPCClient.ManagerClient.ServiceName)
+	b := grpc.RoundRobin(r)
+	conn, err := grpc.Dial(conf.Conf.RPCClient.ManagerClient.EtcdAddr, grpc.WithInsecure(), grpc.WithBalancer(b))
 	if err != nil {
 		glog.Error(err)
-		return
+		panic(err)
 	}
 	managerRPCCli = &ManagerRPCCli{
 		conn: conn,

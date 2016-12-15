@@ -18,14 +18,11 @@ etcdAddr = "localhost:2379"
 interval = "5s"
 ttl = "10s"
 
-[serviceDiscoveryClient]
-serviceName = "logic"
-etcdAddr = "localhost:2379"
-balancer = "rr"
-
 [rpcClient]
     [rpcClient.logicClient]
-    addr = "127.0.0.1:21000"
+    serviceName = "logic"
+    etcdAddr = "localhost:2379"
+    balancer = "rr"
 
 [etcd]
 name = "access_server_11000"

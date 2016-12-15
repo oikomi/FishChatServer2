@@ -14,11 +14,12 @@ var (
 
 type Config struct {
 	*commconf.CommConf
-	configFile string
-	RPCServer  *commconf.RPCServer
-	Auth       *Auth
-	Redis      *Redis
-	MongoDB    *MongoDB
+	configFile             string
+	RPCServer              *commconf.RPCServer
+	ServiceDiscoveryServer *commconf.ServiceDiscoveryServer
+	Auth                   *Auth
+	Redis                  *Redis
+	MongoDB                *MongoDB
 }
 
 type Auth struct {

@@ -16,14 +16,13 @@ type Config struct {
 	configFile             string
 	Server                 *commconf.Server
 	ServiceDiscoveryServer *commconf.ServiceDiscoveryServer
-	ServiceDiscoveryClient *commconf.ServiceDiscoveryClient
 	RPCServer              *commconf.RPCServer
 	RPCClient              *RPCClient
 	Etcd                   *commconf.Etcd
 }
 
 type RPCClient struct {
-	LogicClient *commconf.RPCClient
+	LogicClient *commconf.ServiceDiscoveryClient
 }
 
 func init() {

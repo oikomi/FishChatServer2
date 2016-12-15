@@ -14,18 +14,13 @@ type LogicRPCCli struct {
 }
 
 func NewLogicRPCCli() (logicRPCCli *LogicRPCCli, err error) {
-	r := sd.NewResolver(conf.Conf.ServiceDiscoveryClient.ServiceName)
+	r := sd.NewResolver(conf.Conf.RPCClient.LogicClient.ServiceName)
 	b := grpc.RoundRobin(r)
-	conn, err := grpc.Dial(conf.Conf.ServiceDiscoveryClient.EtcdAddr, grpc.WithInsecure(), grpc.WithBalancer(b))
+	conn, err := grpc.Dial(conf.Conf.RPCClient.LogicClient.EtcdAddr, grpc.WithInsecure(), grpc.WithBalancer(b))
 	if err != nil {
 		glog.Error(err)
 		panic(err)
 	}
-	// conn, err := grpc.Dial(conf.Conf.RPCClient.LogicClient.Addr, grpc.WithInsecure())
-	// if err != nil {
-	// 	glog.Error(err)
-	// 	return
-	// }
 	logicRPCCli = &LogicRPCCli{
 		conn: conn,
 	}

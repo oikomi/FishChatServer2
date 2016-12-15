@@ -14,9 +14,10 @@ var (
 
 type Config struct {
 	*commconf.CommConf
-	configFile string
-	RPCServer  *commconf.RPCServer
-	Redis      *Redis
+	configFile             string
+	RPCServer              *commconf.RPCServer
+	ServiceDiscoveryServer *commconf.ServiceDiscoveryServer
+	Redis                  *Redis
 }
 
 type Redis struct {

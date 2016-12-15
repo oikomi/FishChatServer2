@@ -21,7 +21,6 @@ type Config struct {
 	Etcd                   *commconf.Etcd
 	KafkaProducer          *KafkaProducer
 	MongoDB                *MongoDB
-	// ES            *ES
 }
 
 type KafkaProducer struct {
@@ -30,8 +29,8 @@ type KafkaProducer struct {
 }
 
 type RPCClient struct {
-	RegisterClient *commconf.RPCClient
-	ManagerClient  *commconf.RPCClient
+	RegisterClient *commconf.ServiceDiscoveryClient
+	ManagerClient  *commconf.ServiceDiscoveryClient
 }
 
 type MongoDB struct {
