@@ -28,6 +28,6 @@ func main() {
 		glog.Error(err)
 		panic(err)
 	}
-	go job.ServerDiscoveryProc()
+	go job.ConfDiscoveryProc()
 	gwServer.Loop()
 }

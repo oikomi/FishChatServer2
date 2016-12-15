@@ -2,7 +2,6 @@ package conf
 
 import (
 	"github.com/oikomi/FishChatServer2/common/xtime"
-	// "time"
 )
 
 type CommConf struct {
@@ -48,9 +47,23 @@ type RPCClient struct {
 	Addr string
 }
 
-type ServiceDiscovery struct {
+type ConfDiscovery struct {
 	Role     string
 	Interval xtime.Duration
+}
+
+type ServiceDiscoveryServer struct {
+	ServiceName string
+	RPCAddr     string
+	EtcdAddr    string
+	Interval    xtime.Duration
+	TTL         xtime.Duration
+}
+
+type ServiceDiscoveryClient struct {
+	ServiceName string
+	EtcdAddr    string
+	Balancer    string
 }
 
 type Etcd struct {

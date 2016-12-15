@@ -4,6 +4,7 @@ import (
 	"fmt"
 	etcd "github.com/coreos/etcd/clientv3"
 	"github.com/golang/glog"
+	"github.com/oikomi/FishChatServer2/common/xtime"
 	"golang.org/x/net/context"
 	"log"
 	"strings"
@@ -21,7 +22,7 @@ var serviceKey string
 // target - etcd dial address, for example: "http://127.0.0.1:2379;http://127.0.0.1:12379"
 // interval - interval of self-register to etcd
 // ttl - ttl of the register information
-func Register(name string, host string, port int, target string, interval time.Duration, ttl int64) (err error) {
+func Register(name string, rpcServerAddr string, target string, interval xtime.Duration, ttl xtime.Duration) (err error) {
 	// get endpoints for register dial address
 	endpoints := strings.Split(target, ",")
 	glog.Info(endpoints)
@@ -34,24 +35,21 @@ func Register(name string, host string, port int, target string, interval time.D
 		glog.Error(err)
 		return
 	}
-	serviceID := fmt.Sprintf("%s-%s-%d", name, host, port)
+	serviceID := fmt.Sprintf("%s-%s", name, rpcServerAddr)
 	serviceKey = fmt.Sprintf("/%s/%s/%s", Prefix, name, serviceID)
 	addrKey := fmt.Sprintf("/%s/%s/%s/addr", Prefix, name, serviceID)
 	go func() {
 		// invoke self-register with ticker
-		ticker := time.NewTicker(interval)
+		ticker := time.NewTicker(time.Duration(interval))
 		// should get first, if not exist, set it
 		for {
 			<-ticker.C
-			glog.Info(serviceKey)
-			getResp, err := rgClient.Get(context.Background(), serviceKey)
-			glog.Info(getResp.Kvs)
+			_, err := rgClient.Get(context.Background(), serviceKey)
 			if err != nil {
-				glog.Error(err)
-				if _, err = rgClient.Put(context.Background(), addrKey, host+":"+fmt.Sprintf("%d", port)); err != nil {
+				if _, err = rgClient.Put(context.Background(), addrKey, rpcServerAddr); err != nil {
 					glog.Error(err)
 				}
-				resp, err := rgClient.Grant(context.Background(), ttl)
+				resp, err := rgClient.Grant(context.Background(), int64(time.Duration(ttl)/time.Second))
 				if err != nil {
 					glog.Error(err)
 				}
@@ -59,25 +57,23 @@ func Register(name string, host string, port int, target string, interval time.D
 					glog.Error(err)
 				}
 			} else {
-				glog.Info("err is nil")
-				resp, err := rgClient.Grant(context.Background(), ttl)
+				resp, err := rgClient.Grant(context.Background(), int64(time.Duration(ttl)/time.Second))
 				if err != nil {
 					glog.Error(err)
 				}
-				pres, err := rgClient.Put(context.Background(), serviceKey, "", etcd.WithLease(resp.ID))
+				_, err = rgClient.Put(context.Background(), serviceKey, "", etcd.WithLease(resp.ID))
 				if err != nil {
 					glog.Error(err)
 				}
-				glog.Info(pres)
 			}
 		}
 	}()
 	// initial register
-	if _, err = rgClient.Put(context.Background(), addrKey, host+":"+fmt.Sprintf("%d", port)); err != nil {
+	if _, err = rgClient.Put(context.Background(), addrKey, rpcServerAddr); err != nil {
 		glog.Error(err)
 		return
 	}
-	resp, err := rgClient.Grant(context.Background(), ttl)
+	resp, err := rgClient.Grant(context.Background(), int64(time.Duration(ttl)/time.Second))
 	if err != nil {
 		glog.Error(err)
 	}

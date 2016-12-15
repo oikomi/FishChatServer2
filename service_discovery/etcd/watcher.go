@@ -28,16 +28,12 @@ func (ew *EtcdWatcher) Close() {
 
 // Next to return the updates
 func (ew *EtcdWatcher) Next() ([]*naming.Update, error) {
-	glog.Info("watch Next")
 	// key is the etcd key/value dir to watch
 	key := fmt.Sprintf("/%s/%s", Prefix, ew.er.ServiceName)
 	// ew.addrs is nil means it is intially called
 	if ew.addrs == nil {
-		glog.Info("ew.addrs is nil")
 		// query addresses from etcd
-		glog.Info(key)
 		resp, _ := ew.ec.Get(context.Background(), key, etcd.WithPrefix())
-		glog.Info(resp)
 		addrs, empty := extractAddrs(resp)
 		dropEmptyDir(ew.ec, empty)
 		// addrs is not empty, return the updates
@@ -63,7 +59,6 @@ func (ew *EtcdWatcher) Next() ([]*naming.Update, error) {
 		if len(updates) != 0 {
 			return updates, nil
 		}
-		// }
 	}
 	// should not goto here for ever
 	return []*naming.Update{}, nil
@@ -77,18 +72,14 @@ func extractAddrs(resp *etcd.GetResponse) (addrs, empty []string) {
 		return addrs, empty
 	}
 	for _, v := range resp.Kvs {
-		glog.Info(v)
-		glog.Info(string(v.Key))
 		addr := ""
 		what := v.Key[len(v.Key)-4 : len(v.Key)]
-		glog.Info(string(what))
 		if string(what) == "addr" {
 			addr = string(v.Value)
 		}
 		if addr != "" {
 			addrs = append(addrs, addr)
 		}
-		glog.Info(addrs)
 	}
 	return addrs, empty
 }
@@ -100,7 +91,7 @@ func dropEmptyDir(keyapi *etcd.Client, empty []string) {
 	for _, key := range empty {
 		_, err := keyapi.Delete(context.Background(), key)
 		if err != nil {
-			glog.Info("wonaming: delete empty service dir error: ", err.Error())
+			glog.Error("wonaming: delete empty service dir error: ", err.Error())
 		}
 	}
 }

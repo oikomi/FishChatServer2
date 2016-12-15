@@ -7,6 +7,7 @@ import (
 	"github.com/oikomi/FishChatServer2/protocol/rpc"
 	"github.com/oikomi/FishChatServer2/server/logic/conf"
 	"github.com/oikomi/FishChatServer2/server/logic/dao"
+	sd "github.com/oikomi/FishChatServer2/service_discovery/etcd"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"net"
@@ -113,6 +114,11 @@ func (s *RPCServer) SendGroupMsg(ctx context.Context, in *rpc.SendGroupMsgReq) (
 func RPCServerInit(rpcClient *RPCClient) {
 	glog.Info("[logic] rpc server init")
 	lis, err := net.Listen(conf.Conf.RPCServer.Proto, conf.Conf.RPCServer.Addr)
+	if err != nil {
+		glog.Error(err)
+		panic(err)
+	}
+	err = sd.Register(conf.Conf.ServiceDiscoveryServer.ServiceName, conf.Conf.ServiceDiscoveryServer.RPCAddr, conf.Conf.ServiceDiscoveryServer.EtcdAddr, conf.Conf.ServiceDiscoveryServer.Interval, conf.Conf.ServiceDiscoveryServer.TTL)
 	if err != nil {
 		glog.Error(err)
 		panic(err)

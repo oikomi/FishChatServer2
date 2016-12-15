@@ -11,7 +11,6 @@ import (
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"net"
-	"time"
 )
 
 type RPCServer struct {
@@ -46,11 +45,12 @@ func (s *RPCServer) SendP2PMsg(ctx context.Context, in *rpc.ASSendP2PMsgReq) (re
 
 func RPCServerInit() {
 	glog.Info("[access] rpc server init")
-	err := sd.Register("access_server", "127.0.0.1", 20000, conf.Conf.Etcd.Addrs[0], time.Second*3, 5)
+	lis, err := net.Listen(conf.Conf.RPCServer.Proto, conf.Conf.RPCServer.Addr)
 	if err != nil {
+		glog.Error(err)
 		panic(err)
 	}
-	lis, err := net.Listen(conf.Conf.RPCServer.Proto, conf.Conf.RPCServer.Addr)
+	err = sd.Register(conf.Conf.ServiceDiscoveryServer.ServiceName, conf.Conf.ServiceDiscoveryServer.RPCAddr, conf.Conf.ServiceDiscoveryServer.EtcdAddr, conf.Conf.ServiceDiscoveryServer.Interval, conf.Conf.ServiceDiscoveryServer.TTL)
 	if err != nil {
 		glog.Error(err)
 		panic(err)

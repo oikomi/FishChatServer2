@@ -13,11 +13,13 @@ var (
 
 type Config struct {
 	*commconf.CommConf
-	configFile string
-	Server     *commconf.Server
-	RPCServer  *commconf.RPCServer
-	RPCClient  *RPCClient
-	Etcd       *commconf.Etcd
+	configFile             string
+	Server                 *commconf.Server
+	ServiceDiscoveryServer *commconf.ServiceDiscoveryServer
+	ServiceDiscoveryClient *commconf.ServiceDiscoveryClient
+	RPCServer              *commconf.RPCServer
+	RPCClient              *RPCClient
+	Etcd                   *commconf.Etcd
 }
 
 type RPCClient struct {

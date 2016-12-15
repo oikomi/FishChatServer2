@@ -2,8 +2,8 @@ package job
 
 import (
 	"github.com/golang/glog"
+	"github.com/oikomi/FishChatServer2/conf_discovery/etcd"
 	"github.com/oikomi/FishChatServer2/server/gateway/conf"
-	"github.com/oikomi/FishChatServer2/service_discovery/etcd"
 	"time"
 )
 
@@ -15,11 +15,11 @@ func loadAccessServerProc(master *etcd.Master) {
 	for {
 		// glog.Info("loadAccessServerProc")
 		AccessServerList = master.Members()
-		time.Sleep(time.Duration(conf.Conf.ServiceDiscovery.Interval))
+		time.Sleep(time.Duration(conf.Conf.ConfDiscovery.Interval))
 	}
 }
 
-func ServerDiscoveryProc() {
+func ConfDiscoveryProc() {
 	master, err := etcd.NewMaster(conf.Conf.Etcd)
 	if err != nil {
 		glog.Error("Error: cannot connect to etcd:", err)
