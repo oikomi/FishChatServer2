@@ -3,8 +3,10 @@ ver = "1.0.0"
 logPath = "/tmp/msg-job.log"
 
 [rpcClient]
-    [rpcClient.accessServerClient]
-    addr = "127.0.0.1:20000"
+    [rpcClient.accessClient]
+    serviceName = "access"
+    etcdAddr = "localhost:2379"
+    balancer = "rr"
 
 
 [kafkaConsumer]

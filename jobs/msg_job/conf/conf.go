@@ -20,7 +20,7 @@ type Config struct {
 }
 
 type RPCClient struct {
-	AccessServerClient *commconf.RPCClient
+	AccessClient *commconf.ServiceDiscoveryClient
 }
 
 type MongoDB struct {
