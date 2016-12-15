@@ -34,8 +34,23 @@ manager
 register
 ```
 
+依赖
+======
+```shell
+etcd
+redis
+mongodb
+kafka
+ElasticSearch(可选)
+```
 
-容易部署
+
+普通部署
+======
+
+
+
+容器部署
 ======
 部署完全采用`Kubernetes + Docker`
 
