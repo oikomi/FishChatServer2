@@ -25,7 +25,6 @@ var serviceKey string
 func Register(name string, rpcServerAddr string, target string, interval xtime.Duration, ttl xtime.Duration) (err error) {
 	// get endpoints for register dial address
 	endpoints := strings.Split(target, ",")
-	glog.Info(endpoints)
 	conf := etcd.Config{
 		Endpoints:   endpoints,
 		DialTimeout: time.Second,
@@ -81,17 +80,14 @@ func Register(name string, rpcServerAddr string, target string, interval xtime.D
 		glog.Error(err)
 		return
 	}
-	glog.Info("end")
 	return
 }
 
 // Unregister delete service from etcd
-func Unregister() error {
-	_, err := rgClient.Delete(context.Background(), serviceKey)
+func Unregister() (err error) {
+	_, err = rgClient.Delete(context.Background(), serviceKey)
 	if err != nil {
-		log.Println("wonaming: deregister service error: ", err.Error())
-	} else {
-		log.Println("wonaming: deregistered service from etcd server.")
+		glog.Error(err)
 	}
-	return err
+	return
 }
