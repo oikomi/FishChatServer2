@@ -43,10 +43,6 @@ type RPCServer struct {
 	Addr  string
 }
 
-type RPCClient struct {
-	Addr string
-}
-
 type ConfDiscovery struct {
 	Role     string
 	Interval xtime.Duration
