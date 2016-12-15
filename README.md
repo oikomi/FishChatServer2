@@ -50,6 +50,16 @@ ElasticSearch(可选)
 
 ### 普通部署
 
+为了方便, 我们在单机上进行部署
+
+#### 依赖安装
+
+* kafka安装 : http://kafka.apache.org/quickstart (默认启动即可)
+
+* redis安装 : 采用默认安装即可
+
+* mongodb安装 : 采用默认安装即可
+
 ### 容器部署
 
 部署完全采用`Kubernetes + Docker`
