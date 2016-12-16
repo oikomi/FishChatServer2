@@ -56,6 +56,12 @@ ElasticSearch(可选)
 
 * kafka安装 : http://kafka.apache.org/quickstart (默认启动即可)
 
+安装完成之后创建一个topic:
+
+```shell
+bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic logic_producer
+```
+
 * redis安装 : 采用默认安装即可
 
 * mongodb安装 : 采用默认安装即可
