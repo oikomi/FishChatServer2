@@ -69,9 +69,59 @@ bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 -
 * etcd安装 : 需要3.0以上版本, 采用默认安装即可
 
 #### 6.1.2 服务安装
-进入server目录 运行 `go build`, 然后启动服务即可(因为服务做了`服务发现`, 所以对启动顺序没有要求)
+
+进入server下面的各个目录 运行 `go build`, 然后启动服务即可(因为服务做了`服务发现`, 所以对启动顺序没有要求)
+
+* gateway安装
+
+```shell
+➜  FishChatServer2 git:(master) ✗ cd server/gateway 
+➜  gateway git:(master) ✗ go build
+➜  gateway git:(master) ✗ ./gateway 
+```
+
+* access安装
+
+```shell
+➜  FishChatServer2 git:(master) ✗ cd server/access 
+➜  access git:(master) ✗ go build
+➜  access git:(master) ✗ ./access 
+```
+
+* logic安装
+
+```shell
+➜  FishChatServer2 git:(master) ✗ cd server/logic 
+➜  logic git:(master) ✗ go build
+➜  logic git:(master) ✗ ./logic 
+```
 
 
+* register安装
+
+```shell
+➜  FishChatServer2 git:(master) ✗ cd server/register 
+➜  register git:(master) ✗ go build
+➜  register git:(master) ✗ ./register 
+```
+
+* manager安装
+
+```shell
+➜  FishChatServer2 git:(master) ✗ cd server/manager 
+➜  manager git:(master) ✗ go build
+➜  manager git:(master) ✗ ./manager 
+```
+
+#### 6.1.3 job安装
+
+* msg_job安装
+
+```shell
+➜  FishChatServer2 git:(master) ✗ cd jobs/msg_job 
+➜  msg_job git:(master) ✗ go build
+➜  msg_job git:(master) ✗ ./msg_job 
+```
 
 ### 6.2 容器部署(暂不可用)
 
