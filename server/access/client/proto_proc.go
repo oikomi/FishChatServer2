@@ -124,7 +124,7 @@ func (c *Client) procSendP2PMsg(reqData []byte) (err error) {
 		return
 	}
 	if err = c.Session.Send(&external.Error{
-		Cmd:     external.SendP2PMsgCMD,
+		Cmd:     external.ErrServerCMD,
 		ErrCode: resSendP2PMsgRPC.ErrCode,
 		ErrStr:  resSendP2PMsgRPC.ErrStr,
 	}); err != nil {

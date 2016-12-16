@@ -23,6 +23,8 @@ func (s *RPCServer) SendP2PMsg(ctx context.Context, in *rpc.ASSendP2PMsgReq) (re
 		glog.Info("session is online")
 		if err = session.Send(&external.ResSendP2PMsg{
 			Cmd:       external.SendP2PMsgCMD,
+			ErrCode:   ecode.OK.Uint32(),
+			ErrStr:    ecode.OK.String(),
 			SourceUID: in.SourceUID,
 			TargetUID: in.TargetUID,
 			MsgID:     in.MsgID,

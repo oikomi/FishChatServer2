@@ -13,10 +13,10 @@ import (
 	"time"
 )
 
-func init() {
-	flag.Set("alsologtostderr", "true")
-	flag.Set("log_dir", "false")
-}
+// func init() {
+// 	flag.Set("alsologtostderr", "true")
+// 	flag.Set("log_dir", "false")
+// }
 
 func checkErr(err error) {
 	if err != nil {
@@ -51,7 +51,7 @@ func clientLoop(session *libnet.Session, protobuf *codec.ProtobufProtocol) {
 			checkErr(err)
 		}
 	}
-	fmt.Print("input my id :")
+	fmt.Print("输入我的id :")
 	var myID int64
 	if _, err := fmt.Scanf("%d\n", &myID); err != nil {
 		glog.Error(err.Error())
@@ -87,18 +87,41 @@ func clientLoop(session *libnet.Session, protobuf *codec.ProtobufProtocol) {
 			if err != nil {
 				glog.Error(err.Error())
 			}
-			fmt.Printf("%s\n", string(rsp))
+			if rsp != nil {
+				baseCMD := &external.Base{}
+				if err = proto.Unmarshal(rsp, baseCMD); err != nil {
+					continue
+				}
+				switch baseCMD.Cmd {
+				case external.LoginCMD:
+					resLogin := &external.ResLogin{}
+					if err = proto.Unmarshal(rsp, resLogin); err != nil {
+						glog.Error(err)
+					}
+					fmt.Printf("收到登录返回: 返回码[%d]", resLogin.ErrCode)
+					fmt.Println()
+				case external.PingCMD:
+
+				case external.SendP2PMsgCMD:
+					resSendP2PMsg := &external.ResSendP2PMsg{}
+					if err = proto.Unmarshal(rsp, resSendP2PMsg); err != nil {
+						glog.Error(err)
+					}
+					fmt.Printf("收到点对点消息: 返回码[%d], 对方ID[%d], 消息内容[%s]", resSendP2PMsg.ErrCode, resSendP2PMsg.TargetUID, resSendP2PMsg.Msg)
+					fmt.Println()
+				}
+			}
 		}
 	}()
 	for {
 		glog.Info("send p2p msg")
 		var targetID int64
-		fmt.Print("send the id you want to talk :")
+		fmt.Print("输入对方的id :")
 		if _, err = fmt.Scanf("%d\n", &targetID); err != nil {
 			glog.Error(err.Error())
 		}
 		var msg string
-		fmt.Print("input msg :")
+		fmt.Print("输入你想说的话 :")
 		if _, err = fmt.Scanf("%s\n", &msg); err != nil {
 			glog.Error(err.Error())
 		}
