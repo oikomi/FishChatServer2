@@ -18,7 +18,9 @@ type RPCServer struct {
 
 func (s *RPCServer) SendP2PMsg(ctx context.Context, in *rpc.ASSendP2PMsgReq) (res *rpc.ASSendP2PMsgRes, err error) {
 	glog.Info("access recive SendP2PMsg")
+	glog.Info(global.GSessions)
 	if session, ok := global.GSessions[in.TargetUID]; ok {
+		glog.Info("session is online")
 		if err = session.Send(&external.ResSendP2PMsg{
 			Cmd:       external.SendP2PMsgCMD,
 			SourceUID: in.SourceUID,

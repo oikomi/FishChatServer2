@@ -34,6 +34,13 @@ func (s *RPCServer) Login(ctx context.Context, in *rpc.RGLoginReq) (res *rpc.RGL
 		}
 		return
 	}
+	if err = s.dao.SetToken(ctx, in.UID, calcToken); err != nil {
+		res = &rpc.RGLoginRes{
+			ErrCode: ecode.ServerErr.Uint32(),
+			ErrStr:  ecode.ServerErr.String(),
+		}
+		return
+	}
 	if _, err = s.dao.Token(ctx, in.UID); err != nil {
 		res = &rpc.RGLoginRes{
 			ErrCode: ecode.CalcTokenFailed.Uint32(),
@@ -41,14 +48,6 @@ func (s *RPCServer) Login(ctx context.Context, in *rpc.RGLoginReq) (res *rpc.RGL
 		}
 		return
 	}
-	// if err = s.dao.SetToken(ctx, in.UID, calcToken); err != nil {
-	// 	res = &rpc.RGLoginRes{
-	// 		ErrCode: ecode.ServerErr.Uint32(),
-	// 		ErrStr:  ecode.ServerErr.String(),
-	// 	}
-	// 	return
-	// }
-	// regster
 	glog.Info(in.AccessAddr)
 	if err = s.dao.RegisterAccess(ctx, in.UID, in.AccessAddr); err != nil {
 		res = &rpc.RGLoginRes{

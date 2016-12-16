@@ -69,6 +69,7 @@ func clientLoop(session *libnet.Session, protobuf *codec.ProtobufProtocol) {
 	checkErr(err)
 	rsp, err = clientMsg.Receive()
 	checkErr(err)
+	glog.Info(string(rsp))
 	go func() {
 		for {
 			err = clientMsg.Send(&external.ReqPing{
@@ -86,7 +87,7 @@ func clientLoop(session *libnet.Session, protobuf *codec.ProtobufProtocol) {
 			if err != nil {
 				glog.Error(err.Error())
 			}
-			// fmt.Printf("%s\n", rmsg)
+			fmt.Printf("%s\n", string(rsp))
 			fmt.Println(string(rsp))
 		}
 	}()

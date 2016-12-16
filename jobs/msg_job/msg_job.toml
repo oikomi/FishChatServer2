@@ -8,7 +8,6 @@ logPath = "/tmp/msg-job.log"
     etcdAddr = "localhost:2379"
     balancer = "rr"
 
-
 [kafkaConsumer]
 group = "msg-job"
 topics = ["logic_producer"]

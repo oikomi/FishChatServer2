@@ -6,7 +6,6 @@ import (
 	"github.com/golang/glog"
 	"github.com/oikomi/FishChatServer2/common/xtime"
 	"golang.org/x/net/context"
-	"log"
 	"strings"
 	"time"
 )
