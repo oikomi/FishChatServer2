@@ -81,6 +81,7 @@ func extractAddrs(resp *etcd.GetResponse) (addrs, empty []string) {
 			addrs = append(addrs, addr)
 		}
 	}
+	glog.Info(addrs)
 	return addrs, empty
 }
 

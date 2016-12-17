@@ -1,0 +1,31 @@
+# access conf
+
+ver = "1.0.0"
+logPath = "/tmp/access.log"
+
+[server]
+proto = "tcp"
+addr = "0.0.0.0:11001"
+
+[rpcServer]
+proto = "tcp"
+addr = "0.0.0.0:20001"
+
+[serviceDiscoveryServer]
+serviceName = "access"
+rpcAddr = "127.0.0.1:20001"
+etcdAddr = "localhost:2379"
+interval = "5s"
+ttl = "10s"
+
+[rpcClient]
+    [rpcClient.logicClient]
+    serviceName = "logic"
+    etcdAddr = "localhost:2379"
+    balancer = "rr"
+
+[etcd]
+name = "access_server_11001"
+root = "/server/access_server/"
+addrs = ["localhost:2379"]
+timeout = "1s"

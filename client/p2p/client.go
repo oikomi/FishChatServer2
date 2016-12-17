@@ -13,10 +13,10 @@ import (
 	"time"
 )
 
-// func init() {
-// 	flag.Set("alsologtostderr", "true")
-// 	flag.Set("log_dir", "false")
-// }
+func init() {
+	flag.Set("alsologtostderr", "true")
+	flag.Set("log_dir", "false")
+}
 
 func checkErr(err error) {
 	if err != nil {

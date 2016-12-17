@@ -27,6 +27,7 @@ func NewAccessServerRPCCli() (accessServerRPCCli *AccessServerRPCCli, err error)
 	return
 }
 
+// FIXME can not use rr
 func (accessServerRPCCli *AccessServerRPCCli) SendP2PMsg(sendP2PMsgReq *rpc.ASSendP2PMsgReq) (res *rpc.ASSendP2PMsgRes, err error) {
 	a := rpc.NewAccessServerRPCClient(accessServerRPCCli.conn)
 	if res, err = a.SendP2PMsg(context.Background(), sendP2PMsgReq); err != nil {

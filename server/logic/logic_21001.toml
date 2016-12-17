@@ -1,0 +1,52 @@
+# logic conf
+
+ver = "1.0.0"
+logPath = "/tmp/logic.log"
+
+[rpcServer]
+proto = "tcp"
+addr = "0.0.0.0:21001"
+
+[serviceDiscoveryServer]
+serviceName = "logic"
+rpcAddr = "127.0.0.1:21001"
+etcdAddr = "localhost:2379"
+interval = "5s"
+ttl = "10s"
+
+[rpcClient]
+    [rpcClient.registerClient]
+    serviceName = "register"
+    etcdAddr = "localhost:2379"
+    balancer = "rr"
+    [rpcClient.managerClient]
+    serviceName = "manager"
+    etcdAddr = "localhost:2379"
+    balancer = "rr"
+
+
+[etcd]
+name = "logic_0001"
+root = "/server/logic/"
+addrs = ["localhost:2379"]
+timeout = "1s"
+
+[kafkaProducer]
+topic = "logic_producer"
+[kafkaProducer.producer]
+sync = false
+brokers = ["127.0.0.1:9092"]
+    [kafkaProducer.producer.zookeeper]
+    root = "/kafka"
+    addrs = ["127.0.0.1:2181"]
+    timeout = "2s"
+
+[mongoDB]
+addrs = "127.0.0.1:27017"
+db = "im"
+dialTimeout = "1s"
+offlineMsgCollection = "offline_msg"
+
+# [es]
+# addrs = "127.0.0.1:9200"
+# index = "msg"

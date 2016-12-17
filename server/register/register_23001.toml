@@ -1,0 +1,39 @@
+# register conf
+
+ver = "1.0.0"
+logPath = "/tmp/register.log"
+
+[rpcServer]
+proto = "tcp"
+addr = "0.0.0.0:23001"
+
+[serviceDiscoveryServer]
+serviceName = "register"
+rpcAddr = "127.0.0.1:23001"
+etcdAddr = "localhost:2379"
+interval = "5s"
+ttl = "10s"
+
+[auth]
+encryption = "md5"
+salt = "!0h#?123(ABM"
+
+[redis]
+name = "register"
+proto = "tcp"
+addr = "127.0.0.1:6379"
+idle = 100
+active = 100
+dialTimeout = "1s"
+readTimeout = "1s"
+writeTimeout = "1s"
+idleTimeout = "10s"
+expire = "15s"
+
+[mongoDB]
+addrs = "127.0.0.1:27017"
+db = "im"
+dialTimeout = "1s"
+groupCollection = "group"
+
+
