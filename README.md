@@ -91,7 +91,7 @@ bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 -
 
 #### 6.1.2服务安装
 
-进入server下面的各个目录 运行 `go build`, 然后启动服务即可(因为服务做了`服务发现`, 所以对启动顺序没有要求)
+进入server下面的各个目录 运行 `go build`, 然后启动服务即可(因为服务做了`服务发现`, 所以对启动顺序没有要求), 这里为了简单, 每个服务我们只启动一个, 当然启动任意个都是支持的.
 
 * gateway安装
 
@@ -155,6 +155,19 @@ bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 -
 
 7测试
 ======
+### 7.1点对点聊天测试
+进入client/p2p目录, 用户可以启动两个以上的进程, 两两之间互相聊天
+
+```shell
+➜  FishChatServer2 git:(master) ✗ cd client/p2p 
+➜  p2p git:(master) ✗ go build
+➜  p2p git:(master) ✗ ./p2p 
+输入我的id :321
+输入对方的id :收到点对点消息: 返回码[0], 对方ID[321], 消息内容[hello]
+```
+
+### 7.2群聊测试
+
 
 [返回目录](#table-of-contents)
 
