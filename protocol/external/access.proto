@@ -115,3 +115,10 @@ message ReqSendGroupMsg {
     string msg       = 5;
 }
 
+message ResSendGroupMsg {
+    uint32 cmd     = 1;
+    string cmdStr  = 2;
+    uint32 errCode = 3;
+    string errStr  = 4;
+}
+

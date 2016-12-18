@@ -197,7 +197,7 @@ func (c *Client) procSendGroupMsg(reqData []byte) (err error) {
 	// add rpc logic
 	resSendGroupMsgRPC, err := c.RPCClient.Logic.SendGroupMsg(reqSendGroupMsgRPC)
 	if err != nil {
-		if err = c.Session.Send(&external.Error{
+		if err = c.Session.Send(&external.ResSendGroupMsg{
 			Cmd:     external.ErrServerCMD,
 			ErrCode: ecode.ServerErr.Uint32(),
 			ErrStr:  ecode.ServerErr.String(),
@@ -207,7 +207,7 @@ func (c *Client) procSendGroupMsg(reqData []byte) (err error) {
 		glog.Error(err)
 		return
 	}
-	if err = c.Session.Send(&external.Error{
+	if err = c.Session.Send(&external.ResSendGroupMsg{
 		Cmd:     external.SendP2PMsgCMD,
 		ErrCode: resSendGroupMsgRPC.ErrCode,
 		ErrStr:  resSendGroupMsgRPC.ErrStr,

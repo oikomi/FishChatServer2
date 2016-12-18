@@ -1,0 +1,28 @@
+# manager conf
+
+ver = "1.0.0"
+logPath = "/tmp/manager.log"
+
+[rpcServer]
+proto = "tcp"
+addr = "0.0.0.0:25000"
+
+[serviceDiscoveryServer]
+serviceName = "monitor"
+rpcAddr = "127.0.0.1:25000"
+etcdAddr = "localhost:2379"
+interval = "5s"
+ttl = "10s"
+
+[redis]
+name = "monitor"
+proto = "tcp"
+addr = "127.0.0.1:6379"
+idle = 100
+active = 100
+dialTimeout = "1s"
+readTimeout = "1s"
+writeTimeout = "1s"
+idleTimeout = "10s"
+expire = "15s"
+
