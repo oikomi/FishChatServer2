@@ -17,9 +17,14 @@ type Config struct {
 	configFile             string
 	RPCServer              *commconf.RPCServer
 	ServiceDiscoveryServer *commconf.ServiceDiscoveryServer
+	RPCClient              *RPCClient
 	Auth                   *Auth
 	Redis                  *Redis
 	MongoDB                *MongoDB
+}
+
+type RPCClient struct {
+	IdgenClient *commconf.ServiceDiscoveryClient
 }
 
 type Auth struct {

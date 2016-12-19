@@ -10,6 +10,8 @@ service RegisterServerRPC {
     rpc Online (RGOnlineReq) returns (RGOnlineRes) {}
     // group
     rpc CreateGroup (RGCreateGroupReq) returns (RGCreateGroupRes) {}
+    rpc JoinGroup (RGJoinGroupReq) returns (RGJoinGroupRes) {}
+    rpc QuitGroup (RGQuitGroupReq) returns (RGQuitGroupRes) {}
 }
 
 message RGLoginReq {
@@ -72,6 +74,26 @@ message RGCreateGroupReq {
 }
 
 message RGCreateGroupRes {
+    uint32 errCode = 1;
+    string errStr  = 2;
+}
+
+message RGJoinGroupReq {
+    int64  UID       = 1;
+    string groupID   = 2;
+}
+
+message RGJoinGroupRes {
+    uint32 errCode = 1;
+    string errStr  = 2;
+}
+
+message RGQuitGroupReq {
+    int64  UID       = 1;
+    string groupID   = 2;
+}
+
+message RGQuitGroupRes {
     uint32 errCode = 1;
     string errStr  = 2;
 }

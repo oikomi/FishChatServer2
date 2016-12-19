@@ -18,5 +18,10 @@ func main() {
 		glog.Error("conf.Init() error: ", err)
 		panic(err)
 	}
-	rpc.RPCServerInit()
+	rpcClient, err := rpc.NewRPCClient()
+	if err != nil {
+		glog.Error(err)
+		panic(err)
+	}
+	rpc.RPCServerInit(rpcClient)
 }

@@ -42,6 +42,10 @@ It has these top-level messages:
 	RGOnlineRes
 	RGCreateGroupReq
 	RGCreateGroupRes
+	RGJoinGroupReq
+	RGJoinGroupRes
+	RGQuitGroupReq
+	RGQuitGroupRes
 */
 package rpc
 

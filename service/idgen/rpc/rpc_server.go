@@ -8,6 +8,7 @@ import (
 	"github.com/oikomi/FishChatServer2/protocol/rpc"
 	"github.com/oikomi/FishChatServer2/service/idgen/conf"
 	"github.com/oikomi/FishChatServer2/service/idgen/dao"
+	sd "github.com/oikomi/FishChatServer2/service_discovery/etcd"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"math/rand"
@@ -43,7 +44,7 @@ func (s *RPCServer) init() {
 }
 
 func (s *RPCServer) initMachineID() {
-	var prevIndex int64
+	// var prevIndex int64
 	var prevValue int
 	for {
 		// get the key
@@ -58,12 +59,12 @@ func (s *RPCServer) initMachineID() {
 				glog.Error(err)
 				return
 			}
-			prevIndex = value.ModRevision
-			glog.Info(prevValue)
-			glog.Info(prevIndex)
+			// prevIndex = value.ModRevision
+			// glog.Info(prevValue)
+			// glog.Info(prevIndex)
 		}
-		glog.Info(prevValue)
-		glog.Info(prevIndex)
+		// glog.Info(prevValue)
+		// glog.Info(prevIndex)
 		// _, err = s.dao.Etcd.EtcCli.Put(context.Background(), UUID_KEY, fmt.Sprint(prevValue+1), clientv3.WithRev(0))
 		_, err = s.dao.Etcd.EtcCli.Put(context.Background(), UUID_KEY, fmt.Sprint(prevValue+1))
 		if err != nil {
@@ -178,6 +179,11 @@ func ts() int64 {
 func RPCServerInit() {
 	glog.Info("[idgen] rpc server init: ", conf.Conf.RPCServer.Addr)
 	lis, err := net.Listen(conf.Conf.RPCServer.Proto, conf.Conf.RPCServer.Addr)
+	if err != nil {
+		glog.Error(err)
+		panic(err)
+	}
+	err = sd.Register(conf.Conf.ServiceDiscoveryServer.ServiceName, conf.Conf.ServiceDiscoveryServer.RPCAddr, conf.Conf.ServiceDiscoveryServer.EtcdAddr, conf.Conf.ServiceDiscoveryServer.Interval, conf.Conf.ServiceDiscoveryServer.TTL)
 	if err != nil {
 		glog.Error(err)
 		panic(err)

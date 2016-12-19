@@ -16,7 +16,8 @@ import (
 )
 
 type RPCServer struct {
-	dao *dao.Dao
+	dao       *dao.Dao
+	rpcClient *RPCClient
 }
 
 func (s *RPCServer) Login(ctx context.Context, in *rpc.RGLoginReq) (res *rpc.RGLoginRes, err error) {
@@ -116,6 +117,15 @@ func (s *RPCServer) Auth(ctx context.Context, in *rpc.RGAuthReq) (res *rpc.RGAut
 }
 
 func (s *RPCServer) CreateGroup(ctx context.Context, in *rpc.RGCreateGroupReq) (res *rpc.RGCreateGroupRes, err error) {
+
+	return
+}
+
+func (s *RPCServer) JoinGroup(ctx context.Context, in *rpc.RGJoinGroupReq) (res *rpc.RGJoinGroupRes, err error) {
+	return
+}
+
+func (s *RPCServer) QuitGroup(ctx context.Context, in *rpc.RGQuitGroupReq) (res *rpc.RGQuitGroupRes, err error) {
 	return
 }
 
@@ -157,7 +167,7 @@ func (s *RPCServer) Ping(ctx context.Context, in *rpc.RGPingReq) (res *rpc.RGPin
 	return
 }
 
-func RPCServerInit() {
+func RPCServerInit(rpcClient *RPCClient) {
 	glog.Info("[register] rpc server init: ", conf.Conf.RPCServer.Addr)
 	lis, err := net.Listen(conf.Conf.RPCServer.Proto, conf.Conf.RPCServer.Addr)
 	if err != nil {
@@ -171,7 +181,8 @@ func RPCServerInit() {
 	}
 	s := grpc.NewServer()
 	rpcServer := &RPCServer{
-		dao: dao.NewDao(),
+		dao:       dao.NewDao(),
+		rpcClient: rpcClient,
 	}
 	rpc.RegisterRegisterServerRPCServer(s, rpcServer)
 	s.Serve(lis)
