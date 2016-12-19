@@ -24,8 +24,9 @@ type Config struct {
 }
 
 type KafkaProducer struct {
-	Topic    string
-	Producer *commconf.KafkaProducer
+	P2PTopic   string
+	GroupTopic string
+	Producer   *commconf.KafkaProducer
 }
 
 type RPCClient struct {

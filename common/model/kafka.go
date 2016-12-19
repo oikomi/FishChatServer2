@@ -1,7 +1,8 @@
 package model
 
 const (
-	SendP2PMsgKey = "send_p2p_msg"
+	SendP2PMsgKey   = "send_p2p_msg"
+	SendGroupMsgKey = "send_group_msg"
 )
 
 type SendP2PMsgKafka struct {
@@ -10,4 +11,11 @@ type SendP2PMsgKafka struct {
 	MsgID     string
 	Msg       string
 	Online    bool
+}
+
+type SendGroupMsgKafka struct {
+	SourceUID int64
+	GroupID   int64
+	MsgID     string
+	Msg       string
 }
