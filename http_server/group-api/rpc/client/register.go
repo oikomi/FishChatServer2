@@ -31,3 +31,19 @@ func (registerRPCCli *RegisterRPCCli) CreateGroup(createGroupReq *rpc.RGCreateGr
 	}
 	return
 }
+
+func (registerRPCCli *RegisterRPCCli) JoinGroup(joinGroupReq *rpc.RGJoinGroupReq) (res *rpc.RGJoinGroupRes, err error) {
+	r := rpc.NewRegisterServerRPCClient(registerRPCCli.conn)
+	if res, err = r.JoinGroup(context.Background(), joinGroupReq); err != nil {
+		glog.Error(err)
+	}
+	return
+}
+
+func (registerRPCCli *RegisterRPCCli) QuitGroup(quitGroupReq *rpc.RGQuitGroupReq) (res *rpc.RGQuitGroupRes, err error) {
+	r := rpc.NewRegisterServerRPCClient(registerRPCCli.conn)
+	if res, err = r.QuitGroup(context.Background(), quitGroupReq); err != nil {
+		glog.Error(err)
+	}
+	return
+}
