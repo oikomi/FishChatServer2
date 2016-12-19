@@ -14,9 +14,8 @@ etcdAddr = "localhost:2379"
 interval = "5s"
 ttl = "10s"
 
-
 [etcd]
-root = "/server/idgen/"
+root = "/service/idgen/"
 addrs = ["127.0.0.1:2379"]
 timeout = "1s"
 
