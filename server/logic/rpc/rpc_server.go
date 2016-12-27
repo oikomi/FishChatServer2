@@ -109,9 +109,10 @@ func (s *RPCServer) AcceptP2PMsgAck(ctx context.Context, in *rpc.AcceptP2PMsgAck
 func (s *RPCServer) SendGroupMsg(ctx context.Context, in *rpc.SendGroupMsgReq) (res *rpc.SendGroupMsgRes, err error) {
 	glog.Info("logic recive SendGroupMsg")
 	sendGroupMsgKafka := &commmodel.SendGroupMsgKafka{
-		GroupID: in.GroupID,
-		MsgID:   in.MsgID,
-		Msg:     in.Msg,
+		SourceUID: in.SourceUID,
+		GroupID:   in.GroupID,
+		MsgID:     in.MsgID,
+		Msg:       in.Msg,
 	}
 	s.dao.KafkaProducer.SendGroupMsg(sendGroupMsgKafka)
 	res = &rpc.SendGroupMsgRes{
