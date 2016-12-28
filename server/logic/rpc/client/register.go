@@ -51,6 +51,14 @@ func (registerRPCCli *RegisterRPCCli) Online(ctx context.Context, uid int64) (re
 	return
 }
 
+func (registerRPCCli *RegisterRPCCli) RouterAccess(ctx context.Context, uid int64) (res *rpc.RGAccessRes, err error) {
+	r := rpc.NewRegisterServerRPCClient(registerRPCCli.conn)
+	if res, err = r.RouterAccess(ctx, &rpc.RGAccessReq{UID: uid}); err != nil {
+		glog.Error(err)
+	}
+	return
+}
+
 func (registerRPCCli *RegisterRPCCli) Ping(ctx context.Context, uid int64) (res *rpc.RGPingRes, err error) {
 	r := rpc.NewRegisterServerRPCClient(registerRPCCli.conn)
 	if res, err = r.Ping(ctx, &rpc.RGPingReq{UID: uid}); err != nil {

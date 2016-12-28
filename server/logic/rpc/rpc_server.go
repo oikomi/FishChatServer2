@@ -85,6 +85,7 @@ func (s *RPCServer) SendP2PMsg(ctx context.Context, in *rpc.SendP2PMsgReq) (res 
 	onlineRes, err := s.rpcClient.Register.Online(ctx, in.TargetUID)
 	if err != nil {
 		glog.Error(err)
+		return
 	}
 	if !onlineRes.Online {
 		glog.Info(in.TargetUID, " is offline")
@@ -92,8 +93,13 @@ func (s *RPCServer) SendP2PMsg(ctx context.Context, in *rpc.SendP2PMsgReq) (res 
 	} else {
 		sendP2PMsgKafka.Online = true
 	}
-	// Fixme: get access server Addr
-
+	// get access server Addr
+	routerAccessRes, err := s.rpcClient.Register.RouterAccess(ctx, in.TargetUID)
+	if err != nil {
+		glog.Error(err)
+		return
+	}
+	sendP2PMsgKafka.AccessServerAddr = routerAccessRes.AccessAddr
 	// send to kafka
 	s.dao.KafkaProducer.SendP2PMsg(sendP2PMsgKafka)
 	res = &rpc.SendP2PMsgRes{
