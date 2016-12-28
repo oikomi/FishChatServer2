@@ -190,9 +190,10 @@ func (c *Client) procSendGroupMsg(reqData []byte) (err error) {
 		return
 	}
 	reqSendGroupMsgRPC := &rpc.SendGroupMsgReq{
-		GroupID: reqSendGroupMsg.GroupID,
-		MsgID:   reqSendGroupMsg.MsgID,
-		Msg:     reqSendGroupMsg.Msg,
+		SourceUID: reqSendGroupMsg.SourceUID,
+		GroupID:   reqSendGroupMsg.GroupID,
+		MsgID:     reqSendGroupMsg.MsgID,
+		Msg:       reqSendGroupMsg.Msg,
 	}
 	// add rpc logic
 	resSendGroupMsgRPC, err := c.RPCClient.Logic.SendGroupMsg(reqSendGroupMsgRPC)

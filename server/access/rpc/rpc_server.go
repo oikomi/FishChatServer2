@@ -16,8 +16,8 @@ import (
 type RPCServer struct {
 }
 
-func (s *RPCServer) SendP2PMsg(ctx context.Context, in *rpc.ASSendP2PMsgReq) (res *rpc.ASSendP2PMsgRes, err error) {
-	glog.Info("access recive SendP2PMsg")
+func (s *RPCServer) SendP2PMsgFromJob(ctx context.Context, in *rpc.ASSendP2PMsgFromJobReq) (res *rpc.ASSendP2PMsgFromJobRes, err error) {
+	glog.Info("access recive SendP2PMsgFromJob")
 	glog.Info(global.GSessions)
 	if session, ok := global.GSessions[in.TargetUID]; ok {
 		glog.Info("session is online")
@@ -31,7 +31,7 @@ func (s *RPCServer) SendP2PMsg(ctx context.Context, in *rpc.ASSendP2PMsgReq) (re
 			Msg:       in.Msg,
 		}); err != nil {
 			glog.Error(err)
-			res = &rpc.ASSendP2PMsgRes{
+			res = &rpc.ASSendP2PMsgFromJobRes{
 				ErrCode: ecode.ServerErr.Uint32(),
 				ErrStr:  ecode.ServerErr.String(),
 			}
@@ -40,7 +40,7 @@ func (s *RPCServer) SendP2PMsg(ctx context.Context, in *rpc.ASSendP2PMsgReq) (re
 	} else {
 		// offline msg
 	}
-	res = &rpc.ASSendP2PMsgRes{
+	res = &rpc.ASSendP2PMsgFromJobRes{
 		ErrCode: ecode.OK.Uint32(),
 		ErrStr:  ecode.OK.String(),
 	}

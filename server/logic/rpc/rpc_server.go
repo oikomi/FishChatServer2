@@ -92,6 +92,8 @@ func (s *RPCServer) SendP2PMsg(ctx context.Context, in *rpc.SendP2PMsgReq) (res 
 	} else {
 		sendP2PMsgKafka.Online = true
 	}
+	// Fixme: get access server Addr
+
 	// send to kafka
 	s.dao.KafkaProducer.SendP2PMsg(sendP2PMsgKafka)
 	res = &rpc.SendP2PMsgRes{

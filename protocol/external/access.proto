@@ -110,9 +110,10 @@ message ResAcceptP2PMsgAck {
 message ReqSendGroupMsg {
     uint32 cmd       = 1;
     string cmdStr    = 2;
-    int64  groupID   = 3;
-    string msgID     = 4;
-    string msg       = 5;
+    int64  sourceUID = 3;
+    int64  groupID   = 4;
+    string msgID     = 5;
+    string msg       = 6;
 }
 
 message ResSendGroupMsg {

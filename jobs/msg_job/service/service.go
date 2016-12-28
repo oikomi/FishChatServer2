@@ -71,13 +71,14 @@ func (s *Service) consumeproc() {
 			continue
 		}
 		if sendP2PMsgKafka.Online {
-			sendP2PMsgReq := &protoRPC.ASSendP2PMsgReq{
-				SourceUID: sendP2PMsgKafka.SourceUID,
-				TargetUID: sendP2PMsgKafka.TargetUID,
-				MsgID:     sendP2PMsgKafka.MsgID,
-				Msg:       sendP2PMsgKafka.Msg,
+			sendP2PMsgReq := &protoRPC.ASSendP2PMsgFromJobReq{
+				SourceUID:        sendP2PMsgKafka.SourceUID,
+				TargetUID:        sendP2PMsgKafka.TargetUID,
+				MsgID:            sendP2PMsgKafka.MsgID,
+				Msg:              sendP2PMsgKafka.Msg,
+				AccessServerAddr: sendP2PMsgKafka.AccessServerAddr,
 			}
-			_, err := s.rpcClient.AccessServer.SendP2PMsg(sendP2PMsgReq)
+			_, err := s.rpcClient.AccessServer.SendP2PMsgFromJob(sendP2PMsgReq)
 			if err != nil {
 				// store offline msg
 				glog.Error(err)

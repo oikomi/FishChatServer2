@@ -24,7 +24,6 @@ dialTimeout = "1s"
 offlineMsgCollection = "offline_msg"
 
 [etcd]
-name = "msg-job"
-root = "/server/msg_job/"
-addrs = ["localhost:2379"]
+root = "/server/access_server/"
+addrs = ["127.0.0.1:2379"]
 timeout = "1s"

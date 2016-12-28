@@ -15,6 +15,8 @@ It is generated from these files:
 It has these top-level messages:
 	ASSendP2PMsgReq
 	ASSendP2PMsgRes
+	ASSendP2PMsgFromJobReq
+	ASSendP2PMsgFromJobRes
 	ASSendGroupMsgReq
 	ASSendGroupMsgRes
 	Snowflake
@@ -133,6 +135,78 @@ func (m *ASSendP2PMsgRes) GetErrStr() string {
 	return ""
 }
 
+type ASSendP2PMsgFromJobReq struct {
+	SourceUID        int64  `protobuf:"varint,1,opt,name=sourceUID" json:"sourceUID,omitempty"`
+	TargetUID        int64  `protobuf:"varint,2,opt,name=targetUID" json:"targetUID,omitempty"`
+	MsgID            string `protobuf:"bytes,3,opt,name=msgID" json:"msgID,omitempty"`
+	Msg              string `protobuf:"bytes,4,opt,name=msg" json:"msg,omitempty"`
+	AccessServerAddr string `protobuf:"bytes,5,opt,name=accessServerAddr" json:"accessServerAddr,omitempty"`
+}
+
+func (m *ASSendP2PMsgFromJobReq) Reset()                    { *m = ASSendP2PMsgFromJobReq{} }
+func (m *ASSendP2PMsgFromJobReq) String() string            { return proto.CompactTextString(m) }
+func (*ASSendP2PMsgFromJobReq) ProtoMessage()               {}
+func (*ASSendP2PMsgFromJobReq) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{2} }
+
+func (m *ASSendP2PMsgFromJobReq) GetSourceUID() int64 {
+	if m != nil {
+		return m.SourceUID
+	}
+	return 0
+}
+
+func (m *ASSendP2PMsgFromJobReq) GetTargetUID() int64 {
+	if m != nil {
+		return m.TargetUID
+	}
+	return 0
+}
+
+func (m *ASSendP2PMsgFromJobReq) GetMsgID() string {
+	if m != nil {
+		return m.MsgID
+	}
+	return ""
+}
+
+func (m *ASSendP2PMsgFromJobReq) GetMsg() string {
+	if m != nil {
+		return m.Msg
+	}
+	return ""
+}
+
+func (m *ASSendP2PMsgFromJobReq) GetAccessServerAddr() string {
+	if m != nil {
+		return m.AccessServerAddr
+	}
+	return ""
+}
+
+type ASSendP2PMsgFromJobRes struct {
+	ErrCode uint32 `protobuf:"varint,1,opt,name=errCode" json:"errCode,omitempty"`
+	ErrStr  string `protobuf:"bytes,2,opt,name=errStr" json:"errStr,omitempty"`
+}
+
+func (m *ASSendP2PMsgFromJobRes) Reset()                    { *m = ASSendP2PMsgFromJobRes{} }
+func (m *ASSendP2PMsgFromJobRes) String() string            { return proto.CompactTextString(m) }
+func (*ASSendP2PMsgFromJobRes) ProtoMessage()               {}
+func (*ASSendP2PMsgFromJobRes) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{3} }
+
+func (m *ASSendP2PMsgFromJobRes) GetErrCode() uint32 {
+	if m != nil {
+		return m.ErrCode
+	}
+	return 0
+}
+
+func (m *ASSendP2PMsgFromJobRes) GetErrStr() string {
+	if m != nil {
+		return m.ErrStr
+	}
+	return ""
+}
+
 type ASSendGroupMsgReq struct {
 	GroupID int64  `protobuf:"varint,1,opt,name=groupID" json:"groupID,omitempty"`
 	MsgID   string `protobuf:"bytes,2,opt,name=msgID" json:"msgID,omitempty"`
@@ -142,7 +216,7 @@ type ASSendGroupMsgReq struct {
 func (m *ASSendGroupMsgReq) Reset()                    { *m = ASSendGroupMsgReq{} }
 func (m *ASSendGroupMsgReq) String() string            { return proto.CompactTextString(m) }
 func (*ASSendGroupMsgReq) ProtoMessage()               {}
-func (*ASSendGroupMsgReq) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{2} }
+func (*ASSendGroupMsgReq) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{4} }
 
 func (m *ASSendGroupMsgReq) GetGroupID() int64 {
 	if m != nil {
@@ -173,7 +247,7 @@ type ASSendGroupMsgRes struct {
 func (m *ASSendGroupMsgRes) Reset()                    { *m = ASSendGroupMsgRes{} }
 func (m *ASSendGroupMsgRes) String() string            { return proto.CompactTextString(m) }
 func (*ASSendGroupMsgRes) ProtoMessage()               {}
-func (*ASSendGroupMsgRes) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{3} }
+func (*ASSendGroupMsgRes) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{5} }
 
 func (m *ASSendGroupMsgRes) GetErrCode() uint32 {
 	if m != nil {
@@ -192,6 +266,8 @@ func (m *ASSendGroupMsgRes) GetErrStr() string {
 func init() {
 	proto.RegisterType((*ASSendP2PMsgReq)(nil), "rpc.ASSendP2PMsgReq")
 	proto.RegisterType((*ASSendP2PMsgRes)(nil), "rpc.ASSendP2PMsgRes")
+	proto.RegisterType((*ASSendP2PMsgFromJobReq)(nil), "rpc.ASSendP2PMsgFromJobReq")
+	proto.RegisterType((*ASSendP2PMsgFromJobRes)(nil), "rpc.ASSendP2PMsgFromJobRes")
 	proto.RegisterType((*ASSendGroupMsgReq)(nil), "rpc.ASSendGroupMsgReq")
 	proto.RegisterType((*ASSendGroupMsgRes)(nil), "rpc.ASSendGroupMsgRes")
 }
@@ -207,7 +283,7 @@ const _ = grpc.SupportPackageIsVersion4
 // Client API for AccessServerRPC service
 
 type AccessServerRPCClient interface {
-	SendP2PMsg(ctx context.Context, in *ASSendP2PMsgReq, opts ...grpc.CallOption) (*ASSendP2PMsgRes, error)
+	SendP2PMsgFromJob(ctx context.Context, in *ASSendP2PMsgFromJobReq, opts ...grpc.CallOption) (*ASSendP2PMsgFromJobRes, error)
 }
 
 type accessServerRPCClient struct {
@@ -218,9 +294,9 @@ func NewAccessServerRPCClient(cc *grpc.ClientConn) AccessServerRPCClient {
 	return &accessServerRPCClient{cc}
 }
 
-func (c *accessServerRPCClient) SendP2PMsg(ctx context.Context, in *ASSendP2PMsgReq, opts ...grpc.CallOption) (*ASSendP2PMsgRes, error) {
-	out := new(ASSendP2PMsgRes)
-	err := grpc.Invoke(ctx, "/rpc.AccessServerRPC/SendP2PMsg", in, out, c.cc, opts...)
+func (c *accessServerRPCClient) SendP2PMsgFromJob(ctx context.Context, in *ASSendP2PMsgFromJobReq, opts ...grpc.CallOption) (*ASSendP2PMsgFromJobRes, error) {
+	out := new(ASSendP2PMsgFromJobRes)
+	err := grpc.Invoke(ctx, "/rpc.AccessServerRPC/SendP2PMsgFromJob", in, out, c.cc, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -230,27 +306,27 @@ func (c *accessServerRPCClient) SendP2PMsg(ctx context.Context, in *ASSendP2PMsg
 // Server API for AccessServerRPC service
 
 type AccessServerRPCServer interface {
-	SendP2PMsg(context.Context, *ASSendP2PMsgReq) (*ASSendP2PMsgRes, error)
+	SendP2PMsgFromJob(context.Context, *ASSendP2PMsgFromJobReq) (*ASSendP2PMsgFromJobRes, error)
 }
 
 func RegisterAccessServerRPCServer(s *grpc.Server, srv AccessServerRPCServer) {
 	s.RegisterService(&_AccessServerRPC_serviceDesc, srv)
 }
 
-func _AccessServerRPC_SendP2PMsg_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ASSendP2PMsgReq)
+func _AccessServerRPC_SendP2PMsgFromJob_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ASSendP2PMsgFromJobReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AccessServerRPCServer).SendP2PMsg(ctx, in)
+		return srv.(AccessServerRPCServer).SendP2PMsgFromJob(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/rpc.AccessServerRPC/SendP2PMsg",
+		FullMethod: "/rpc.AccessServerRPC/SendP2PMsgFromJob",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AccessServerRPCServer).SendP2PMsg(ctx, req.(*ASSendP2PMsgReq))
+		return srv.(AccessServerRPCServer).SendP2PMsgFromJob(ctx, req.(*ASSendP2PMsgFromJobReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -260,8 +336,8 @@ var _AccessServerRPC_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*AccessServerRPCServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "SendP2PMsg",
-			Handler:    _AccessServerRPC_SendP2PMsg_Handler,
+			MethodName: "SendP2PMsgFromJob",
+			Handler:    _AccessServerRPC_SendP2PMsgFromJob_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -271,21 +347,23 @@ var _AccessServerRPC_serviceDesc = grpc.ServiceDesc{
 func init() { proto.RegisterFile("access.proto", fileDescriptor0) }
 
 var fileDescriptor0 = []byte{
-	// 244 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0x9c, 0x91, 0x41, 0x6b, 0xc2, 0x40,
-	0x10, 0x85, 0x1b, 0xb7, 0x55, 0x32, 0xb4, 0xd8, 0x0e, 0x52, 0x96, 0xd2, 0x83, 0xe4, 0xe4, 0x29,
-	0x07, 0x7b, 0xeb, 0x4d, 0x62, 0x29, 0x1e, 0x84, 0xb0, 0xc1, 0x1f, 0x60, 0xd7, 0x61, 0x4f, 0x76,
-	0xd3, 0x99, 0xa4, 0xbf, 0xbf, 0x64, 0xa3, 0x2e, 0x58, 0x4f, 0xde, 0xf6, 0xbd, 0x07, 0xf3, 0xbe,
-	0x9d, 0x81, 0xfb, 0xad, 0xb5, 0x24, 0x92, 0xd7, 0xec, 0x1b, 0x8f, 0x8a, 0x6b, 0x9b, 0xb5, 0x30,
-	0x5e, 0x54, 0x15, 0x7d, 0xef, 0xca, 0x79, 0xb9, 0x16, 0x67, 0xe8, 0x07, 0x5f, 0x21, 0x15, 0xdf,
-	0xb2, 0xa5, 0xcd, 0x6a, 0xa9, 0x93, 0x69, 0x32, 0x53, 0x26, 0x1a, 0x5d, 0xda, 0x6c, 0xd9, 0x51,
-	0xd3, 0xa5, 0x83, 0x3e, 0x3d, 0x19, 0x38, 0x81, 0xbb, 0xbd, 0xb8, 0xd5, 0x52, 0xab, 0x69, 0x32,
-	0x4b, 0x4d, 0x2f, 0xf0, 0x11, 0xd4, 0x5e, 0x9c, 0xbe, 0x0d, 0x5e, 0xf7, 0xcc, 0x8a, 0xf3, 0x5a,
-	0x41, 0x0d, 0x23, 0x62, 0x2e, 0xfc, 0x8e, 0x42, 0xe9, 0x83, 0x39, 0x4a, 0x7c, 0x86, 0x21, 0x31,
-	0x57, 0x0d, 0x87, 0xbe, 0xd4, 0x1c, 0x54, 0xb6, 0x81, 0xa7, 0x7e, 0xc8, 0x27, 0xfb, 0xb6, 0x3e,
-	0xd0, 0x6b, 0x18, 0xb9, 0x4e, 0x9e, 0xd8, 0x8f, 0x32, 0xb2, 0x0d, 0x2e, 0xb0, 0xa9, 0xc8, 0xf6,
-	0xf1, 0x7f, 0xec, 0x15, 0x74, 0xf3, 0x35, 0x8c, 0x17, 0x61, 0xdd, 0x15, 0xf1, 0x2f, 0xb1, 0x29,
-	0x0b, 0x7c, 0x07, 0x88, 0x7f, 0xc6, 0x49, 0xce, 0xb5, 0xcd, 0xcf, 0xb6, 0xff, 0x72, 0xc9, 0x95,
-	0xec, 0xe6, 0x6b, 0x18, 0x8e, 0xf6, 0xf6, 0x17, 0x00, 0x00, 0xff, 0xff, 0xd2, 0x79, 0xdb, 0xff,
-	0xc4, 0x01, 0x00, 0x00,
+	// 284 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0xbc, 0x92, 0xc1, 0x4e, 0xc2, 0x40,
+	0x10, 0x86, 0x2d, 0x15, 0x48, 0x27, 0x1a, 0x60, 0x63, 0xc8, 0x46, 0x3d, 0x90, 0x9e, 0x88, 0x87,
+	0x1e, 0xf0, 0x09, 0x9a, 0xa2, 0x06, 0x12, 0x63, 0xb3, 0x0d, 0x0f, 0x40, 0xb7, 0x93, 0x3d, 0xd5,
+	0xad, 0xb3, 0xad, 0xcf, 0xe4, 0x63, 0x9a, 0x6e, 0x81, 0x12, 0x8b, 0x1e, 0x38, 0x78, 0xeb, 0xff,
+	0xff, 0xc9, 0xcc, 0x7c, 0xfd, 0x17, 0xae, 0xb6, 0x52, 0xa2, 0x31, 0x41, 0x41, 0xba, 0xd4, 0xcc,
+	0xa5, 0x42, 0xfa, 0x15, 0x8c, 0xc2, 0x24, 0xc1, 0xf7, 0x2c, 0x5e, 0xc4, 0xaf, 0x46, 0x09, 0xfc,
+	0x60, 0xf7, 0xe0, 0x19, 0x5d, 0x91, 0xc4, 0xcd, 0x6a, 0xc9, 0x9d, 0x99, 0x33, 0x77, 0x45, 0x6b,
+	0xd4, 0x69, 0xb9, 0x25, 0x85, 0x65, 0x9d, 0xf6, 0x9a, 0xf4, 0x60, 0xb0, 0x1b, 0xe8, 0xe7, 0x46,
+	0xad, 0x96, 0xdc, 0x9d, 0x39, 0x73, 0x4f, 0x34, 0x82, 0x8d, 0xc1, 0xcd, 0x8d, 0xe2, 0x97, 0xd6,
+	0xab, 0x3f, 0xfd, 0xe8, 0xe7, 0x5a, 0xc3, 0x38, 0x0c, 0x91, 0x28, 0xd2, 0x19, 0xda, 0xa5, 0xd7,
+	0x62, 0x2f, 0xd9, 0x14, 0x06, 0x48, 0x94, 0x94, 0x64, 0xf7, 0x79, 0x62, 0xa7, 0xfc, 0x2f, 0x07,
+	0xa6, 0xc7, 0x53, 0x9e, 0x49, 0xe7, 0x6b, 0x9d, 0xfe, 0x13, 0x03, 0x7b, 0x80, 0x71, 0xf3, 0x3f,
+	0x13, 0xa4, 0x4f, 0xa4, 0x30, 0xcb, 0x88, 0xf7, 0x6d, 0xdc, 0xf1, 0xfd, 0xf5, 0x2f, 0x97, 0x9e,
+	0x83, 0xbd, 0x81, 0x49, 0x33, 0xeb, 0x85, 0x74, 0x55, 0xec, 0x4a, 0xe3, 0x30, 0x54, 0xb5, 0x3c,
+	0xe0, 0xee, 0x65, 0x8b, 0xd3, 0x3b, 0x81, 0xe3, 0xb6, 0x95, 0x3c, 0x75, 0xc7, 0x9e, 0x71, 0xdd,
+	0x22, 0x85, 0x51, 0x78, 0x44, 0x2f, 0xe2, 0x88, 0xbd, 0xc1, 0xa4, 0x83, 0xce, 0xee, 0x02, 0x2a,
+	0x64, 0x70, 0xba, 0xbe, 0xdb, 0x3f, 0x42, 0xe3, 0x5f, 0xa4, 0x03, 0xfb, 0x80, 0x1f, 0xbf, 0x03,
+	0x00, 0x00, 0xff, 0xff, 0x5b, 0xb8, 0x35, 0x20, 0xd0, 0x02, 0x00, 0x00,
 }

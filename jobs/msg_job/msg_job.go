@@ -4,6 +4,7 @@ import (
 	"flag"
 	"github.com/golang/glog"
 	"github.com/oikomi/FishChatServer2/jobs/msg_job/conf"
+	"github.com/oikomi/FishChatServer2/jobs/msg_job/conf_discovery"
 	"github.com/oikomi/FishChatServer2/jobs/msg_job/service"
 	"os"
 	"os/signal"
@@ -26,10 +27,8 @@ func main() {
 		panic(err)
 	}
 	s = service.New(conf.Conf)
+	go conf_discovery.ConfDiscoveryProc()
 	signalHandler()
-	// for {
-
-	// }
 }
 
 func signalHandler() {
