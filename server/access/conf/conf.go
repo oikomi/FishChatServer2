@@ -18,11 +18,17 @@ type Config struct {
 	ServiceDiscoveryServer *commconf.ServiceDiscoveryServer
 	RPCServer              *commconf.RPCServer
 	RPCClient              *RPCClient
-	Etcd                   *commconf.Etcd
+	ConfDiscovery          *ConfDiscovery
+	// Etcd                   *commconf.Etcd
 }
 
 type RPCClient struct {
 	LogicClient *commconf.ServiceDiscoveryClient
+}
+
+type ConfDiscovery struct {
+	Gateway *commconf.Etcd
+	MsgJob  *commconf.Etcd
 }
 
 func init() {

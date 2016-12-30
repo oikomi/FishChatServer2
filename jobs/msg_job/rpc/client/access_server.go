@@ -59,7 +59,7 @@ func (accessServerRPCCli *AccessServerRPCCli) connProc() {
 			conns[accessServer] = conn
 		}
 		accessServerRPCCli.conns = conns
-		time.Sleep(time.Second * 5)
+		time.Sleep(time.Second * 10)
 	}
 }
 

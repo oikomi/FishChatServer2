@@ -12,7 +12,7 @@ role = "master"
 interval = "10s"
 
 [etcd]
-root = "/server/access_server/"
+root = "/server/access_server_gateway/"
 addrs = ["127.0.0.1:2379"]
 timeout = "1s"
 

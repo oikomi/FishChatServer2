@@ -31,7 +31,6 @@ func (ew *EtcdWatcher) Close() {
 func (ew *EtcdWatcher) Next() ([]*naming.Update, error) {
 	// key is the etcd key/value dir to watch
 	key := fmt.Sprintf("/%s/%s", Prefix, ew.er.ServiceName)
-	glog.Info(key)
 	// ew.addrs is nil means it is intially called
 	if ew.addrs == nil {
 		// query addresses from etcd
@@ -50,7 +49,7 @@ func (ew *EtcdWatcher) Next() ([]*naming.Update, error) {
 		rch := ew.ec.Watch(context.Background(), key, etcd.WithPrefix())
 		for wresp := range rch {
 			for _, ev := range wresp.Events {
-				glog.Info(ev.Type, string(ev.Kv.Key), string(ev.Kv.Value))
+				// glog.Info(ev.Type, string(ev.Kv.Key), string(ev.Kv.Value))
 				if ev.Type.String() == "EXPIRE" {
 					return []*naming.Update{{Op: naming.Delete, Addr: string(ev.Kv.Value)}}, nil
 				} else if ev.Type.String() == "PUT" {

@@ -66,7 +66,7 @@ func (m *Master) WatchWorkers() {
 	rch := m.etcCli.Watch(context.Background(), m.rootPath, clientv3.WithPrefix())
 	for wresp := range rch {
 		for _, ev := range wresp.Events {
-			glog.Info(ev.Type, string(ev.Kv.Key), string(ev.Kv.Value))
+			// glog.Info(ev.Type, string(ev.Kv.Key), string(ev.Kv.Value))
 			if ev.Type.String() == "EXPIRE" {
 				member, ok := m.members[string(ev.Kv.Key)]
 				if ok {

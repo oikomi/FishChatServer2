@@ -13,7 +13,7 @@ var (
 
 func loadAccessServerProc(master *etcd.Master) {
 	for {
-		glog.Info("loadAccessServerProc")
+		// glog.Info("loadAccessServerProc")
 		AccessServerList = master.Members()
 		time.Sleep(time.Second * 5)
 	}

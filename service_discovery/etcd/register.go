@@ -24,8 +24,6 @@ var stopSignal = make(chan bool, 1)
 // ttl - ttl of the register information
 func Register(name string, rpcServerAddr string, target string, interval xtime.Duration, ttl xtime.Duration) (err error) {
 	// get endpoints for register dial address
-	glog.Info(interval)
-	glog.Info(ttl)
 	endpoints := strings.Split(target, ",")
 	conf := etcd.Config{
 		Endpoints:   endpoints,
@@ -44,10 +42,8 @@ func Register(name string, rpcServerAddr string, target string, interval xtime.D
 		ticker := time.NewTicker(time.Duration(interval))
 		// should get first, if not exist, set it
 		for {
-			glog.Info("set serviceKey addrKey")
 			_, err := rgClient.Get(context.Background(), serviceKey)
 			if err != nil {
-				glog.Info(int64(time.Duration(ttl) / time.Second))
 				resp, err := rgClient.Grant(context.Background(), int64(time.Duration(ttl)/time.Second))
 				if err != nil {
 					glog.Error(err)
