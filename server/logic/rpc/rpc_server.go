@@ -101,6 +101,7 @@ func (s *RPCServer) SendP2PMsg(ctx context.Context, in *rpc.SendP2PMsgReq) (res 
 	}
 	sendP2PMsgKafka.AccessServerAddr = routerAccessRes.AccessAddr
 	// send to kafka
+	glog.Info("send to kafka", sendP2PMsgKafka)
 	s.dao.KafkaProducer.SendP2PMsg(sendP2PMsgKafka)
 	res = &rpc.SendP2PMsgRes{
 		ErrCode: ecode.OK.Uint32(),
