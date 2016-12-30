@@ -14,6 +14,12 @@ etcdAddr = "localhost:2379"
 interval = "5s"
 ttl = "10s"
 
+[rpcClient]
+    [rpcClient.idgenClient]
+    serviceName = "idgen"
+    etcdAddr = "localhost:2379"
+    balancer = "rr"
+
 [auth]
 encryption = "md5"
 salt = "!0h#?123(ABM"
@@ -35,5 +41,6 @@ addrs = "127.0.0.1:27017"
 db = "im"
 dialTimeout = "1s"
 groupCollection = "group"
+
 
 

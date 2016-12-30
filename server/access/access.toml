@@ -35,11 +35,3 @@ ttl = "10s"
     root = "/server/access_server_msgjob/"
     addrs = ["localhost:2379"]
     timeout = "1s"
-
-
-
-# [etcd]
-# name = "access_server_11000"
-# root = "/server/access_server/"
-# addrs = ["localhost:2379"]
-# timeout = "1s"
