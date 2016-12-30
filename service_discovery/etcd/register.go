@@ -12,6 +12,7 @@ import (
 
 var rgClient *etcd.Client
 var serviceKey string
+var stopSignal = make(chan bool, 1)
 
 // Register is the helper function to self-register service into Etcd/Consul server
 // should call Unregister when pocess stop
@@ -23,6 +24,8 @@ var serviceKey string
 // ttl - ttl of the register information
 func Register(name string, rpcServerAddr string, target string, interval xtime.Duration, ttl xtime.Duration) (err error) {
 	// get endpoints for register dial address
+	glog.Info(interval)
+	glog.Info(ttl)
 	endpoints := strings.Split(target, ",")
 	conf := etcd.Config{
 		Endpoints:   endpoints,
@@ -41,13 +44,18 @@ func Register(name string, rpcServerAddr string, target string, interval xtime.D
 		ticker := time.NewTicker(time.Duration(interval))
 		// should get first, if not exist, set it
 		for {
-			<-ticker.C
+			glog.Info("set serviceKey addrKey")
 			_, err := rgClient.Get(context.Background(), serviceKey)
 			if err != nil {
-				if _, err = rgClient.Put(context.Background(), addrKey, rpcServerAddr); err != nil {
+				glog.Info(int64(time.Duration(ttl) / time.Second))
+				resp, err := rgClient.Grant(context.Background(), int64(time.Duration(ttl)/time.Second))
+				if err != nil {
 					glog.Error(err)
 				}
-				resp, err := rgClient.Grant(context.Background(), int64(time.Duration(ttl)/time.Second))
+				if _, err = rgClient.Put(context.Background(), addrKey, rpcServerAddr, etcd.WithLease(resp.ID)); err != nil {
+					glog.Error(err)
+				}
+				resp, err = rgClient.Grant(context.Background(), int64(time.Duration(ttl)))
 				if err != nil {
 					glog.Error(err)
 				}
@@ -59,19 +67,35 @@ func Register(name string, rpcServerAddr string, target string, interval xtime.D
 				if err != nil {
 					glog.Error(err)
 				}
+				if _, err = rgClient.Put(context.Background(), addrKey, rpcServerAddr, etcd.WithLease(resp.ID)); err != nil {
+					glog.Error(err)
+				}
+				resp, err = rgClient.Grant(context.Background(), int64(time.Duration(ttl)/time.Second))
+				if err != nil {
+					glog.Error(err)
+				}
 				_, err = rgClient.Put(context.Background(), serviceKey, "", etcd.WithLease(resp.ID))
 				if err != nil {
 					glog.Error(err)
 				}
 			}
+			select {
+			case <-stopSignal:
+				return
+			case <-ticker.C:
+			}
 		}
 	}()
 	// initial register
-	if _, err = rgClient.Put(context.Background(), addrKey, rpcServerAddr); err != nil {
+	resp, err := rgClient.Grant(context.Background(), int64(time.Duration(ttl)/time.Second))
+	if err != nil {
+		glog.Error(err)
+	}
+	if _, err = rgClient.Put(context.Background(), addrKey, rpcServerAddr, etcd.WithLease(resp.ID)); err != nil {
 		glog.Error(err)
 		return
 	}
-	resp, err := rgClient.Grant(context.Background(), int64(time.Duration(ttl)/time.Second))
+	resp, err = rgClient.Grant(context.Background(), int64(time.Duration(ttl)/time.Second))
 	if err != nil {
 		glog.Error(err)
 	}
@@ -84,6 +108,8 @@ func Register(name string, rpcServerAddr string, target string, interval xtime.D
 
 // Unregister delete service from etcd
 func Unregister() (err error) {
+	stopSignal <- true
+	stopSignal = make(chan bool, 1) // just a hack to avoid multi UnRegister deadlock
 	_, err = rgClient.Delete(context.Background(), serviceKey)
 	if err != nil {
 		glog.Error(err)

@@ -30,6 +30,7 @@ func (ew *EtcdWatcher) Close() {
 func (ew *EtcdWatcher) Next() ([]*naming.Update, error) {
 	// key is the etcd key/value dir to watch
 	key := fmt.Sprintf("/%s/%s", Prefix, ew.er.ServiceName)
+	glog.Info(key)
 	// ew.addrs is nil means it is intially called
 	if ew.addrs == nil {
 		// query addresses from etcd

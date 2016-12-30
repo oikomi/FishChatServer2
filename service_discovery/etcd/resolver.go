@@ -24,7 +24,7 @@ func NewResolver(serviceName string) *EtcdResolver {
 // target example: "http://127.0.0.1:2379;http://127.0.0.1:12379;http://127.0.0.1:22379"
 func (er *EtcdResolver) Resolve(target string) (naming.Watcher, error) {
 	if er.ServiceName == "" {
-		return nil, errors.New("wonaming: no service name provided")
+		return nil, errors.New("service_discovery: no service name provided")
 	}
 	// generate etcd client, return if error
 	endpoints := strings.Split(target, ",")
@@ -34,7 +34,7 @@ func (er *EtcdResolver) Resolve(target string) (naming.Watcher, error) {
 	}
 	client, err := etcd.New(conf)
 	if err != nil {
-		return nil, fmt.Errorf("wonaming: creat etcd error: %s", err.Error())
+		return nil, fmt.Errorf("service_discovery: creat etcd error: %s", err.Error())
 	}
 	// Return EtcdWatcher
 	watcher := &EtcdWatcher{
