@@ -15,12 +15,15 @@ type AccessServerRPCCli struct {
 }
 
 func NewAccessServerRPCCli() (accessServerRPCCli *AccessServerRPCCli, err error) {
+	glog.Info("NewAccessServerRPCCli")
 	var accessServerList []string
-	var conns map[string]*grpc.ClientConn
+	conns := make(map[string]*grpc.ClientConn)
 	for {
 		if len(conf_discovery.AccessServerList) <= 0 {
+			glog.Info("len(conf_discovery.AccessServerList) <= 0")
 			time.Sleep(time.Second * 5)
 		} else {
+			glog.Info(conf_discovery.AccessServerList)
 			for _, v := range conf_discovery.AccessServerList {
 				accessServerList = append(accessServerList, v.IP)
 			}
@@ -43,7 +46,7 @@ func NewAccessServerRPCCli() (accessServerRPCCli *AccessServerRPCCli, err error)
 
 func (accessServerRPCCli *AccessServerRPCCli) connProc() {
 	var accessServerList []string
-	var conns map[string]*grpc.ClientConn
+	conns := make(map[string]*grpc.ClientConn)
 	for {
 		for _, v := range conf_discovery.AccessServerList {
 			accessServerList = append(accessServerList, v.IP)

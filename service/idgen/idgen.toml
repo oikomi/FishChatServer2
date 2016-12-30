@@ -12,7 +12,7 @@ serviceName = "idgen"
 rpcAddr = "127.0.0.1:31000"
 etcdAddr = "localhost:2379"
 interval = "2s"
-ttl = "20s"
+ttl = "10s"
 
 [etcd]
 root = "/service/idgen/"

@@ -19,7 +19,8 @@ type EtcdWatcher struct {
 	// ec: Etcd Client
 	ec *etcd.Client
 	// addrs is the service addrs cache
-	addrs []string
+	addrs         []string
+	isInitialized bool
 }
 
 // Close do nothing
@@ -44,21 +45,33 @@ func (ew *EtcdWatcher) Next() ([]*naming.Update, error) {
 			return GenUpdates([]string{}, addrs), nil
 		}
 	}
-	// generate etcd Watcher
-	rch := ew.ec.Watch(context.Background(), key)
-	for _ = range rch {
-		resp, err := ew.ec.Get(context.Background(), key)
-		if err != nil {
-			continue
-		}
-		addrs, empty := extractAddrs(resp)
-		dropEmptyDir(ew.ec, empty)
-		updates := GenUpdates(ew.addrs, addrs)
-		// update ew.addrs
-		ew.addrs = addrs
-		// if addrs updated, return it
-		if len(updates) != 0 {
-			return updates, nil
+	for {
+		// generate etcd Watcher
+		rch := ew.ec.Watch(context.Background(), key, etcd.WithPrefix())
+		for wresp := range rch {
+			for _, ev := range wresp.Events {
+				glog.Info(ev.Type, string(ev.Kv.Key), string(ev.Kv.Value))
+				if ev.Type.String() == "EXPIRE" {
+					return []*naming.Update{{Op: naming.Delete, Addr: string(ev.Kv.Value)}}, nil
+				} else if ev.Type.String() == "PUT" {
+					return []*naming.Update{{Op: naming.Add, Addr: string(ev.Kv.Value)}}, nil
+				} else if ev.Type.String() == "DELETE" {
+					return []*naming.Update{{Op: naming.Delete, Addr: string(ev.Kv.Value)}}, nil
+				}
+			}
+			// resp, err := ew.ec.Get(context.Background(), key)
+			// if err != nil {
+			// 	continue
+			// }
+			// addrs, empty := extractAddrs(resp)
+			// dropEmptyDir(ew.ec, empty)
+			// updates := GenUpdates(ew.addrs, addrs)
+			// // update ew.addrs
+			// ew.addrs = addrs
+			// // if addrs updated, return it
+			// if len(updates) != 0 {
+			// 	return updates, nil
+			// }
 		}
 	}
 	// should not goto here for ever

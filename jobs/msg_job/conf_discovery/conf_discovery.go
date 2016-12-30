@@ -13,13 +13,14 @@ var (
 
 func loadAccessServerProc(master *etcd.Master) {
 	for {
-		// glog.Info("loadAccessServerProc")
+		glog.Info("loadAccessServerProc")
 		AccessServerList = master.Members()
-		time.Sleep(time.Duration(10))
+		time.Sleep(time.Second * 5)
 	}
 }
 
 func ConfDiscoveryProc() {
+	glog.Info("ConfDiscoveryProc")
 	master, err := etcd.NewMaster(conf.Conf.Etcd)
 	if err != nil {
 		glog.Error("Error: cannot connect to etcd:", err)

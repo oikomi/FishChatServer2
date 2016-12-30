@@ -26,8 +26,8 @@ func main() {
 		glog.Error(err)
 		panic(err)
 	}
-	s = service.New(conf.Conf)
 	go conf_discovery.ConfDiscoveryProc()
+	s = service.New(conf.Conf)
 	signalHandler()
 }
 
