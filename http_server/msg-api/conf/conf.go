@@ -20,7 +20,7 @@ type Config struct {
 }
 
 type RPCClient struct {
-	RegisterClient *commconf.ServiceDiscoveryClient
+	ManagerClient *commconf.ServiceDiscoveryClient
 }
 
 type Redis struct {
@@ -29,7 +29,7 @@ type Redis struct {
 }
 
 func init() {
-	flag.StringVar(&confPath, "conf", "./user-api.toml", "config path")
+	flag.StringVar(&confPath, "conf", "./msg-api.toml", "config path")
 }
 
 func Init() error {

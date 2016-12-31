@@ -18,6 +18,11 @@ type RPCServer struct {
 	dao *dao.Dao
 }
 
+func (s *RPCServer) GetOfflineMsgs(ctx context.Context, in *rpc.MGOfflineMsgReq) (res *rpc.MGOfflineMsgRes, err error) {
+	glog.Info("GetOfflineMsgs")
+	return
+}
+
 func (s *RPCServer) ExceptionMsg(ctx context.Context, in *rpc.MGExceptionMsgReq) (res *rpc.MGExceptionMsgRes, err error) {
 	glog.Info("ExceptionMsg")
 	return

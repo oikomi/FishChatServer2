@@ -12,23 +12,23 @@ debug = false
 
 [multiHTTP]
     [multiHTTP.outer]
-    addrs = ["0.0.0.0:6001"]
+    addrs = ["0.0.0.0:8001"]
     maxListen = 10
     [multiHTTP.inner]
-    addrs = ["0.0.0.0:6002"]
+    addrs = ["0.0.0.0:8002"]
     maxListen = 10
     [multiHTTP.local]
-    addrs = ["0.0.0.0:6003"]
+    addrs = ["0.0.0.0:8003"]
     maxListen = 10
 
 [rpcClient]
-    [rpcClient.registerClient]
-    serviceName = "register"
+    [rpcClient.managerClient]
+    serviceName = "manager"
     etcdAddr = "localhost:2379"
     balancer = "rr"
 
 [redis]
-name = "user-api"
+name = "msg-api"
 proto = "tcp"
 addr = "172.16.0.148:6379"
 idle = 100

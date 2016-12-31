@@ -32,6 +32,9 @@ It has these top-level messages:
 	SendGroupMsgRes
 	MGExceptionMsgReq
 	MGExceptionMsgRes
+	MGOfflineMsgReq
+	OfflineMsgs
+	MGOfflineMsgRes
 	RGLoginReq
 	RGLoginRes
 	RGAccessReq
