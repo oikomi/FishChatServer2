@@ -1,0 +1,21 @@
+# idgen conf
+
+ver = "1.0.0"
+logPath = "/tmp/idgen.log"
+
+[rpcServer]
+proto = "tcp"
+addr = "0.0.0.0:31002"
+
+[serviceDiscoveryServer]
+serviceName = "idgen"
+rpcAddr = "127.0.0.1:31002"
+etcdAddr = "localhost:2379"
+interval = "2s"
+ttl = "10s"
+
+[etcd]
+root = "/service/idgen/"
+addrs = ["127.0.0.1:2379"]
+timeout = "1s"
+

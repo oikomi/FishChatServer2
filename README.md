@@ -4,15 +4,16 @@
 目录
 =================
 * [1说明](#1说明)
-* [2架构](#2架构)
-* [3协议](#3协议)
-* [4服务说明](#4服务说明)
-* [5依赖](#5依赖)
-* [6部署](#6部署)
-    * [6.1普通部署](#6.1普通部署)
-    * [6.2容器部署](#6.2容器部署)
-* [7测试](#7测试)
-* [8监控](#8监控)
+* [2特性](#2特性)
+* [3架构](#3架构)
+* [4协议](#4协议)
+* [5服务说明](#5服务说明)
+* [6依赖](#6依赖)
+* [7部署](#7部署)
+    * [7.1普通部署](#7.1普通部署)
+    * [7.2容器部署](#7.2容器部署)
+* [8测试](#8测试)
+* [9监控](#9监控)
 
 
 1说明
@@ -23,16 +24,20 @@
 > * 容器部署 (Kubernetes + Docker)
 
 
+2特性
+======
+
+
 **[⬆ 回到顶部](#目录)**
 
-2架构
+3架构
 ======
 
 ![](./doc/architecture.png)
 
 **[⬆ 回到顶部](#目录)**
 
-3协议
+4协议
 ======
 在`protocol`目录下
 
@@ -41,7 +46,7 @@
 
 **[⬆ 回到顶部](#目录)**
 
-4服务说明
+5服务说明
 ======
 进入server目录下
 
@@ -55,7 +60,7 @@ register
 
 **[⬆ 回到顶部](#目录)**
 
-5依赖
+6依赖
 ======
 ```shell
 etcd
@@ -67,14 +72,14 @@ ElasticSearch(可选)
 
 **[⬆ 回到顶部](#目录)**
 
-6部署
+7部署
 ======
 
-### 6.1普通部署
+### 7.1普通部署
 
 为了方便, 我们在单机上进行部署
 
-#### 6.1.1依赖安装
+#### 7.1.1依赖安装
 
 * kafka安装 : http://kafka.apache.org/quickstart (默认启动即可)
 
@@ -95,7 +100,7 @@ bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 -
 
 * etcd安装 : 需要3.0以上版本, 采用默认安装即可
 
-#### 6.1.2server安装
+#### 7.1.2server安装
 
 进入server下面的各个目录 运行 `go build`, 然后启动服务即可(因为服务做了`服务发现`, 所以对启动顺序没有要求), 这里为了简单, 每个服务我们只启动一个, 当然启动任意个都是支持的.
 
@@ -140,7 +145,7 @@ bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 -
 ➜  manager git:(master) ✗ ./manager 
 ```
 
-#### 6.1.3job安装
+#### 7.1.3job安装
 
 * msg_job安装
 
@@ -150,7 +155,7 @@ bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 -
 ➜  msg_job git:(master) ✗ ./msg_job 
 ```
 
-#### 6.1.3中间价服务安装
+#### 7.1.4中间件服务安装
 
 * idgen安装
 
@@ -161,7 +166,7 @@ bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 -
 ```
 
 
-### 6.2容器部署
+### 7.2容器部署
 
 部署完全采用`Kubernetes + Docker`
 
@@ -170,9 +175,9 @@ bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 -
 **[⬆ 回到顶部](#目录)**
 
 
-7测试
+8测试
 ======
-### 7.1点对点聊天测试
+### 8.1点对点聊天测试
 进入client/p2p目录, 用户可以启动两个以上的进程, 两两之间互相聊天
 
 ```shell
@@ -183,12 +188,12 @@ bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 -
 输入对方的id :收到点对点消息: 返回码[0], 对方ID[321], 消息内容[hello]
 ```
 
-### 7.2群聊测试
+### 8.2群聊测试
 
 
 **[⬆ 回到顶部](#目录)**
 
-8监控
+9监控
 ======
 
 **[⬆ 回到顶部](#目录)**
