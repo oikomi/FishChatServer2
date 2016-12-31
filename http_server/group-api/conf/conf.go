@@ -20,7 +20,7 @@ type Config struct {
 }
 
 type RPCClient struct {
-	RegisterClient *commconf.RPCClient
+	RegisterClient *commconf.ServiceDiscoveryClient
 }
 
 type Redis struct {

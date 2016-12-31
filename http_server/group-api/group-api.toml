@@ -23,7 +23,9 @@ debug = false
 
 [rpcClient]
     [rpcClient.registerClient]
-    addr = "127.0.0.1:23000"
+    serviceName = "register"
+    etcdAddr = "localhost:2379"
+    balancer = "rr"
 
 [redis]
 name = "group-api"
