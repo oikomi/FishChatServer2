@@ -58,23 +58,8 @@ func (ew *EtcdWatcher) Next() ([]*naming.Update, error) {
 					return []*naming.Update{{Op: naming.Delete, Addr: string(ev.Kv.Value)}}, nil
 				}
 			}
-			// resp, err := ew.ec.Get(context.Background(), key)
-			// if err != nil {
-			// 	continue
-			// }
-			// addrs, empty := extractAddrs(resp)
-			// dropEmptyDir(ew.ec, empty)
-			// updates := GenUpdates(ew.addrs, addrs)
-			// // update ew.addrs
-			// ew.addrs = addrs
-			// // if addrs updated, return it
-			// if len(updates) != 0 {
-			// 	return updates, nil
-			// }
 		}
 	}
-	// should not goto here for ever
-	// return []*naming.Update{}, nil
 }
 
 // helper function to extract addrs rom etcd response
