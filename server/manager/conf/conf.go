@@ -18,11 +18,17 @@ type Config struct {
 	RPCServer              *commconf.RPCServer
 	ServiceDiscoveryServer *commconf.ServiceDiscoveryServer
 	Redis                  *Redis
+	MongoDB                *MongoDB
 }
 
 type Redis struct {
 	*commconf.Redis
 	Expire xtime.Duration
+}
+
+type MongoDB struct {
+	*commconf.MongoDB
+	OfflineMsgCollection string
 }
 
 func init() {

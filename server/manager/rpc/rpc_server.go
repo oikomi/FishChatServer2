@@ -45,7 +45,7 @@ func (s *RPCServer) SetExceptionMsg(ctx context.Context, in *rpc.MGExceptionMsgR
 		}
 		return
 	}
-	if err = s.dao.SetExceptionMsg(ctx, in.MsgID, string(data)); err != nil {
+	if err = s.dao.Redis.SetExceptionMsg(ctx, in.MsgID, string(data)); err != nil {
 		glog.Error(err)
 		res = &rpc.MGExceptionMsgRes{
 			ErrCode: ecode.ServerErr.Uint32(),

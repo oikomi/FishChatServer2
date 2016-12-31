@@ -26,3 +26,11 @@ writeTimeout = "1s"
 idleTimeout = "10s"
 expire = "15s"
 
+[mongoDB]
+addrs = "127.0.0.1:27017"
+db = "im"
+dialTimeout = "1s"
+offlineMsgCollection = "offline_msg"
+
+
+
