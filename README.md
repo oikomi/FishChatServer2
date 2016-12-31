@@ -95,7 +95,7 @@ bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 -
 
 * etcd安装 : 需要3.0以上版本, 采用默认安装即可
 
-#### 6.1.2服务安装
+#### 6.1.2server安装
 
 进入server下面的各个目录 运行 `go build`, 然后启动服务即可(因为服务做了`服务发现`, 所以对启动顺序没有要求), 这里为了简单, 每个服务我们只启动一个, 当然启动任意个都是支持的.
 
@@ -149,6 +149,17 @@ bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 -
 ➜  msg_job git:(master) ✗ go build
 ➜  msg_job git:(master) ✗ ./msg_job 
 ```
+
+#### 6.1.3中间价服务安装
+
+* idgen安装
+
+```shell
+➜  FishChatServer2 git:(master) ✗ cd service/idgen 
+➜  idgen git:(master) ✗ go build
+➜  idgen git:(master) ✗ ./idgen 
+```
+
 
 ### 6.2容器部署
 

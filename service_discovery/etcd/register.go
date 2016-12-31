@@ -66,14 +66,6 @@ func Register(name string, rpcServerAddr string, target string, interval xtime.D
 				if _, err = rgClient.Put(context.Background(), addrKey, rpcServerAddr, etcd.WithLease(resp.ID)); err != nil {
 					glog.Error(err)
 				}
-				resp, err = rgClient.Grant(context.Background(), int64(time.Duration(ttl)/time.Second))
-				if err != nil {
-					glog.Error(err)
-				}
-				_, err = rgClient.Put(context.Background(), serviceKey, "", etcd.WithLease(resp.ID))
-				if err != nil {
-					glog.Error(err)
-				}
 			}
 			select {
 			case <-stopSignal:

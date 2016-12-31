@@ -74,7 +74,7 @@ func (ew *EtcdWatcher) Next() ([]*naming.Update, error) {
 		}
 	}
 	// should not goto here for ever
-	return []*naming.Update{}, nil
+	// return []*naming.Update{}, nil
 }
 
 // helper function to extract addrs rom etcd response
@@ -105,7 +105,7 @@ func dropEmptyDir(keyapi *etcd.Client, empty []string) {
 	for _, key := range empty {
 		_, err := keyapi.Delete(context.Background(), key)
 		if err != nil {
-			glog.Error("wonaming: delete empty service dir error: ", err.Error())
+			glog.Error("im: delete empty service dir error: ", err.Error())
 		}
 	}
 }
