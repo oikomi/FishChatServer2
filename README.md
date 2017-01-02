@@ -62,6 +62,16 @@ register
 
 6依赖
 ======
+
+### 6.1系统环境
+```shell
+golang >= 1.4
+jdk >= 1.8 (数据处理很多服务用java编写)
+```
+
+
+### 6.2第三方依赖
+
 ```shell
 etcd
 redis
