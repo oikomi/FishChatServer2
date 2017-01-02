@@ -90,7 +90,7 @@ func dropEmptyDir(keyapi *etcd.Client, empty []string) {
 	for _, key := range empty {
 		_, err := keyapi.Delete(context.Background(), key)
 		if err != nil {
-			glog.Error("im: delete empty service dir error: ", err.Error())
+			glog.Error("service_discovery: delete empty service dir error: ", err.Error())
 		}
 	}
 }
