@@ -26,7 +26,7 @@ func NewMongoDB() (mdb *MongoDB, err error) {
 func (m *MongoDB) GetOfflineMsg(uid int64) (res []*commmodel.OfflineMsg, err error) {
 	c := m.m.Session.DB(conf.Conf.MongoDB.DB).C(conf.Conf.MongoDB.OfflineMsgCollection)
 	res = make([]*commmodel.OfflineMsg, 0)
-	if err = c.Find(bson.M{"TargetUID": uid}).All(&res); err != nil {
+	if err = c.Find(bson.M{"targetuid": uid}).All(&res); err != nil {
 		glog.Error(err)
 	}
 	glog.Info(res)
