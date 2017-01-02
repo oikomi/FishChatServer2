@@ -21,5 +21,9 @@ type OfflineMsg struct {
 	Flag      bool
 }
 
+type OfflineMsgs struct {
+	Msgs []*OfflineMsg
+}
+
 type Group struct {
 }

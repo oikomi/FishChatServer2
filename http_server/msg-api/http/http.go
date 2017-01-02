@@ -13,12 +13,12 @@ import (
 )
 
 var (
-	userSvc *service.Service
+	managerSvc *service.Service
 )
 
 func Init(c *conf.Config) {
 	var err error
-	userSvc, err = service.New()
+	managerSvc, err = service.New()
 	if err != nil {
 		glog.Error(err)
 		return
@@ -45,8 +45,9 @@ func Init(c *conf.Config) {
 
 // outerRouter init outer router api path.
 func outerRouter(r *router.Router) {
-	r.Group("/x/auth", func(cr *router.Router) {
-		cr.GuestPost("/auth", auth)
+	glog.Info("outerRouter")
+	r.Group("/x/msg", func(cr *router.Router) {
+		cr.GuestGet("/offline", offlineMsgs)
 	})
 	return
 }
@@ -55,15 +56,15 @@ func outerRouter(r *router.Router) {
 func localRouter(r *router.Router) {
 }
 
-func auth(c wctx.Context) {
+func offlineMsgs(c wctx.Context) {
+	glog.Info("offlineMsgs")
 	res := c.Result()
 	uidStr := c.Request().Form.Get("uid")
-	pwStr := c.Request().Form.Get("pw")
 	uid, err := strconv.ParseInt(uidStr, 10, 64)
 	if err != nil {
 		glog.Error(err)
 		res["code"] = ecode.RequestErr
 		return
 	}
-	res["data"], res["code"] = userSvc.Auth(uid, pwStr)
+	res["data"], res["code"] = managerSvc.GetOfflineMsgs(uid)
 }

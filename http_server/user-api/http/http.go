@@ -45,7 +45,7 @@ func Init(c *conf.Config) {
 
 // outerRouter init outer router api path.
 func outerRouter(r *router.Router) {
-	r.Group("/x/auth", func(cr *router.Router) {
+	r.Group("/x/user", func(cr *router.Router) {
 		cr.GuestPost("/auth", auth)
 	})
 	return

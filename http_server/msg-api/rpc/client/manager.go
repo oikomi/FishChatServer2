@@ -27,7 +27,7 @@ func NewManagerRPCCli() (managerRPCCli *ManagerRPCCli, err error) {
 	return
 }
 
-func (managerRPCCli *ManagerRPCCli) Auth(offlineMsgsReq *rpc.MGOfflineMsgReq) (res *rpc.MGOfflineMsgRes, err error) {
+func (managerRPCCli *ManagerRPCCli) GetOfflineMsgs(offlineMsgsReq *rpc.MGOfflineMsgReq) (res *rpc.MGOfflineMsgRes, err error) {
 	m := rpc.NewManagerServerRPCClient(managerRPCCli.conn)
 	if res, err = m.GetOfflineMsgs(context.Background(), offlineMsgsReq); err != nil {
 		glog.Error(err)

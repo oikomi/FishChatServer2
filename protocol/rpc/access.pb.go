@@ -33,7 +33,7 @@ It has these top-level messages:
 	MGExceptionMsgReq
 	MGExceptionMsgRes
 	MGOfflineMsgReq
-	OfflineMsgs
+	OfflineMsg
 	MGOfflineMsgRes
 	RGLoginReq
 	RGLoginRes

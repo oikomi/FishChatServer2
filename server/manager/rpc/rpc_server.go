@@ -20,6 +20,30 @@ type RPCServer struct {
 
 func (s *RPCServer) GetOfflineMsgs(ctx context.Context, in *rpc.MGOfflineMsgReq) (res *rpc.MGOfflineMsgRes, err error) {
 	glog.Info("GetOfflineMsgs")
+	tmpRes, err := s.dao.MongoDB.GetOfflineMsg(in.Uid)
+	if err != nil {
+		glog.Error(err)
+		res = &rpc.MGOfflineMsgRes{
+			ErrCode: ecode.ServerErr.Uint32(),
+			ErrStr:  ecode.ServerErr.String(),
+		}
+		return
+	}
+	resMsgs := make([]*rpc.OfflineMsg, 0)
+	for _, msg := range tmpRes {
+		resMsg := &rpc.OfflineMsg{
+			SourceUID: msg.SourceUID,
+			TargetUID: msg.TargetUID,
+			MsgID:     msg.MsgID,
+			Msg:       msg.Msg,
+		}
+		resMsgs = append(resMsgs, resMsg)
+	}
+	res = &rpc.MGOfflineMsgRes{
+		ErrCode: ecode.OK.Uint32(),
+		ErrStr:  ecode.OK.String(),
+		Msgs:    resMsgs,
+	}
 	return
 }
 
