@@ -20,6 +20,7 @@ type Config struct {
 	RPCClient              *RPCClient
 	Auth                   *Auth
 	Redis                  *Redis
+	Mysql                  *commconf.MySQL
 	MongoDB                *MongoDB
 }
 

@@ -103,6 +103,13 @@ type KafkaConsumer struct {
 	Zookeeper *Zookeeper
 }
 
+type MySQL struct {
+	Name   string // for trace
+	DSN    string // data source name
+	Active int    // pool
+	Idle   int    // pool
+}
+
 type MongoDB struct {
 	Addrs       string
 	DB          string

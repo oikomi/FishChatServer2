@@ -8,18 +8,21 @@ import (
 
 type Dao struct {
 	redis   *xredis.Pool
+	Mysql   *Mysql
 	MongoDB *MongoDB
 }
 
 func NewDao() (dao *Dao) {
-	m, err := NewMongoDB()
+	mysql := NewMysql()
+	mongo, err := NewMongoDB()
 	if err != nil {
 		glog.Error(err)
 		return
 	}
 	dao = &Dao{
 		redis:   xredis.NewPool(conf.Conf.Redis.Redis),
-		MongoDB: m,
+		Mysql:   mysql,
+		MongoDB: mongo,
 	}
 	return
 }
