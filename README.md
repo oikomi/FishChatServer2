@@ -75,6 +75,7 @@ jdk >= 1.8 (数据处理很多服务用java编写)
 ```shell
 etcd
 redis
+Mysql
 mongodb
 kafka
 ElasticSearch(可选)
@@ -105,6 +106,8 @@ bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 -
 ```
 
 * redis安装 : 采用默认安装即可
+
+* mysql安装 : 采用默认安装即可
 
 * mongodb安装 : 采用默认安装即可
 
