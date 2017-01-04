@@ -24,12 +24,6 @@ ttl = "10s"
     etcdAddr = "localhost:2379"
     balancer = "rr"
 
-# [etcd]
-# name = "logic_0001"
-# root = "/server/logic/"
-# addrs = ["localhost:2379"]
-# timeout = "1s"
-
 [kafkaProducer]
 p2pTopic = "logic_producer_p2p"
 GroupTopic = "logic_producer_group"
@@ -47,6 +41,3 @@ db = "im"
 dialTimeout = "1s"
 offlineMsgCollection = "offline_msg"
 
-# [es]
-# addrs = "127.0.0.1:9200"
-# index = "msg"
