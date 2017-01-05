@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	_inUserSQL = "INSERT INTO user (id, user_name, password) VALUES(?,?,?)"
+	_inUserSQL = "INSERT INTO user (uid, user_name, password) VALUES(?,?,?)"
 )
 
 type Mysql struct {
