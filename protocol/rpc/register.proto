@@ -3,6 +3,7 @@ syntax = "proto3";
 package rpc;
 
 service RegisterServerRPC {
+    rpc Register (RGRegisterReq) returns (RGRegisterRes) {}
     rpc Login (RGLoginReq) returns (RGLoginRes) {}
     rpc RouterAccess (RGAccessReq) returns (RGAccessRes) {}
     rpc Auth (RGAuthReq) returns (RGAuthRes) {}
@@ -12,6 +13,17 @@ service RegisterServerRPC {
     rpc CreateGroup (RGCreateGroupReq) returns (RGCreateGroupRes) {}
     rpc JoinGroup (RGJoinGroupReq) returns (RGJoinGroupRes) {}
     rpc QuitGroup (RGQuitGroupReq) returns (RGQuitGroupRes) {}
+}
+
+message RGRegisterReq {
+    int64  UID       = 1;
+    string name      = 2;
+    string password  = 3;
+}
+
+message RGRegisterRes {
+    uint32 errCode = 1;
+    string errStr  = 2;
 }
 
 message RGLoginReq {

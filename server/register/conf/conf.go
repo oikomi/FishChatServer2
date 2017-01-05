@@ -20,7 +20,7 @@ type Config struct {
 	RPCClient              *RPCClient
 	Auth                   *Auth
 	Redis                  *Redis
-	Mysql                  *commconf.MySQL
+	Mysql                  *Mysql
 	MongoDB                *MongoDB
 }
 
@@ -36,6 +36,10 @@ type Auth struct {
 type Redis struct {
 	*commconf.Redis
 	Expire xtime.Duration
+}
+
+type Mysql struct {
+	User *commconf.MySQL
 }
 
 type MongoDB struct {

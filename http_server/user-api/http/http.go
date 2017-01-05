@@ -47,6 +47,7 @@ func Init(c *conf.Config) {
 func outerRouter(r *router.Router) {
 	r.Group("/x/user", func(cr *router.Router) {
 		cr.GuestPost("/auth", auth)
+		cr.GuestPost("/register", register)
 	})
 	return
 }
@@ -66,4 +67,18 @@ func auth(c wctx.Context) {
 		return
 	}
 	res["data"], res["code"] = userSvc.Auth(uid, pwStr)
+}
+
+func register(c wctx.Context) {
+	res := c.Result()
+	uidStr := c.Request().Form.Get("uid")
+	name := c.Request().Form.Get("name")
+	pwStr := c.Request().Form.Get("pw")
+	uid, err := strconv.ParseInt(uidStr, 10, 64)
+	if err != nil {
+		glog.Error(err)
+		res["code"] = ecode.RequestErr
+		return
+	}
+	res["code"] = userSvc.Register(uid, name, pwStr)
 }

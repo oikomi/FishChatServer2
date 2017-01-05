@@ -27,6 +27,14 @@ func NewRegisterRPCCli() (registerRPCCli *RegisterRPCCli, err error) {
 	return
 }
 
+func (registerRPCCli *RegisterRPCCli) Register(authReq *rpc.RGRegisterReq) (res *rpc.RGRegisterRes, err error) {
+	r := rpc.NewRegisterServerRPCClient(registerRPCCli.conn)
+	if res, err = r.Register(context.Background(), authReq); err != nil {
+		glog.Error(err)
+	}
+	return
+}
+
 func (registerRPCCli *RegisterRPCCli) Auth(authReq *rpc.RGAuthReq) (res *rpc.RGAuthRes, err error) {
 	r := rpc.NewRegisterServerRPCClient(registerRPCCli.conn)
 	if res, err = r.Auth(context.Background(), authReq); err != nil {

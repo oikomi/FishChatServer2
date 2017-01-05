@@ -35,6 +35,8 @@ It has these top-level messages:
 	MGOfflineMsgReq
 	OfflineMsg
 	MGOfflineMsgRes
+	RGRegisterReq
+	RGRegisterRes
 	RGLoginReq
 	RGLoginRes
 	RGAccessReq

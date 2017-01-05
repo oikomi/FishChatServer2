@@ -20,6 +20,23 @@ type RPCServer struct {
 	rpcClient *RPCClient
 }
 
+func (s *RPCServer) Register(ctx context.Context, in *rpc.RGRegisterReq) (res *rpc.RGRegisterRes, err error) {
+	glog.Info("register recive Register")
+	if _, err = s.dao.Mysql.Insert(ctx, in.UID, in.Name, in.Password); err != nil {
+		res = &rpc.RGRegisterRes{
+			ErrCode: ecode.ServerErr.Uint32(),
+			ErrStr:  ecode.ServerErr.String(),
+		}
+		glog.Error(err)
+		return
+	}
+	res = &rpc.RGRegisterRes{
+		ErrCode: ecode.OK.Uint32(),
+		ErrStr:  ecode.OK.String(),
+	}
+	return
+}
+
 func (s *RPCServer) Login(ctx context.Context, in *rpc.RGLoginReq) (res *rpc.RGLoginRes, err error) {
 	glog.Info("register recive login")
 	md5Ctx := md5.New()

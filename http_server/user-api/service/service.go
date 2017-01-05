@@ -38,3 +38,17 @@ func (s *Service) Auth(uid int64, pw string) (loginModel *model.Login, err error
 	}
 	return
 }
+
+func (s *Service) Register(uid int64, userName, pw string) (err error) {
+	// check uid pw
+	rgRegisterReq := &rpc.RGRegisterReq{
+		UID:      uid,
+		Name:     userName,
+		Password: pw,
+	}
+	_, err = s.rpcClient.Register.Register(rgRegisterReq)
+	if err != nil {
+		glog.Error(err)
+	}
+	return
+}

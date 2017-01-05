@@ -18,6 +18,62 @@ var _ = proto.Marshal
 var _ = fmt.Errorf
 var _ = math.Inf
 
+type RGRegisterReq struct {
+	UID      int64  `protobuf:"varint,1,opt,name=UID" json:"UID,omitempty"`
+	Name     string `protobuf:"bytes,2,opt,name=name" json:"name,omitempty"`
+	Password string `protobuf:"bytes,3,opt,name=password" json:"password,omitempty"`
+}
+
+func (m *RGRegisterReq) Reset()                    { *m = RGRegisterReq{} }
+func (m *RGRegisterReq) String() string            { return proto.CompactTextString(m) }
+func (*RGRegisterReq) ProtoMessage()               {}
+func (*RGRegisterReq) Descriptor() ([]byte, []int) { return fileDescriptor4, []int{0} }
+
+func (m *RGRegisterReq) GetUID() int64 {
+	if m != nil {
+		return m.UID
+	}
+	return 0
+}
+
+func (m *RGRegisterReq) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *RGRegisterReq) GetPassword() string {
+	if m != nil {
+		return m.Password
+	}
+	return ""
+}
+
+type RGRegisterRes struct {
+	ErrCode uint32 `protobuf:"varint,1,opt,name=errCode" json:"errCode,omitempty"`
+	ErrStr  string `protobuf:"bytes,2,opt,name=errStr" json:"errStr,omitempty"`
+}
+
+func (m *RGRegisterRes) Reset()                    { *m = RGRegisterRes{} }
+func (m *RGRegisterRes) String() string            { return proto.CompactTextString(m) }
+func (*RGRegisterRes) ProtoMessage()               {}
+func (*RGRegisterRes) Descriptor() ([]byte, []int) { return fileDescriptor4, []int{1} }
+
+func (m *RGRegisterRes) GetErrCode() uint32 {
+	if m != nil {
+		return m.ErrCode
+	}
+	return 0
+}
+
+func (m *RGRegisterRes) GetErrStr() string {
+	if m != nil {
+		return m.ErrStr
+	}
+	return ""
+}
+
 type RGLoginReq struct {
 	UID        int64  `protobuf:"varint,1,opt,name=UID" json:"UID,omitempty"`
 	Token      string `protobuf:"bytes,2,opt,name=token" json:"token,omitempty"`
@@ -27,7 +83,7 @@ type RGLoginReq struct {
 func (m *RGLoginReq) Reset()                    { *m = RGLoginReq{} }
 func (m *RGLoginReq) String() string            { return proto.CompactTextString(m) }
 func (*RGLoginReq) ProtoMessage()               {}
-func (*RGLoginReq) Descriptor() ([]byte, []int) { return fileDescriptor4, []int{0} }
+func (*RGLoginReq) Descriptor() ([]byte, []int) { return fileDescriptor4, []int{2} }
 
 func (m *RGLoginReq) GetUID() int64 {
 	if m != nil {
@@ -59,7 +115,7 @@ type RGLoginRes struct {
 func (m *RGLoginRes) Reset()                    { *m = RGLoginRes{} }
 func (m *RGLoginRes) String() string            { return proto.CompactTextString(m) }
 func (*RGLoginRes) ProtoMessage()               {}
-func (*RGLoginRes) Descriptor() ([]byte, []int) { return fileDescriptor4, []int{1} }
+func (*RGLoginRes) Descriptor() ([]byte, []int) { return fileDescriptor4, []int{3} }
 
 func (m *RGLoginRes) GetErrCode() uint32 {
 	if m != nil {
@@ -89,7 +145,7 @@ type RGAccessReq struct {
 func (m *RGAccessReq) Reset()                    { *m = RGAccessReq{} }
 func (m *RGAccessReq) String() string            { return proto.CompactTextString(m) }
 func (*RGAccessReq) ProtoMessage()               {}
-func (*RGAccessReq) Descriptor() ([]byte, []int) { return fileDescriptor4, []int{2} }
+func (*RGAccessReq) Descriptor() ([]byte, []int) { return fileDescriptor4, []int{4} }
 
 func (m *RGAccessReq) GetUID() int64 {
 	if m != nil {
@@ -107,7 +163,7 @@ type RGAccessRes struct {
 func (m *RGAccessRes) Reset()                    { *m = RGAccessRes{} }
 func (m *RGAccessRes) String() string            { return proto.CompactTextString(m) }
 func (*RGAccessRes) ProtoMessage()               {}
-func (*RGAccessRes) Descriptor() ([]byte, []int) { return fileDescriptor4, []int{3} }
+func (*RGAccessRes) Descriptor() ([]byte, []int) { return fileDescriptor4, []int{5} }
 
 func (m *RGAccessRes) GetErrCode() uint32 {
 	if m != nil {
@@ -137,7 +193,7 @@ type RGAuthReq struct {
 func (m *RGAuthReq) Reset()                    { *m = RGAuthReq{} }
 func (m *RGAuthReq) String() string            { return proto.CompactTextString(m) }
 func (*RGAuthReq) ProtoMessage()               {}
-func (*RGAuthReq) Descriptor() ([]byte, []int) { return fileDescriptor4, []int{4} }
+func (*RGAuthReq) Descriptor() ([]byte, []int) { return fileDescriptor4, []int{6} }
 
 func (m *RGAuthReq) GetUID() int64 {
 	if m != nil {
@@ -155,7 +211,7 @@ type RGAuthRes struct {
 func (m *RGAuthRes) Reset()                    { *m = RGAuthRes{} }
 func (m *RGAuthRes) String() string            { return proto.CompactTextString(m) }
 func (*RGAuthRes) ProtoMessage()               {}
-func (*RGAuthRes) Descriptor() ([]byte, []int) { return fileDescriptor4, []int{5} }
+func (*RGAuthRes) Descriptor() ([]byte, []int) { return fileDescriptor4, []int{7} }
 
 func (m *RGAuthRes) GetErrCode() uint32 {
 	if m != nil {
@@ -185,7 +241,7 @@ type RGPingReq struct {
 func (m *RGPingReq) Reset()                    { *m = RGPingReq{} }
 func (m *RGPingReq) String() string            { return proto.CompactTextString(m) }
 func (*RGPingReq) ProtoMessage()               {}
-func (*RGPingReq) Descriptor() ([]byte, []int) { return fileDescriptor4, []int{6} }
+func (*RGPingReq) Descriptor() ([]byte, []int) { return fileDescriptor4, []int{8} }
 
 func (m *RGPingReq) GetUID() int64 {
 	if m != nil {
@@ -202,7 +258,7 @@ type RGPingRes struct {
 func (m *RGPingRes) Reset()                    { *m = RGPingRes{} }
 func (m *RGPingRes) String() string            { return proto.CompactTextString(m) }
 func (*RGPingRes) ProtoMessage()               {}
-func (*RGPingRes) Descriptor() ([]byte, []int) { return fileDescriptor4, []int{7} }
+func (*RGPingRes) Descriptor() ([]byte, []int) { return fileDescriptor4, []int{9} }
 
 func (m *RGPingRes) GetErrCode() uint32 {
 	if m != nil {
@@ -225,7 +281,7 @@ type RGOnlineReq struct {
 func (m *RGOnlineReq) Reset()                    { *m = RGOnlineReq{} }
 func (m *RGOnlineReq) String() string            { return proto.CompactTextString(m) }
 func (*RGOnlineReq) ProtoMessage()               {}
-func (*RGOnlineReq) Descriptor() ([]byte, []int) { return fileDescriptor4, []int{8} }
+func (*RGOnlineReq) Descriptor() ([]byte, []int) { return fileDescriptor4, []int{10} }
 
 func (m *RGOnlineReq) GetUID() int64 {
 	if m != nil {
@@ -243,7 +299,7 @@ type RGOnlineRes struct {
 func (m *RGOnlineRes) Reset()                    { *m = RGOnlineRes{} }
 func (m *RGOnlineRes) String() string            { return proto.CompactTextString(m) }
 func (*RGOnlineRes) ProtoMessage()               {}
-func (*RGOnlineRes) Descriptor() ([]byte, []int) { return fileDescriptor4, []int{9} }
+func (*RGOnlineRes) Descriptor() ([]byte, []int) { return fileDescriptor4, []int{11} }
 
 func (m *RGOnlineRes) GetErrCode() uint32 {
 	if m != nil {
@@ -275,7 +331,7 @@ type RGCreateGroupReq struct {
 func (m *RGCreateGroupReq) Reset()                    { *m = RGCreateGroupReq{} }
 func (m *RGCreateGroupReq) String() string            { return proto.CompactTextString(m) }
 func (*RGCreateGroupReq) ProtoMessage()               {}
-func (*RGCreateGroupReq) Descriptor() ([]byte, []int) { return fileDescriptor4, []int{10} }
+func (*RGCreateGroupReq) Descriptor() ([]byte, []int) { return fileDescriptor4, []int{12} }
 
 func (m *RGCreateGroupReq) GetUID() int64 {
 	if m != nil {
@@ -299,7 +355,7 @@ type RGCreateGroupRes struct {
 func (m *RGCreateGroupRes) Reset()                    { *m = RGCreateGroupRes{} }
 func (m *RGCreateGroupRes) String() string            { return proto.CompactTextString(m) }
 func (*RGCreateGroupRes) ProtoMessage()               {}
-func (*RGCreateGroupRes) Descriptor() ([]byte, []int) { return fileDescriptor4, []int{11} }
+func (*RGCreateGroupRes) Descriptor() ([]byte, []int) { return fileDescriptor4, []int{13} }
 
 func (m *RGCreateGroupRes) GetErrCode() uint32 {
 	if m != nil {
@@ -323,7 +379,7 @@ type RGJoinGroupReq struct {
 func (m *RGJoinGroupReq) Reset()                    { *m = RGJoinGroupReq{} }
 func (m *RGJoinGroupReq) String() string            { return proto.CompactTextString(m) }
 func (*RGJoinGroupReq) ProtoMessage()               {}
-func (*RGJoinGroupReq) Descriptor() ([]byte, []int) { return fileDescriptor4, []int{12} }
+func (*RGJoinGroupReq) Descriptor() ([]byte, []int) { return fileDescriptor4, []int{14} }
 
 func (m *RGJoinGroupReq) GetUID() int64 {
 	if m != nil {
@@ -347,7 +403,7 @@ type RGJoinGroupRes struct {
 func (m *RGJoinGroupRes) Reset()                    { *m = RGJoinGroupRes{} }
 func (m *RGJoinGroupRes) String() string            { return proto.CompactTextString(m) }
 func (*RGJoinGroupRes) ProtoMessage()               {}
-func (*RGJoinGroupRes) Descriptor() ([]byte, []int) { return fileDescriptor4, []int{13} }
+func (*RGJoinGroupRes) Descriptor() ([]byte, []int) { return fileDescriptor4, []int{15} }
 
 func (m *RGJoinGroupRes) GetErrCode() uint32 {
 	if m != nil {
@@ -371,7 +427,7 @@ type RGQuitGroupReq struct {
 func (m *RGQuitGroupReq) Reset()                    { *m = RGQuitGroupReq{} }
 func (m *RGQuitGroupReq) String() string            { return proto.CompactTextString(m) }
 func (*RGQuitGroupReq) ProtoMessage()               {}
-func (*RGQuitGroupReq) Descriptor() ([]byte, []int) { return fileDescriptor4, []int{14} }
+func (*RGQuitGroupReq) Descriptor() ([]byte, []int) { return fileDescriptor4, []int{16} }
 
 func (m *RGQuitGroupReq) GetUID() int64 {
 	if m != nil {
@@ -395,7 +451,7 @@ type RGQuitGroupRes struct {
 func (m *RGQuitGroupRes) Reset()                    { *m = RGQuitGroupRes{} }
 func (m *RGQuitGroupRes) String() string            { return proto.CompactTextString(m) }
 func (*RGQuitGroupRes) ProtoMessage()               {}
-func (*RGQuitGroupRes) Descriptor() ([]byte, []int) { return fileDescriptor4, []int{15} }
+func (*RGQuitGroupRes) Descriptor() ([]byte, []int) { return fileDescriptor4, []int{17} }
 
 func (m *RGQuitGroupRes) GetErrCode() uint32 {
 	if m != nil {
@@ -412,6 +468,8 @@ func (m *RGQuitGroupRes) GetErrStr() string {
 }
 
 func init() {
+	proto.RegisterType((*RGRegisterReq)(nil), "rpc.RGRegisterReq")
+	proto.RegisterType((*RGRegisterRes)(nil), "rpc.RGRegisterRes")
 	proto.RegisterType((*RGLoginReq)(nil), "rpc.RGLoginReq")
 	proto.RegisterType((*RGLoginRes)(nil), "rpc.RGLoginRes")
 	proto.RegisterType((*RGAccessReq)(nil), "rpc.RGAccessReq")
@@ -441,6 +499,7 @@ const _ = grpc.SupportPackageIsVersion4
 // Client API for RegisterServerRPC service
 
 type RegisterServerRPCClient interface {
+	Register(ctx context.Context, in *RGRegisterReq, opts ...grpc.CallOption) (*RGRegisterRes, error)
 	Login(ctx context.Context, in *RGLoginReq, opts ...grpc.CallOption) (*RGLoginRes, error)
 	RouterAccess(ctx context.Context, in *RGAccessReq, opts ...grpc.CallOption) (*RGAccessRes, error)
 	Auth(ctx context.Context, in *RGAuthReq, opts ...grpc.CallOption) (*RGAuthRes, error)
@@ -458,6 +517,15 @@ type registerServerRPCClient struct {
 
 func NewRegisterServerRPCClient(cc *grpc.ClientConn) RegisterServerRPCClient {
 	return &registerServerRPCClient{cc}
+}
+
+func (c *registerServerRPCClient) Register(ctx context.Context, in *RGRegisterReq, opts ...grpc.CallOption) (*RGRegisterRes, error) {
+	out := new(RGRegisterRes)
+	err := grpc.Invoke(ctx, "/rpc.RegisterServerRPC/Register", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *registerServerRPCClient) Login(ctx context.Context, in *RGLoginReq, opts ...grpc.CallOption) (*RGLoginRes, error) {
@@ -535,6 +603,7 @@ func (c *registerServerRPCClient) QuitGroup(ctx context.Context, in *RGQuitGroup
 // Server API for RegisterServerRPC service
 
 type RegisterServerRPCServer interface {
+	Register(context.Context, *RGRegisterReq) (*RGRegisterRes, error)
 	Login(context.Context, *RGLoginReq) (*RGLoginRes, error)
 	RouterAccess(context.Context, *RGAccessReq) (*RGAccessRes, error)
 	Auth(context.Context, *RGAuthReq) (*RGAuthRes, error)
@@ -548,6 +617,24 @@ type RegisterServerRPCServer interface {
 
 func RegisterRegisterServerRPCServer(s *grpc.Server, srv RegisterServerRPCServer) {
 	s.RegisterService(&_RegisterServerRPC_serviceDesc, srv)
+}
+
+func _RegisterServerRPC_Register_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RGRegisterReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RegisterServerRPCServer).Register(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/rpc.RegisterServerRPC/Register",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RegisterServerRPCServer).Register(ctx, req.(*RGRegisterReq))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _RegisterServerRPC_Login_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -699,6 +786,10 @@ var _RegisterServerRPC_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*RegisterServerRPCServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
+			MethodName: "Register",
+			Handler:    _RegisterServerRPC_Register_Handler,
+		},
+		{
 			MethodName: "Login",
 			Handler:    _RegisterServerRPC_Login_Handler,
 		},
@@ -738,34 +829,37 @@ var _RegisterServerRPC_serviceDesc = grpc.ServiceDesc{
 func init() { proto.RegisterFile("register.proto", fileDescriptor4) }
 
 var fileDescriptor4 = []byte{
-	// 449 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0xac, 0x54, 0x4d, 0x8f, 0xd3, 0x30,
-	0x10, 0xdd, 0x12, 0xb6, 0x4b, 0x66, 0xa1, 0x14, 0x03, 0xab, 0xc8, 0xe2, 0x63, 0xe5, 0x53, 0x25,
-	0xa4, 0x1c, 0x00, 0x89, 0x0b, 0x7b, 0xe8, 0xb6, 0x52, 0xb4, 0x08, 0x41, 0x71, 0x41, 0x1c, 0x51,
-	0x49, 0xad, 0x10, 0x01, 0x71, 0x98, 0x38, 0xfc, 0x29, 0xfe, 0x24, 0xb2, 0xe3, 0x26, 0x4e, 0xb0,
-	0x40, 0x8a, 0xb8, 0x65, 0x66, 0xde, 0x9b, 0x37, 0x8e, 0xdf, 0x18, 0x66, 0x28, 0xb2, 0xbc, 0x52,
-	0x02, 0xe3, 0x12, 0xa5, 0x92, 0x24, 0xc0, 0x32, 0x65, 0xef, 0x01, 0x78, 0xf2, 0x5a, 0x66, 0x79,
-	0xc1, 0xc5, 0x0f, 0x32, 0x87, 0xe0, 0xc3, 0xd5, 0x3a, 0x9a, 0x9c, 0x4f, 0x16, 0x01, 0xd7, 0x9f,
-	0xe4, 0x1e, 0x1c, 0x2b, 0xf9, 0x55, 0x14, 0xd1, 0xb5, 0xf3, 0xc9, 0x22, 0xe4, 0x4d, 0x40, 0x1e,
-	0x01, 0xec, 0xd2, 0x54, 0x54, 0xd5, 0x72, 0xbf, 0xc7, 0x28, 0x30, 0x25, 0x27, 0xd3, 0xeb, 0x5a,
-	0x91, 0x08, 0x4e, 0x04, 0xe2, 0x4a, 0xee, 0x85, 0xe9, 0x7c, 0x8b, 0x1f, 0x42, 0x72, 0x06, 0x53,
-	0x81, 0xb8, 0x55, 0x68, 0xdb, 0xdb, 0xa8, 0x53, 0x0d, 0x1c, 0x55, 0xf6, 0x18, 0x4e, 0x79, 0xb2,
-	0x34, 0x2a, 0xde, 0x61, 0xd9, 0x27, 0x17, 0x30, 0x46, 0xf7, 0x5f, 0xe7, 0x7a, 0x08, 0x21, 0x4f,
-	0x96, 0xb5, 0xfa, 0xe2, 0xd7, 0xdf, 0x76, 0xe5, 0xff, 0x77, 0x6a, 0xa3, 0xb9, 0xc9, 0x8b, 0xcc,
-	0xaf, 0x79, 0xd1, 0x95, 0x47, 0x68, 0x36, 0xff, 0xf4, 0x6d, 0xf1, 0x2d, 0x2f, 0x84, 0xbf, 0xff,
-	0x47, 0x17, 0x30, 0xe6, 0x54, 0x67, 0x30, 0x95, 0x86, 0x6e, 0x8e, 0x75, 0x83, 0xdb, 0x88, 0x5d,
-	0xc2, 0x9c, 0x27, 0x2b, 0x14, 0x3b, 0x25, 0x12, 0x94, 0x75, 0xe9, 0xf7, 0xdf, 0x03, 0x08, 0x33,
-	0x5d, 0x7d, 0xb3, 0xfb, 0x2e, 0x6c, 0xe3, 0x2e, 0xc1, 0xd6, 0x7f, 0xf4, 0x18, 0xf3, 0x0f, 0x5e,
-	0xc2, 0x8c, 0x27, 0xaf, 0x64, 0x5e, 0xfc, 0x65, 0x8e, 0x08, 0x4e, 0x8c, 0xec, 0xd5, 0xda, 0x92,
-	0x0f, 0x21, 0xbb, 0x1c, 0xb0, 0x47, 0x4f, 0xf0, 0xae, 0xce, 0xd5, 0xf8, 0x09, 0x1c, 0xf6, 0x88,
-	0x09, 0x9e, 0xfe, 0x0a, 0xe0, 0x0e, 0xb7, 0xef, 0xc3, 0x56, 0xe0, 0x4f, 0x81, 0x7c, 0xb3, 0x22,
-	0x4f, 0xe0, 0xd8, 0x6c, 0x31, 0xb9, 0x1d, 0x63, 0x99, 0xc6, 0xdd, 0x4b, 0x41, 0x07, 0x89, 0x8a,
-	0x1d, 0x91, 0xe7, 0x70, 0x93, 0xcb, 0x5a, 0x09, 0x6c, 0x36, 0x90, 0xcc, 0x2d, 0xa4, 0xdd, 0x58,
-	0x3a, 0xcc, 0x68, 0xd6, 0x02, 0xae, 0xeb, 0x8d, 0x21, 0xb3, 0x43, 0xad, 0xd9, 0x2e, 0xda, 0x8f,
-	0x2d, 0x52, 0xfb, 0xbc, 0x45, 0xda, 0x9d, 0xa0, 0xfd, 0x58, 0x23, 0x63, 0x98, 0x36, 0x8e, 0x6d,
-	0x67, 0x68, 0x1d, 0x4e, 0x87, 0x19, 0x8d, 0xbf, 0x80, 0x53, 0xc7, 0x44, 0xe4, 0xbe, 0x85, 0xf4,
-	0xcd, 0x49, 0xbd, 0x69, 0x4d, 0x7f, 0x01, 0x61, 0x7b, 0xff, 0xe4, 0xae, 0x45, 0xb9, 0x7e, 0xa2,
-	0x9e, 0xa4, 0x25, 0xb6, 0xd7, 0xd6, 0x12, 0x5d, 0x1b, 0x50, 0x4f, 0xb2, 0x62, 0x47, 0x9f, 0xa7,
-	0xe6, 0x05, 0x7f, 0xf6, 0x3b, 0x00, 0x00, 0xff, 0xff, 0x3d, 0x71, 0xd4, 0x06, 0xd3, 0x05, 0x00,
-	0x00,
+	// 498 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0xac, 0x55, 0xdf, 0x6f, 0xd3, 0x30,
+	0x10, 0x5e, 0xc9, 0xd6, 0xb5, 0x37, 0x56, 0xca, 0x01, 0x53, 0x64, 0xf1, 0x63, 0xf2, 0x53, 0x25,
+	0xa4, 0x3e, 0xc0, 0x24, 0x5e, 0xd8, 0x43, 0xd7, 0x4a, 0xd1, 0x10, 0x82, 0xcd, 0x05, 0xf1, 0x88,
+	0x4a, 0x6b, 0x95, 0x08, 0x88, 0xc3, 0x25, 0x85, 0xbf, 0x97, 0xff, 0x04, 0xd9, 0x75, 0x12, 0xa7,
+	0xb3, 0x40, 0xb2, 0xf6, 0x96, 0xfb, 0xee, 0xbb, 0xbb, 0xcf, 0xc9, 0x7d, 0x0e, 0x0c, 0x48, 0xae,
+	0xd3, 0xa2, 0x94, 0x34, 0xce, 0x49, 0x95, 0x0a, 0x23, 0xca, 0x97, 0xfc, 0x1a, 0x8e, 0x45, 0x22,
+	0x6c, 0x42, 0xc8, 0x9f, 0x38, 0x84, 0xe8, 0xe3, 0xe5, 0x2c, 0xee, 0x9c, 0x76, 0x46, 0x91, 0xd0,
+	0x8f, 0x88, 0xb0, 0x9f, 0x2d, 0x7e, 0xc8, 0xf8, 0xce, 0x69, 0x67, 0xd4, 0x17, 0xe6, 0x19, 0x19,
+	0xf4, 0xf2, 0x45, 0x51, 0xfc, 0x56, 0xb4, 0x8a, 0x23, 0x83, 0xd7, 0x31, 0x9f, 0xb4, 0x5b, 0x16,
+	0x18, 0xc3, 0xa1, 0x24, 0x9a, 0xaa, 0x95, 0x34, 0x6d, 0x8f, 0x45, 0x15, 0xe2, 0x09, 0x74, 0x25,
+	0xd1, 0xbc, 0x24, 0xdb, 0xdc, 0x46, 0xfc, 0x03, 0x80, 0x48, 0xde, 0xaa, 0x75, 0x9a, 0xf9, 0x25,
+	0x3d, 0x84, 0x83, 0x52, 0x7d, 0x93, 0x99, 0x2d, 0xdb, 0x06, 0xf8, 0x14, 0x60, 0xb1, 0x5c, 0xca,
+	0xa2, 0x98, 0xac, 0x56, 0x64, 0x65, 0x39, 0x48, 0xab, 0x6b, 0x80, 0xaa, 0x66, 0x6a, 0xe4, 0x4c,
+	0xe5, 0xcf, 0xe0, 0x48, 0x24, 0x13, 0x33, 0xc5, 0x2b, 0x96, 0x7f, 0x76, 0x09, 0x21, 0x73, 0xff,
+	0x77, 0xae, 0x27, 0xd0, 0x17, 0xc9, 0x64, 0x53, 0x7e, 0xf5, 0xcf, 0x9f, 0x37, 0xe9, 0xdb, 0x3b,
+	0xb5, 0x99, 0x79, 0x95, 0x66, 0x6b, 0xff, 0xcc, 0xf3, 0x26, 0x1d, 0xf2, 0xfd, 0xcd, 0x3b, 0x7d,
+	0x9f, 0x7d, 0x4f, 0x33, 0xe9, 0xef, 0xff, 0xc9, 0x25, 0x84, 0x9c, 0xea, 0x04, 0xba, 0xca, 0x94,
+	0x9b, 0x63, 0xf5, 0x84, 0x8d, 0xf8, 0x05, 0x0c, 0x45, 0x32, 0x25, 0xb9, 0x28, 0x65, 0x42, 0x6a,
+	0x93, 0xfb, 0xf7, 0xef, 0x31, 0xf4, 0xd7, 0x3a, 0xfb, 0xae, 0xf1, 0x45, 0x03, 0xf0, 0xd9, 0x8d,
+	0x1e, 0x21, 0xef, 0xe0, 0x35, 0x0c, 0x44, 0xf2, 0x46, 0xa5, 0xd9, 0x3f, 0x74, 0xc4, 0x70, 0x68,
+	0xc6, 0x5e, 0xce, 0x6c, 0x71, 0x15, 0xf2, 0x8b, 0x9d, 0xea, 0x60, 0x05, 0xd7, 0x9b, 0xb4, 0x0c,
+	0x57, 0xe0, 0x54, 0x07, 0x28, 0x78, 0xf1, 0x27, 0x82, 0xfb, 0xd5, 0x4d, 0x32, 0x97, 0xf4, 0x4b,
+	0x92, 0xb8, 0x9a, 0xe2, 0x19, 0xf4, 0x2a, 0x10, 0x71, 0x4c, 0xf9, 0x72, 0xdc, 0xba, 0xc2, 0xd8,
+	0x4d, 0xac, 0xe0, 0x7b, 0xf8, 0x1c, 0x0e, 0x8c, 0xf7, 0xf1, 0x9e, 0x4d, 0x57, 0xf7, 0x0b, 0xdb,
+	0x01, 0x34, 0xf9, 0x0c, 0xee, 0x0a, 0xb5, 0x29, 0x25, 0x6d, 0x7d, 0x8b, 0x43, 0x4b, 0xa9, 0x7d,
+	0xce, 0x76, 0x11, 0x5d, 0x35, 0x82, 0x7d, 0xed, 0x33, 0x1c, 0x54, 0xb9, 0xad, 0x27, 0x59, 0x3b,
+	0xb6, 0x4c, 0xed, 0x8e, 0x9a, 0x69, 0x9d, 0xc4, 0xda, 0xb1, 0x66, 0x8e, 0xa1, 0xbb, 0xdd, 0xf3,
+	0x5a, 0x43, 0xed, 0x0b, 0xb6, 0x8b, 0x68, 0xfe, 0x39, 0x1c, 0x39, 0xab, 0x87, 0x8f, 0x2c, 0xa5,
+	0xbd, 0xd2, 0xcc, 0x0b, 0xeb, 0xf2, 0x57, 0xd0, 0xaf, 0xb7, 0x06, 0x1f, 0x58, 0x96, 0xbb, 0x85,
+	0xcc, 0x03, 0xda, 0xc2, 0xfa, 0x63, 0xd7, 0x85, 0xee, 0xf2, 0x30, 0x0f, 0x58, 0xf0, 0xbd, 0x2f,
+	0x5d, 0xf3, 0x37, 0x7a, 0xf9, 0x37, 0x00, 0x00, 0xff, 0xff, 0xcd, 0x3d, 0x94, 0xaa, 0x9f, 0x06,
+	0x00, 0x00,
 }
