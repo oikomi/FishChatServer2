@@ -1,0 +1,17 @@
+app.name=${app_name}
+app.db.url=${app_db_url}
+app.db.username=${app_db_username}
+app.db.password=${app_db_password}
+app.env=${app_env}
+public.dubbo.registry.url=${public_dubbo_registry_url}
+dubbo.export.version=${dubbo_export_version}
+dubbo.export.port=${dubbo_export_port}
+dubbo.export.retries=${dubbo_export_retries}
+dubbo.export.timeout=${dubbo_export_timeout}
+dubbo.reference.timeout=${dubbo_reference_timeout}
+dubbo.reference.check=${dubbo_reference_check}
+dubbo.reference.retries=${dubbo_reference_retries}
+troy.agent.host=${troy_agent_host}
+troy.appName=${troy_appName}
+logger.dir=${logger_dir}
+logger.level=${logger_level}

@@ -22,7 +22,7 @@ type RPCServer struct {
 
 func (s *RPCServer) Register(ctx context.Context, in *rpc.RGRegisterReq) (res *rpc.RGRegisterRes, err error) {
 	glog.Info("register recive Register")
-	if _, err = s.dao.Mysql.Insert(ctx, in.UID, in.Name, in.Password); err != nil {
+	if _, err = s.dao.Mysql.InsertUser(ctx, in.UID, in.Name, in.Password); err != nil {
 		res = &rpc.RGRegisterRes{
 			ErrCode: ecode.ServerErr.Uint32(),
 			ErrStr:  ecode.ServerErr.String(),
@@ -134,7 +134,18 @@ func (s *RPCServer) Auth(ctx context.Context, in *rpc.RGAuthReq) (res *rpc.RGAut
 }
 
 func (s *RPCServer) CreateGroup(ctx context.Context, in *rpc.RGCreateGroupReq) (res *rpc.RGCreateGroupRes, err error) {
-
+	if _, err = s.dao.Mysql.InsertGroup(ctx, in.Gid, in.Uid, in.GroupName); err != nil {
+		res = &rpc.RGCreateGroupRes{
+			ErrCode: ecode.ServerErr.Uint32(),
+			ErrStr:  ecode.ServerErr.String(),
+		}
+		glog.Error(err)
+		return
+	}
+	res = &rpc.RGCreateGroupRes{
+		ErrCode: ecode.OK.Uint32(),
+		ErrStr:  ecode.OK.String(),
+	}
 	return
 }
 

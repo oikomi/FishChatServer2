@@ -9,7 +9,7 @@ import (
 )
 
 const (
-	address  = "localhost:25000"
+	address  = "localhost:31000"
 	test_key = "test-uuid"
 )
 

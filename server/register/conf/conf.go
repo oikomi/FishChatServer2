@@ -39,7 +39,7 @@ type Redis struct {
 }
 
 type Mysql struct {
-	User *commconf.MySQL
+	IM *commconf.MySQL
 }
 
 type MongoDB struct {

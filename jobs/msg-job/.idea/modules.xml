@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/msg-job.iml" filepath="$PROJECT_DIR$/msg-job.iml" />
+      <module fileurl="file://$PROJECT_DIR$/msg-job-client/msg-job-client.iml" filepath="$PROJECT_DIR$/msg-job-client/msg-job-client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/msg-job-core/msg-job-core.iml" filepath="$PROJECT_DIR$/msg-job-core/msg-job-core.iml" />
+    </modules>
+  </component>
+</project>

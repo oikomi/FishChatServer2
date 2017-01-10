@@ -81,8 +81,9 @@ message RGOnlineRes {
 
 // group
 message RGCreateGroupReq {
-    int64  UID       = 1;
-    string groupName = 2;
+    int64  gid       = 1;
+    int64  uid       = 2;
+    string groupName = 3;
 }
 
 message RGCreateGroupRes {

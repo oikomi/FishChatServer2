@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <group name="common">
+        <property name="app.name" defaultValue="yachtshowcase" description="应用名称"/>
+        <property name="app.db.url"
+                  defaultValue="jdbc:mysql://10.128.160.50:3306/yacht?useUnicode=true&amp;characterset=utf-8"
+                  description="数据库url"/>
+        <property name="app.db.username" defaultValue="yacht" description="数据库用户名"/>
+        <property name="app.db.password"
+                  defaultValue="SSTkxfazjr69fP1R8EscOKWxo/UyHpw+KNpq3SRT+Rnv6gNf8aFsJ5yxeknpNNeifaC+E9HFvXkrkmUroYKH8g=="
+                  description="数据库密码，已加密"/>
+        <property name="app.env" defaultValue="test" description="运行环境"/>
+        <property name="dubbo.export.port" defaultValue="20880" description="dubbo 服务暴露端口号"/>
+        <property name="dubbo.export.version" defaultValue="LATEST" description="dubbo 服务暴露端口号"/>
+        <property name="dubbo.export.retries" defaultValue="0" description="dubbo 服务允许重试次数"/>
+        <property name="dubbo.export.timeout" defaultValue="5000" description="dubbo 服务方超时设置"/>
+
+        <property name="dubbo.reference.timeout" defaultValue="5000" description="dubbo 引用服务默认超时"/>
+        <property name="dubbo.reference.check" defaultValue="false" description="dubbo 引用服务启动时检查"/>
+        <property name="dubbo.reference.retries" defaultValue="0" description="dubbo 引用服务重试次数"/>
+        <!--<property name="dubbo.refer.user.version" defaultValue="LATEST" description="user服务版本"/>-->
+        <property name="troy.agent.host" defaultValue="troyagent.dev.pajkdc.com" description="troy 默认host"/>
+        <property name="troy.appName" defaultValue="yachtshowcase" description="troy 应用名"/>
+        <property name="logger.dir" defaultValue="/home/admin/logs/yachtshowcase" description="日志目录"/>
+        <property name="logger.level" defaultValue="info" description="日志默认级别"/>
+    </group>
+
+    <group name="public">
+        <property name="public.dubbo.registry.url" defaultValue="zk.dev.pajkdc.com:2181" description="dubbo zk"/>
+    </group>
+
+    <script>
+        <generate template="application.properties.vm" destfile="application.properties" charset="UTF-8"/>
+        <generate template="logback.xml.vm" destfile="logback.xml" charset="UTF-8"/>
+    </script>
+</config>
+

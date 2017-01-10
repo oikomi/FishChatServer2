@@ -8,28 +8,40 @@ import (
 )
 
 const (
-	_inUserSQL = "INSERT INTO user (uid, user_name, password) VALUES(?,?,?)"
+	_inUserSQL  = "INSERT INTO user (uid, user_name, password) VALUES(?,?,?)"
+	_inGroupSQL = "INSERT INTO group (gid, group_name, owner_id) VALUES(?,?,?)"
 )
 
 type Mysql struct {
-	DB         *xmysql.DB
-	inUserStmt *xmysql.Stmt
+	im          *xmysql.DB
+	inUserStmt  *xmysql.Stmt
+	inGroupStmt *xmysql.Stmt
 }
 
 func NewMysql() (mysql *Mysql) {
 	mysql = &Mysql{
-		DB: xmysql.NewMySQL(conf.Conf.Mysql.User),
+		im: xmysql.NewMySQL(conf.Conf.Mysql.IM),
 	}
 	mysql.initStmt()
 	return
 }
 
 func (mysql *Mysql) initStmt() {
-	mysql.inUserStmt = mysql.DB.Prepared(_inUserSQL)
+	mysql.inUserStmt = mysql.im.Prepared(_inUserSQL)
+	mysql.inGroupStmt = mysql.im.Prepared(_inGroupSQL)
 }
 
-func (mysql *Mysql) Insert(c context.Context, uid int64, userName, password string) (rows int64, err error) {
+func (mysql *Mysql) InsertUser(c context.Context, uid int64, userName, password string) (rows int64, err error) {
 	res, err := mysql.inUserStmt.Exec(c, uid, userName, password)
+	if err != nil {
+		glog.Error(err)
+		return
+	}
+	return res.RowsAffected()
+}
+
+func (mysql *Mysql) InsertGroup(c context.Context, gid, ownerID int64, groupName string) (rows int64, err error) {
+	res, err := mysql.inGroupStmt.Exec(c, gid, groupName, ownerID)
 	if err != nil {
 		glog.Error(err)
 		return
