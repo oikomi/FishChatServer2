@@ -81,6 +81,13 @@ func (s *RPCServer) SendP2PMsg(ctx context.Context, in *rpc.SendP2PMsgReq) (res 
 		MsgID:     in.MsgID,
 		Msg:       in.Msg,
 	}
+	// idgen
+	idgenRes, err := s.rpcClient.Idgen.Next(ctx, in.TargetUID)
+	if err != nil {
+		glog.Error(err)
+		return
+	}
+	sendP2PMsgKafka.IncrementID = idgenRes.Value
 	// Online
 	onlineRes, err := s.rpcClient.Register.Online(ctx, in.TargetUID)
 	if err != nil {

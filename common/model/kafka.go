@@ -6,12 +6,13 @@ const (
 )
 
 type SendP2PMsgKafka struct {
-	SourceUID        int64
-	TargetUID        int64
-	MsgID            string
-	Msg              string
-	AccessServerAddr string
-	Online           bool
+	IncrementID      int64  `json:"incrementID"`
+	SourceUID        int64  `json:"sourceUID"`
+	TargetUID        int64  `json:"targetUID"`
+	MsgID            string `json:"msgID"`
+	Msg              string `json:"msg"`
+	AccessServerAddr string `json:"accessServerAddr"`
+	Online           bool   `json:"online"`
 }
 
 type SendGroupMsgKafka struct {

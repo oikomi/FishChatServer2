@@ -35,8 +35,8 @@
       <file leaf-file-name="KafkaConsumer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/msg-job-core/src/main/java/org/miaohong/jobs/msgjob/dal/kafka/KafkaConsumer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="25" column="29" lean-forward="false" selection-start-line="25" selection-start-column="17" selection-end-line="25" selection-end-column="29" />
+            <state relative-caret-position="164">
+              <caret line="25" column="8" lean-forward="false" selection-start-line="24" selection-start-column="7" selection-end-line="25" selection-end-column="8" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -44,65 +44,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="KafkaP2PMsg.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="KafkaP2PMsg.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/msg-job-core/src/main/java/org/miaohong/jobs/msgjob/dal/model/KafkaP2PMsg.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="11" column="27" lean-forward="false" selection-start-line="11" selection-start-column="27" selection-end-line="11" selection-end-column="27" />
+            <state relative-caret-position="105">
+              <caret line="7" column="26" lean-forward="true" selection-start-line="7" selection-start-column="26" selection-end-line="7" selection-end-column="26" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AbstractTest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/msg-job-core/src/test/java/org/miaohong/jobs/msgjob/AbstractTest.java">
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="20" column="26" lean-forward="false" selection-start-line="20" selection-start-column="8" selection-end-line="20" selection-end-column="26" />
+            <state relative-caret-position="291">
+              <caret line="27" column="25" lean-forward="false" selection-start-line="27" selection-start-column="25" selection-end-line="27" selection-end-column="25" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="KafkaConsumerTest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/msg-job-core/src/test/java/org/miaohong/jobs/msgjob/dal/KafkaConsumerTest.java">
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/msg-job-core/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="13" column="15" lean-forward="false" selection-start-line="13" selection-start-column="15" selection-end-line="13" selection-end-column="15" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ConsumerService.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/msg-job-core/src/main/java/org/miaohong/jobs/msgjob/service/kafka/ConsumerService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="15" column="32" lean-forward="false" selection-start-line="15" selection-start-column="32" selection-end-line="15" selection-end-column="32" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="HBaseManager.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/msg-job-core/src/main/java/org/miaohong/jobs/msgjob/dal/hbase/HBaseManager.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="276">
-              <caret line="30" column="27" lean-forward="false" selection-start-line="30" selection-start-column="27" selection-end-line="30" selection-end-column="27" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="application.properties" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/msg-job-core/src/main/resources/application.properties">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" column="35" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="35" />
+            <state relative-caret-position="210">
+              <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -118,14 +84,44 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="InitManager.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/msg-job-core/src/main/java/org/miaohong/jobs/msgjob/manager/InitManager.java">
+      <file leaf-file-name="ConsumerService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/msg-job-core/src/main/java/org/miaohong/jobs/msgjob/service/kafka/ConsumerService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="14" column="14" lean-forward="false" selection-start-line="14" selection-start-column="14" selection-end-line="14" selection-end-column="14" />
+            <state relative-caret-position="105">
+              <caret line="15" column="8" lean-forward="false" selection-start-line="15" selection-start-column="8" selection-end-line="15" selection-end-column="8" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HBaseManager.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/msg-job-core/src/main/java/org/miaohong/jobs/msgjob/dal/hbase/HBaseManager.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="19" column="25" lean-forward="false" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HBaseManagerTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/msg-job-core/src/test/java/org/miaohong/jobs/msgjob/dal/HBaseManagerTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="240">
+              <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="application.properties" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/msg-job-core/src/main/resources/application.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="5" column="35" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="35" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -160,8 +156,6 @@
         <option value="$PROJECT_DIR$/msg-job-core/src/main/resources/META-INF/spring/application-service.xml" />
         <option value="$PROJECT_DIR$/msg-job-core/src/test/java/org/miaohong/jobs/msgjob/AbstractTest.java" />
         <option value="$PROJECT_DIR$/msg-job-core/src/main/java/org/miaohong/jobs/msgjob/dal/HBaseManager.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/msg-job-core/pom.xml" />
         <option value="$PROJECT_DIR$/msg-job-core/src/main/java/org/miaohong/jobs/msgjob/dal/KafkaManager.java" />
         <option value="$PROJECT_DIR$/msg-job-core/src/main/java/org/miaohong/jobs/msgjob/dal/kafka/KafkaManager.java" />
         <option value="$PROJECT_DIR$/msg-job-core/src/main/java/org/miaohong/jobs/msgjob/service/Testff.java" />
@@ -173,8 +167,10 @@
         <option value="$PROJECT_DIR$/msg-job-core/src/main/java/org/miaohong/jobs/msgjob/dal/kafka/KafkaProducer.java" />
         <option value="$PROJECT_DIR$/msg-job-core/src/main/resources/application.properties" />
         <option value="$PROJECT_DIR$/msg-job-core/src/main/java/org/miaohong/jobs/msgjob/dal/hbase/HBaseManager.java" />
-        <option value="$PROJECT_DIR$/msg-job-core/src/main/java/org/miaohong/jobs/msgjob/dal/model/KafkaP2PMsg.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/msg-job-core/pom.xml" />
         <option value="$PROJECT_DIR$/msg-job-core/src/main/java/org/miaohong/jobs/msgjob/dal/kafka/KafkaConsumer.java" />
+        <option value="$PROJECT_DIR$/msg-job-core/src/main/java/org/miaohong/jobs/msgjob/dal/model/KafkaP2PMsg.java" />
       </list>
     </option>
   </component>
@@ -283,6 +279,48 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="msgjob" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="msg-job" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="msg-job" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="msg-job-core" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="msgjob" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dal" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -876,8 +914,8 @@
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Application.ApplicationMain" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.KafkaConsumerTest.testConsume" />
-        <item index="2" class="java.lang.String" itemvalue="JUnit.HBaseManagerTest.testInsert" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.HBaseManagerTest.testInsert" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.KafkaConsumerTest.testConsume" />
         <item index="3" class="java.lang.String" itemvalue="JUnit.HBaseManagerTest.testHBaseManager" />
         <item index="4" class="java.lang.String" itemvalue="JUnit.HBaseManagerTest" />
       </list>
@@ -900,8 +938,8 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="KafkaConsumerTest_testConsume - 2017.01.13 at 10h 30m 12s.xml">
-      <configuration name="KafkaConsumerTest.testConsume" configurationId="JUnit" />
+    <history-entry file="HBaseManagerTest_testInsert - 2017.01.14 at 20h 14m 53s.xml">
+      <configuration name="HBaseManagerTest.testInsert" configurationId="JUnit" />
     </history-entry>
     <history-entry file="KafkaConsumerTest_testConsume - 2017.01.13 at 10h 34m 35s.xml">
       <configuration name="KafkaConsumerTest.testConsume" configurationId="JUnit" />
@@ -997,7 +1035,7 @@
         <state relative-caret-position="150">
           <caret line="13" column="13" lean-forward="false" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1051,7 +1089,7 @@
         <state relative-caret-position="60">
           <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1191,22 +1229,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="366">
-          <caret line="51" column="25" lean-forward="false" selection-start-line="51" selection-start-column="25" selection-end-line="51" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/msg-job-core/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="39" column="21" lean-forward="false" selection-start-line="39" selection-start-column="21" selection-end-line="39" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/msg-job-core/src/main/resources/META-INF/autoconf/auto-config.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1239,17 +1261,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/msg-job-core/src/test/java/org/miaohong/jobs/msgjob/dal/HBaseManagerTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-          <folding>
-            <element signature="e#387#388#0" expanded="false" />
-            <element signature="e#436#437#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/msg-job-core/src/main/java/org/miaohong/jobs/msgjob/dal/kafka/KafkaManager.java" />
     <entry file="file://$PROJECT_DIR$/msg-job-core/src/main/java/org/miaohong/jobs/msgjob/service/Testff.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -1279,16 +1290,8 @@
         <state relative-caret-position="195">
           <caret line="13" column="15" lean-forward="false" selection-start-line="13" selection-start-column="15" selection-end-line="13" selection-end-column="15" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/msg-job-core/src/main/java/org/miaohong/jobs/msgjob/ApplicationMain.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1296,16 +1299,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
           <caret line="14" column="14" lean-forward="false" selection-start-line="14" selection-start-column="14" selection-end-line="14" selection-end-column="14" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/msg-job-core/src/main/java/org/miaohong/jobs/msgjob/service/kafka/ConsumerService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="15" column="32" lean-forward="false" selection-start-line="15" selection-start-column="32" selection-end-line="15" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1320,26 +1313,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/msg-job-core/src/main/resources/application.properties">
+    <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="35" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="35" />
+        <state relative-caret-position="291">
+          <caret line="27" column="25" lean-forward="false" selection-start-line="27" selection-start-column="25" selection-end-line="27" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/msg-job-core/src/main/java/org/miaohong/jobs/msgjob/dal/model/KafkaP2PMsg.java">
+    <entry file="file://$PROJECT_DIR$/msg-job-core/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="27" lean-forward="false" selection-start-line="11" selection-start-column="27" selection-end-line="11" selection-end-column="27" />
+        <state relative-caret-position="210">
+          <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/msg-job-core/src/main/java/org/miaohong/jobs/msgjob/dal/kafka/KafkaConsumer.java">
+    <entry file="file://$PROJECT_DIR$/msg-job-core/src/main/java/org/miaohong/jobs/msgjob/service/kafka/ConsumerService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="25" column="29" lean-forward="false" selection-start-line="25" selection-start-column="17" selection-end-line="25" selection-end-column="29" />
+        <state relative-caret-position="105">
+          <caret line="15" column="8" lean-forward="false" selection-start-line="15" selection-start-column="8" selection-end-line="15" selection-end-column="8" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1348,8 +1341,50 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/msg-job-core/src/main/java/org/miaohong/jobs/msgjob/dal/hbase/HBaseManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="30" column="27" lean-forward="false" selection-start-line="30" selection-start-column="27" selection-end-line="30" selection-end-column="27" />
+        <state relative-caret-position="75">
+          <caret line="19" column="25" lean-forward="false" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/msg-job-core/src/test/java/org/miaohong/jobs/msgjob/dal/HBaseManagerTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/msg-job-core/src/main/java/org/miaohong/jobs/msgjob/ApplicationMain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/msg-job-core/src/main/resources/application.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="35" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/msg-job-core/src/main/java/org/miaohong/jobs/msgjob/dal/kafka/KafkaConsumer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="164">
+          <caret line="25" column="8" lean-forward="false" selection-start-line="24" selection-start-column="7" selection-end-line="25" selection-end-column="8" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/msg-job-core/src/main/java/org/miaohong/jobs/msgjob/dal/model/KafkaP2PMsg.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="26" lean-forward="true" selection-start-line="7" selection-start-column="26" selection-end-line="7" selection-end-column="26" />
           <folding />
         </state>
       </provider>

@@ -23,6 +23,11 @@ ttl = "10s"
     serviceName = "manager"
     etcdAddr = "localhost:2379"
     balancer = "rr"
+    [rpcClient.idgenClient]
+    serviceName = "idgen"
+    etcdAddr = "localhost:2379"
+    balancer = "rr"
+
 
 [kafkaProducer]
 p2pTopic = "logic_producer_p2p"
