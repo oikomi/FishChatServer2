@@ -2,6 +2,7 @@ package org.miaohong.jobs.msgjob.dal;
 
 import org.junit.Test;
 import org.miaohong.jobs.msgjob.AbstractTest;
+import org.miaohong.jobs.msgjob.dal.hbase.HBaseManager;
 
 import javax.annotation.Resource;
 

@@ -1,4 +1,4 @@
-package org.miaohong.jobs.msgjob.dal;
+package org.miaohong.jobs.msgjob.dal.hbase;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
@@ -7,6 +7,7 @@ import org.apache.hadoop.hbase.HTableDescriptor;
 import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.client.*;
 import org.apache.hadoop.hbase.util.Bytes;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -17,20 +18,20 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 @Component
 public class HBaseManager {
+    @Value("${hbase.master}")
+    private String hbaseMaster;
+    @Value("${hbase.zookeeper.property.clientPort}")
+    private String zkPort;
+
     private static final byte[] FAMILY = Bytes.toBytes("d");
-
-    /**
-     * For the example we're just using one qualifier.
-     */
     private static final byte[] QUAL = Bytes.toBytes("test");
-
     private static Configuration configuration;
     private Connection connection;
     private String nameSpace;
     public HBaseManager() {
         configuration = HBaseConfiguration.create();
-        configuration.set("hbase.master", "127.0.0.1:57336");
-        configuration.set("hbase.zookeeper.property.clientPort", "2181");
+        configuration.set("hbase.master", hbaseMaster);
+        configuration.set("hbase.zookeeper.property.clientPort", zkPort);
         try {
             connection = ConnectionFactory.createConnection(configuration);
         } catch (IOException e) {
@@ -50,7 +51,6 @@ public class HBaseManager {
     }
     public void insert(String tableName) {
         try {
-//            HTable hTable = new HTable(configuration, tableName);
             byte[] rk = Bytes.toBytes(ThreadLocalRandom.current().nextLong());
             byte[] value = Bytes.toBytes(Double.toString(ThreadLocalRandom.current().nextDouble()));
             Put p = new Put(rk);

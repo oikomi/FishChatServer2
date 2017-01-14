@@ -11,7 +11,8 @@ import org.springframework.context.annotation.ImportResource;
 @ComponentScan
 @EnableAutoConfiguration
 @ImportResource(value={"META-INF/spring/application-service.xml"})
-public class ApplicationMain {
+public class
+ApplicationMain {
     public static void main(String[] args) {
         SpringApplication.run(ApplicationMain.class, args);
     }

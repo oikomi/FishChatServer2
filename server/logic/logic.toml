@@ -26,7 +26,7 @@ ttl = "10s"
 
 [kafkaProducer]
 p2pTopic = "logic_producer_p2p"
-GroupTopic = "logic_producer_group"
+groupTopic = "logic_producer_group"
 [kafkaProducer.producer]
 sync = false
 brokers = ["127.0.0.1:9092"]
