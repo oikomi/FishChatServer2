@@ -1,13 +1,16 @@
 package org.miaohong.jobs.msgjob.dal.kafka;
 
+import com.alibaba.fastjson.JSON;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.miaohong.jobs.msgjob.dal.hbase.HBaseManager;
+import org.miaohong.jobs.msgjob.dal.model.KafkaP2PMsg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.*;
 
 /**
@@ -22,7 +25,7 @@ public class KafkaConsumer implements Runnable{
     @Value("${kafka.consumer.topics}")
     private String topics;
 
-    @Autowired
+    @Resource
     HBaseManager hBaseManager;
 
     private org.apache.kafka.clients.consumer.KafkaConsumer<String, String> consumer = null;
@@ -41,11 +44,13 @@ public class KafkaConsumer implements Runnable{
         props.put("value.deserializer", StringDeserializer.class.getName());
         this.consumer = new org.apache.kafka.clients.consumer.KafkaConsumer<>(props);
         this.consumer.subscribe(topicList);
+        hBaseManager.init();
     }
 
     private void consume() {
         System.out.println("consume");
         while (true) {
+            List<KafkaP2PMsg> kafkaP2PMsgs = new ArrayList<>();
             ConsumerRecords<String, String> records = consumer.poll(Long.MAX_VALUE);
             for (ConsumerRecord<String, String> record : records) {
                 Map<String, Object> data = new HashMap<>();
@@ -53,8 +58,11 @@ public class KafkaConsumer implements Runnable{
                 data.put("offset", record.offset());
                 data.put("value", record.value());
                 System.out.println(this.id + ": " + data);
-
+                KafkaP2PMsg kafkaP2PMsg = JSON.parseObject(record.value(), KafkaP2PMsg.class);
+                kafkaP2PMsgs.add(kafkaP2PMsg);
             }
+            System.out.println(kafkaP2PMsgs);
+            hBaseManager.insert(kafkaP2PMsgs);
         }
     }
 

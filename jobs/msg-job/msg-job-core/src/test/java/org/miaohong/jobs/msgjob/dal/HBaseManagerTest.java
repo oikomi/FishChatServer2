@@ -13,13 +13,13 @@ public class HBaseManagerTest extends AbstractTest {
     @Resource
     HBaseManager hBaseManager;
 
-    @Test
-    public void testHBaseManager() {
-        hBaseManager.createTable("test1");
-    }
+//    @Test
+//    public void testHBaseManager() {
+//        hBaseManager.createTable("test1");
+//    }
 
-    @Test
-    public void testInsert() {
-        hBaseManager.insert("test1");
-    }
+//    @Test
+//    public void testInsert() {
+//        hBaseManager.insert("test1");
+//    }
 }
