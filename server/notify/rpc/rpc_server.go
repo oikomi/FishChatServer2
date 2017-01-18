@@ -19,6 +19,12 @@ type RPCServer struct {
 
 func (s *RPCServer) Notify(ctx context.Context, in *rpc.NFNotifyMsgReq) (res *rpc.NFNotifyMsgRes, err error) {
 	glog.Info("notify recive Notify")
+	sendNotifyReqRPC := &rpc.ASSendNotifyReq{}
+	_, err = s.rpcClient.Access.SendNotify(ctx, sendNotifyReqRPC)
+	if err != nil {
+		glog.Error(err)
+		return
+	}
 	res = &rpc.NFNotifyMsgRes{
 		ErrCode: ecode.OK.Uint32(),
 		ErrStr:  ecode.OK.String(),

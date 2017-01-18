@@ -64,10 +64,10 @@ func (accessServerRPCCli *AccessServerRPCCli) connProc() {
 }
 
 // FIXME can not use rr
-func (accessServerRPCCli *AccessServerRPCCli) SendNotify(sendNotifyReq *rpc.ASSendNotifyReq) (res *rpc.ASSendNotifyRes, err error) {
+func (accessServerRPCCli *AccessServerRPCCli) SendNotify(ctx context.Context, sendNotifyReq *rpc.ASSendNotifyReq) (res *rpc.ASSendNotifyRes, err error) {
 	if conn, ok := accessServerRPCCli.conns[sendNotifyReq.AccessServerAddr]; ok {
 		a := rpc.NewAccessServerRPCClient(conn)
-		if res, err = a.SendNotify(context.Background(), sendNotifyReq); err != nil {
+		if res, err = a.SendNotify(ctx, sendNotifyReq); err != nil {
 			glog.Error(err)
 		}
 	} else {
