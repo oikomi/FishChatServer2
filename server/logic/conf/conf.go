@@ -33,6 +33,7 @@ type RPCClient struct {
 	RegisterClient *commconf.ServiceDiscoveryClient
 	ManagerClient  *commconf.ServiceDiscoveryClient
 	IdgenClient    *commconf.ServiceDiscoveryClient
+	NotifyClient   *commconf.ServiceDiscoveryClient
 }
 
 type MongoDB struct {
