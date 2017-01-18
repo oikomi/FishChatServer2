@@ -8,8 +8,8 @@ service NotifyServerRPC {
 
 message NFNotifyMsgReq {
     int64  targetUID = 1;
-    string currentID = 2;
-    string totalID   = 3;
+    int64  currentID = 2;
+    int64  totalID   = 3;
 }
 
 message NFNotifyMsgRes {

@@ -100,6 +100,15 @@ func (s *RPCServer) SendP2PMsg(ctx context.Context, in *rpc.SendP2PMsgReq) (res 
 		sendP2PMsgKafka.Online = false
 	} else {
 		sendP2PMsgKafka.Online = true
+		// send notify to client
+		notifyRes, err := s.rpcClient.Notify.Notify(ctx, in.TargetUID)
+		if err != nil {
+			glog.Error(err)
+		}
+		res = &rpc.SendP2PMsgRes{
+			ErrCode: notifyRes.ErrCode,
+			ErrStr:  notifyRes.ErrStr,
+		}
 	}
 	// get access server Addr
 	routerAccessRes, err := s.rpcClient.Register.RouterAccess(ctx, in.TargetUID)

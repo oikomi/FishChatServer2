@@ -6,6 +6,8 @@ service LogicRPC {
     rpc Login (LoginReq) returns (LoginRes) {}
     rpc Ping (PingReq) returns (PingRes) {}
     rpc SendP2PMsg (SendP2PMsgReq) returns (SendP2PMsgRes) {}
+    // client sync msg use current id
+    rpc SyncMsg (SyncMsgReq) returns (SyncMsgRes) {}
     rpc AcceptP2PMsgAck (AcceptP2PMsgAckReq) returns (AcceptP2PMsgAckRes) {}
     rpc SendGroupMsg (SendGroupMsgReq) returns (SendGroupMsgRes) {}
 }
@@ -39,6 +41,16 @@ message SendP2PMsgReq {
 }
 
 message SendP2PMsgRes {
+    uint32 errCode = 1;
+    string errStr  = 2;
+}
+
+message SyncMsgReq {
+    int64  UID        = 1;
+    string currentID  = 2;
+}
+
+message SyncMsgRes {
     uint32 errCode = 1;
     string errStr  = 2;
 }
