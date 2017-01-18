@@ -19,6 +19,7 @@ type Config struct {
 	ServiceDiscoveryServer *commconf.ServiceDiscoveryServer
 	RPCClient              *RPCClient
 	Redis                  *Redis
+	Mysql                  *Mysql
 	Etcd                   *commconf.Etcd
 }
 
@@ -31,9 +32,9 @@ type Redis struct {
 	Expire xtime.Duration
 }
 
-// type Mysql struct {
-// 	IM *commconf.MySQL
-// }
+type Mysql struct {
+	IM *commconf.MySQL
+}
 
 // type MongoDB struct {
 // 	*commconf.MongoDB

@@ -20,7 +20,6 @@ ttl = "10s"
     etcdAddr = "localhost:2379"
     balancer = "rr"
 
-
 [redis]
 name = "notify"
 proto = "tcp"
@@ -32,6 +31,13 @@ readTimeout = "1s"
 writeTimeout = "1s"
 idleTimeout = "10s"
 expire = "15s"
+
+[mysql]
+    [mysql.im]
+    name = "[im]tcp@127.0.0.1:3306"
+    dsn = "root:1@tcp(127.0.0.1:3306)/im?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+    active = 5 
+    idle = 2 
 
 [etcd]
 root = "/server/access_server_notify/"

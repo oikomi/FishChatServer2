@@ -101,7 +101,7 @@ func (s *RPCServer) SendP2PMsg(ctx context.Context, in *rpc.SendP2PMsgReq) (res 
 	} else {
 		sendP2PMsgKafka.Online = true
 		// send notify to client
-		notifyRes, err := s.rpcClient.Notify.Notify(ctx, in.TargetUID)
+		notifyRes, err := s.rpcClient.Notify.Notify(ctx, in.TargetUID, idgenRes.Value)
 		if err != nil {
 			glog.Error(err)
 		}

@@ -19,7 +19,21 @@ type RPCServer struct {
 
 func (s *RPCServer) Notify(ctx context.Context, in *rpc.NFNotifyMsgReq) (res *rpc.NFNotifyMsgRes, err error) {
 	glog.Info("notify recive Notify")
-	sendNotifyReqRPC := &rpc.ASSendNotifyReq{}
+	userMsgID, err := s.dao.Mysql.GetUserMsgID(ctx, in.TargetUID)
+	if err != nil {
+		glog.Error(err)
+		return
+	}
+	_, err = s.dao.Mysql.UpdateUserMsgID(ctx, in.TargetUID, userMsgID.CurrentMsgID, in.TotalID)
+	if err != nil {
+		glog.Error(err)
+		return
+	}
+	sendNotifyReqRPC := &rpc.ASSendNotifyReq{
+		UID:       in.TargetUID,
+		CurrentID: userMsgID.CurrentMsgID,
+		TotalID:   in.TotalID,
+	}
 	_, err = s.rpcClient.Access.SendNotify(ctx, sendNotifyReqRPC)
 	if err != nil {
 		glog.Error(err)
@@ -29,6 +43,11 @@ func (s *RPCServer) Notify(ctx context.Context, in *rpc.NFNotifyMsgReq) (res *rp
 		ErrCode: ecode.OK.Uint32(),
 		ErrStr:  ecode.OK.String(),
 	}
+	return
+}
+
+func (s *RPCServer) Sync(ctx context.Context, in *rpc.NFNotifyMsgReq) (res *rpc.NFNotifyMsgRes, err error) {
+
 	return
 }
 

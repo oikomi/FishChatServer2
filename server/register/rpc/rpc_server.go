@@ -30,6 +30,14 @@ func (s *RPCServer) Register(ctx context.Context, in *rpc.RGRegisterReq) (res *r
 		glog.Error(err)
 		return
 	}
+	if _, err = s.dao.Mysql.InsertUserMsgID(ctx, in.UID, 0, 0); err != nil {
+		res = &rpc.RGRegisterRes{
+			ErrCode: ecode.ServerErr.Uint32(),
+			ErrStr:  ecode.ServerErr.String(),
+		}
+		glog.Error(err)
+		return
+	}
 	res = &rpc.RGRegisterRes{
 		ErrCode: ecode.OK.Uint32(),
 		ErrStr:  ecode.OK.String(),
