@@ -6,17 +6,17 @@ import (
 )
 
 type RPCClient struct {
-	Idgen *client.IdgenRPCCli
+	Access *client.AccessServerRPCCli
 }
 
 func NewRPCClient() (c *RPCClient, err error) {
-	idgen, err := client.NewIdgenRPCCli()
+	access, err := client.NewAccessServerRPCCli()
 	if err != nil {
 		glog.Error(err)
 		return
 	}
 	c = &RPCClient{
-		Idgen: idgen,
+		Access: access,
 	}
 	return
 }

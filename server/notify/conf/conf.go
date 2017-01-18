@@ -23,12 +23,7 @@ type Config struct {
 }
 
 type RPCClient struct {
-	IdgenClient *commconf.ServiceDiscoveryClient
-}
-
-type Auth struct {
-	Encryption string
-	Salt       string
+	AccessClient *commconf.ServiceDiscoveryClient
 }
 
 type Redis struct {

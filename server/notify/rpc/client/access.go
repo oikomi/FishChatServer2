@@ -64,10 +64,10 @@ func (accessServerRPCCli *AccessServerRPCCli) connProc() {
 }
 
 // FIXME can not use rr
-func (accessServerRPCCli *AccessServerRPCCli) SendP2PMsgFromJob(sendP2PMsgReq *rpc.ASSendP2PMsgFromJobReq) (res *rpc.ASSendP2PMsgFromJobRes, err error) {
-	if conn, ok := accessServerRPCCli.conns[sendP2PMsgReq.AccessServerAddr]; ok {
+func (accessServerRPCCli *AccessServerRPCCli) SendNotify(sendNotifyReq *rpc.ASSendNotifyReq) (res *rpc.ASSendNotifyRes, err error) {
+	if conn, ok := accessServerRPCCli.conns[sendNotifyReq.AccessServerAddr]; ok {
 		a := rpc.NewAccessServerRPCClient(conn)
-		if res, err = a.SendP2PMsgFromJob(context.Background(), sendP2PMsgReq); err != nil {
+		if res, err = a.SendNotify(context.Background(), sendNotifyReq); err != nil {
 			glog.Error(err)
 		}
 	} else {

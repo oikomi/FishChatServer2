@@ -15,8 +15,8 @@ interval = "5s"
 ttl = "10s"
 
 [rpcClient]
-    [rpcClient.idgenClient]
-    serviceName = "idgen"
+    [rpcClient.accessClient]
+    serviceName = "access"
     etcdAddr = "localhost:2379"
     balancer = "rr"
 

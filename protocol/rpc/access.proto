@@ -4,6 +4,7 @@ package rpc;
 
 service AccessServerRPC {
     rpc SendP2PMsgFromJob (ASSendP2PMsgFromJobReq) returns (ASSendP2PMsgFromJobRes) {}
+    rpc SendNotify (ASSendNotifyReq) returns (ASSendNotifyRes) {}
     //rpc SendGroupMsg (ASSendGroupMsgReq) returns (ASSendGroupMsgRes) {}
 }
 
@@ -28,6 +29,19 @@ message ASSendP2PMsgFromJobReq {
 }
 
 message ASSendP2PMsgFromJobRes {
+    uint32 errCode = 1;
+    string errStr  = 2;
+}
+
+message ASSendNotifyReq {
+    int64  sourceUID        = 1;
+    int64  targetUID        = 2;
+    string msgID            = 3;
+    string msg              = 4;
+    string accessServerAddr = 5;
+}
+
+message ASSendNotifyRes {
     uint32 errCode = 1;
     string errStr  = 2;
 }
