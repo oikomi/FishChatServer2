@@ -29,6 +29,7 @@ type RPCClient struct {
 type ConfDiscovery struct {
 	Gateway *commconf.Etcd
 	MsgJob  *commconf.Etcd
+	Notify  *commconf.Etcd
 }
 
 func init() {

@@ -79,6 +79,7 @@ func (s *RPCServer) SendP2PMsg(ctx context.Context, in *rpc.SendP2PMsgReq) (res 
 		SourceUID: in.SourceUID,
 		TargetUID: in.TargetUID,
 		MsgID:     in.MsgID,
+		MsgType:   in.MsgType,
 		Msg:       in.Msg,
 	}
 	// idgen

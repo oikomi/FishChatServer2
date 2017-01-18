@@ -11,4 +11,5 @@ logic : 21000
 auth  : 22000
 register : 23000
 manager : 24000 
+notify : 25000 
 

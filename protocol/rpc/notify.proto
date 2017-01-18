@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package rpc;
+
+service NotifyServerRPC {
+    rpc Notify (NFNotifyMsgReq) returns (NFNotifyMsgRes) {}
+}
+
+message NFNotifyMsgReq {
+    int64  targetUID = 1;
+    string currentID = 2;
+    string totalID   = 3;
+}
+
+message NFNotifyMsgRes {
+    uint32 errCode = 1;
+    string errStr  = 2;
+}
+

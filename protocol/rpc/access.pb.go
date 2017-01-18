@@ -10,6 +10,7 @@ It is generated from these files:
 	idgen.proto
 	logic.proto
 	manager.proto
+	notify.proto
 	register.proto
 
 It has these top-level messages:
@@ -35,6 +36,8 @@ It has these top-level messages:
 	MGOfflineMsgReq
 	OfflineMsg
 	MGOfflineMsgRes
+	NFNotifyMsgReq
+	NFNotifyMsgRes
 	RGRegisterReq
 	RGRegisterRes
 	RGLoginReq

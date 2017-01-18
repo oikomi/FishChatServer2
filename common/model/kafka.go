@@ -10,6 +10,7 @@ type SendP2PMsgKafka struct {
 	SourceUID        int64  `json:"sourceUID"`
 	TargetUID        int64  `json:"targetUID"`
 	MsgID            string `json:"msgID"`
+	MsgType          string `json:"msgType"`
 	Msg              string `json:"msg"`
 	AccessServerAddr string `json:"accessServerAddr"`
 	Online           bool   `json:"online"`
