@@ -66,3 +66,11 @@ func (logicRPCCli *LogicRPCCli) SendGroupMsg(sendGroupMsgReq *rpc.SendGroupMsgRe
 	}
 	return
 }
+
+func (logicRPCCli *LogicRPCCli) SyncMsg(sendGroupMsgReq *rpc.SyncMsgReq) (res *rpc.SyncMsgRes, err error) {
+	l := rpc.NewLogicRPCClient(logicRPCCli.conn)
+	if res, err = l.SyncMsg(context.Background(), sendGroupMsgReq); err != nil {
+		glog.Error(err)
+	}
+	return
+}

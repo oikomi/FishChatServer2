@@ -217,3 +217,42 @@ func (c *Client) procSendGroupMsg(reqData []byte) (err error) {
 	}
 	return
 }
+
+func (c *Client) procSyncMsg(reqData []byte) (err error) {
+	reqSyncMsg := &external.ReqSyncMsg{}
+	if err = proto.Unmarshal(reqData, reqSyncMsg); err != nil {
+		if err = c.Session.Send(&external.Error{
+			Cmd:     external.ErrServerCMD,
+			ErrCode: ecode.ServerErr.Uint32(),
+			ErrStr:  ecode.ServerErr.String(),
+		}); err != nil {
+			glog.Error(err)
+		}
+		glog.Error(err)
+		return
+	}
+	reqSyncMsgRPC := &rpc.SyncMsgReq{
+		UID:       reqSyncMsg.UID,
+		CurrentID: reqSyncMsg.CurrentID,
+	}
+	resSyncMsgRPC, err := c.RPCClient.Logic.SyncMsg(reqSyncMsgRPC)
+	if err != nil {
+		if err = c.Session.Send(&external.ResSyncMsg{
+			Cmd:     external.ErrServerCMD,
+			ErrCode: ecode.ServerErr.Uint32(),
+			ErrStr:  ecode.ServerErr.String(),
+		}); err != nil {
+			glog.Error(err)
+		}
+		glog.Error(err)
+		return
+	}
+	if err = c.Session.Send(&external.ResSyncMsg{
+		Cmd:     external.SyncMsgCMD,
+		ErrCode: resSyncMsgRPC.ErrCode,
+		ErrStr:  resSyncMsgRPC.ErrStr,
+	}); err != nil {
+		glog.Error(err)
+	}
+	return
+}

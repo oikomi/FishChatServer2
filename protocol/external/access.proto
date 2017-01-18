@@ -59,6 +59,38 @@ message ResSendP2PMsg {
     string msg       = 8;
 }
 
+// notify 
+message ResNotify {
+    uint32 cmd       = 1;
+    string cmdStr    = 2;
+    uint32 errCode   = 3;
+    string errStr    = 4;
+    int64  currentID = 5;
+}
+
+// sync msg
+message ReqSyncMsg {
+    uint32 cmd       = 1;
+    string cmdStr    = 2;
+    int64  UID       = 3;
+    int64  currentID = 4;
+}
+
+message offsetP2PMsg {
+    int64  sourceUID        = 1;
+    int64  targetUID        = 2;
+    string msgID            = 3;
+    string msg              = 4;
+}
+
+message ResSyncMsg {
+    uint32 cmd                    = 1;
+    string cmdStr                 = 2;
+    uint32 errCode                = 3;
+    string errStr                 = 4;
+    repeated offsetP2PMsg p2pMsgs = 5;
+}
+
 // p2p msg read ack
 message ReqReadP2PMsgAck {
     uint32 cmd       = 1;

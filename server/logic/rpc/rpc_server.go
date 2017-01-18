@@ -148,6 +148,15 @@ func (s *RPCServer) SendGroupMsg(ctx context.Context, in *rpc.SendGroupMsgReq) (
 	return
 }
 
+func (s *RPCServer) SyncMsg(ctx context.Context, in *rpc.SyncMsgReq) (res *rpc.SyncMsgRes, err error) {
+	glog.Info("logic recive SyncMsg")
+	res = &rpc.SyncMsgRes{
+		ErrCode: ecode.OK.Uint32(),
+		ErrStr:  ecode.OK.String(),
+	}
+	return
+}
+
 func RPCServerInit(rpcClient *RPCClient) {
 	glog.Info("[logic] rpc server init")
 	lis, err := net.Listen(conf.Conf.RPCServer.Proto, conf.Conf.RPCServer.Addr)

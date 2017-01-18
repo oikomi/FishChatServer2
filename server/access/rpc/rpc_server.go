@@ -47,6 +47,34 @@ func (s *RPCServer) SendP2PMsgFromJob(ctx context.Context, in *rpc.ASSendP2PMsgF
 	return
 }
 
+func (s *RPCServer) SendNotify(ctx context.Context, in *rpc.ASSendNotifyReq) (res *rpc.ASSendNotifyRes, err error) {
+	glog.Info("access recive SendNotify")
+	glog.Info(global.GSessions)
+	if session, ok := global.GSessions[in.UID]; ok {
+		glog.Info("session is online")
+		if err = session.Send(&external.ResNotify{
+			Cmd:       external.NotifyCMD,
+			ErrCode:   ecode.OK.Uint32(),
+			ErrStr:    ecode.OK.String(),
+			CurrentID: in.CurrentID,
+		}); err != nil {
+			glog.Error(err)
+			res = &rpc.ASSendNotifyRes{
+				ErrCode: ecode.ServerErr.Uint32(),
+				ErrStr:  ecode.ServerErr.String(),
+			}
+			return
+		}
+	} else {
+		// offline
+	}
+	res = &rpc.ASSendNotifyRes{
+		ErrCode: ecode.OK.Uint32(),
+		ErrStr:  ecode.OK.String(),
+	}
+	return
+}
+
 func RPCServerInit() {
 	glog.Info("[access] rpc server init")
 	lis, err := net.Listen(conf.Conf.RPCServer.Proto, conf.Conf.RPCServer.Addr)
