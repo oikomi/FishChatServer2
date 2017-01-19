@@ -32,9 +32,10 @@ func (s *RPCServer) Notify(ctx context.Context, in *rpc.NFNotifyMsgReq) (res *rp
 		return
 	}
 	sendNotifyReqRPC := &rpc.ASSendNotifyReq{
-		UID:       in.TargetUID,
-		CurrentID: userMsgID.CurrentMsgID,
-		TotalID:   in.TotalID,
+		UID:              in.TargetUID,
+		CurrentID:        userMsgID.CurrentMsgID,
+		TotalID:          in.TotalID,
+		AccessServerAddr: in.AccessServerAddr,
 	}
 	_, err = s.rpcClient.Access.SendNotify(ctx, sendNotifyReqRPC)
 	if err != nil {

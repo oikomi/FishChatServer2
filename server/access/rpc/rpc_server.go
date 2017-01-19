@@ -76,7 +76,7 @@ func (s *RPCServer) SendNotify(ctx context.Context, in *rpc.ASSendNotifyReq) (re
 }
 
 func RPCServerInit() {
-	glog.Info("[access] rpc server init")
+	glog.Info("[access] rpc server init at " + conf.Conf.RPCServer.Addr)
 	lis, err := net.Listen(conf.Conf.RPCServer.Proto, conf.Conf.RPCServer.Addr)
 	if err != nil {
 		glog.Error(err)

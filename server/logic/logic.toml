@@ -42,7 +42,7 @@ sync = false
 brokers = ["127.0.0.1:9092"]
     [kafkaProducer.producer.zookeeper]
     root = "/kafka"
-    addrs = ["127.0.0.1:2181"]
+    addrs = ["127.0.0.1:2182"]
     timeout = "2s"
 
 [mongoDB]

@@ -44,10 +44,12 @@ func NewAccessServerRPCCli() (accessServerRPCCli *AccessServerRPCCli, err error)
 }
 
 func (accessServerRPCCli *AccessServerRPCCli) connProc() {
+	glog.Info(conf_discovery.AccessServerList)
 	var accessServerList []string
 	conns := make(map[string]*grpc.ClientConn)
 	for {
 		for _, v := range conf_discovery.AccessServerList {
+			glog.Info(v.IP)
 			accessServerList = append(accessServerList, v.IP)
 		}
 		for _, accessServer := range accessServerList {
@@ -64,6 +66,8 @@ func (accessServerRPCCli *AccessServerRPCCli) connProc() {
 
 // FIXME can not use rr
 func (accessServerRPCCli *AccessServerRPCCli) SendNotify(ctx context.Context, sendNotifyReq *rpc.ASSendNotifyReq) (res *rpc.ASSendNotifyRes, err error) {
+	glog.Info(accessServerRPCCli.conns)
+	glog.Info(sendNotifyReq.AccessServerAddr)
 	if conn, ok := accessServerRPCCli.conns[sendNotifyReq.AccessServerAddr]; ok {
 		a := rpc.NewAccessServerRPCClient(conn)
 		if res, err = a.SendNotify(ctx, sendNotifyReq); err != nil {

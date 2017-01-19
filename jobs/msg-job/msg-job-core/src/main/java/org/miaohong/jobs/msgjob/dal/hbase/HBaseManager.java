@@ -80,7 +80,7 @@ public class HBaseManager {
             List<Put> puts = new ArrayList<>();
             Table t = connection.getTable(TableName.valueOf(table));
             for (KafkaP2PMsg kafkaP2PMsg : kafkaP2PMsgs) {
-                byte[] rk = Bytes.toBytes(kafkaP2PMsg.getTargetUID());
+                byte[] rk = Bytes.toBytes(kafkaP2PMsg.getTargetUID() + "_" + kafkaP2PMsg.getIncrementID());
                 // user
                 byte[] sourceUIDData = Bytes.toBytes(kafkaP2PMsg.getSourceUID());
                 byte[] incrementIDData = Bytes.toBytes(kafkaP2PMsg.getIncrementID());
@@ -104,16 +104,13 @@ public class HBaseManager {
             e.printStackTrace();
         }
     }
-//    public void insertMsg(String tableName) {
-//        try {
-//            byte[] rk = Bytes.toBytes(ThreadLocalRandom.current().nextLong());
-//            byte[] value = Bytes.toBytes(Double.toString(ThreadLocalRandom.current().nextDouble()));
-//            Put p = new Put(rk);
-//            p.addImmutable(FAMILY, QUAL, value);
-//            Table t = connection.getTable(TableName.valueOf(tableName));
-//            t.put(p);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
+
+    public void getUserMsg() {
+        try {
+            Table t = connection.getTable(TableName.valueOf(table));
+//            t.get()
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

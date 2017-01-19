@@ -84,6 +84,7 @@ access
 gateway
 logic
 manager
+notify
 register
 ```
 
