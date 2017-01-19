@@ -27,11 +27,12 @@ func NewNotifyRPCCli() (notifyRPCCli *NotifyRPCCli, err error) {
 	return
 }
 
-func (notifyRPCCli *NotifyRPCCli) Notify(ctx context.Context, targetUID, totalID int64) (res *rpc.NFNotifyMsgRes, err error) {
+func (notifyRPCCli *NotifyRPCCli) Notify(ctx context.Context, targetUID, totalID int64, accessAddr string) (res *rpc.NFNotifyMsgRes, err error) {
 	n := rpc.NewNotifyServerRPCClient(notifyRPCCli.conn)
 	if res, err = n.Notify(ctx, &rpc.NFNotifyMsgReq{
-		TargetUID: targetUID,
-		TotalID:   totalID,
+		TargetUID:        targetUID,
+		TotalID:          totalID,
+		AccessServerAddr: accessAddr,
 	}); err != nil {
 		glog.Error(err)
 	}

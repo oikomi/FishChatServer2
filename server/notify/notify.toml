@@ -32,6 +32,11 @@ writeTimeout = "1s"
 idleTimeout = "10s"
 expire = "15s"
 
+[etcd]
+root = "/server/access_server_notify/"
+addrs = ["127.0.0.1:2379"]
+timeout = "1s"
+
 [mysql]
     [mysql.im]
     name = "[im]tcp@127.0.0.1:3306"
@@ -39,7 +44,4 @@ expire = "15s"
     active = 5 
     idle = 2 
 
-[etcd]
-root = "/server/access_server_notify/"
-addrs = ["127.0.0.1:2379"]
-timeout = "1s"
+

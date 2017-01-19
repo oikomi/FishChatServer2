@@ -28,7 +28,7 @@ func main() {
 		glog.Error(err)
 		panic(err)
 	}
-	accessServer.SDHeart()
+	go accessServer.SDHeart()
 	rpcClient, err := rpc.NewRPCClient()
 	if err != nil {
 		glog.Error(err)

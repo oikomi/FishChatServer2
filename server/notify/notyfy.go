@@ -19,11 +19,11 @@ func main() {
 		glog.Error("conf.Init() error: ", err)
 		panic(err)
 	}
+	go conf_discovery.ConfDiscoveryProc()
 	rpcClient, err := rpc.NewRPCClient()
 	if err != nil {
 		glog.Error(err)
 		panic(err)
 	}
-	go conf_discovery.ConfDiscoveryProc()
 	rpc.RPCServerInit(rpcClient)
 }

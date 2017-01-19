@@ -20,7 +20,6 @@ func NewAccessServerRPCCli() (accessServerRPCCli *AccessServerRPCCli, err error)
 	conns := make(map[string]*grpc.ClientConn)
 	for {
 		if len(conf_discovery.AccessServerList) <= 0 {
-			glog.Info("len(conf_discovery.AccessServerList) <= 0")
 			time.Sleep(time.Second * 5)
 		} else {
 			glog.Info(conf_discovery.AccessServerList)
