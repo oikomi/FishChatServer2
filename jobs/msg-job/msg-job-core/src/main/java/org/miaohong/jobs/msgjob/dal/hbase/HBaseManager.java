@@ -8,13 +8,14 @@ import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.client.*;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.miaohong.jobs.msgjob.dal.model.KafkaP2PMsg;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Created by miaohong on 17/1/9.
@@ -49,7 +50,10 @@ public class HBaseManager {
     @Value("${hbase.msg.msg.qual.accessServerAddr}")
     private String accessServerAddr;
 
-//    private static final byte[] FAMILY = Bytes.toBytes("d");
+    private static final Logger logger = LoggerFactory.getLogger(HBaseManager.class);
+
+
+    //    private static final byte[] FAMILY = Bytes.toBytes("d");
 //    private static final byte[] QUAL = Bytes.toBytes("test");
     private static Configuration configuration;
     private Connection connection;
@@ -101,7 +105,7 @@ public class HBaseManager {
             }
             t.put(puts);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("insert err ", e);
         }
     }
 
@@ -110,7 +114,7 @@ public class HBaseManager {
             Table t = connection.getTable(TableName.valueOf(table));
 //            t.get()
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("getUserMsg err ", e);
         }
     }
 }

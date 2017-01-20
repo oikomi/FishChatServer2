@@ -6,6 +6,8 @@ import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.miaohong.jobs.msgjob.dal.hbase.HBaseManager;
 import org.miaohong.jobs.msgjob.dal.model.KafkaP2PMsg;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -28,6 +30,8 @@ public class KafkaConsumer implements Runnable{
     @Resource
     HBaseManager hBaseManager;
 
+    private static final Logger logger = LoggerFactory.getLogger(KafkaConsumer.class);
+
     private org.apache.kafka.clients.consumer.KafkaConsumer<String, String> consumer = null;
     private int id = 0;
 
@@ -48,7 +52,7 @@ public class KafkaConsumer implements Runnable{
     }
 
     private void consume() {
-        System.out.println("consume");
+        logger.info("consume");
         while (true) {
             List<KafkaP2PMsg> kafkaP2PMsgs = new ArrayList<>();
             ConsumerRecords<String, String> records = consumer.poll(Long.MAX_VALUE);

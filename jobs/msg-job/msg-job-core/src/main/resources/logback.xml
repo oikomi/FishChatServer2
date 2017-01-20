@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
     <appender name="infoAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${logger_dir}/info/info.log</file>
+        <file>/tmp/msg-job/info/info.log</file>
         <append>true</append>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>INFO</level>
@@ -9,7 +9,7 @@
             <onMismatch>DENY</onMismatch>
         </filter>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${logger_dir}/info/info-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>/tmp/msg-job/info/info-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>104857600</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>
@@ -21,7 +21,7 @@
         </encoder>
     </appender>
     <appender name="warnAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${logger_dir}/warn/warn.log</file>
+        <file>/tmp/msg-job/warn/warn.log</file>
         <append>true</append>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>WARN</level>
@@ -29,7 +29,7 @@
             <onMismatch>DENY</onMismatch>
         </filter>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${logger_dir}/warn/warn-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>/tmp/msg-job/warn/warn-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>104857600</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>
@@ -41,7 +41,7 @@
         </encoder>
     </appender>
     <appender name="errorAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${logger_dir}/error/error.log</file>
+        <file>/tmp/msg-job/error/error.log</file>
         <append>true</append>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>ERROR</level>
@@ -49,7 +49,7 @@
             <onMismatch>DENY</onMismatch>
         </filter>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${logger_dir}/error/error-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>/tmp/msg-job/error/error-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>104857600</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>
@@ -60,45 +60,45 @@
             <charset class="java.nio.charset.Charset">UTF-8</charset>
         </encoder>
     </appender>
-    <appender name="callTraceAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${logger_dir}/dubbo/calltrace.log</file>
-        <append>true</append>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${logger_dir}/dubbo/calltrace-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
-            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>104857600</maxFileSize>
-            </timeBasedFileNamingAndTriggeringPolicy>
-            <MaxHistory>3</MaxHistory>
-        </rollingPolicy>
-        <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n  </pattern>
-            <charset class="java.nio.charset.Charset">UTF-8</charset>
-        </encoder>
-    </appender>
-    <appender name="MONITOR"
-              class="com.pajk.troy.client.metrics.log.MonitorLogbackAppender">
-        <noneStackEnable>true</noneStackEnable>
-    </appender>
-    <logger name="CallTrace" additivity="false">
+    <!--<appender name="callTraceAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+        <!--<file>/home/admin/logs/yachtshowcase/dubbo/calltrace.log</file>-->
+        <!--<append>true</append>-->
+        <!--<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
+            <!--<fileNamePattern>/home/admin/logs/yachtshowcase/dubbo/calltrace-%d{yyyy-MM-dd}.%i.log</fileNamePattern>-->
+            <!--<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">-->
+                <!--<maxFileSize>104857600</maxFileSize>-->
+            <!--</timeBasedFileNamingAndTriggeringPolicy>-->
+            <!--<MaxHistory>3</MaxHistory>-->
+        <!--</rollingPolicy>-->
+        <!--<encoder>-->
+            <!--<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n  </pattern>-->
+            <!--<charset class="java.nio.charset.Charset">UTF-8</charset>-->
+        <!--</encoder>-->
+    <!--</appender>-->
+    <!--<appender name="MONITOR"-->
+              <!--class="com.pajk.troy.client.metrics.log.MonitorLogbackAppender">-->
+        <!--<noneStackEnable>true</noneStackEnable>-->
+    <!--</appender>-->
+    <!--<logger name="CallTrace" additivity="false">-->
+        <!--<level value="info"/>-->
+        <!--<appender-ref ref="callTraceAppender"/>-->
+        <!--<appender-ref ref="MONITOR"/>-->
+    <!--</logger>-->
+    <!--<logger name="com.alibaba.dubbo" additivity="false">-->
+        <!--<level value="ERROR"/>-->
+        <!--<appender-ref ref="MONITOR" />-->
+    <!--</logger>-->
+    <logger name="org.miaohong.jobs.msgjob" additivity="false">
         <level value="info"/>
-        <appender-ref ref="callTraceAppender"/>
-        <appender-ref ref="MONITOR"/>
-    </logger>
-    <logger name="com.alibaba.dubbo" additivity="false">
-        <level value="ERROR"/>
-        <appender-ref ref="MONITOR" />
-    </logger>
-    <logger name="com.pajk.yachtshowcase" additivity="false">
-        <level value="${logger_level}"/>
         <appender-ref ref="infoAppender"/>
         <appender-ref ref="warnAppender"/>
         <appender-ref ref="errorAppender"/>
-        <appender-ref ref="MONITOR" />
+        <!--<appender-ref ref="MONITOR" />-->
     </logger>
 
     <root level="error">
         <appender-ref ref="errorAppender"/>
-        <appender-ref ref="MONITOR" />
+        <!--<appender-ref ref="MONITOR" />-->
     </root>
 
 </configuration>
