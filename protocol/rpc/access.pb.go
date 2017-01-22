@@ -42,6 +42,8 @@ It has these top-level messages:
 	MGOfflineMsgReq
 	OfflineMsg
 	MGOfflineMsgRes
+	MGSyncMsgReq
+	MGSyncMsgRes
 	NFNotifyMsgReq
 	NFNotifyMsgRes
 	RGRegisterReq

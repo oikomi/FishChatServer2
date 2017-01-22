@@ -7,6 +7,7 @@ import (
 type Dao struct {
 	Redis   *Redis
 	MongoDB *MongoDB
+	HBase   *HBase
 }
 
 func NewDao() (dao *Dao) {
@@ -16,9 +17,11 @@ func NewDao() (dao *Dao) {
 		panic(err)
 	}
 	redis := NewRedis()
+	h := NewHBase()
 	dao = &Dao{
 		Redis:   redis,
 		MongoDB: m,
+		HBase:   h,
 	}
 	return
 }

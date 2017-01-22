@@ -50,7 +50,7 @@ func (s *RPCServer) Notify(ctx context.Context, in *rpc.NFNotifyMsgReq) (res *rp
 }
 
 func (s *RPCServer) Sync(ctx context.Context, in *rpc.NFNotifyMsgReq) (res *rpc.NFNotifyMsgRes, err error) {
-
+	glog.Info("notify recive Sync")
 	return
 }
 

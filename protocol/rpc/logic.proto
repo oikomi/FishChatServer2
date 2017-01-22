@@ -49,13 +49,14 @@ message SendP2PMsgRes {
 message SyncMsgReq {
     int64  UID        = 1;
     int64  currentID  = 2;
+    int64  totalID    = 3;
 }
 
 message offsetP2PMsg {
-    int64  sourceUID        = 1;
-    int64  targetUID        = 2;
-    string msgID            = 3;
-    string msg              = 4;
+    int64  sourceUID   = 1;
+    int64  targetUID   = 2;
+    string msgID       = 3;
+    string msg         = 4;
 }
 
 message SyncMsgRes {

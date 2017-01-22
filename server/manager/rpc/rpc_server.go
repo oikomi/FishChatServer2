@@ -84,6 +84,11 @@ func (s *RPCServer) SetExceptionMsg(ctx context.Context, in *rpc.MGExceptionMsgR
 	return
 }
 
+func (s *RPCServer) Sync(ctx context.Context, in *rpc.MGSyncMsgReq) (res *rpc.MGSyncMsgRes, err error) {
+	glog.Info("Sync")
+	return
+}
+
 func RPCServerInit() {
 	glog.Info("[manager] rpc server init: ", conf.Conf.RPCServer.Addr)
 	lis, err := net.Listen(conf.Conf.RPCServer.Proto, conf.Conf.RPCServer.Addr)
