@@ -139,7 +139,6 @@ message ResAcceptP2PMsgAck {
     string errStr  = 4;
 }
 
-
 // group
 message ReqSendGroupMsg {
     uint32 cmd       = 1;
