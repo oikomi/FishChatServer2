@@ -24,6 +24,8 @@ func checkErr(err error) {
 	}
 }
 
+var _currentID int64
+
 func clientLoop(session *libnet.Session, protobuf *codec.ProtobufProtocol) {
 	var err error
 	var clientMsg *libnet.Session
@@ -109,8 +111,31 @@ func clientLoop(session *libnet.Session, protobuf *codec.ProtobufProtocol) {
 					}
 					fmt.Printf("收到点对点消息: 返回码[%d], 对方ID[%d], 消息内容[%s]", resSendP2PMsg.ErrCode, resSendP2PMsg.TargetUID, resSendP2PMsg.Msg)
 					fmt.Println()
+				case external.NotifyCMD:
+					resNotify := &external.ResNotify{}
+					if err = proto.Unmarshal(rsp, resNotify); err != nil {
+						glog.Error(err)
+					}
+					fmt.Println(resNotify.CurrentID)
+					_currentID = resNotify.CurrentID
+				case external.SyncMsgCMD:
+					resSyncMsg := &external.ResSyncMsg{}
+					if err = proto.Unmarshal(rsp, resSyncMsg); err != nil {
+						glog.Error(err)
+					}
+					fmt.Println(resSyncMsg.P2PMsgs)
 				}
 			}
+		}
+	}()
+	go func() {
+		for {
+			err = clientMsg.Send(&external.ReqSyncMsg{
+				Cmd:       external.SyncMsgCMD,
+				UID:       myID,
+				CurrentID: _currentID,
+			})
+			time.Sleep(5 * time.Second)
 		}
 	}()
 	for {

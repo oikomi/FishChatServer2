@@ -2,7 +2,6 @@ syntax = "proto3";
 
 package external;
 
-// cmdNum = 1001
 message Base {
     uint32 cmd = 1;
 }

@@ -2,10 +2,12 @@ syntax = "proto3";
 
 package rpc;
 
+// import "common.proto";
+
 service AccessServerRPC {
     rpc SendP2PMsgFromJob (ASSendP2PMsgFromJobReq) returns (ASSendP2PMsgFromJobRes) {}
     rpc SendNotify (ASSendNotifyReq) returns (ASSendNotifyRes) {}
-    // rpc Sync (ASSyncReq) returns (ASSSyncRes) {}
+    // rpc Sync (ASSyncReq) returns (ASSyncRes) {}
     //rpc SendGroupMsg (ASSendGroupMsgReq) returns (ASSendGroupMsgRes) {}
 }
 
@@ -34,21 +36,24 @@ message ASSendP2PMsgFromJobRes {
     string errStr  = 2;
 }
 
-message ASOffsetP2PMsg {
-    int64  sourceUID        = 1;
-    int64  targetUID        = 2;
-    string msgID            = 3;
-    string msg              = 4;
-}
-
-// message ASSyncReq {
-//     int64                 currentID = 1;
-//     repeated ASOffsetP2PMsg p2pMsgs = 2;
+// message ASOffsetP2PMsg {
+//     int64  sourceUID        = 1;
+//     int64  targetUID        = 2;
+//     string msgID            = 3;
+//     string msg              = 4;
 // }
 
-// message ASSSyncRes {
+// sync
+// message ASSyncReq {
+//     int64    UID                  = 1;
+//     int64    currentID            = 2;
+//     repeated offsetP2PMsg p2pMsgs = 3;
+// }
+
+// message ASSyncRes {
 //     uint32 errCode = 1;
 //     string errStr  = 2;
+//     int64  currentID  = 3;
 // }
 
 message ASSendNotifyReq {

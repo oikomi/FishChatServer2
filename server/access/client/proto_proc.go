@@ -247,10 +247,20 @@ func (c *Client) procSyncMsg(reqData []byte) (err error) {
 		glog.Error(err)
 		return
 	}
+	tmpP2PMsgs := make([]*external.OffsetP2PMsg, 0)
+	for _, v := range resSyncMsgRPC.P2PMsgs {
+		tmpP2PMsg := &external.OffsetP2PMsg{}
+		tmpP2PMsg.SourceUID = v.SourceUID
+		tmpP2PMsg.TargetUID = v.TargetUID
+		tmpP2PMsg.MsgID = v.MsgID
+		tmpP2PMsg.Msg = v.Msg
+		tmpP2PMsgs = append(tmpP2PMsgs, tmpP2PMsg)
+	}
 	if err = c.Session.Send(&external.ResSyncMsg{
 		Cmd:     external.SyncMsgCMD,
 		ErrCode: resSyncMsgRPC.ErrCode,
 		ErrStr:  resSyncMsgRPC.ErrStr,
+		P2PMsgs: tmpP2PMsgs,
 	}); err != nil {
 		glog.Error(err)
 	}

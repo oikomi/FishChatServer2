@@ -30,6 +30,7 @@ type ConfDiscovery struct {
 	Gateway *commconf.Etcd
 	MsgJob  *commconf.Etcd
 	Notify  *commconf.Etcd
+	Logic   *commconf.Etcd
 }
 
 func init() {

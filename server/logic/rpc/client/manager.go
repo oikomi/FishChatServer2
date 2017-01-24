@@ -34,3 +34,11 @@ func (managerRPCCli *ManagerRPCCli) SetExceptionMsg(ctx context.Context, sourceU
 	}
 	return
 }
+
+func (managerRPCCli *ManagerRPCCli) SyncMsg(ctx context.Context, uid, currentID, totalID int64) (res *rpc.MGSyncMsgRes, err error) {
+	m := rpc.NewManagerServerRPCClient(managerRPCCli.conn)
+	if res, err = m.Sync(ctx, &rpc.MGSyncMsgReq{UID: uid, CurrentID: currentID, TotalID: totalID}); err != nil {
+		glog.Error(err)
+	}
+	return
+}

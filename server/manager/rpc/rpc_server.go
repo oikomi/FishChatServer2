@@ -1,13 +1,17 @@
 package rpc
 
 import (
+	"bytes"
+	"encoding/binary"
 	"encoding/json"
+	"fmt"
 	"github.com/golang/glog"
 	"github.com/oikomi/FishChatServer2/common/ecode"
 	commmodel "github.com/oikomi/FishChatServer2/common/model"
 	"github.com/oikomi/FishChatServer2/protocol/rpc"
 	"github.com/oikomi/FishChatServer2/server/manager/conf"
 	"github.com/oikomi/FishChatServer2/server/manager/dao"
+	"github.com/oikomi/FishChatServer2/server/manager/model"
 	sd "github.com/oikomi/FishChatServer2/service_discovery/etcd"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
@@ -86,6 +90,43 @@ func (s *RPCServer) SetExceptionMsg(ctx context.Context, in *rpc.MGExceptionMsgR
 
 func (s *RPCServer) Sync(ctx context.Context, in *rpc.MGSyncMsgReq) (res *rpc.MGSyncMsgRes, err error) {
 	glog.Info("Sync")
+	offsetMsgs := make([]*rpc.MGSyncMsgResOffsetP2PMsg, 0)
+	userMsgID, err := s.dao.Mysql.GetUserMsgID(ctx, in.UID)
+	if err != nil {
+		glog.Error(err)
+		return
+	}
+	for i := userMsgID.CurrentMsgID; i <= userMsgID.TotalMsgID; i++ {
+		hRes, err := s.dao.HBase.GetMsgs(ctx, fmt.Sprintf("%d_%d", in.UID, i))
+		if err != nil {
+			glog.Error(err)
+		}
+		for _, c := range hRes.Cells {
+			if c != nil {
+				offsetMsg := &rpc.MGSyncMsgResOffsetP2PMsg{}
+				if bytes.Equal(c.Family, model.HbaseFamilyUser) {
+					if bytes.Equal(c.Qualifier, model.HbaseColumnSourceUID) {
+						offsetMsg.SourceUID = int64(binary.BigEndian.Uint64(c.Value))
+					} else if bytes.Equal(c.Qualifier, model.HbaseColumnTargetUID) {
+						offsetMsg.TargetUID = int64(binary.BigEndian.Uint64(c.Value))
+					}
+				} else if bytes.Equal(c.Family, model.HbaseFamilyMsg) {
+					if bytes.Equal(c.Qualifier, model.HbaseColumnMsgID) {
+						offsetMsg.MsgID = string(c.Value)
+					} else if bytes.Equal(c.Qualifier, model.HbaseColumnMsg) {
+						offsetMsg.Msg = string(c.Value)
+					}
+				}
+				offsetMsgs = append(offsetMsgs, offsetMsg)
+			}
+		}
+	}
+	glog.Info(offsetMsgs)
+	res = &rpc.MGSyncMsgRes{
+		ErrCode: ecode.OK.Uint32(),
+		ErrStr:  ecode.OK.String(),
+		P2PMsgs: offsetMsgs,
+	}
 	return
 }
 

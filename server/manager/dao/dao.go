@@ -8,6 +8,7 @@ type Dao struct {
 	Redis   *Redis
 	MongoDB *MongoDB
 	HBase   *HBase
+	Mysql   *Mysql
 }
 
 func NewDao() (dao *Dao) {
@@ -18,10 +19,12 @@ func NewDao() (dao *Dao) {
 	}
 	redis := NewRedis()
 	h := NewHBase()
+	mysql := NewMysql()
 	dao = &Dao{
 		Redis:   redis,
 		MongoDB: m,
 		HBase:   h,
+		Mysql:   mysql,
 	}
 	return
 }

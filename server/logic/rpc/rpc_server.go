@@ -151,9 +151,24 @@ func (s *RPCServer) SendGroupMsg(ctx context.Context, in *rpc.SendGroupMsgReq) (
 
 func (s *RPCServer) SyncMsg(ctx context.Context, in *rpc.SyncMsgReq) (res *rpc.SyncMsgRes, err error) {
 	glog.Info("logic recive SyncMsg")
+	mRes, err := s.rpcClient.Manager.SyncMsg(ctx, in.UID, in.CurrentID, in.TotalID)
+	if err != nil {
+		glog.Error(err)
+		return
+	}
+	tmpP2PMsgs := make([]*rpc.SyncMsgResOffsetP2PMsg, 0)
+	for _, v := range mRes.P2PMsgs {
+		tmpP2PMsg := &rpc.SyncMsgResOffsetP2PMsg{}
+		tmpP2PMsg.SourceUID = v.SourceUID
+		tmpP2PMsg.TargetUID = v.TargetUID
+		tmpP2PMsg.MsgID = v.MsgID
+		tmpP2PMsg.Msg = v.Msg
+		tmpP2PMsgs = append(tmpP2PMsgs, tmpP2PMsg)
+	}
 	res = &rpc.SyncMsgRes{
 		ErrCode: ecode.OK.Uint32(),
 		ErrStr:  ecode.OK.String(),
+		P2PMsgs: tmpP2PMsgs,
 	}
 	return
 }

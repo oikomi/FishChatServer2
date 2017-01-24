@@ -40,4 +40,9 @@ ttl = "10s"
     root = "/server/access_server_notify/"
     addrs = ["localhost:2379"]
     timeout = "1s"
+    [confDiscovery.logic]
+    name = "access_server_20000"
+    root = "/server/access_server_logic/"
+    addrs = ["localhost:2379"]
+    timeout = "1s"
 

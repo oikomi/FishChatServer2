@@ -52,9 +52,6 @@ public class HBaseManager {
 
     private static final Logger logger = LoggerFactory.getLogger(HBaseManager.class);
 
-
-    //    private static final byte[] FAMILY = Bytes.toBytes("d");
-//    private static final byte[] QUAL = Bytes.toBytes("test");
     private static Configuration configuration;
     private Connection connection;
     private String nameSpace;
@@ -87,6 +84,7 @@ public class HBaseManager {
                 byte[] rk = Bytes.toBytes(kafkaP2PMsg.getTargetUID() + "_" + kafkaP2PMsg.getIncrementID());
                 // user
                 byte[] sourceUIDData = Bytes.toBytes(kafkaP2PMsg.getSourceUID());
+                byte[] targetUIDData = Bytes.toBytes(kafkaP2PMsg.getTargetUID());
                 byte[] incrementIDData = Bytes.toBytes(kafkaP2PMsg.getIncrementID());
                 byte[] onlineData = Bytes.toBytes(kafkaP2PMsg.getOnline());
                 byte[] accessServerAddrData = Bytes.toBytes(kafkaP2PMsg.getAccessServerAddr());
@@ -96,6 +94,7 @@ public class HBaseManager {
                 byte[] msgData = Bytes.toBytes(kafkaP2PMsg.getMsg());
                 Put p = new Put(rk);
                 p.addImmutable(Bytes.toBytes(userFamily), Bytes.toBytes(sourceUID), sourceUIDData);
+                p.addImmutable(Bytes.toBytes(userFamily), Bytes.toBytes(targetUID), targetUIDData);
                 p.addImmutable(Bytes.toBytes(userFamily), Bytes.toBytes(incrementID), incrementIDData);
                 p.addImmutable(Bytes.toBytes(userFamily), Bytes.toBytes(online), onlineData);
                 p.addImmutable(Bytes.toBytes(userFamily), Bytes.toBytes(accessServerAddr), accessServerAddrData);

@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package rpc;
 
+// import "common.proto";
+
 service LogicRPC {
     rpc Login (LoginReq) returns (LoginRes) {}
     rpc Ping (PingReq) returns (PingRes) {}
@@ -52,16 +54,15 @@ message SyncMsgReq {
     int64  totalID    = 3;
 }
 
-message offsetP2PMsg {
-    int64  sourceUID   = 1;
-    int64  targetUID   = 2;
-    string msgID       = 3;
-    string msg         = 4;
-}
-
 message SyncMsgRes {
     uint32 errCode = 1;
     string errStr  = 2;
+    message offsetP2PMsg {
+        int64  sourceUID   = 1;
+        int64  targetUID   = 2;
+        string msgID       = 3;
+        string msg         = 4;
+    }
     repeated offsetP2PMsg p2pMsgs = 3;
 }
 

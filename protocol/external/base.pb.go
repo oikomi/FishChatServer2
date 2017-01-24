@@ -13,7 +13,6 @@ var _ = proto.Marshal
 var _ = fmt.Errorf
 var _ = math.Inf
 
-// cmdNum = 1001
 type Base struct {
 	Cmd uint32 `protobuf:"varint,1,opt,name=cmd" json:"cmd,omitempty"`
 }

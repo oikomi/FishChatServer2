@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package external;
 
+// import "common.proto";
+
 // login
 message ReqLogin {
     uint32 cmd    = 1;

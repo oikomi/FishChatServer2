@@ -19,6 +19,8 @@ type Config struct {
 	ServiceDiscoveryServer *commconf.ServiceDiscoveryServer
 	Redis                  *Redis
 	MongoDB                *MongoDB
+	HBase                  *HBase
+	Mysql                  *Mysql
 }
 
 type Redis struct {
@@ -29,6 +31,16 @@ type Redis struct {
 type MongoDB struct {
 	*commconf.MongoDB
 	OfflineMsgCollection string
+}
+
+type Mysql struct {
+	IM *commconf.MySQL
+}
+
+type HBase struct {
+	Table      string
+	UserFamily string
+	MsgFamily  string
 }
 
 func init() {

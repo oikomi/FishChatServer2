@@ -73,4 +73,7 @@ func (s *Server) SDHeart() {
 	work3 := etcd.NewWorker(conf.Conf.ConfDiscovery.Notify.Name, conf.Conf.RPCServer.Addr, conf.Conf.ConfDiscovery.Notify.Root,
 		conf.Conf.ConfDiscovery.Notify.Addrs)
 	go work3.HeartBeat()
+	work4 := etcd.NewWorker(conf.Conf.ConfDiscovery.Logic.Name, conf.Conf.RPCServer.Addr, conf.Conf.ConfDiscovery.Logic.Root,
+		conf.Conf.ConfDiscovery.Logic.Addrs)
+	go work4.HeartBeat()
 }
