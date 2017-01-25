@@ -25,7 +25,7 @@ func New() (service *Service, err error) {
 
 func (s *Service) CreateGroup(uid int64, groupName string) (err error) {
 	rgCreateGroupReq := &rpc.RGCreateGroupReq{
-		UID:       uid,
+		Uid:       uid,
 		GroupName: groupName,
 	}
 	_, err = s.rpcClient.Register.CreateGroup(rgCreateGroupReq)
