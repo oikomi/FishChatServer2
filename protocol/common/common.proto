@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package rpc;
+package common;
 
 message offsetP2PMsg {
     int64  sourceUID   = 1;
