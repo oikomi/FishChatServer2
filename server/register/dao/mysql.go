@@ -12,7 +12,7 @@ import (
 const (
 	_getUserSQL     = "SELECT uid, user_name, password FROM user WHERE uid=?"
 	_inUserSQL      = "INSERT INTO user (uid, user_name, password) VALUES(?,?,?)"
-	_inGroupSQL     = "INSERT INTO group (gid, group_name, owner_id) VALUES(?,?,?)"
+	_inGroupSQL     = "INSERT INTO `group` (gid, group_name, owner_id) VALUES(?,?,?)"
 	_inUserMsgIDSQL = "INSERT INTO user_msg_id (uid, current_msg_id, total_msg_id) VALUES(?,?,?)"
 )
 
