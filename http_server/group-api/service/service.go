@@ -34,3 +34,15 @@ func (s *Service) CreateGroup(uid int64, groupName string) (err error) {
 	}
 	return
 }
+
+func (s *Service) JoinGroup(uid, gid int64) (err error) {
+	rgJoinGroupReq := &rpc.RGJoinGroupReq{
+		Uid: uid,
+		Gid: gid,
+	}
+	_, err = s.rpcClient.Register.JoinGroup(rgJoinGroupReq)
+	if err != nil {
+		glog.Error(err)
+	}
+	return
+}

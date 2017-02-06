@@ -24,8 +24,6 @@ func (s *RPCServer) Notify(ctx context.Context, in *rpc.NFNotifyMsgReq) (res *rp
 		glog.Error(err)
 		return
 	}
-	glog.Info(s.dao.Mysql)
-	glog.Info(in)
 	_, err = s.dao.Mysql.UpdateUserMsgID(ctx, in.TargetUID, userMsgID.CurrentMsgID, in.TotalID)
 	if err != nil {
 		glog.Error(err)

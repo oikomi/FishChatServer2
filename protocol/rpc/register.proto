@@ -92,8 +92,8 @@ message RGCreateGroupRes {
 }
 
 message RGJoinGroupReq {
-    int64  UID       = 1;
-    string groupID   = 2;
+    int64  uid   = 1;
+    int64  gid   = 2;
 }
 
 message RGJoinGroupRes {
@@ -102,8 +102,8 @@ message RGJoinGroupRes {
 }
 
 message RGQuitGroupReq {
-    int64  UID       = 1;
-    string groupID   = 2;
+    int64  uid   = 1;
+    int64  gid   = 2;
 }
 
 message RGQuitGroupRes {

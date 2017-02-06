@@ -47,6 +47,7 @@ func Init(c *conf.Config) {
 func outerRouter(r *router.Router) {
 	r.Group("/x/group", func(cr *router.Router) {
 		cr.GuestPost("/create", createGroup)
+		cr.GuestPost("/join", joinGroup)
 	})
 	return
 }
@@ -59,6 +60,19 @@ func createGroup(c wctx.Context) {
 	res := c.Result()
 	uidStr := c.Request().Form.Get("uid")
 	groupNameStr := c.Request().Form.Get("name")
+	uid, err := strconv.ParseInt(uidStr, 10, 64)
+	if err != nil {
+		glog.Error(err)
+		res["code"] = ecode.RequestErr
+		return
+	}
+	res["code"] = groupSvc.CreateGroup(uid, groupNameStr)
+}
+
+func joinGroup(c wctx.Context) {
+	res := c.Result()
+	uidStr := c.Request().Form.Get("uid")
+	gidStr := c.Request().Form.Get("gid")
 	uid, err := strconv.ParseInt(uidStr, 10, 64)
 	if err != nil {
 		glog.Error(err)

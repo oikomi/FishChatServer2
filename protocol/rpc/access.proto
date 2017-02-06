@@ -8,7 +8,7 @@ service AccessServerRPC {
     rpc SendP2PMsgFromJob (ASSendP2PMsgFromJobReq) returns (ASSendP2PMsgFromJobRes) {}
     rpc SendNotify (ASSendNotifyReq) returns (ASSendNotifyRes) {}
     // rpc Sync (ASSyncReq) returns (ASSyncRes) {}
-    //rpc SendGroupMsg (ASSendGroupMsgReq) returns (ASSendGroupMsgRes) {}
+    rpc SendGroupMsg (ASSendGroupMsgReq) returns (ASSendGroupMsgRes) {}
 }
 
 message ASSendP2PMsgReq {

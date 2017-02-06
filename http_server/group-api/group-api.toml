@@ -1,4 +1,4 @@
-# This is a TOML document. Boom.
+# This is a TOML document.
 
 version = "1.0.0"
 user = "nobody"
