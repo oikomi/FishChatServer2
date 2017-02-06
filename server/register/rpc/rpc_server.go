@@ -2,6 +2,7 @@ package rpc
 
 import (
 	"crypto/md5"
+	"database/sql"
 	"encoding/hex"
 	"fmt"
 	"github.com/golang/glog"
@@ -22,6 +23,18 @@ type RPCServer struct {
 
 func (s *RPCServer) Register(ctx context.Context, in *rpc.RGRegisterReq) (res *rpc.RGRegisterRes, err error) {
 	glog.Info("register recive Register")
+	u, err := s.dao.Mysql.GetUser(ctx, in.UID)
+	if err != nil && err != sql.ErrNoRows {
+		glog.Error(err)
+		return
+	}
+	if u != nil && u.Uid == in.UID {
+		res = &rpc.RGRegisterRes{
+			ErrCode: ecode.UserIsAlreadyExist.Uint32(),
+			ErrStr:  ecode.UserIsAlreadyExist.String(),
+		}
+		return
+	}
 	if _, err = s.dao.Mysql.InsertUser(ctx, in.UID, in.Name, in.Password); err != nil {
 		res = &rpc.RGRegisterRes{
 			ErrCode: ecode.ServerErr.Uint32(),

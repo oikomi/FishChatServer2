@@ -1,13 +1,16 @@
 package dao
 
 import (
+	"database/sql"
 	"github.com/golang/glog"
 	"github.com/oikomi/FishChatServer2/common/dao/xmysql"
 	"github.com/oikomi/FishChatServer2/server/register/conf"
+	"github.com/oikomi/FishChatServer2/server/register/model"
 	"golang.org/x/net/context"
 )
 
 const (
+	_getUserSQL     = "SELECT uid, user_name, password FROM user WHERE uid=?"
 	_inUserSQL      = "INSERT INTO user (uid, user_name, password) VALUES(?,?,?)"
 	_inGroupSQL     = "INSERT INTO group (gid, group_name, owner_id) VALUES(?,?,?)"
 	_inUserMsgIDSQL = "INSERT INTO user_msg_id (uid, current_msg_id, total_msg_id) VALUES(?,?,?)"
@@ -15,6 +18,7 @@ const (
 
 type Mysql struct {
 	im              *xmysql.DB
+	getUserStmt     *xmysql.Stmt
 	inUserStmt      *xmysql.Stmt
 	inGroupStmt     *xmysql.Stmt
 	inUserMsgIDStmt *xmysql.Stmt
@@ -29,9 +33,28 @@ func NewMysql() (mysql *Mysql) {
 }
 
 func (mysql *Mysql) initStmt() {
+	mysql.getUserStmt = mysql.im.Prepared(_getUserSQL)
 	mysql.inUserStmt = mysql.im.Prepared(_inUserSQL)
 	mysql.inGroupStmt = mysql.im.Prepared(_inGroupSQL)
 	mysql.inUserMsgIDStmt = mysql.im.Prepared(_inUserMsgIDSQL)
+}
+
+func (mysql *Mysql) GetUser(c context.Context, uid int64) (res *model.User, err error) {
+	res = &model.User{}
+	row, err := mysql.getUserStmt.QueryRow(c, uid)
+	if err != nil {
+		glog.Error(err)
+		return
+	}
+	if err = row.Scan(&res.Uid, &res.UserName, &res.Password); err != nil {
+		if err == sql.ErrNoRows {
+			res = nil
+			// err = nil
+		} else {
+			glog.Error(err)
+		}
+	}
+	return
 }
 
 func (mysql *Mysql) InsertUser(c context.Context, uid int64, userName, password string) (rows int64, err error) {

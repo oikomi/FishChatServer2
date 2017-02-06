@@ -12,9 +12,12 @@ const (
 	//gateway
 	NoAccessServer ecode = 92001
 
-	// access_server
+	// access
 	NoToken         ecode = 93001
 	CalcTokenFailed ecode = 93002
+
+	// register
+	UserIsAlreadyExist ecode = 94001
 
 	// network
 	NoData ecode = 91001

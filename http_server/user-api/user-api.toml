@@ -2,11 +2,11 @@
 
 ver = "1.0.0"
 user = "nobody"
-pid = "/tmp/auth-api.pid"
+pid = "/tmp/user-api.pid"
 dir = "./"
 perf = "0.0.0.0:6000"
-checkFile = "/data/www/auth-api.html"
-log = "/tmp/log/auth-api/"
+checkFile = "/data/www/user-api.html"
+log = "/tmp/log/user-api/"
 trace = true
 debug = false
 

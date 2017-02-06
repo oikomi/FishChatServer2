@@ -46,9 +46,12 @@ var (
 		// gateway
 		NoAccessServer: "no accessServer",
 
-		// accessServer
+		// access
 		NoToken:         "no token",
 		CalcTokenFailed: "calc token failed",
+
+		// register
+		UserIsAlreadyExist: "user is already exist",
 
 		// network
 		NoData: "no data found",
