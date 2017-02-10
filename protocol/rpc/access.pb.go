@@ -56,6 +56,8 @@ It has these top-level messages:
 	RGPingRes
 	RGOnlineReq
 	RGOnlineRes
+	RGGetUsersByGroupIDReq
+	RGGetUsersByGroupIDRes
 	RGCreateGroupReq
 	RGCreateGroupRes
 	RGJoinGroupReq

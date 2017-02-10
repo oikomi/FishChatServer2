@@ -154,7 +154,27 @@ func (s *RPCServer) Auth(ctx context.Context, in *rpc.RGAuthReq) (res *rpc.RGAut
 	return
 }
 
+func (s *RPCServer) GetUsersByGroupID(ctx context.Context, in *rpc.RGGetUsersByGroupIDReq) (res *rpc.RGGetUsersByGroupIDRes, err error) {
+	glog.Info("register recive GetUsersByGroupID")
+	uids, err := s.dao.Mysql.GetUsersByGroupID(ctx, in.GetGid())
+	if err != nil {
+		res = &rpc.RGGetUsersByGroupIDRes{
+			ErrCode: ecode.ServerErr.Uint32(),
+			ErrStr:  ecode.ServerErr.String(),
+		}
+		glog.Error(err)
+		return
+	}
+	res = &rpc.RGGetUsersByGroupIDRes{
+		ErrCode: ecode.OK.Uint32(),
+		ErrStr:  ecode.OK.String(),
+		Uids:    uids,
+	}
+	return
+}
+
 func (s *RPCServer) CreateGroup(ctx context.Context, in *rpc.RGCreateGroupReq) (res *rpc.RGCreateGroupRes, err error) {
+	// FIXME: many verify code todo
 	uuid, err := s.rpcClient.Idgen.GetUUID(&rpc.Snowflake_NullRequest{})
 	if err != nil {
 		glog.Error(err)
@@ -176,6 +196,7 @@ func (s *RPCServer) CreateGroup(ctx context.Context, in *rpc.RGCreateGroupReq) (
 }
 
 func (s *RPCServer) JoinGroup(ctx context.Context, in *rpc.RGJoinGroupReq) (res *rpc.RGJoinGroupRes, err error) {
+	// FIXME: many verify code todo
 	if _, err = s.dao.Mysql.InsertUserGroup(ctx, in.GetUid(), in.GetGid()); err != nil {
 		res = &rpc.RGJoinGroupRes{
 			ErrCode: ecode.ServerErr.Uint32(),

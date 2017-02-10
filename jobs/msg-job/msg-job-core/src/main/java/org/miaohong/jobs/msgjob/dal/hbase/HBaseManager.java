@@ -54,7 +54,7 @@ public class HBaseManager {
 
     private static Configuration configuration;
     private Connection connection;
-    private String nameSpace;
+//    private String nameSpace;
     public void init() {
         configuration = HBaseConfiguration.create();
         configuration.set("hbase.master", hbaseMaster);

@@ -1,6 +1,5 @@
 package org.miaohong.jobs.msgjob.manager;
 
-import org.miaohong.jobs.msgjob.dal.kafka.KafkaConsumer;
 import org.miaohong.jobs.msgjob.service.kafka.ConsumerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -75,6 +75,11 @@ func (s *RPCServer) SendNotify(ctx context.Context, in *rpc.ASSendNotifyReq) (re
 	return
 }
 
+func (s *RPCServer) SendGroupMsg(ctx context.Context, in *rpc.ASSendGroupMsgReq) (res *rpc.ASSendGroupMsgRes, err error) {
+	glog.Info("access recive SendGroupMsg")
+	return
+}
+
 // func (s *RPCServer) Sync(ctx context.Context, in *rpc.ASSyncReq) (res *rpc.ASSyncRes, err error) {
 // 	glog.Info("access recive Sync")
 // 	if session, ok := global.GSessions[in.UID]; ok {
