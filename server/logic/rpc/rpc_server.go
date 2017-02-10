@@ -133,7 +133,7 @@ func (s *RPCServer) AcceptP2PMsgAck(ctx context.Context, in *rpc.AcceptP2PMsgAck
 	return
 }
 func (s *RPCServer) sendGroupMsgProc(ctx context.Context, uid int64, sendGroupMsgKafka *commmodel.SendGroupMsgKafka) {
-	idgenRes, err := s.rpcClient.Idgen.Next(ctx, uid)
+	idgenRes, err := s.rpcClient.Idgen.Next(context.Background(), uid)
 	if err != nil {
 		glog.Error(err)
 		return
@@ -154,6 +154,7 @@ func (s *RPCServer) SendGroupMsg(ctx context.Context, in *rpc.SendGroupMsgReq) (
 		glog.Error(err)
 		return
 	}
+	glog.Info("uids : ", uids.GetUids())
 	for _, uid := range uids.GetUids() {
 		sendGroupMsgKafka := &commmodel.SendGroupMsgKafka{
 			SourceUID: in.SourceUID,
@@ -202,7 +203,7 @@ func (s *RPCServer) SyncMsg(ctx context.Context, in *rpc.SyncMsgReq) (res *rpc.S
 }
 
 func RPCServerInit(rpcClient *RPCClient) {
-	glog.Info("[logic] rpc server init")
+	glog.Info("[logic] rpc server init: ", conf.Conf.RPCServer.Addr)
 	lis, err := net.Listen(conf.Conf.RPCServer.Proto, conf.Conf.RPCServer.Addr)
 	if err != nil {
 		glog.Error(err)
