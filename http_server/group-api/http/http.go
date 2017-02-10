@@ -72,12 +72,12 @@ func createGroup(c wctx.Context) {
 func joinGroup(c wctx.Context) {
 	res := c.Result()
 	uidStr := c.Request().Form.Get("uid")
-	gidStr := c.Request().Form.Get("gid")
+	groupName := c.Request().Form.Get("name")
 	uid, err := strconv.ParseInt(uidStr, 10, 64)
 	if err != nil {
 		glog.Error(err)
 		res["code"] = ecode.RequestErr
 		return
 	}
-	res["code"] = groupSvc.CreateGroup(uid, groupNameStr)
+	res["code"] = groupSvc.CreateGroup(uid, groupName)
 }
