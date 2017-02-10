@@ -138,6 +138,7 @@ func (s *RPCServer) sendGroupMsgProc(ctx context.Context, uid int64, sendGroupMs
 		glog.Error(err)
 		return
 	}
+	sendGroupMsgKafka.TargetUID = uid
 	sendGroupMsgKafka.IncrementID = idgenRes.Value
 	s.dao.KafkaProducer.SendGroupMsg(sendGroupMsgKafka)
 }

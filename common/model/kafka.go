@@ -19,6 +19,7 @@ type SendP2PMsgKafka struct {
 type SendGroupMsgKafka struct {
 	IncrementID int64  `json:"incrementID"`
 	SourceUID   int64  `json:"sourceUID"`
+	TargetUID   int64  `json:"targetUID"`
 	GroupID     int64  `json:"groupID"`
 	MsgID       string `json:"msgID"`
 	Msg         string `json:"msg"`
