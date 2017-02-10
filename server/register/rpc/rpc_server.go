@@ -176,6 +176,18 @@ func (s *RPCServer) CreateGroup(ctx context.Context, in *rpc.RGCreateGroupReq) (
 }
 
 func (s *RPCServer) JoinGroup(ctx context.Context, in *rpc.RGJoinGroupReq) (res *rpc.RGJoinGroupRes, err error) {
+	if _, err = s.dao.Mysql.InsertUserGroup(ctx, in.GetUid(), in.GetGid()); err != nil {
+		res = &rpc.RGJoinGroupRes{
+			ErrCode: ecode.ServerErr.Uint32(),
+			ErrStr:  ecode.ServerErr.String(),
+		}
+		glog.Error(err)
+		return
+	}
+	res = &rpc.RGJoinGroupRes{
+		ErrCode: ecode.OK.Uint32(),
+		ErrStr:  ecode.OK.String(),
+	}
 	return
 }
 
