@@ -5,6 +5,7 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.miaohong.jobs.msgjob.dal.hbase.HBaseManager;
+import org.miaohong.jobs.msgjob.dal.model.KafkaGroupMsg;
 import org.miaohong.jobs.msgjob.dal.model.KafkaP2PMsg;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,6 +56,7 @@ public class KafkaConsumer implements Runnable{
         logger.info("consume");
         while (true) {
             List<KafkaP2PMsg> kafkaP2PMsgs = new ArrayList<>();
+            List<KafkaGroupMsg> kafkaGroupMsgs = new ArrayList<>();
             ConsumerRecords<String, String> records = consumer.poll(Long.MAX_VALUE);
             for (ConsumerRecord<String, String> record : records) {
                 if (record.key().equals("send_p2p_msg")) {
@@ -68,11 +70,21 @@ public class KafkaConsumer implements Runnable{
                     KafkaP2PMsg kafkaP2PMsg = JSON.parseObject(record.value(), KafkaP2PMsg.class);
                     kafkaP2PMsgs.add(kafkaP2PMsg);
                 } else if (record.key().equals("send_group_msg")){
-
+                    Map<String, Object> data = new HashMap<>();
+                    System.out.println("key: " + record.key());
+                    System.out.println("topic: " + record.topic());
+                    data.put("partition", record.partition());
+                    data.put("offset", record.offset());
+                    data.put("value", record.value());
+                    System.out.println(this.id + ": " + data);
+                    KafkaGroupMsg kafkaGroupMsg = JSON.parseObject(record.value(), KafkaGroupMsg.class);
+                    kafkaGroupMsgs.add(kafkaGroupMsg);
                 }
             }
             System.out.println(kafkaP2PMsgs);
-            hBaseManager.insert(kafkaP2PMsgs);
+            System.out.println(kafkaGroupMsgs);
+            hBaseManager.insertP2PMsg(kafkaP2PMsgs);
+            hBaseManager.insertGroupMsg(kafkaGroupMsgs);
         }
     }
 

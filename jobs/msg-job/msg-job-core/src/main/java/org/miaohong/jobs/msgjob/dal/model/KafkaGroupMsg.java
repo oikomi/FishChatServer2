@@ -1,18 +1,15 @@
 package org.miaohong.jobs.msgjob.dal.model;
 
-import com.alibaba.fastjson.annotation.JSONField;
-
 /**
- * Created by miaohong on 17/1/14.
+ * Created by miaohong on 17/2/10.
  */
-public class KafkaP2PMsg {
+public class KafkaGroupMsg {
     private Long incrementID;
     private Long sourceUID;
     private Long targetUID;
+    private Long groupID;
     private String msgID;
     private String Msg;
-    private String AccessServerAddr;
-    private Boolean Online;
 
     public Long getIncrementID() {
         return incrementID;
@@ -38,6 +35,14 @@ public class KafkaP2PMsg {
         this.targetUID = targetUID;
     }
 
+    public Long getGroupID() {
+        return groupID;
+    }
+
+    public void setGroupID(Long groupID) {
+        this.groupID = groupID;
+    }
+
     public String getMsgID() {
         return msgID;
     }
@@ -54,20 +59,8 @@ public class KafkaP2PMsg {
         Msg = msg;
     }
 
-    public String getAccessServerAddr() {
-        return AccessServerAddr;
-    }
 
-    public void setAccessServerAddr(String accessServerAddr) {
-        AccessServerAddr = accessServerAddr;
-    }
-
-    public Boolean getOnline() {
-        return Online;
-    }
-
-    public void setOnline(Boolean online) {
-        Online = online;
-    }
+//    private String AccessServerAddr;
+//    private Boolean Online;
 
 }
