@@ -132,16 +132,43 @@ func (s *RPCServer) AcceptP2PMsgAck(ctx context.Context, in *rpc.AcceptP2PMsgAck
 	glog.Info("logic recive AcceptP2PMsgAck")
 	return
 }
+func (s *RPCServer) sendGroupMsgProc(ctx context.Context, uid int64, sendGroupMsgKafka *commmodel.SendGroupMsgKafka) {
+	idgenRes, err := s.rpcClient.Idgen.Next(ctx, uid)
+	if err != nil {
+		glog.Error(err)
+		return
+	}
+	sendGroupMsgKafka.IncrementID = idgenRes.Value
+	s.dao.KafkaProducer.SendGroupMsg(sendGroupMsgKafka)
+}
 
 func (s *RPCServer) SendGroupMsg(ctx context.Context, in *rpc.SendGroupMsgReq) (res *rpc.SendGroupMsgRes, err error) {
 	glog.Info("logic recive SendGroupMsg")
-	sendGroupMsgKafka := &commmodel.SendGroupMsgKafka{
-		SourceUID: in.SourceUID,
-		GroupID:   in.GroupID,
-		MsgID:     in.MsgID,
-		Msg:       in.Msg,
+	uids, err := s.rpcClient.Register.GetUsersByGroupID(ctx, in.GetGroupID())
+	if err != nil {
+		res = &rpc.SendGroupMsgRes{
+			ErrCode: ecode.ServerErr.Uint32(),
+			ErrStr:  ecode.ServerErr.String(),
+		}
+		glog.Error(err)
+		return
 	}
-	s.dao.KafkaProducer.SendGroupMsg(sendGroupMsgKafka)
+	for _, uid := range uids.GetUids() {
+		sendGroupMsgKafka := &commmodel.SendGroupMsgKafka{
+			SourceUID: in.SourceUID,
+			GroupID:   in.GroupID,
+			MsgID:     in.MsgID,
+			Msg:       in.Msg,
+		}
+		go s.sendGroupMsgProc(ctx, uid, sendGroupMsgKafka)
+	}
+	// sendGroupMsgKafka := &commmodel.SendGroupMsgKafka{
+	// 	SourceUID: in.SourceUID,
+	// 	GroupID:   in.GroupID,
+	// 	MsgID:     in.MsgID,
+	// 	Msg:       in.Msg,
+	// }
+	// s.dao.KafkaProducer.SendGroupMsg(sendGroupMsgKafka)
 	res = &rpc.SendGroupMsgRes{
 		ErrCode: ecode.OK.Uint32(),
 		ErrStr:  ecode.OK.String(),

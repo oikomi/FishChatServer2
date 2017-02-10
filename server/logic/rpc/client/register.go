@@ -66,3 +66,11 @@ func (registerRPCCli *RegisterRPCCli) Ping(ctx context.Context, uid int64) (res 
 	}
 	return
 }
+
+func (registerRPCCli *RegisterRPCCli) GetUsersByGroupID(ctx context.Context, gid int64) (res *rpc.RGGetUsersByGroupIDRes, err error) {
+	r := rpc.NewRegisterServerRPCClient(registerRPCCli.conn)
+	if res, err = r.GetUsersByGroupID(ctx, &rpc.RGGetUsersByGroupIDReq{Gid: gid}); err != nil {
+		glog.Error(err)
+	}
+	return
+}
