@@ -132,7 +132,7 @@ func (s *RPCServer) AcceptP2PMsgAck(ctx context.Context, in *rpc.AcceptP2PMsgAck
 	glog.Info("logic recive AcceptP2PMsgAck")
 	return
 }
-func (s *RPCServer) sendGroupMsgProc(ctx context.Context, uid int64, sendGroupMsgKafka *commmodel.SendGroupMsgKafka) {
+func (s *RPCServer) sendGroupMsgProc(uid int64, sendGroupMsgKafka *commmodel.SendGroupMsgKafka) {
 	idgenRes, err := s.rpcClient.Idgen.Next(context.Background(), uid)
 	if err != nil {
 		glog.Error(err)
@@ -162,7 +162,7 @@ func (s *RPCServer) SendGroupMsg(ctx context.Context, in *rpc.SendGroupMsgReq) (
 			MsgID:     in.MsgID,
 			Msg:       in.Msg,
 		}
-		go s.sendGroupMsgProc(ctx, uid, sendGroupMsgKafka)
+		go s.sendGroupMsgProc(uid, sendGroupMsgKafka)
 	}
 	// sendGroupMsgKafka := &commmodel.SendGroupMsgKafka{
 	// 	SourceUID: in.SourceUID,
