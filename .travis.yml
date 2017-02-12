@@ -12,4 +12,4 @@ env:
 
 install:
   - go get -u -v github.com/golang/glog
-  - go get -u -v github.com/golang/protobuf
+  - go get -u -v github.com/coreos/etcd
