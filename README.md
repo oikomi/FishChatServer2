@@ -1,7 +1,7 @@
 # FishChatServer2
 
 [![Build Status](https://travis-ci.org/oikomi/FishChatServer2.svg?branch=master)](https://travis-ci.org/oikomi/FishChatServer2)
-
+[![Go Report Card](https://goreportcard.com/badge/github.com/oikomi/FishChatServer2)](https://goreportcard.com/report/github.com/oikomi/FishChatServer2)
 
 目录
 =================
