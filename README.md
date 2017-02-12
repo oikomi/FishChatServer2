@@ -1,5 +1,7 @@
 # FishChatServer2
 
+[![Build Status](https://travis-ci.org/oikomi/FishChatServer2.svg?branch=master)](https://travis-ci.org/oikomi/FishChatServer2)
+
 
 目录
 =================
