@@ -101,6 +101,20 @@ golang >= 1.4
 jdk >= 1.8 (数据处理很多服务用java编写)
 ```
 
+```shell
+go get -u -d github.com/golang/glog
+go get -u -d github.com/coreos/etcd
+go get -u -d github.com/Shopify/sarama
+go get -u -d github.com/wvanbergen/kafka/consumergroup
+go get -u -d github.com/tsuna/gohbase
+go get -u -d github.com/garyburd/redigo/redis
+go get -u -d github.com/BurntSushi/toml
+go get -u -d gopkg.in/olivere/elastic.v5
+go get -u -d gopkg.in/mgo.v2
+go get -u -d github.com/go-sql-driver/mysql
+go get -u -d github.com/satori/go.uuid
+```
+
 
 ### 7.2第三方依赖
 
