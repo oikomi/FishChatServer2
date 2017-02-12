@@ -48,6 +48,7 @@ func outerRouter(r *router.Router) {
 	r.Group("/x/group", func(cr *router.Router) {
 		cr.GuestPost("/create", createGroup)
 		cr.GuestPost("/join", joinGroup)
+		cr.GuestPost("/quit", quitGroup)
 	})
 	return
 }
@@ -86,4 +87,23 @@ func joinGroup(c wctx.Context) {
 		return
 	}
 	res["code"] = groupSvc.JoinGroup(uid, gid)
+}
+
+func quitGroup(c wctx.Context) {
+	res := c.Result()
+	uidStr := c.Request().Form.Get("uid")
+	gidStr := c.Request().Form.Get("gid")
+	uid, err := strconv.ParseInt(uidStr, 10, 64)
+	if err != nil {
+		glog.Error(err)
+		res["code"] = ecode.RequestErr
+		return
+	}
+	gid, err := strconv.ParseInt(gidStr, 10, 64)
+	if err != nil {
+		glog.Error(err)
+		res["code"] = ecode.RequestErr
+		return
+	}
+	res["code"] = groupSvc.QuitGroup(uid, gid)
 }

@@ -155,9 +155,9 @@ func (s *RPCServer) sendGroupMsgProc(uid int64, sendGroupMsgKafka *commmodel.Sen
 	}
 	if !onlineRes.Online {
 		glog.Info(uid, " is offline")
-		sendGroupMsgKafka.Online = false
+		// sendGroupMsgKafka.Online = false
 	} else {
-		sendGroupMsgKafka.Online = true
+		// sendGroupMsgKafka.Online = true
 		// send notify to client
 		glog.Info(routerAccessRes.AccessAddr)
 		_, err := s.rpcClient.Notify.Notify(context.Background(), uid, idgenRes.Value, routerAccessRes.AccessAddr)

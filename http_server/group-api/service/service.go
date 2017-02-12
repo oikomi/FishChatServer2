@@ -46,3 +46,15 @@ func (s *Service) JoinGroup(uid, gid int64) (err error) {
 	}
 	return
 }
+
+func (s *Service) QuitGroup(uid, gid int64) (err error) {
+	rgQuitGroupReq := &rpc.RGQuitGroupReq{
+		Uid: uid,
+		Gid: gid,
+	}
+	_, err = s.rpcClient.Register.QuitGroup(rgQuitGroupReq)
+	if err != nil {
+		glog.Error(err)
+	}
+	return
+}
