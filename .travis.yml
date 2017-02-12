@@ -2,7 +2,6 @@ language: go
 sudo: required
 install: true
 go:
-  - 1.6.4
   - 1.7.5
   - tip
 env:
@@ -11,5 +10,12 @@ env:
     - GO_FOR_RELEASE=1.7.5
 
 install:
-  - go get -u -v github.com/golang/glog
-  - go get -u -v github.com/coreos/etcd
+  - go get -u github.com/golang/glog
+  - go get -u github.com/coreos/etcd
+  - go get -u github.com/Shopify/sarama
+  - go get -u github.com/wvanbergen/kafka
+  - go get -u github.com/tsuna/gohbase
+  - go get -u github.com/garyburd/redigo
+  - go get -u github.com/BurntSushi/toml
+  - go get -u gopkg.in/olivere/elastic.v5
+  - go get -u gopkg.in/mgo.v2
