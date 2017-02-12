@@ -9,3 +9,7 @@ env:
   global:
     - GOARCH=amd64
     - GO_FOR_RELEASE=1.7.5
+
+install:
+  - go get -u -v github.com/golang/glog
+  - go get -u -v github.com/golang/protobuf
