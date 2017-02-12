@@ -109,6 +109,8 @@ func (s *RPCServer) Sync(ctx context.Context, in *rpc.MGSyncMsgReq) (res *rpc.MG
 						offsetMsg.SourceUID = int64(binary.BigEndian.Uint64(c.Value))
 					} else if bytes.Equal(c.Qualifier, model.HbaseColumnTargetUID) {
 						offsetMsg.TargetUID = int64(binary.BigEndian.Uint64(c.Value))
+					} else if bytes.Equal(c.Qualifier, model.HbaseColumnGroupID) {
+						offsetMsg.GroupID = int64(binary.BigEndian.Uint64(c.Value))
 					}
 				} else if bytes.Equal(c.Family, model.HbaseFamilyMsg) {
 					if bytes.Equal(c.Qualifier, model.HbaseColumnMsgID) {

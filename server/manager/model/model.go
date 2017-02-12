@@ -8,6 +8,7 @@ var (
 
 	HbaseColumnSourceUID        = []byte("sourceUID")
 	HbaseColumnTargetUID        = []byte("targetUID")
+	HbaseColumnGroupID          = []byte("groupID")
 	HbaseColumnOnline           = []byte("online")
 	HbaseColumnIncrementID      = []byte("incrementID")
 	HbaseColumnMsgID            = []byte("msgID")
