@@ -141,6 +141,30 @@ func (s *RPCServer) sendGroupMsgProc(uid int64, sendGroupMsgKafka *commmodel.Sen
 	sendGroupMsgKafka.TargetUID = uid
 	sendGroupMsgKafka.IncrementID = idgenRes.Value
 	s.dao.KafkaProducer.SendGroupMsg(sendGroupMsgKafka)
+	// Online
+	onlineRes, err := s.rpcClient.Register.Online(context.Background(), uid)
+	if err != nil {
+		glog.Error(err)
+		return
+	}
+	// get access server Addr
+	routerAccessRes, err := s.rpcClient.Register.RouterAccess(context.Background(), uid)
+	if err != nil {
+		glog.Error(err)
+		return
+	}
+	if !onlineRes.Online {
+		glog.Info(uid, " is offline")
+		sendGroupMsgKafka.Online = false
+	} else {
+		sendGroupMsgKafka.Online = true
+		// send notify to client
+		glog.Info(routerAccessRes.AccessAddr)
+		_, err := s.rpcClient.Notify.Notify(context.Background(), uid, idgenRes.Value, routerAccessRes.AccessAddr)
+		if err != nil {
+			glog.Error(err)
+		}
+	}
 }
 
 func (s *RPCServer) SendGroupMsg(ctx context.Context, in *rpc.SendGroupMsgReq) (res *rpc.SendGroupMsgRes, err error) {
