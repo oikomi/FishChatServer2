@@ -103,8 +103,8 @@ jdk >= 1.8 (数据处理很多服务用java编写)
 ### 7.2第三方依赖
 
 ```shell
-etcd
-redis
+etcd 3.0以上版本
+redis 
 Mysql
 mongodb
 kafka
@@ -179,6 +179,14 @@ bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 -
 ➜  FishChatServer2 git:(master) ✗ cd server/register 
 ➜  register git:(master) ✗ go build
 ➜  register git:(master) ✗ ./register 
+```
+
+* notify安装
+
+```shell
+➜  FishChatServer2 git:(master) ✗ cd server/notify
+➜  notify git:(master) ✗ go build
+➜  notify git:(master) ✗ ./notify
 ```
 
 * manager安装

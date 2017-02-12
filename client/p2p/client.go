@@ -128,16 +128,16 @@ func clientLoop(session *libnet.Session, protobuf *codec.ProtobufProtocol) {
 			}
 		}
 	}()
-	// go func() {
-	// 	for {
-	// 		err = clientMsg.Send(&external.ReqSyncMsg{
-	// 			Cmd:       external.SyncMsgCMD,
-	// 			UID:       myID,
-	// 			CurrentID: _currentID,
-	// 		})
-	// 		time.Sleep(5 * time.Second)
-	// 	}
-	// }()
+	go func() {
+		for {
+			err = clientMsg.Send(&external.ReqSyncMsg{
+				Cmd:       external.SyncMsgCMD,
+				UID:       myID,
+				CurrentID: _currentID,
+			})
+			time.Sleep(10 * time.Second)
+		}
+	}()
 	for {
 		glog.Info("send p2p msg")
 		var targetID int64
