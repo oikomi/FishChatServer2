@@ -252,6 +252,7 @@ func (c *Client) procSyncMsg(reqData []byte) (err error) {
 		tmpP2PMsg := &external.OffsetP2PMsg{}
 		tmpP2PMsg.SourceUID = v.SourceUID
 		tmpP2PMsg.TargetUID = v.TargetUID
+		tmpP2PMsg.GroupID = v.GroupID
 		tmpP2PMsg.MsgID = v.MsgID
 		tmpP2PMsg.Msg = v.Msg
 		tmpP2PMsgs = append(tmpP2PMsgs, tmpP2PMsg)

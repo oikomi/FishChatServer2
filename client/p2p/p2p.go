@@ -109,9 +109,10 @@ func clientLoop(session *libnet.Session, protobuf *codec.ProtobufProtocol) {
 					if err = proto.Unmarshal(rsp, resSendP2PMsg); err != nil {
 						glog.Error(err)
 					}
-					fmt.Printf("收到点对点消息: 返回码[%d], 对方ID[%d], 消息内容[%s]", resSendP2PMsg.ErrCode, resSendP2PMsg.TargetUID, resSendP2PMsg.Msg)
+					fmt.Printf("收到点对点消息: 返回码[%d], 对方ID[%d], 消息内容[%s]", resSendP2PMsg.ErrCode, resSendP2PMsg.SourceUID, resSendP2PMsg.Msg)
 					fmt.Println()
 				case external.NotifyCMD:
+					glog.Info("recive NotifyCMD")
 					resNotify := &external.ResNotify{}
 					if err = proto.Unmarshal(rsp, resNotify); err != nil {
 						glog.Error(err)
@@ -125,7 +126,7 @@ func clientLoop(session *libnet.Session, protobuf *codec.ProtobufProtocol) {
 					}
 					fmt.Println(resSyncMsg.P2PMsgs)
 					for _, p2pMsg := range resSyncMsg.P2PMsgs {
-						fmt.Printf("收到点对点消息: 对方ID[%d], 消息内容[%s]", p2pMsg.TargetUID, p2pMsg.Msg)
+						fmt.Printf("收到点对点消息: 对方ID[%d], 消息内容[%s]", p2pMsg.SourceUID, p2pMsg.Msg)
 						fmt.Println()
 					}
 				}

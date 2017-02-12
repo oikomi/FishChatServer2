@@ -60,8 +60,9 @@ message SyncMsgRes {
     message offsetP2PMsg {
         int64  sourceUID   = 1;
         int64  targetUID   = 2;
-        string msgID       = 3;
-        string msg         = 4;
+        int64  groupID     = 3;
+        string msgID       = 4;
+        string msg         = 5;
     }
     repeated offsetP2PMsg p2pMsgs = 3;
 }
