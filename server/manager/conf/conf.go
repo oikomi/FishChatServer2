@@ -38,6 +38,7 @@ type Mysql struct {
 }
 
 type HBase struct {
+	ZKAddr     string
 	Table      string
 	UserFamily string
 	MsgFamily  string

@@ -14,7 +14,7 @@ type HBase struct {
 
 func NewHBase() *HBase {
 	return &HBase{
-		client: xhbase.NewClient("127.0.0.1:2181"),
+		client: xhbase.NewClient(conf.Conf.HBase.ZKAddr),
 	}
 }
 
@@ -27,7 +27,6 @@ func (h *HBase) GetMsgs(ctx context.Context, rowKey string) (res *hrpc.Result, e
 	res, err = h.client.Get(ctx, getRequest)
 	if err != nil {
 		glog.Error(err)
-		return
 	}
 	return
 }

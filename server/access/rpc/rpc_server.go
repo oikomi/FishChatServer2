@@ -80,34 +80,6 @@ func (s *RPCServer) SendGroupMsg(ctx context.Context, in *rpc.ASSendGroupMsgReq)
 	return
 }
 
-// func (s *RPCServer) Sync(ctx context.Context, in *rpc.ASSyncReq) (res *rpc.ASSyncRes, err error) {
-// 	glog.Info("access recive Sync")
-// 	if session, ok := global.GSessions[in.UID]; ok {
-// 		glog.Info("session is online")
-// 		if err = session.Send(&external.ResSyncMsg{
-// 			Cmd:       external.NotifyCMD,
-// 			ErrCode:   ecode.OK.Uint32(),
-// 			ErrStr:    ecode.OK.String(),
-// 			CurrentID: in.CurrentID,
-// 			P2PMsgs:   in.P2PMsgs,
-// 		}); err != nil {
-// 			glog.Error(err)
-// 			res = &rpc.ASSyncRes{
-// 				ErrCode: ecode.ServerErr.Uint32(),
-// 				ErrStr:  ecode.ServerErr.String(),
-// 			}
-// 			return
-// 		}
-// 	} else {
-// 		// offline
-// 	}
-// 	res = &rpc.ASSyncRes{
-// 		ErrCode: ecode.OK.Uint32(),
-// 		ErrStr:  ecode.OK.String(),
-// 	}
-// 	return
-// }
-
 func RPCServerInit() {
 	glog.Info("[access] rpc server init at " + conf.Conf.RPCServer.Addr)
 	lis, err := net.Listen(conf.Conf.RPCServer.Proto, conf.Conf.RPCServer.Addr)

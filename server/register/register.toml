@@ -36,6 +36,12 @@ writeTimeout = "1s"
 idleTimeout = "10s"
 expire = "15s"
 
+[mongoDB]
+addrs = "127.0.0.1:27017"
+db = "im"
+dialTimeout = "1s"
+groupCollection = "group"
+
 [mysql]
     [mysql.im]
     name= "[im]tcp@127.0.0.1:3306"
@@ -43,10 +49,6 @@ expire = "15s"
     active = 5 
     idle = 2 
 
-[mongoDB]
-addrs = "127.0.0.1:27017"
-db = "im"
-dialTimeout = "1s"
-groupCollection = "group"
+
 
 

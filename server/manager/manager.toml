@@ -33,6 +33,7 @@ dialTimeout = "1s"
 offlineMsgCollection = "offline_msg"
 
 [hbase]
+zkAddr = "127.0.0.1:2181"
 table = "im"
 userFamily = "user"
 msgFamily = "msg"
