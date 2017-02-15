@@ -11,6 +11,7 @@ var (
 	HbaseColumnGroupID          = []byte("groupID")
 	HbaseColumnOnline           = []byte("online")
 	HbaseColumnIncrementID      = []byte("incrementID")
+	HbaseColumnMsgType          = []byte("msgType")
 	HbaseColumnMsgID            = []byte("msgID")
 	HbaseColumnMsg              = []byte("msg")
 	HbaseColumnAccessServerAddr = []byte("accessServerAddr")

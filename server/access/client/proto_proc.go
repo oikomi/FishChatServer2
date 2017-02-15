@@ -253,6 +253,7 @@ func (c *Client) procSyncMsg(reqData []byte) (err error) {
 		tmpMsg.SourceUID = v.SourceUID
 		tmpMsg.TargetUID = v.TargetUID
 		tmpMsg.GroupID = v.GroupID
+		tmpMsg.MsgType = v.MsgType
 		tmpMsg.MsgID = v.MsgID
 		tmpMsg.Msg = v.Msg
 		tmpMsgs = append(tmpMsgs, tmpMsg)

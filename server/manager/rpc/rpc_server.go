@@ -113,7 +113,9 @@ func (s *RPCServer) Sync(ctx context.Context, in *rpc.MGSyncMsgReq) (res *rpc.MG
 						offsetMsg.GroupID = int64(binary.BigEndian.Uint64(c.Value))
 					}
 				} else if bytes.Equal(c.Family, model.HbaseFamilyMsg) {
-					if bytes.Equal(c.Qualifier, model.HbaseColumnMsgID) {
+					if bytes.Equal(c.Qualifier, model.HbaseColumnMsgType) {
+						offsetMsg.MsgType = string(c.Value)
+					} else if bytes.Equal(c.Qualifier, model.HbaseColumnMsgID) {
 						offsetMsg.MsgID = string(c.Value)
 					} else if bytes.Equal(c.Qualifier, model.HbaseColumnMsg) {
 						offsetMsg.Msg = string(c.Value)
@@ -123,9 +125,9 @@ func (s *RPCServer) Sync(ctx context.Context, in *rpc.MGSyncMsgReq) (res *rpc.MG
 		}
 		offsetMsgs = append(offsetMsgs, offsetMsg)
 	}
-	// for _, o := range offsetMsgs {
-	// 	glog.Info(o)
-	// }
+	for _, o := range offsetMsgs {
+		glog.Info(o)
+	}
 	res = &rpc.MGSyncMsgRes{
 		ErrCode: ecode.OK.Uint32(),
 		ErrStr:  ecode.OK.String(),

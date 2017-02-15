@@ -214,6 +214,7 @@ func (s *RPCServer) SyncMsg(ctx context.Context, in *rpc.SyncMsgReq) (res *rpc.S
 		tmpMsg := &rpc.SyncMsgResOffsetMsg{}
 		tmpMsg.SourceUID = v.SourceUID
 		tmpMsg.TargetUID = v.TargetUID
+		tmpMsg.MsgType = v.MsgType
 		tmpMsg.MsgID = v.MsgID
 		tmpMsg.Msg = v.Msg
 		tmpMsgs = append(tmpMsgs, tmpMsg)

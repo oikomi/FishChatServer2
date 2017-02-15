@@ -125,8 +125,8 @@ func clientLoop(session *libnet.Session, protobuf *codec.ProtobufProtocol) {
 						glog.Error(err)
 					}
 					fmt.Println(resSyncMsg.Msgs)
-					for _, p2pMsg := range resSyncMsg.Msgs {
-						fmt.Printf("收到点对点消息: 对方ID[%d], 消息内容[%s]", p2pMsg.SourceUID, p2pMsg.Msg)
+					for _, msg := range resSyncMsg.Msgs {
+						fmt.Printf("收到点对点消息: 消息类型[%s], 对方ID[%d], 消息内容[%s]", msg.MsgType, msg.SourceUID, msg.Msg)
 						fmt.Println()
 					}
 				}
