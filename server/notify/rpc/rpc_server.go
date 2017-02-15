@@ -47,11 +47,6 @@ func (s *RPCServer) Notify(ctx context.Context, in *rpc.NFNotifyMsgReq) (res *rp
 	return
 }
 
-// func (s *RPCServer) Sync(ctx context.Context, in *rpc.NFNotifyMsgReq) (res *rpc.NFNotifyMsgRes, err error) {
-// 	glog.Info("notify recive Sync")
-// 	return
-// }
-
 func RPCServerInit(rpcClient *RPCClient) {
 	glog.Info("[notify] rpc server init: ", conf.Conf.RPCServer.Addr)
 	lis, err := net.Listen(conf.Conf.RPCServer.Proto, conf.Conf.RPCServer.Addr)
