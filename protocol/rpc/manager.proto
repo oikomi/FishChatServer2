@@ -6,7 +6,7 @@ package rpc;
 
 service ManagerServerRPC {
     rpc SetExceptionMsg (MGExceptionMsgReq) returns (MGExceptionMsgRes) {}
-    rpc GetOfflineMsgs (MGOfflineMsgReq) returns (MGOfflineMsgRes) {}
+    // rpc GetOfflineMsgs (MGOfflineMsgReq) returns (MGOfflineMsgRes) {}
     rpc Sync (MGSyncMsgReq) returns (MGSyncMsgRes) {}
 }
 
@@ -22,22 +22,22 @@ message MGExceptionMsgRes {
     string errStr  = 2;
 }
 
-message MGOfflineMsgReq {
-    int64  uid = 1;
-}
+// message MGOfflineMsgReq {
+//     int64  uid = 1;
+// }
 
-message offlineMsg {
-    int64  sourceUID = 1;
-    int64  targetUID = 2;
-    string msgID     = 3;
-    string msg       = 4;
-}
+// message offlineMsg {
+//     int64  sourceUID = 1;
+//     int64  targetUID = 2;
+//     string msgID     = 3;
+//     string msg       = 4;
+// }
 
-message MGOfflineMsgRes {
-    uint32 errCode = 1;
-    string errStr  = 2;
-    repeated offlineMsg msgs = 3;
-}
+// message MGOfflineMsgRes {
+//     uint32 errCode = 1;
+//     string errStr  = 2;
+//     repeated offlineMsg msgs = 3;
+// }
 
 
 // Sync

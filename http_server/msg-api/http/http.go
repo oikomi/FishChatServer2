@@ -2,14 +2,14 @@ package http
 
 import (
 	"github.com/golang/glog"
-	"github.com/oikomi/FishChatServer2/common/ecode"
+	// "github.com/oikomi/FishChatServer2/common/ecode"
 	"github.com/oikomi/FishChatServer2/common/net/xhttp"
 	"github.com/oikomi/FishChatServer2/common/net/xhttp/router"
-	wctx "github.com/oikomi/FishChatServer2/common/net/xweb/context"
+	// wctx "github.com/oikomi/FishChatServer2/common/net/xweb/context"
 	"github.com/oikomi/FishChatServer2/http_server/msg-api/conf"
 	"github.com/oikomi/FishChatServer2/http_server/msg-api/service"
 	"net/http"
-	"strconv"
+	// "strconv"
 )
 
 var (
@@ -47,7 +47,7 @@ func Init(c *conf.Config) {
 func outerRouter(r *router.Router) {
 	glog.Info("outerRouter")
 	r.Group("/x/msg", func(cr *router.Router) {
-		cr.GuestGet("/offline", offlineMsgs)
+		// cr.GuestGet("/offline", offlineMsgs)
 	})
 	return
 }
@@ -56,15 +56,15 @@ func outerRouter(r *router.Router) {
 func localRouter(r *router.Router) {
 }
 
-func offlineMsgs(c wctx.Context) {
-	glog.Info("offlineMsgs")
-	res := c.Result()
-	uidStr := c.Request().Form.Get("uid")
-	uid, err := strconv.ParseInt(uidStr, 10, 64)
-	if err != nil {
-		glog.Error(err)
-		res["code"] = ecode.RequestErr
-		return
-	}
-	res["data"], res["code"] = managerSvc.GetOfflineMsgs(uid)
-}
+// func offlineMsgs(c wctx.Context) {
+// 	glog.Info("offlineMsgs")
+// 	res := c.Result()
+// 	uidStr := c.Request().Form.Get("uid")
+// 	uid, err := strconv.ParseInt(uidStr, 10, 64)
+// 	if err != nil {
+// 		glog.Error(err)
+// 		res["code"] = ecode.RequestErr
+// 		return
+// 	}
+// 	res["data"], res["code"] = managerSvc.GetOfflineMsgs(uid)
+// }

@@ -37,9 +37,6 @@ It has these top-level messages:
 	SendGroupMsgRes
 	MGExceptionMsgReq
 	MGExceptionMsgRes
-	MGOfflineMsgReq
-	OfflineMsg
-	MGOfflineMsgRes
 	MGSyncMsgReq
 	MGSyncMsgRes
 	NFNotifyMsgReq
