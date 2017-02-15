@@ -21,6 +21,7 @@ type SendGroupMsgKafka struct {
 	SourceUID   int64  `json:"sourceUID"`
 	TargetUID   int64  `json:"targetUID"`
 	GroupID     int64  `json:"groupID"`
+	MsgType     string `json:"msgType"`
 	MsgID       string `json:"msgID"`
 	Msg         string `json:"msg"`
 	Online      bool   `json:"online"`

@@ -108,6 +108,7 @@ func (c *Client) procSendP2PMsg(reqData []byte) (err error) {
 	reqSendP2PMsgRPC := &rpc.SendP2PMsgReq{
 		SourceUID: reqSendP2PMsg.SourceUID,
 		TargetUID: reqSendP2PMsg.TargetUID,
+		MsgType:   "p2p",
 		MsgID:     reqSendP2PMsg.MsgID,
 		Msg:       reqSendP2PMsg.Msg,
 	}
@@ -191,6 +192,7 @@ func (c *Client) procSendGroupMsg(reqData []byte) (err error) {
 	}
 	reqSendGroupMsgRPC := &rpc.SendGroupMsgReq{
 		SourceUID: reqSendGroupMsg.SourceUID,
+		MsgType:   "group",
 		GroupID:   reqSendGroupMsg.GroupID,
 		MsgID:     reqSendGroupMsg.MsgID,
 		Msg:       reqSendGroupMsg.Msg,

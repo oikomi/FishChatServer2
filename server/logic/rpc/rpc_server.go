@@ -183,6 +183,7 @@ func (s *RPCServer) SendGroupMsg(ctx context.Context, in *rpc.SendGroupMsgReq) (
 		sendGroupMsgKafka := &commmodel.SendGroupMsgKafka{
 			SourceUID: in.SourceUID,
 			GroupID:   in.GroupID,
+			MsgType:   in.MsgType,
 			MsgID:     in.MsgID,
 			Msg:       in.Msg,
 		}
