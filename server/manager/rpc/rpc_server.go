@@ -90,7 +90,7 @@ func (s *RPCServer) SetExceptionMsg(ctx context.Context, in *rpc.MGExceptionMsgR
 
 func (s *RPCServer) Sync(ctx context.Context, in *rpc.MGSyncMsgReq) (res *rpc.MGSyncMsgRes, err error) {
 	glog.Info("Sync")
-	offsetMsgs := make([]*rpc.MGSyncMsgResOffsetP2PMsg, 0)
+	offsetMsgs := make([]*rpc.MGSyncMsgResOffsetMsg, 0)
 	userMsgID, err := s.dao.Mysql.GetUserMsgID(ctx, in.UID)
 	if err != nil {
 		glog.Error(err)
@@ -101,7 +101,7 @@ func (s *RPCServer) Sync(ctx context.Context, in *rpc.MGSyncMsgReq) (res *rpc.MG
 		if err != nil {
 			glog.Error(err)
 		}
-		offsetMsg := &rpc.MGSyncMsgResOffsetP2PMsg{}
+		offsetMsg := &rpc.MGSyncMsgResOffsetMsg{}
 		for _, c := range hRes.Cells {
 			if c != nil {
 				if bytes.Equal(c.Family, model.HbaseFamilyUser) {
@@ -129,7 +129,7 @@ func (s *RPCServer) Sync(ctx context.Context, in *rpc.MGSyncMsgReq) (res *rpc.MG
 	res = &rpc.MGSyncMsgRes{
 		ErrCode: ecode.OK.Uint32(),
 		ErrStr:  ecode.OK.String(),
-		P2PMsgs: offsetMsgs,
+		Msgs:    offsetMsgs,
 	}
 	return
 }

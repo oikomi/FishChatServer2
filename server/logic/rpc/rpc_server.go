@@ -209,19 +209,19 @@ func (s *RPCServer) SyncMsg(ctx context.Context, in *rpc.SyncMsgReq) (res *rpc.S
 		glog.Error(err)
 		return
 	}
-	tmpP2PMsgs := make([]*rpc.SyncMsgResOffsetP2PMsg, 0)
-	for _, v := range mRes.P2PMsgs {
-		tmpP2PMsg := &rpc.SyncMsgResOffsetP2PMsg{}
-		tmpP2PMsg.SourceUID = v.SourceUID
-		tmpP2PMsg.TargetUID = v.TargetUID
-		tmpP2PMsg.MsgID = v.MsgID
-		tmpP2PMsg.Msg = v.Msg
-		tmpP2PMsgs = append(tmpP2PMsgs, tmpP2PMsg)
+	tmpMsgs := make([]*rpc.SyncMsgResOffsetMsg, 0)
+	for _, v := range mRes.Msgs {
+		tmpMsg := &rpc.SyncMsgResOffsetMsg{}
+		tmpMsg.SourceUID = v.SourceUID
+		tmpMsg.TargetUID = v.TargetUID
+		tmpMsg.MsgID = v.MsgID
+		tmpMsg.Msg = v.Msg
+		tmpMsgs = append(tmpMsgs, tmpMsg)
 	}
 	res = &rpc.SyncMsgRes{
 		ErrCode: ecode.OK.Uint32(),
 		ErrStr:  ecode.OK.String(),
-		P2PMsgs: tmpP2PMsgs,
+		Msgs:    tmpMsgs,
 	}
 	return
 }

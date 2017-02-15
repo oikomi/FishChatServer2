@@ -130,9 +130,8 @@ func clientLoop(session *libnet.Session, protobuf *codec.ProtobufProtocol) {
 					if err = proto.Unmarshal(rsp, resSyncMsg); err != nil {
 						glog.Error(err)
 					}
-					// fmt.Println(resSyncMsg.P2PMsgs)
-					for _, p2pMsg := range resSyncMsg.P2PMsgs {
-						fmt.Printf("收到群消息: 群ID[%d], 对方ID[%d], 消息内容[%s]", p2pMsg.GroupID, p2pMsg.TargetUID, p2pMsg.Msg)
+					for _, msg := range resSyncMsg.Msgs {
+						fmt.Printf("收到群消息: 群ID[%d], 对方ID[%d], 消息内容[%s]", msg.GroupID, msg.TargetUID, msg.Msg)
 						fmt.Println()
 					}
 				}

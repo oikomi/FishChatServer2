@@ -50,13 +50,13 @@ message MGSyncMsgReq {
 message MGSyncMsgRes {
     uint32 errCode = 1;
     string errStr  = 2;
-    message offsetP2PMsg {
+    message offsetMsg {
         int64  sourceUID   = 1;
         int64  targetUID   = 2;
         int64  groupID     = 3; 
         string msgID       = 4;
         string msg         = 5;
     }
-    repeated offsetP2PMsg p2pMsgs = 3;
+    repeated offsetMsg Msgs = 3;
 }
 

@@ -247,21 +247,21 @@ func (c *Client) procSyncMsg(reqData []byte) (err error) {
 		glog.Error(err)
 		return
 	}
-	tmpP2PMsgs := make([]*external.OffsetP2PMsg, 0)
-	for _, v := range resSyncMsgRPC.P2PMsgs {
-		tmpP2PMsg := &external.OffsetP2PMsg{}
-		tmpP2PMsg.SourceUID = v.SourceUID
-		tmpP2PMsg.TargetUID = v.TargetUID
-		tmpP2PMsg.GroupID = v.GroupID
-		tmpP2PMsg.MsgID = v.MsgID
-		tmpP2PMsg.Msg = v.Msg
-		tmpP2PMsgs = append(tmpP2PMsgs, tmpP2PMsg)
+	tmpMsgs := make([]*external.OffsetMsg, 0)
+	for _, v := range resSyncMsgRPC.Msgs {
+		tmpMsg := &external.OffsetMsg{}
+		tmpMsg.SourceUID = v.SourceUID
+		tmpMsg.TargetUID = v.TargetUID
+		tmpMsg.GroupID = v.GroupID
+		tmpMsg.MsgID = v.MsgID
+		tmpMsg.Msg = v.Msg
+		tmpMsgs = append(tmpMsgs, tmpMsg)
 	}
 	if err = c.Session.Send(&external.ResSyncMsg{
 		Cmd:     external.SyncMsgCMD,
 		ErrCode: resSyncMsgRPC.ErrCode,
 		ErrStr:  resSyncMsgRPC.ErrStr,
-		P2PMsgs: tmpP2PMsgs,
+		Msgs:    tmpMsgs,
 	}); err != nil {
 		glog.Error(err)
 	}

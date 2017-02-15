@@ -78,7 +78,7 @@ message ReqSyncMsg {
     int64  currentID = 4;
 }
 
-message offsetP2PMsg {
+message offsetMsg {
     int64  sourceUID        = 1;
     int64  targetUID        = 2;
     int64  groupID          = 3;
@@ -91,7 +91,7 @@ message ResSyncMsg {
     string cmdStr                 = 2;
     uint32 errCode                = 3;
     string errStr                 = 4;
-    repeated offsetP2PMsg p2pMsgs = 5;
+    repeated offsetMsg Msgs       = 5;
 }
 
 // // p2p msg read ack
