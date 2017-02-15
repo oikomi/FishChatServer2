@@ -101,9 +101,9 @@ func (s *RPCServer) Sync(ctx context.Context, in *rpc.MGSyncMsgReq) (res *rpc.MG
 		if err != nil {
 			glog.Error(err)
 		}
+		offsetMsg := &rpc.MGSyncMsgResOffsetP2PMsg{}
 		for _, c := range hRes.Cells {
 			if c != nil {
-				offsetMsg := &rpc.MGSyncMsgResOffsetP2PMsg{}
 				if bytes.Equal(c.Family, model.HbaseFamilyUser) {
 					if bytes.Equal(c.Qualifier, model.HbaseColumnSourceUID) {
 						offsetMsg.SourceUID = int64(binary.BigEndian.Uint64(c.Value))
@@ -119,13 +119,13 @@ func (s *RPCServer) Sync(ctx context.Context, in *rpc.MGSyncMsgReq) (res *rpc.MG
 						offsetMsg.Msg = string(c.Value)
 					}
 				}
-				offsetMsgs = append(offsetMsgs, offsetMsg)
 			}
 		}
+		offsetMsgs = append(offsetMsgs, offsetMsg)
 	}
-	for _, offsetMsg := range offsetMsgs {
-		glog.Info(offsetMsg)
-	}
+	// for _, o := range offsetMsgs {
+	// 	glog.Info(o)
+	// }
 	res = &rpc.MGSyncMsgRes{
 		ErrCode: ecode.OK.Uint32(),
 		ErrStr:  ecode.OK.String(),
