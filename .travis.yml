@@ -21,3 +21,5 @@ install:
   - go get -u -d gopkg.in/mgo.v2
   - go get -u -d github.com/go-sql-driver/mysql
   - go get -u -d github.com/satori/go.uuid
+
+exclude: [trash]
