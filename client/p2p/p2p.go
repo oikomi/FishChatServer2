@@ -79,7 +79,7 @@ func clientLoop(session *libnet.Session, protobuf *codec.ProtobufProtocol) {
 				UID: myID,
 			})
 			checkErr(err)
-			time.Sleep(10 * time.Second)
+			time.Sleep(5 * time.Second)
 		}
 	}()
 	// glog.Info(string(rsp))
@@ -118,6 +118,11 @@ func clientLoop(session *libnet.Session, protobuf *codec.ProtobufProtocol) {
 						glog.Error(err)
 					}
 					fmt.Println(resNotify.CurrentID)
+					err = clientMsg.Send(&external.ReqSyncMsg{
+						Cmd:       external.SyncMsgCMD,
+						UID:       myID,
+						CurrentID: _currentID,
+					})
 					// _currentID = resNotify.CurrentID
 				case external.SyncMsgCMD:
 					resSyncMsg := &external.ResSyncMsg{}
