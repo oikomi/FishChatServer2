@@ -189,13 +189,6 @@ func (s *RPCServer) SendGroupMsg(ctx context.Context, in *rpc.SendGroupMsgReq) (
 		}
 		go s.sendGroupMsgProc(uid, sendGroupMsgKafka)
 	}
-	// sendGroupMsgKafka := &commmodel.SendGroupMsgKafka{
-	// 	SourceUID: in.SourceUID,
-	// 	GroupID:   in.GroupID,
-	// 	MsgID:     in.MsgID,
-	// 	Msg:       in.Msg,
-	// }
-	// s.dao.KafkaProducer.SendGroupMsg(sendGroupMsgKafka)
 	res = &rpc.SendGroupMsgRes{
 		ErrCode: ecode.OK.Uint32(),
 		ErrStr:  ecode.OK.String(),

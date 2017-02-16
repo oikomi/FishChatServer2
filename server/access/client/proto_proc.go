@@ -124,8 +124,8 @@ func (c *Client) procSendP2PMsg(reqData []byte) (err error) {
 		glog.Error(err)
 		return
 	}
-	if err = c.Session.Send(&external.Error{
-		Cmd:     external.ErrServerCMD,
+	if err = c.Session.Send(&external.ResSendP2PMsg{
+		Cmd:     external.SendP2PMsgCMD,
 		ErrCode: resSendP2PMsgRPC.ErrCode,
 		ErrStr:  resSendP2PMsgRPC.ErrStr,
 	}); err != nil {
@@ -134,47 +134,47 @@ func (c *Client) procSendP2PMsg(reqData []byte) (err error) {
 	return
 }
 
-func (c *Client) procAcceptP2PMsgAck(reqData []byte) (err error) {
-	glog.Info("procAcceptP2PMsgAck")
-	reqAcceptP2PMsgAck := &external.ReqAcceptP2PMsgAck{}
-	if err = proto.Unmarshal(reqData, reqAcceptP2PMsgAck); err != nil {
-		if err = c.Session.Send(&external.Error{
-			Cmd:     external.ErrServerCMD,
-			ErrCode: ecode.ServerErr.Uint32(),
-			ErrStr:  ecode.ServerErr.String(),
-		}); err != nil {
-			glog.Error(err)
-		}
-		glog.Error(err)
-		return
-	}
-	reqAcceptP2PMsgAckRPC := &rpc.AcceptP2PMsgAckReq{
-		SourceUID: reqAcceptP2PMsgAck.SourceUID,
-		TargetUID: reqAcceptP2PMsgAck.TargetUID,
-		MsgID:     reqAcceptP2PMsgAck.MsgID,
-	}
-	// add rpc logic
-	resAcceptP2PMsgAckRPC, err := c.RPCClient.Logic.AcceptP2PMsgAck(reqAcceptP2PMsgAckRPC)
-	if err != nil {
-		if err = c.Session.Send(&external.Error{
-			Cmd:     external.ErrServerCMD,
-			ErrCode: ecode.ServerErr.Uint32(),
-			ErrStr:  ecode.ServerErr.String(),
-		}); err != nil {
-			glog.Error(err)
-		}
-		glog.Error(err)
-		return
-	}
-	if err = c.Session.Send(&external.Error{
-		Cmd:     external.SendP2PMsgCMD,
-		ErrCode: resAcceptP2PMsgAckRPC.ErrCode,
-		ErrStr:  resAcceptP2PMsgAckRPC.ErrStr,
-	}); err != nil {
-		glog.Error(err)
-	}
-	return
-}
+// func (c *Client) procAcceptP2PMsgAck(reqData []byte) (err error) {
+// 	glog.Info("procAcceptP2PMsgAck")
+// 	reqAcceptP2PMsgAck := &external.ReqAcceptP2PMsgAck{}
+// 	if err = proto.Unmarshal(reqData, reqAcceptP2PMsgAck); err != nil {
+// 		if err = c.Session.Send(&external.Error{
+// 			Cmd:     external.ErrServerCMD,
+// 			ErrCode: ecode.ServerErr.Uint32(),
+// 			ErrStr:  ecode.ServerErr.String(),
+// 		}); err != nil {
+// 			glog.Error(err)
+// 		}
+// 		glog.Error(err)
+// 		return
+// 	}
+// 	reqAcceptP2PMsgAckRPC := &rpc.AcceptP2PMsgAckReq{
+// 		SourceUID: reqAcceptP2PMsgAck.SourceUID,
+// 		TargetUID: reqAcceptP2PMsgAck.TargetUID,
+// 		MsgID:     reqAcceptP2PMsgAck.MsgID,
+// 	}
+// 	// add rpc logic
+// 	resAcceptP2PMsgAckRPC, err := c.RPCClient.Logic.AcceptP2PMsgAck(reqAcceptP2PMsgAckRPC)
+// 	if err != nil {
+// 		if err = c.Session.Send(&external.Error{
+// 			Cmd:     external.ErrServerCMD,
+// 			ErrCode: ecode.ServerErr.Uint32(),
+// 			ErrStr:  ecode.ServerErr.String(),
+// 		}); err != nil {
+// 			glog.Error(err)
+// 		}
+// 		glog.Error(err)
+// 		return
+// 	}
+// 	if err = c.Session.Send(&external.Error{
+// 		Cmd:     external.SendP2PMsgCMD,
+// 		ErrCode: resAcceptP2PMsgAckRPC.ErrCode,
+// 		ErrStr:  resAcceptP2PMsgAckRPC.ErrStr,
+// 	}); err != nil {
+// 		glog.Error(err)
+// 	}
+// 	return
+// }
 
 func (c *Client) procSendGroupMsg(reqData []byte) (err error) {
 	glog.Info("procSendGroupMsg")
@@ -211,7 +211,7 @@ func (c *Client) procSendGroupMsg(reqData []byte) (err error) {
 		return
 	}
 	if err = c.Session.Send(&external.ResSendGroupMsg{
-		Cmd:     external.SendP2PMsgCMD,
+		Cmd:     external.SendGroupMsgCMD,
 		ErrCode: resSendGroupMsgRPC.ErrCode,
 		ErrStr:  resSendGroupMsgRPC.ErrStr,
 	}); err != nil {

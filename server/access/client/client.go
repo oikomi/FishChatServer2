@@ -37,11 +37,11 @@ func (c *Client) Parse(cmd uint32, reqData []byte) (err error) {
 			glog.Error(err)
 			return
 		}
-	case external.AcceptP2PMsgAckCMD:
-		if err = c.procAcceptP2PMsgAck(reqData); err != nil {
-			glog.Error(err)
-			return
-		}
+	// case external.AcceptP2PMsgAckCMD:
+	// 	if err = c.procAcceptP2PMsgAck(reqData); err != nil {
+	// 		glog.Error(err)
+	// 		return
+	// 	}
 	case external.SendGroupMsgCMD:
 		if err = c.procSendGroupMsg(reqData); err != nil {
 			glog.Error(err)

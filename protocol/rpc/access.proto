@@ -8,7 +8,7 @@ service AccessServerRPC {
     rpc SendP2PMsgFromJob (ASSendP2PMsgFromJobReq) returns (ASSendP2PMsgFromJobRes) {}
     rpc SendNotify (ASSendNotifyReq) returns (ASSendNotifyRes) {}
     // rpc Sync (ASSyncReq) returns (ASSyncRes) {}
-    rpc SendGroupMsg (ASSendGroupMsgReq) returns (ASSendGroupMsgRes) {}
+    // rpc SendGroupMsg (ASSendGroupMsgReq) returns (ASSendGroupMsgRes) {}
 }
 
 message ASSendP2PMsgReq {
@@ -48,13 +48,13 @@ message ASSendNotifyRes {
     string errStr  = 2;
 }
 
-message ASSendGroupMsgReq {
-    int64  groupID   = 1;
-    string msgID     = 2;
-    string msg       = 3;
-}
+// message ASSendGroupMsgReq {
+//     int64  groupID   = 1;
+//     string msgID     = 2;
+//     string msg       = 3;
+// }
 
-message ASSendGroupMsgRes {
-    uint32 errCode = 1;
-    string errStr  = 2;
-}
+// message ASSendGroupMsgRes {
+//     uint32 errCode = 1;
+//     string errStr  = 2;
+// }

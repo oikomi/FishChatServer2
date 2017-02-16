@@ -75,10 +75,10 @@ func (s *RPCServer) SendNotify(ctx context.Context, in *rpc.ASSendNotifyReq) (re
 	return
 }
 
-func (s *RPCServer) SendGroupMsg(ctx context.Context, in *rpc.ASSendGroupMsgReq) (res *rpc.ASSendGroupMsgRes, err error) {
-	glog.Info("access recive SendGroupMsg")
-	return
-}
+// func (s *RPCServer) SendGroupMsg(ctx context.Context, in *rpc.ASSendGroupMsgReq) (res *rpc.ASSendGroupMsgRes, err error) {
+// 	glog.Info("access recive SendGroupMsg")
+// 	return
+// }
 
 func RPCServerInit() {
 	glog.Info("[access] rpc server init at " + conf.Conf.RPCServer.Addr)
