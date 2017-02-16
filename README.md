@@ -122,7 +122,6 @@ go get -u -d github.com/satori/go.uuid
 etcd 3.0以上版本
 redis 
 Mysql
-mongodb
 kafka
 HBase
 ElasticSearch(可选)
@@ -155,8 +154,6 @@ bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 -
 * redis安装 : 采用默认安装即可
 
 * mysql安装 : 采用默认安装即可
-
-* mongodb安装 : 采用默认安装即可
 
 * etcd安装 : 需要3.0以上版本, 采用默认安装即可
 
@@ -215,12 +212,12 @@ bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 -
 
 #### 8.1.3job安装
 
-* msg_job安装
+* msg-job安装(Java)
 
 ```shell
-➜  FishChatServer2 git:(master) ✗ cd jobs/msg_job 
-➜  msg_job git:(master) ✗ go build
-➜  msg_job git:(master) ✗ ./msg_job 
+➜  FishChatServer2 git:(master) ✗ cd jobs/msg-job
+➜  msg-job git:(master) ✗ mvn clean package  -Dmaven.test.skip=true
+➜  msg-job git:(master) ✗ java -jar  msg-job-core/target/msg-job-core-1.0-SNAPSHOT.jar
 ```
 
 #### 8.1.4中间件服务安装

@@ -22,4 +22,8 @@ public class HBaseManagerTest extends AbstractTest {
 //    public void testInsert() {
 //        hBaseManager.insert("test1");
 //    }
+    @Test
+    public void test() {
+
+    }
 }
