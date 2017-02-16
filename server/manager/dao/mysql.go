@@ -11,11 +11,13 @@ import (
 
 const (
 	_getUserMsgIDSQL = "SELECT uid,current_msg_id,total_msg_id FROM user_msg_id WHERE uid=?"
+	_upUserMsgIDSQL  = "UPDATE user_msg_id SET current_msg_id=? WHERE uid=?"
 )
 
 type Mysql struct {
 	im               *xmysql.DB
 	getUserMsgIDStmt *xmysql.Stmt
+	upUserMsgIDStmt  *xmysql.Stmt
 }
 
 func NewMysql() (mysql *Mysql) {
@@ -28,6 +30,7 @@ func NewMysql() (mysql *Mysql) {
 
 func (mysql *Mysql) initStmt() {
 	mysql.getUserMsgIDStmt = mysql.im.Prepared(_getUserMsgIDSQL)
+	mysql.upUserMsgIDStmt = mysql.im.Prepared(_upUserMsgIDSQL)
 }
 
 func (mysql *Mysql) GetUserMsgID(c context.Context, uid int64) (userMsgID *model.UserMsgID, err error) {
@@ -42,4 +45,13 @@ func (mysql *Mysql) GetUserMsgID(c context.Context, uid int64) (userMsgID *model
 		}
 	}
 	return
+}
+
+func (mysql *Mysql) UpdateUserMsgID(c context.Context, uid, currentMsgID int64) (rows int64, err error) {
+	res, err := mysql.upUserMsgIDStmt.Exec(c, currentMsgID, uid)
+	if err != nil {
+		glog.Error(err)
+		return
+	}
+	return res.RowsAffected()
 }

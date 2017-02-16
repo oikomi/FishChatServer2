@@ -221,6 +221,7 @@ func (c *Client) procSendGroupMsg(reqData []byte) (err error) {
 }
 
 func (c *Client) procSyncMsg(reqData []byte) (err error) {
+	glog.Info("procSyncMsg")
 	reqSyncMsg := &external.ReqSyncMsg{}
 	if err = proto.Unmarshal(reqData, reqSyncMsg); err != nil {
 		if err = c.Session.Send(&external.Error{
@@ -261,10 +262,11 @@ func (c *Client) procSyncMsg(reqData []byte) (err error) {
 		tmpMsgs = append(tmpMsgs, tmpMsg)
 	}
 	if err = c.Session.Send(&external.ResSyncMsg{
-		Cmd:     external.SyncMsgCMD,
-		ErrCode: resSyncMsgRPC.ErrCode,
-		ErrStr:  resSyncMsgRPC.ErrStr,
-		Msgs:    tmpMsgs,
+		Cmd:       external.SyncMsgCMD,
+		ErrCode:   resSyncMsgRPC.ErrCode,
+		ErrStr:    resSyncMsgRPC.ErrStr,
+		CurrentID: resSyncMsgRPC.CurrentID,
+		Msgs:      tmpMsgs,
 	}); err != nil {
 		glog.Error(err)
 	}

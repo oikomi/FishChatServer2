@@ -118,7 +118,7 @@ func clientLoop(session *libnet.Session, protobuf *codec.ProtobufProtocol) {
 						glog.Error(err)
 					}
 					fmt.Println(resNotify.CurrentID)
-					_currentID = resNotify.CurrentID
+					// _currentID = resNotify.CurrentID
 				case external.SyncMsgCMD:
 					resSyncMsg := &external.ResSyncMsg{}
 					if err = proto.Unmarshal(rsp, resSyncMsg); err != nil {
@@ -129,6 +129,7 @@ func clientLoop(session *libnet.Session, protobuf *codec.ProtobufProtocol) {
 						fmt.Printf("收到点对点消息: 消息类型[%s], 对方ID[%d], 消息内容[%s]", msg.MsgType, msg.SourceUID, msg.Msg)
 						fmt.Println()
 					}
+					_currentID = resSyncMsg.CurrentID
 				}
 			}
 		}

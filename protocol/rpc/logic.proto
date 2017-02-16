@@ -55,8 +55,9 @@ message SyncMsgReq {
 }
 
 message SyncMsgRes {
-    uint32 errCode = 1;
-    string errStr  = 2;
+    uint32 errCode   = 1;
+    string errStr    = 2;
+    int64  currentID = 3;
     message offsetMsg {
         int64  sourceUID   = 1;
         int64  targetUID   = 2;
@@ -65,7 +66,7 @@ message SyncMsgRes {
         string msgID       = 5;
         string msg         = 6;
     }
-    repeated offsetMsg Msgs = 3;
+    repeated offsetMsg Msgs = 4;
 }
 
 // p2p msg accept ack

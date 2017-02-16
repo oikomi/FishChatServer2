@@ -91,9 +91,31 @@ func (s *RPCServer) SetExceptionMsg(ctx context.Context, in *rpc.MGExceptionMsgR
 func (s *RPCServer) Sync(ctx context.Context, in *rpc.MGSyncMsgReq) (res *rpc.MGSyncMsgRes, err error) {
 	glog.Info("Sync")
 	offsetMsgs := make([]*rpc.MGSyncMsgResOffsetMsg, 0)
+	_, err = s.dao.Mysql.UpdateUserMsgID(ctx, in.UID, in.CurrentID)
+	if err != nil {
+		glog.Error(err)
+		res = &rpc.MGSyncMsgRes{
+			ErrCode: ecode.ServerErr.Uint32(),
+			ErrStr:  ecode.ServerErr.String(),
+		}
+		return
+	}
 	userMsgID, err := s.dao.Mysql.GetUserMsgID(ctx, in.UID)
 	if err != nil {
 		glog.Error(err)
+		res = &rpc.MGSyncMsgRes{
+			ErrCode: ecode.ServerErr.Uint32(),
+			ErrStr:  ecode.ServerErr.String(),
+		}
+		return
+	}
+	if userMsgID.CurrentMsgID == userMsgID.TotalMsgID {
+		res = &rpc.MGSyncMsgRes{
+			ErrCode:   ecode.OK.Uint32(),
+			ErrStr:    ecode.OK.String(),
+			CurrentID: userMsgID.TotalMsgID,
+			Msgs:      offsetMsgs,
+		}
 		return
 	}
 	for i := userMsgID.CurrentMsgID; i <= userMsgID.TotalMsgID; i++ {
@@ -129,9 +151,10 @@ func (s *RPCServer) Sync(ctx context.Context, in *rpc.MGSyncMsgReq) (res *rpc.MG
 		glog.Info(o)
 	}
 	res = &rpc.MGSyncMsgRes{
-		ErrCode: ecode.OK.Uint32(),
-		ErrStr:  ecode.OK.String(),
-		Msgs:    offsetMsgs,
+		ErrCode:   ecode.OK.Uint32(),
+		ErrStr:    ecode.OK.String(),
+		CurrentID: userMsgID.TotalMsgID,
+		Msgs:      offsetMsgs,
 	}
 	return
 }

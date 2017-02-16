@@ -92,7 +92,8 @@ message ResSyncMsg {
     string cmdStr                 = 2;
     uint32 errCode                = 3;
     string errStr                 = 4;
-    repeated offsetMsg Msgs       = 5;
+    int64  currentID              = 5;
+    repeated offsetMsg Msgs       = 6;
 }
 
 // // p2p msg read ack

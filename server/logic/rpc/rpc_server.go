@@ -214,9 +214,10 @@ func (s *RPCServer) SyncMsg(ctx context.Context, in *rpc.SyncMsgReq) (res *rpc.S
 		tmpMsgs = append(tmpMsgs, tmpMsg)
 	}
 	res = &rpc.SyncMsgRes{
-		ErrCode: ecode.OK.Uint32(),
-		ErrStr:  ecode.OK.String(),
-		Msgs:    tmpMsgs,
+		ErrCode:   ecode.OK.Uint32(),
+		ErrStr:    ecode.OK.String(),
+		CurrentID: mRes.CurrentID,
+		Msgs:      tmpMsgs,
 	}
 	return
 }
