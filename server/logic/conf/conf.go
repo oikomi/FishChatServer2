@@ -20,7 +20,6 @@ type Config struct {
 	RPCClient              *RPCClient
 	Etcd                   *commconf.Etcd
 	KafkaProducer          *KafkaProducer
-	MongoDB                *MongoDB
 }
 
 type KafkaProducer struct {
@@ -36,10 +35,10 @@ type RPCClient struct {
 	NotifyClient   *commconf.ServiceDiscoveryClient
 }
 
-type MongoDB struct {
-	*commconf.MongoDB
-	OfflineMsgCollection string
-}
+// type MongoDB struct {
+// 	*commconf.MongoDB
+// 	OfflineMsgCollection string
+// }
 
 // type ES struct {
 // 	*commconf.ES
