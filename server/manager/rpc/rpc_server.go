@@ -147,9 +147,9 @@ func (s *RPCServer) Sync(ctx context.Context, in *rpc.MGSyncMsgReq) (res *rpc.MG
 		}
 		offsetMsgs = append(offsetMsgs, offsetMsg)
 	}
-	for _, o := range offsetMsgs {
-		glog.Info(o)
-	}
+	// for _, o := range offsetMsgs {
+	// 	glog.Info(o)
+	// }
 	res = &rpc.MGSyncMsgRes{
 		ErrCode:   ecode.OK.Uint32(),
 		ErrStr:    ecode.OK.String(),
