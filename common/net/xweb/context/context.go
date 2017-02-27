@@ -101,10 +101,6 @@ func (c *webCtx) RemoteIP() string {
 
 // remoteIP get remote real ip.
 func remoteIP(r *http.Request) (remote string) {
-	remote = r.Header.Get("X-BACKEND-BILI-REAL-IP")
-	if remote != "" && remote != "null" {
-		return
-	}
 	remote = r.Header.Get("X-Real-IP")
 	if remote != "" {
 		return
