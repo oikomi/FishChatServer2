@@ -179,9 +179,6 @@ func newRequest(method, uri, realIP string, params url.Values) (req *http.Reques
 		glog.Errorf("http.NewRequest(%s, %s) error(%v)", method, ru, err)
 		return
 	}
-	if realIP != "" {
-		req.Header.Set("X-BACKEND-BILI-REAL-IP", realIP)
-	}
 	if method == _post {
 		req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	}
